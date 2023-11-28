@@ -1,0 +1,84 @@
+<div th:fragment="product">
+    <h2>Products</h2>
+    <a href="/admin/products/add-product">
+        <button type="button" class="btn btn-primary">Thêm sản phẩm</button>
+    </a>
+    <form th:action="@{/admin/products}" method="get">
+        <label for="key">Tìm kiếm:</label>
+        <input type="text" id="key" name="key" th:value="${#strings.isEmpty(searchKey) ? '' : searchKey}"
+               placeholder="Nhập mã sản phẩm hoặc tên sản phẩm...">
+        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+    </form>
+
+    <div>Tổng: <span th:text="${totalItems}" style="color:red"></span> sản phẩm</div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item" th:class="${currentPage == 0} ? 'page-item disabled' : 'page-item'">
+                <a class="page-link" th:href="@{/admin/products(page=${currentPage}-1,key=${key})}"
+                   aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                <a class="page-link" th:href="@{/admin/products(page=${i >= 0 ? i : 0},key=${key})}"
+                   th:text="${i + 1}"
+                   th:class="${currentPage == i} ? 'page-link active' : 'page-link'"
+                ></a>
+            </li>
+            <li class="page-item" th:class="${currentPage == totalPages - 1} ? 'page-item disabled' : 'page-item'">
+                <a class="page-link" th:href="@{/admin/products(page=${currentPage+1},key=${key})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên sản phâm</th>
+            <th>Trạng thái</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p:${products}">
+            <td th:text="${p.productId}"></td>
+            <td th:text="${p.productName}"></td>
+            <td th:text="${p.isProductActive}==true ? 'Hoạt động' :'Đã ẩn'"></td>
+
+            <td class="button"><a th:href="@{/admin/products/update-product/__${p.productId}__}">
+                <button class="btn btn-primary">Sửa
+                </button>
+            </a>
+
+            </td>
+            <td class="button">
+                <form th:action="@{/admin/products/delete-product/__${p.productId}__}" method="post">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <button type="submit" class="btn btn-primary" th:onclick="return
+                    confirm('Bạn có chắc chắn muốn xóa sản phẩm không?')">Xóa
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <script>
+        document.getElementById("key").addEventListener("input", function () {
+            saveSearchValue();
+        });
+
+        // Hàm lưu giá trị tìm kiếm vào sessionStorage
+        function saveSearchValue() {
+            var key = document.getElementById("key").value;
+            sessionStorage.setItem("searchKey", key);
+        }
+
+        var savedSearchKey = sessionStorage.getItem("searchKey");
+        document.getElementById("key").value = savedSearchKey || "";
+    </script>
+</div>
