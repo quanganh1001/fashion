@@ -15,7 +15,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin/products")
-public class CtlAdminProductDetails {
+public class CtlAdminProductDetail {
     @Autowired
     private ProductDetailService productDetailService;
 

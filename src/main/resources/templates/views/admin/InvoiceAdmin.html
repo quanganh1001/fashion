@@ -6,6 +6,23 @@
     .hidden {
         display: none;
     }
+
+    i:hover {
+        background-color: grey;
+    }
+    .info-box{
+        display: flex;
+    }
+    .row{
+        width: 100%;
+        border: 1px solid black;
+
+    }
+    a{
+        margin: 10px 2px;
+
+    }
+
 </style>
 <body>
 <div class="ui-menu-item-wrapper">
@@ -13,7 +30,87 @@
 
     <div class="container mt-5">
         <h2>DANH SÁCH ĐƠN HÀNG</h2>
-        <form th:action="@{/admin/invoices}" method="get">
+        <div class="row">
+            <a href="/admin/invoices/filter/-1?key=" class="filter col-md-3 col-sm-6 col-12">
+                <div class="info-box" style="background-color: grey" >
+                    <span class="info-box-icon"><i class="fa-2xl fa-solid fa-file-invoice-dollar"
+                                                           style="color: #000000;"></i></span>
+                    <div class="info-box-content">
+                        <div class="info-box-text" style="color: white">Tất cả đơn hàng</div>
+                        <div class="info-box-number" style="color: white">1,410</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="/admin/invoices/filter/0?key=" class="col-md-3 col-sm-6 col-12" >
+                <div class="info-box " style="background-color: grey">
+                    <span class="info-box-icon"><i class="fa-2xl fa-solid fa-xmark" style="color: #ff0000;"></i></span>
+                    <div class="info-box-content">
+                        <div class="info-box-text" style="color: white">Đơn đã hủy</div>
+                        <div class="info-box-number" style="color: white">1,410</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="/admin/invoices/filter/1?key=" class="filter col-md-2 col-sm-6 col-12">
+                <div class="info-box" style="background-color: grey">
+                    <span
+                            class="info-box-icon"><i class="fa-2xl fa-solid fa-cart-plus" style="color: #005eff;"></i></span>
+                    <div class="info-box-content">
+                        <div class="info-box-text" style="color: white">Đơn mới</div>
+                        <div class="info-box-number" style="color: white">410</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="/admin/invoices/filter/2?key=" class="filter col-md-3 col-sm-6 col-12">
+                <div class="info-box" style="background-color: grey">
+                    <span class="info-box-icon"><i class="fa-2xl fa-solid fa-check"
+                                                              style="color: #00800f;"></i></span>
+                    <div class="info-box-content">
+                        <div class="info-box-text" style="color: white">Đơn đã lên</div>
+                        <div class="info-box-number" style="color: white">13,648</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="/admin/invoices/filter/3?key=" class="filter col-md-3 col-sm-6 col-12">
+                <div class="info-box" style="background-color: grey">
+                    <span
+                            class="info-box-icon"><i class="fa-2xl fa-solid fa-truck-fast" style="color: #ffc800;"></i></span>
+                    <div class="info-box-content">
+                        <div class="info-box-text" style="color: white">Đơn đang giao</div>
+                        <div class="info-box-number" style="color: white">93,139</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="/admin/invoices/filter/4?key=" class="filter col-md-3 col-sm-6 col-12">
+                <div class="info-box " style="background-color: grey">
+                    <span class="info-box-icon"><i class="fa-2xl fa-solid fa-circle-check"
+                                                             style="color: #0045bd;"></i></span>
+                    <div class="info-box-content">
+                        <div class="info-box-text" style="color: white">Đơn thành công</div>
+                        <div class="info-box-number" style="color: white">93,139</div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="/admin/invoices/filter/5?key=" class="filter col-md-3 col-sm-6 col-12">
+                <div class="info-box " style="background-color: grey">
+                    <span
+                            class="info-box-icon"><i class="fa-2xl fa-solid fa-ban"
+                                                               style="color: #ff0000;"></i></span>
+                    <div class="info-box-content">
+                        <div class="info-box-text" style="color: white">Đơn hoàn</div>
+                        <div class="info-box-number" style="color: white">93,139</div>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+        <form th:action="@{/admin/invoices/filter/__${filterStatus}__}" method="get">
             <label for="key">Tìm kiếm:</label>
             <input type="text" id="key" name="key" th:value="${#strings.isEmpty(searchKey) ? '' : searchKey}"
                    placeholder="Nhập SĐT khách hàng hoặc mã đơn hàng...">
@@ -73,72 +170,45 @@
                                th:id="'input' + ${invoice.invoiceId}"
                                type="text"
                                th:value="${invoice.note}"/>
-                        <button
+                        <span
                                 th:id="'edit' + ${invoice.invoiceId}"
                                 th:data-invoice-id="${invoice.invoiceId}"
-                                onclick="toggleEditMode(this)">Sửa
-                        </button>
-                        <button class="hidden"
-                                th:id="'done' + ${invoice.invoiceId}"
-                                th:data-invoice-id="${invoice.invoiceId}"
-                                onclick="saveNote(this)">Lưu
-                        </button>
-                        <button class="hidden"
-                                th:id="'cancel' + ${invoice.invoiceId}"
-                                th:data-invoice-id="${invoice.invoiceId}"
-                                onclick="toggleEditMode(this)">Hủy
-                        </button>
+                                onclick="toggleEditMode(this)">
+                            <i class="fa-regular fa-pen-to-square" style="color: #0033ff;"></i>
+                        </span>
+                        <span class="hidden"
+                              th:id="'done' + ${invoice.invoiceId}"
+                              th:data-invoice-id="${invoice.invoiceId}"
+                              onclick="saveNote(this)">
+                            <i class="fa-solid fa-check" style="color: #00ff59;"></i>
+                        </span>
+                        <span class="hidden"
+                              th:id="'cancel' + ${invoice.invoiceId}"
+                              th:data-invoice-id="${invoice.invoiceId}"
+                              onclick="toggleEditMode(this)">
+                            <i class="fa-solid fa-xmark" style="color: #ff0000;"></i>
+                        </span>
                     </div>
                 </td>
-                <td th:text="${invoice.invoiceStatus.status}"></td>
+                <td>
+                    <select class="form-control"
+                            th:data-invoice-id="${invoice.invoiceId}"
+                            th:data-old-status="${invoice.invoiceStatus.statusId}"
+                            onchange="changeStatus(this.value,this.getAttribute('data-invoice-id'))">
+                        <option th:each="s : ${status}"
+                                th:value="${s.statusId}"
+                                th:text="${s.status}"
+                                th:selected="${s.statusId == invoice.invoiceStatus.statusId}">
+                        </option>
+                    </select>
+                </td>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
-<script>
-    /*<![CDATA[*/
-
-    function toggleEditMode(button) {
-        // console.log(button)
-        var invoiceId = button.getAttribute('data-invoice-id');
-        console.log(invoiceId)
-        var noteElement = $('#note' + invoiceId);
-        var inputElement = $('#input' + invoiceId);
-        var doneElement = $('#done' + invoiceId);
-        var editElement = $('#edit' + invoiceId);
-        var cancelElement = $('#cancel' + invoiceId);
-        // Toggle edit mode
-        console.log(inputElement)
-        inputElement.toggleClass('hidden');
-        noteElement.toggleClass('hidden');
-        doneElement.toggleClass('hidden');
-        editElement.toggleClass('hidden');
-        cancelElement.toggleClass('hidden');
-    }
-
-    function saveNote(button) {
-        var invoiceId = button.getAttribute('data-invoice-id');
-        var noteElement = $('#input' + invoiceId);
-        var newNote = noteElement.val();
-        var noteElement = $('#note' + invoiceId);
-
-        $.ajax({
-            type: 'POST',
-            url: '/admin/invoices/update-invoice', // Replace with your actual endpoint-->
-            data: {invoiceId: invoiceId, newNote: newNote},
-            success: function () {
-                toggleEditMode(button);
-                window.location.reload();
-
-            },
-            error: function () {
-                alert('Failed to update note.');
-            }
-        });
-    }
-
-</script>
+</div>
+<script th:src="@{/script/InvoiceAdminScript.js}"></script>
 
 </body>
 </html>

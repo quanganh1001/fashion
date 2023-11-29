@@ -21,7 +21,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin/products")
-public class CtlAdminImgsProduct {
+public class CtlAdminImgProduct {
     @Autowired
     private ProductService productService;
 

@@ -9,6 +9,6 @@ import lombok.Data;
 public class InvoiceStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer invoiceStatus;
+    private Integer statusId;
     private String status;
 }

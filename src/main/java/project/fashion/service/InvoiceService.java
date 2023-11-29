@@ -1,5 +1,6 @@
 package project.fashion.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -172,21 +173,47 @@ public class InvoiceService implements InvoiceRepo {
 
     @Override
     public Page<Invoice> searchInvoicesByInvoiceIdContainingOrPhoneContainingIgnoreCase(String key1, String key2, Pageable pageable) {
-        return invoiceRepo.searchInvoicesByInvoiceIdContainingOrPhoneContainingIgnoreCase(key1, key2,pageable);
+        return invoiceRepo.searchInvoicesByInvoiceIdContainingOrPhoneContainingIgnoreCase(key1, key2, pageable);
     }
 
     @Override
     public void setNote(String newNote, String invoiceId) {
-        invoiceRepo.setNote(newNote,invoiceId);
+        invoiceRepo.setNote(newNote, invoiceId);
+    }
+
+    @Override
+    public void setStatus(Integer status, String invoiceId) {
+        invoiceRepo.setStatus(status, invoiceId);
+    }
+
+    @Override
+    public Page<Invoice> searchInvoicesByInvoiceIdContainingIgnoreCaseOrPhoneContainingIgnoreCaseAndInvoiceStatusStatusId(String key1, String key2, Integer filterStatus, Pageable pageable) {
+        return invoiceRepo.searchInvoicesByInvoiceIdContainingIgnoreCaseOrPhoneContainingIgnoreCaseAndInvoiceStatusStatusId(key1, key2, filterStatus, pageable);
     }
 
 
-    public Page<Invoice> searchInvoice(String key, Pageable pageable) {
-        if (key != null && !key.isEmpty()) {
-            return invoiceRepo.searchInvoicesByInvoiceIdContainingOrPhoneContainingIgnoreCase(
+    @Override
+    public Page<Invoice> findByInvoiceStatusStatusId(Integer filterStatus,Pageable pageable){
+        return invoiceRepo.findByInvoiceStatusStatusId(filterStatus,pageable);
+    }
+
+    public Page<Invoice> searchInvoiceFilter(String key, Integer filterStatus, Pageable pageable) {
+        if (filterStatus != -1) {
+            if(key != null && !key.isEmpty()){
+                // trả về kết quả với từ khóa tìm kiếm và status = filterStatus
+                System.out.println("1111111111111111");
+                return searchInvoicesByInvoiceIdContainingIgnoreCaseOrPhoneContainingIgnoreCaseAndInvoiceStatusStatusId(key, key, filterStatus, pageable);
+            } else
+                //trả về kq theo status = filterStatus khi ko có từ khóa tìm kiếm
+                System.out.println("22222222222222");
+                return findByInvoiceStatusStatusId(filterStatus, pageable);
+           } else
+            // trả về kết quả với từ khóa tìm kiếm khi filterStatus = -1
+            System.out.println("3333333333333333");
+            return searchInvoicesByInvoiceIdContainingOrPhoneContainingIgnoreCase(
                     key, key, pageable);
-        } else {
-            return invoiceRepo.findAll(pageable);
-        }
     }
+
+
 }
+

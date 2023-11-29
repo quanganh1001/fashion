@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin/categories")
-public class CtlAdminCategories {
+public class CtlAdminCategory {
     @Autowired
     private CategoryService repoCategoryImp;
 
