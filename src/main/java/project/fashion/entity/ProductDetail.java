@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Products_detail {
+public class ProductDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer productDetailId;
@@ -16,15 +16,15 @@ public class Products_detail {
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private Products product;
+    private Product product;
 
     @ManyToOne
     @JoinColumn(name = "color_id")
-    private Colors color;
+    private Color color;
 
     @ManyToOne
     @JoinColumn(name = "size_id")
-    private Sizes sizes;
+    private Size size;
 
     @PrePersist
     public void prePersist() {

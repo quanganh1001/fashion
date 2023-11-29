@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+
+<head th:include="~{admin/fragment/head::head}"></head>
+
+<body>
+<div class="ui-menu-item-wrapper">
+    <div th:include="~{admin/fragment/Menu::menu}"></div>
+
+    <div class="container mt-5">
+        <h2>THÊM MỚI SẢN PHẨM</h2>
+        <form th:action="@{/admin/products/add-prDetail?productId=__${productId}__}" method="post" th:object="${pd}">
+            <div class="row">
+
+                <div class="mb-3 col-6">
+                    <label for="code" class="form-label">Code - tên chi tiết<span style="color:red">*</span></label>
+                    <input type="text" class="form-control" id="code" th:field="${pd.code}">
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label for="quantity" class="form-label">Số lượng<span>*</span></label>
+                    <input type="text" class="form-control" id="quantity" th:field="${pd.quantity}">
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label for="color" class="form-label">Màu sắc<span style="color:red">*</span></label>
+                    <select class="form-control" id="color" th:field="${pd.color}">
+                        <option value="">--Chọn màu--</option>
+                        <option th:each="cl : ${cl}" th:value="${cl.colorId}"
+                                th:text="${cl.colorId} + ' - ' + ${cl.name}"></option>
+                    </select>
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label for="size" class="form-label">Màu sắc<span style="color:red">*</span></label>
+                    <select class="form-control" id="size" th:field="${pd.sizes}">
+                        <option value="">--Chọn size--</option>
+                        <option th:each="s : ${s}" th:value="${s.sizeId}"
+                                th:text="${s.sizeId} + ' - ' + ${s.name}"></option>
+                    </select>
+                </div>
+
+
+                <button style="text-align: center" type="submit" class="col-2 btn btn-primary">Lưu
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+
+

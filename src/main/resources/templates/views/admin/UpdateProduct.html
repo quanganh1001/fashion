@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+
+<head th:include="~{admin/fragment/head::head}"></head>
+
+<body>
+<div class="ui-menu-item-wrapper">
+    <div th:include="~{admin/fragment/Menu::menu}"></div>
+
+    <div class="container mt-5">
+        <h2>SỬA SẢN PHẨM</h2>
+        <div class="col-6 product">
+            <a th:href="@{/admin/products/add-img?productId=__${p.productId}__}" class="btn btn-primary btn-sm"
+               role="button">Thêm ảnh sản phẩm
+            </a>
+            <form th:action="@{/admin/products/update-product/__${p.productId}__}" method="POST" th:object="${p}">
+                <input type="hidden" name="_method" value="put"/>
+                <div class="row">
+                    <div class="mb-3">
+                        <label for="product_id" class="form-label">Mã sản phẩm<span style="color:red">*</span></label>
+                        <input disabled type="text" class="form-control" id="product_id"
+                               th:field="${p.productId}"/>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="pr_name" class="form-label">Tên sản phẩm<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="pr_name"
+                               th:field="${p.productName}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Giá tiền<span>*</span></label>
+                        <input type="text" class="form-control" id="price" th:field="${p.price}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Danh mục sản phẩm<span
+                                style="color:red">*</span></label>
+                        <select class="form-control" id="category" th:field="${p.category}">
+                            <option th:value=null>--Chọn danh mục--</option>
+                            <option th:each="cat : ${cat}" th:value="${cat.catId}"
+                                    th:text="${cat.catName} + ' - ' + ${cat.catId}"></option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="discount_price" class="form-label">Giá khuyến mãi</label>
+                        <input type="text" class="form-control" id="discount_price"
+                               th:field="${p.discountPrice}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="brand" class="form-label">Thương hiệu<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="brand"
+                               th:field="${p.brand}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Mô tả</label>
+                        <textarea class="form-control" id="description" rows="4" cols="50"
+                                  th:field="${p.description}"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="imgSize" class="form-label">Ảnh hướng dẫn chọn size<span
+                                style="color:red">*</span></label>
+                        <select class="form-control" id="imgSize" th:field="${p.imgSize}">
+                            <option th:value=null>Không có</option>
+                            <option th:each="img : ${img}" th:value="${img.imgSizeId}"
+                                    th:text="${img.imgName}"></option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="isActive" class="form-label">Trạng thái<span style="color:red">*</span></label>
+                        <input id="isActive" type="checkbox" th:field="${p.isProductActive}">Hoạt động/Ẩn
+                    </div>
+
+                    <button style="text-align: center" type="submit" class="col-4 btn btn-primary">Lưu sản phẩm
+                    </button>
+                </div>
+            </form>
+
+        </div>
+        <div class="col-4">
+
+            <a th:href="@{/admin/products/add-prDetail?productId=__${p.productId}__}" class="btn btn-primary btn-sm"
+               role="button">Thêm chi tiết
+            </a>
+
+            <li th:each="pd : ${prDetail}" class="list-group-item">
+                <button class="btn btn-danger btn-sm" th:id="${pd.productDetailId}"
+                        onclick="confirmDelete(this.id)">
+                    <i class="fas fa-trash-alt"></i> Delete
+                </button>
+                <a th:href="@{/admin/products/update-details/__${pd.productDetailId}__}" class="btn btn-primary btn-sm"
+                   role="button">
+                    <i class="fas fa-pencil-alt"></i> Edit
+                </a>
+                <span th:text="${pd.code}"></span>
+            </li>
+        </div>
+    </div>
+</div>
+<script>
+    function confirmDelete(productDetailId) {
+        console.log(productDetailId)
+        var result = confirm("Bạn có muốn xóa sản phẩm này?");
+        if (result) {
+            window.location.href = '/admin/products/delete/prDetail?prDetailId=' + productDetailId;
+        }
+    }
+</script>
+</body>
+</html>

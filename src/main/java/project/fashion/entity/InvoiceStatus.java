@@ -5,7 +5,8 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Status {
+@Table(name = "invoices_status")
+public class InvoiceStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer invoiceStatus;

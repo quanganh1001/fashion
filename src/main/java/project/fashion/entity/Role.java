@@ -3,16 +3,12 @@ package project.fashion.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Data
 @Entity
-@Table(name = "imgs_size")
-public class ImgSize {
+@Data
+@Table(name = "roles")
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer imgSizeId;
-    private String imgName;
-    private String link;
-
-
-
+    private Integer roleId;
+    private String roleName;
 }

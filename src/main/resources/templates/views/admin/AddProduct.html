@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head th:include="~{admin/fragment/head::head}"></head>
+
+<body>
+<div class="ui-menu-item-wrapper">
+    <div th:include="~{admin/fragment/Menu::menu}"></div>
+
+    <div class="container mt-5">
+        <h2>THÊM MỚI SẢN PHẨM</h2>
+        <form th:action="@{/admin/products/add-product}" method="post" th:object="${product}">
+            <div class="row">
+                <div class="mb-3 col-6">
+                    <label for="product_id" class="form-label">Mã sản phẩm<span style="color:red">*</span></label>
+                    <input type="text" class="form-control" id="product_id" th:field="${product.productId}"/>
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label for="pr_name" class="form-label">Tên sản phẩm<span style="color:red">*</span></label>
+                    <input type="text" class="form-control" id="pr_name" th:field="${product.productName}">
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label for="price" class="form-label">Giá tiền<span>*</span></label>
+                    <input type="text" class="form-control" id="price" th:field="${product.price}">
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label for="category" class="form-label">Danh mục sản phẩm<span style="color:red">*</span></label>
+                    <select class="form-control" id="category" th:field="${product.category}">
+                        <option value="">--Chọn danh mục--</option>
+                        <option th:each="cat : ${cat}" th:value="${cat.catId}"
+                                th:text="${cat.catName}"></option>
+                    </select>
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label for="discount_price" class="form-label">Giá khuyến mãi</label>
+                    <input type="text" class="form-control" id="discount_price" th:field="${product.discountPrice}">
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label for="brand" class="form-label">Thương hiệu<span style="color:red">*</span></label>
+                    <input type="text" class="form-control" id="brand" value="TORANO" th:field="${product.brand}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Mô tả</label>
+                    <textarea class="form-control" id="description" rows="4" cols="50"
+                              th:field="${product.description}"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="imgSize" class="form-label">Ảnh hướng dẫn chọn size<span
+                            style="color:red">*</span></label>
+                    <select class="form-control" id="imgSize" th:field="${product.imgSize}">
+                        <option value="">--Chọn danh mục--</option>
+                        <option th:each="img : ${img}" th:value="${img.imgSizeId}"
+                                th:text="${img.imgName}"></option>
+                    </select>
+                </div>
+
+
+                <button style="text-align: center" type="submit" class="col-2 btn btn-primary">Thêm sản phẩm</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+</body>
+</html>
+

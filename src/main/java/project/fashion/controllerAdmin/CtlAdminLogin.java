@@ -5,13 +5,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/admin")
-public class CtlAdmin {
-
+@RequestMapping("/login")
+public class CtlAdminLogin {
     @GetMapping
     public String getHome(Model model){
-
-        return "admin/Admin";
+        return "admin/Login";
     }
-
 }

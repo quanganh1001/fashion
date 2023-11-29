@@ -7,20 +7,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Service;
-import project.fashion.entity.Products;
-import project.fashion.repository.RepoProduct;
-import project.fashion.service.RepoProductDetailImp;
+import project.fashion.entity.Product;
+import project.fashion.repository.ProductRepo;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 @Service
-public class RepoProductImp implements RepoProduct {
+public class ProductService implements ProductRepo {
     @Autowired
-    private RepoProduct repoProduct;
+    private ProductRepo productRepo;
 
     @Autowired
-    private RepoProductDetailImp repoProductDetailImp;
+    private ProductDetailService productDetailService;
 
     @Override
     public void flush() {
@@ -28,22 +27,22 @@ public class RepoProductImp implements RepoProduct {
     }
 
     @Override
-    public <S extends Products> S saveAndFlush(S entity) {
+    public <S extends Product> S saveAndFlush(S entity) {
         return null;
     }
 
     @Override
-    public <S extends Products> List<S> saveAllAndFlush(Iterable<S> entities) {
+    public <S extends Product> List<S> saveAllAndFlush(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public void deleteInBatch(Iterable<Products> entities) {
-        RepoProduct.super.deleteInBatch(entities);
+    public void deleteInBatch(Iterable<Product> entities) {
+        ProductRepo.super.deleteInBatch(entities);
     }
 
     @Override
-    public void deleteAllInBatch(Iterable<Products> entities) {
+    public void deleteAllInBatch(Iterable<Product> entities) {
 
     }
 
@@ -58,67 +57,67 @@ public class RepoProductImp implements RepoProduct {
     }
 
     @Override
-    public Products getOne(String s) {
+    public Product getOne(String s) {
         return null;
     }
 
     @Override
-    public Products getById(String s) {
-        return repoProduct.getById(s);
+    public Product getById(String s) {
+        return productRepo.getById(s);
     }
 
     @Override
-    public Products getReferenceById(String s) {
+    public Product getReferenceById(String s) {
         return null;
     }
 
     @Override
-    public <S extends Products> Optional<S> findOne(Example<S> example) {
+    public <S extends Product> Optional<S> findOne(Example<S> example) {
         return Optional.empty();
     }
 
     @Override
-    public <S extends Products> List<S> findAll(Example<S> example) {
+    public <S extends Product> List<S> findAll(Example<S> example) {
         return null;
     }
 
     @Override
-    public <S extends Products> List<S> findAll(Example<S> example, Sort sort) {
+    public <S extends Product> List<S> findAll(Example<S> example, Sort sort) {
         return null;
     }
 
     @Override
-    public <S extends Products> Page<S> findAll(Example<S> example, Pageable pageable) {
+    public <S extends Product> Page<S> findAll(Example<S> example, Pageable pageable) {
         return null;
     }
 
     @Override
-    public <S extends Products> long count(Example<S> example) {
+    public <S extends Product> long count(Example<S> example) {
         return 0;
     }
 
     @Override
-    public <S extends Products> boolean exists(Example<S> example) {
+    public <S extends Product> boolean exists(Example<S> example) {
         return false;
     }
 
     @Override
-    public <S extends Products, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends Product, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return null;
     }
 
     @Override
-    public <S extends Products> S save(S entity) {
-        return repoProduct.save(entity);
+    public <S extends Product> S save(S entity) {
+        return productRepo.save(entity);
     }
 
     @Override
-    public <S extends Products> List<S> saveAll(Iterable<S> entities) {
+    public <S extends Product> List<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<Products> findById(String s) {
+    public Optional<Product> findById(String s) {
         return Optional.empty();
     }
 
@@ -128,12 +127,12 @@ public class RepoProductImp implements RepoProduct {
     }
 
     @Override
-    public List<Products> findAll() {
-        return repoProduct.findAll();
+    public List<Product> findAll() {
+        return productRepo.findAll();
     }
 
     @Override
-    public List<Products> findAllById(Iterable<String> strings) {
+    public List<Product> findAllById(Iterable<String> strings) {
         return null;
     }
 
@@ -144,11 +143,11 @@ public class RepoProductImp implements RepoProduct {
 
     @Override
     public void deleteById(String s) {
-        repoProduct.deleteById(s);
+        productRepo.deleteById(s);
     }
 
     @Override
-    public void delete(Products entity) {
+    public void delete(Product entity) {
 
     }
 
@@ -158,7 +157,7 @@ public class RepoProductImp implements RepoProduct {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends Products> entities) {
+    public void deleteAll(Iterable<? extends Product> entities) {
 
     }
 
@@ -168,41 +167,41 @@ public class RepoProductImp implements RepoProduct {
     }
 
     @Override
-    public List<Products> findAll(Sort sort) {
+    public List<Product> findAll(Sort sort) {
         return null;
     }
 
     @Override
-    public Page<Products> findAll(Pageable pageable) {
-        return repoProduct.findAll(pageable);
+    public Page<Product> findAll(Pageable pageable) {
+        return productRepo.findAll(pageable);
     }
 
     @Override
     public void setProductActive(String cat_id, Boolean boo) {
-        List<Products> product = repoProduct.findByCategoryCatId(cat_id);
-        for (Products p : product){
-            repoProductDetailImp.setProductDetailActive(p.getProductId(),boo);
+        List<Product> product = productRepo.findByCategoryCatId(cat_id);
+        for (Product p : product){
+            productDetailService.setProductDetailActive(p.getProductId(),boo);
         }
-        repoProduct.setProductActive(cat_id,boo);
+        productRepo.setProductActive(cat_id,boo);
     }
 
     @Override
-    public List<Products> findByCategoryCatId(String catId) {
-        return repoProduct.findByCategoryCatId(catId);
+    public List<Product> findByCategoryCatId(String catId) {
+        return productRepo.findByCategoryCatId(catId);
     }
 
     @Override
-    public Page<Products> searchProductsByProductIdContainingOrProductNameContainingIgnoreCase(String key1, String key2, Pageable pageable) {
-        return repoProduct.searchProductsByProductIdContainingOrProductNameContainingIgnoreCase(key1,key2,pageable);
+    public Page<Product> searchProductsByProductIdContainingOrProductNameContainingIgnoreCase(String key1, String key2, Pageable pageable) {
+        return productRepo.searchProductsByProductIdContainingOrProductNameContainingIgnoreCase(key1,key2,pageable);
     }
 
 
-    public Page<Products> searchProduct(String key,Pageable pageable) {
+    public Page<Product> searchProduct(String key, Pageable pageable) {
         if (key != null && !key.isEmpty()) {
-            return repoProduct.searchProductsByProductIdContainingOrProductNameContainingIgnoreCase(
+            return productRepo.searchProductsByProductIdContainingOrProductNameContainingIgnoreCase(
                     key, key, pageable);
         } else {
-            return repoProduct.findAll(pageable);
+            return productRepo.findAll(pageable);
         }
     }
 

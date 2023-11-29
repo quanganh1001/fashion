@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<head th:include="~{admin/fragment/head::head}"></head>
+
+<body>
+<div class="ui-menu-item-wrapper">
+    <div th:include="~{admin/fragment/Menu::menu}"></div>
+
+    <div class="container mt-5">
+        <h2>SỬA CHI TIẾT SẢN PHẨM</h2>
+        <form th:action="@{/admin/products/update-details/__${pd.productDetailId}__}" method="POST"
+              th:object="${pd}">
+            <input type="hidden" name="_method" value="put"/>
+            <div class="row">
+                <div class="mb-3">
+                    <label for="productDetailId" class="form-label">Mã chi tiết sản
+                        phẩm<span style="color:red">*</span></label>
+                    <input disabled type="text" class="form-control" id="productDetailId"
+                           th:field="${pd.productDetailId}"/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="code" class="form-label">Code<span style="color:red">*</span></label>
+                    <input type="text" class="form-control" id="code"
+                           th:field="${pd.code}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="quantity" class="form-label">Số lượng<span>*</span></label>
+                    <input type="text" class="form-control" id="quantity" th:field="${pd.quantity}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="color" class="form-label">Màu<span
+                            style="color:red">*</span></label>
+                    <select class="form-control" id="color" th:field="${pd.color.colorId}">
+                        <option th:each="cl : ${color}" th:value="${cl.colorId}"
+                                th:text="${cl.name} + ' - ' + ${cl.colorId}"></option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="size" class="form-label">Màu<span
+                            style="color:red">*</span></label>
+                    <select class="form-control" id="size" th:field="${pd.sizes.sizeId}">
+                        <option th:each="s : ${size}" th:value="${s.sizeId}"
+                                th:text="${s.name}"></option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="product" class="form-label">Sản phẩm<span
+                            style="color:red">*</span></label>
+                    <select class="form-control" id="product" th:field="${pd.product.productId}">
+                        <option th:each="p : ${product}" th:value="${p.productId}"
+                                th:text="${p.productName} + ' - ' + ${p.productId}"></option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="isActive" class="form-label">Trạng thái<span style="color:red">*</span></label>
+                    <input id="isActive" type="checkbox" th:field="${pd.productDetailActive}">Hoạt động/Ẩn
+                </div>
+
+                <button style="text-align: center" type="submit" class="col-4 btn btn-primary">Sửa</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

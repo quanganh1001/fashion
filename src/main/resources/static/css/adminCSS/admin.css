@@ -1,0 +1,46 @@
+
+.ui-menu-item-wrapper{
+    display: flex;
+    /*flex-wrap: wrap;*/
+}
+
+.content{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.active{
+    background-color: #5b5bd4;
+    color: white;
+}
+table{
+    border-collapse: collapse;
+    width: 100%;
+}
+th{
+    text-align: center;
+}
+th,tr,td{
+    width: auto;
+    border: 1px solid black;
+}
+
+.button{
+    text-align: center;
+    /*justify-items: center;*/
+    /*align-content: center;*/
+}
+.container{
+    justify-content: space-around;
+    display: flex;
+    flex-wrap: wrap;
+}
+h2{
+    width: 100%;
+    text-align: center;
+    color: darkmagenta;
+}
+.a{
+    display: flex;
+    flex-wrap: wrap;
+}

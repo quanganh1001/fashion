@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+
+<head th:include="~{admin/fragment/head::head}"></head>
+
+<body>
+<div class="ui-menu-item-wrapper">
+
+    <div th:include="~{admin/fragment/Menu::menu}"></div>
+
+    <div class="container mt-5">
+
+        <h2>THÊM MỚI SẢN PHẨM</h2>
+        <form th:action="@{/admin/categories/add-category}" method="post" th:object="${category}">
+            <div class="row">
+                <div class="mb-3">
+                    <label for="catId" class="form-label">Mã danh mục<span style="color:red">*</span></label>
+                    <input type="text" class="form-control" id="catId" th:field="${category.catId}"/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="cat_name" class="form-label">Tên danh mục<span style="color:red">*</span></label>
+                    <input type="text" class="form-control" id="cat_name" th:field="${category.catName}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="parentId" class="form-label">Nằm trong danh mục<span style="color:red">*</span></label>
+                    <select class="form-control" id="parentId" th:field="${category.catParent}">
+                        <option value="">Không có</option>
+                        <option th:each="cat : ${cat}" th:value="${cat.catId}"
+                                th:text="${cat.catName}"></option>
+                    </select>
+                </div>
+
+                <button style="text-align: center" type="submit" class="col-2 btn btn-primary">Thêm Danh Mục</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+
+

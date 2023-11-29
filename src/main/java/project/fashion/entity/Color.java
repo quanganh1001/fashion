@@ -2,12 +2,14 @@ package project.fashion.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
 @Data
-public class colors {
+@Table(name = "colors")
+public class Color {
     @Id
-    private String color_id;
+    private String colorId;
     private String name;
 }

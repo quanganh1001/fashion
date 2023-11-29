@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+
+<head th:include="~{admin/fragment/head::head}"></head>
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+<body>
+<div class="ui-menu-item-wrapper">
+    <div th:include="~{admin/fragment/Menu::menu}"></div>
+
+    <div class="container mt-5">
+        <h2>DANH SÁCH ĐƠN HÀNG</h2>
+        <form th:action="@{/admin/invoices}" method="get">
+            <label for="key">Tìm kiếm:</label>
+            <input type="text" id="key" name="key" th:value="${#strings.isEmpty(searchKey) ? '' : searchKey}"
+                   placeholder="Nhập SĐT khách hàng hoặc mã đơn hàng...">
+            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+        </form>
+
+        <div>Tổng: <span th:text="${totalItems}" style="color:red"></span> đơn hàng</div>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li class="page-item" th:class="${currentPage == 0} ? 'page-item disabled' : 'page-item'">
+                    <a class="page-link" th:href="@{/admin/invoices(page=${currentPage}-1,key=${key})}"
+                       aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                    <a class="page-link" th:href="@{/admin/invoices(page=${i >= 0 ? i : 0},key=${key})}"
+                       th:text="${i + 1}"
+                       th:class="${currentPage == i} ? 'page-link active' : 'page-link'"
+                    ></a>
+                </li>
+                <li class="page-item" th:class="${currentPage == totalPages - 1} ? 'page-item disabled' : 'page-item'">
+                    <a class="page-link" th:href="@{/admin/invoices(page=${currentPage+1},key=${key})}"
+                       aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Mã đơn hàng</th>
+                <th>Tên khách hàng</th>
+                <th>Số điện thoại</th>
+                <th>Địa chỉ</th>
+                <th>Tổng đơn hàng</th>
+                <th>Ngày đặt hàng</th>
+                <th>Ghi chú nội bộ</th>
+                <th>Trạng thái</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="invoice:${invoice}">
+                <td th:text="${invoice.invoiceId}"></td>
+                <td th:text="${invoice.name}"></td>
+                <td th:text="${invoice.phone}"></td>
+                <td th:text="${invoice.address}"></td>
+                <td th:text="${invoice.totalAmount}"></td>
+                <td th:text="${invoice.createdAt}"></td>
+                <!--                <td th:text="${invoice.note}"></td>-->
+                <td>
+                    <div class="editable-note">
+                        <span th:id="'note' + ${invoice.invoiceId}" th:text="${invoice.note}"></span>
+                        <input class="hidden"
+                               th:id="'input' + ${invoice.invoiceId}"
+                               type="text"
+                               th:value="${invoice.note}"/>
+                        <button
+                                th:id="'edit' + ${invoice.invoiceId}"
+                                th:data-invoice-id="${invoice.invoiceId}"
+                                onclick="toggleEditMode(this)">Sửa
+                        </button>
+                        <button class="hidden"
+                                th:id="'done' + ${invoice.invoiceId}"
+                                th:data-invoice-id="${invoice.invoiceId}"
+                                onclick="saveNote(this)">Lưu
+                        </button>
+                        <button class="hidden"
+                                th:id="'cancel' + ${invoice.invoiceId}"
+                                th:data-invoice-id="${invoice.invoiceId}"
+                                onclick="toggleEditMode(this)">Hủy
+                        </button>
+                    </div>
+                </td>
+                <td th:text="${invoice.invoiceStatus.status}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    /*<![CDATA[*/
+
+    function toggleEditMode(button) {
+        // console.log(button)
+        var invoiceId = button.getAttribute('data-invoice-id');
+        console.log(invoiceId)
+        var noteElement = $('#note' + invoiceId);
+        var inputElement = $('#input' + invoiceId);
+        var doneElement = $('#done' + invoiceId);
+        var editElement = $('#edit' + invoiceId);
+        var cancelElement = $('#cancel' + invoiceId);
+        // Toggle edit mode
+        console.log(inputElement)
+        inputElement.toggleClass('hidden');
+        noteElement.toggleClass('hidden');
+        doneElement.toggleClass('hidden');
+        editElement.toggleClass('hidden');
+        cancelElement.toggleClass('hidden');
+    }
+
+    function saveNote(button) {
+        var invoiceId = button.getAttribute('data-invoice-id');
+        var noteElement = $('#input' + invoiceId);
+        var newNote = noteElement.val();
+        var noteElement = $('#note' + invoiceId);
+
+        $.ajax({
+            type: 'POST',
+            url: '/admin/invoices/update-invoice', // Replace with your actual endpoint-->
+            data: {invoiceId: invoiceId, newNote: newNote},
+            success: function () {
+                toggleEditMode(button);
+                window.location.reload();
+
+            },
+            error: function () {
+                alert('Failed to update note.');
+            }
+        });
+    }
+
+</script>
+
+</body>
+</html>

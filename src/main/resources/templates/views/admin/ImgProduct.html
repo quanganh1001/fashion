@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+
+<head th:include="~{admin/fragment/head::head}"></head>
+
+<body>
+<div class="ui-menu-item-wrapper">
+    <div th:include="~{admin/fragment/Menu::menu}"></div>
+
+    <div class="container mt-5">
+        <h2>THÊM ẢNH SẢN PHẨM</h2>
+        <div class="a">
+            <form th:action="@{/admin/products/add-img?productId=__${productId}__}" method="post" th:object="${img}"
+                  enctype="multipart/form-data">
+                <input id="productId" type="hidden" th:value="${productId}">
+                <div class="mb-3 col-6">
+                    <label for="fileImg" class="form-label">File ảnh<span>*</span></label>
+                    <input type="file" id="fileImg" name="file" accept="image/*" multiple required>
+                </div>
+
+                <button style="text-align: center" type="submit" class="col-2 btn btn-primary">Lưu ảnh</button>
+
+            </form>
+
+            <div class="bg">
+                <h4>Chọn nền 1</h4>
+                <select id="bg1">
+                    <option value=null>Không</option>
+                    <option th:each="i : ${imgProducts}" th:value="${i.fileImg}" th:text="${i.fileImg}"></option>
+                </select>
+                <img width="50px" id="imgbg1" src="">
+
+                <h4>Chọn nền 2</h4>
+                <select id="bg2">
+                    <option value=null>Không</option>
+                    <option th:each="i : ${imgProducts}" th:value="${i.fileImg}" th:text="${i.fileImg}"></option>
+                </select>
+                <img width="50px" id="imgbg2" src="">
+            </div>
+        </div>
+        <h2>Danh sách hình ảnh</h2>
+        <ul th:each="i : ${imgProducts}">
+            <img width="300px"
+                 th:src="@{'/admin/products/uploads/images/'+${i.fileImg}}"
+                 alt="Image">
+            <td class="button">
+                <button class="btn btn-danger btn-sm" th:id="${p.imgId}"
+                        onclick="confirmDelete(this.id)">
+                    <i class="fas fa-trash-alt"></i> Delete
+                </button>
+            </td>
+        </ul>
+    </div>
+</div>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        // Thực hiện khi thay đổi option trong select
+        $('#bg1').change(function () {
+            // Lấy giá trị của option được chọn
+            var selectedImage = $(this).val();
+            var productId = document.getElementById("productId").value;
+            console.log(productId)
+            // Cập nhật đường dẫn ảnh trong #selectedImage
+            $('#imgbg1').attr('src', '/admin/products/imgbg/' + selectedImage + '?imbg=1&productId=' +
+                productId);
+        });
+    });
+    $(document).ready(function () {
+        // Thực hiện khi thay đổi option trong select
+        $('#bg2').change(function () {
+            // Lấy giá trị của option được chọn
+            var selectedImage = $(this).val();
+            var productId = document.getElementById("productId").value;
+            console.log(productId)
+            // Cập nhật đường dẫn ảnh trong #selectedImage
+            $('#imgbg2').attr('src', '/admin/products/imgbg/' + selectedImage + '?imbg=2&productId=' +
+                productId);
+        });
+    });
+
+    function confirmDelete(imgId) {
+        console.log(imgId)
+        var result = confirm("Bạn có muốn xóa ảnh này này?");
+        if (result) {
+            window.location.href = '/admin/products/delete/' + imgId;
+        }
+    }
+</script>
+</body>
+</html>

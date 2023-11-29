@@ -5,16 +5,20 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Invoices_detail {
+@Table(name = "invoices_detail")
+public class InvoiceDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer detailId;
-    private Integer invoiceId;
     private Double  price;
     private Integer quantity;
     private Double totalPrice;
 
     @ManyToOne
     @JoinColumn(name = "product_detail_id")
-    private Products_detail productsDetail;
+    private ProductDetail productDetail;
+
+    @ManyToOne
+    @JoinColumn(name = "invoice_id")
+    private Invoice invoice;
 }
