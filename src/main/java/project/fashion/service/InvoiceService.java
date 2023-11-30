@@ -187,33 +187,24 @@ public class InvoiceService implements InvoiceRepo {
     }
 
     @Override
-    public Page<Invoice> searchInvoicesByInvoiceIdContainingIgnoreCaseOrPhoneContainingIgnoreCaseAndInvoiceStatusStatusId(String key1, String key2, Integer filterStatus, Pageable pageable) {
-        return invoiceRepo.searchInvoicesByInvoiceIdContainingIgnoreCaseOrPhoneContainingIgnoreCaseAndInvoiceStatusStatusId(key1, key2, filterStatus, pageable);
-    }
-
-
-    @Override
-    public Page<Invoice> findByInvoiceStatusStatusId(Integer filterStatus,Pageable pageable){
-        return invoiceRepo.findByInvoiceStatusStatusId(filterStatus,pageable);
-    }
-
-    public Page<Invoice> searchInvoiceFilter(String key, Integer filterStatus, Pageable pageable) {
+    public Page<Invoice> findInvoiceByKeyAndStatus(String key, Integer filterStatus, Pageable pageable) {
         if (filterStatus != -1) {
-            if(key != null && !key.isEmpty()){
-                // trả về kết quả với từ khóa tìm kiếm và status = filterStatus
-                System.out.println("1111111111111111");
-                return searchInvoicesByInvoiceIdContainingIgnoreCaseOrPhoneContainingIgnoreCaseAndInvoiceStatusStatusId(key, key, filterStatus, pageable);
-            } else
-                //trả về kq theo status = filterStatus khi ko có từ khóa tìm kiếm
-                System.out.println("22222222222222");
-                return findByInvoiceStatusStatusId(filterStatus, pageable);
-           } else
-            // trả về kết quả với từ khóa tìm kiếm khi filterStatus = -1
-            System.out.println("3333333333333333");
+            return invoiceRepo.findInvoiceByKeyAndStatus(key, filterStatus, pageable);
+        }else
+            //trả về tất cả kết quả
             return searchInvoicesByInvoiceIdContainingOrPhoneContainingIgnoreCase(
                     key, key, pageable);
     }
 
+
+    public void setInvoice(Integer newStatus,String newNote, String invoiceId){
+        if(newStatus != null){
+            setStatus(newStatus,invoiceId);
+        }
+        else {
+            setNote(newNote, invoiceId);
+        }
+    }
 
 }
 

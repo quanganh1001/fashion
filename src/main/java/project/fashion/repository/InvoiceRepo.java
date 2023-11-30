@@ -29,10 +29,13 @@ public interface InvoiceRepo extends JpaRepository<Invoice,String> {
     void setStatus(@Param("status") Integer status, @Param("invoiceId") String invoiceId);
 
     // tìm theo id hoặc sdt where status_id
-    Page<Invoice> searchInvoicesByInvoiceIdContainingIgnoreCaseOrPhoneContainingIgnoreCaseAndInvoiceStatusStatusId(String key1,
-                                                                                                              String key2,
-                                                                                                              Integer filterStatus,
-                                                                                                         Pageable pageable);
-    // tìm theo where status_id
-    Page<Invoice> findByInvoiceStatusStatusId(Integer filterStatus,Pageable pageable);
+    @Query(value = "SELECT *\n" +
+            "FROM invoices\n" +
+            "WHERE (invoice_id LIKE %:key% OR phone LIKE %:key%) AND invoice_status = :filterStatus",nativeQuery = true)
+    Page<Invoice> findInvoiceByKeyAndStatus(
+            @Param("key") String key,
+            @Param("filterStatus") Integer filterStatus,
+            Pageable pageable
+    );
+
 }

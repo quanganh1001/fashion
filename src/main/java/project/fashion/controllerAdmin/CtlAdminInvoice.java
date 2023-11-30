@@ -28,13 +28,13 @@ public class CtlAdminInvoice {
     @GetMapping("filter/{filterStatus}")
     public String filterStatus(Model model,
                                @PathVariable("filterStatus") Integer filterStatus,
-                               @RequestParam(defaultValue = "0") int page,
+                               @RequestParam(name = "page",defaultValue = "0") int page,
                                @RequestParam(name = "key", required = false) String key){
         if (page < 0)
             page = 0;
         List<InvoiceStatus> status = invoiceStatusService.findAll();
 
-        Page<Invoice> searchInvoice = invoiceService.searchInvoiceFilter(key,filterStatus, PageRequest.of(page, 10));
+        Page<Invoice> searchInvoice = invoiceService.findInvoiceByKeyAndStatus(key,filterStatus, PageRequest.of(page, 10));
 
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", searchInvoice.getTotalPages());
@@ -48,20 +48,12 @@ public class CtlAdminInvoice {
 
     }
 
-    @PostMapping("update-status")
-    public ResponseEntity<Void> updateStatus(@RequestParam("invoiceId") String invoiceId,
-                                 @RequestParam("newStatus") Integer newStatus){
-        invoiceService.setStatus(newStatus,invoiceId);
+    @PostMapping("update-invoice")
+    public ResponseEntity<Void> updateInvoice(@RequestParam("invoiceId") String invoiceId,
+                                             @RequestParam(value = "newStatus",defaultValue = "") Integer newStatus,
+                                              @RequestParam(value = "newNote",defaultValue = "") String newNote){
+        invoiceService.setInvoice(newStatus,newNote,invoiceId);
         return ResponseEntity.ok().build();
     }
-
-
-    @PostMapping("update-note")
-    public ResponseEntity<Void> updateNote(@RequestParam("invoiceId") String invoiceId,
-                                @RequestParam("newNote") String newNote){
-        invoiceService.setNote(newNote,invoiceId);
-        return ResponseEntity.ok().build();
-    }
-
 
 }
