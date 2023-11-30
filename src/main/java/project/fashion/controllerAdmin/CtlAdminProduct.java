@@ -19,7 +19,7 @@ import project.fashion.service.ProductDetailService;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/products")
+@RequestMapping("/admin/product")
 public class CtlAdminProduct {
     @Autowired
     private ProductDetailService productDetailService;
@@ -45,7 +45,7 @@ public class CtlAdminProduct {
         model.addAttribute("totalPages", searchResults.getTotalPages());
         model.addAttribute("totalItems", searchResults.getTotalElements());
         model.addAttribute("products", searchResults.getContent());
-        return "/admin/ProductsAdmin";
+        return "/admin/ProductAdmin";
     }
 
     @GetMapping("/add-product")
@@ -63,13 +63,13 @@ public class CtlAdminProduct {
     @PostMapping("/add-product")
     public String addProduct(Model model, @ModelAttribute Product product) {
         productService.save(product);
-        return "redirect:/admin/products";
+        return "redirect:/admin/product";
     }
 
     @GetMapping("/delete-product/{productId}")
     public String deleteProduct(@PathVariable("productId") String productId, Model model) {
         productService.deleteById(productId);
-        return "redirect:/admin/products";
+        return "redirect:/admin/product";
     }
 
     @GetMapping("/update-product/{productId}")
@@ -91,7 +91,7 @@ public class CtlAdminProduct {
     public String updateProduct(@PathVariable("productId") String productId, @ModelAttribute Product p) {
         productDetailService.setProductDetailActive(productId,p.getIsProductActive());
         productService.save(p);
-            return "redirect:/admin/products";
+            return "redirect:/admin/product";
         }
 
 }

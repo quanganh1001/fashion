@@ -9,7 +9,7 @@
 
     <div class="container mt-5">
         <h2>SỬA SẢN PHẨM</h2>
-        <form th:action="@{/admin/categories/update-category/__${cat.catId}__}" method="POST" th:object="${cat}">
+        <form th:action="@{/admin/category/update-category/__${cat.catId}__}" method="POST" th:object="${cat}">
             <input type="hidden" name="_method" value="put"/>
             <div class="row">
                 <div class="mb-3 col-6">

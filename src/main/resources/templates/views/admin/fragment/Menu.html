@@ -1,12 +1,11 @@
 
 <div th:fragment="menu" class="navbar-expand-lg navbar-dark bg-dark"
      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <link rel="stylesheet" th:href="@{/css/adminCSS/menu.css}"/>
     <ul>
         <li><a href="/admin">Trang chủ</a></li>
-        <li><a href="/admin/products">Quản lý Sản phẩm</a></li>
-        <li><a href="/admin/categories">Quản lý danh mục Sản phẩm</a></li>
-        <li><a href="/admin/invoices/filter/-1?key=">Quản lý đơn hàng</a></li>
+        <li><a href="/admin/product">Quản lý Sản phẩm</a></li>
+        <li><a href="/admin/category">Quản lý danh mục Sản phẩm</a></li>
+        <li><a href="/admin/invoice/filter/-1?key=">Quản lý đơn hàng</a></li>
         <div>
             <div sec:authorize="isAuthenticated()">
                 Welcome, <span sec:authentication="name"></span>!

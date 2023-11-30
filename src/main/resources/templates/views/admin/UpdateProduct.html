@@ -10,10 +10,10 @@
     <div class="container mt-5">
         <h2>SỬA SẢN PHẨM</h2>
         <div class="col-6 product">
-            <a th:href="@{/admin/products/add-img?productId=__${p.productId}__}" class="btn btn-primary btn-sm"
+            <a th:href="@{/admin/imgProduct/add-img?productId=__${p.productId}__}" class="btn btn-primary btn-sm"
                role="button">Thêm ảnh sản phẩm
             </a>
-            <form th:action="@{/admin/products/update-product/__${p.productId}__}" method="POST" th:object="${p}">
+            <form th:action="@{/admin/product/update-product/__${p.productId}__}" method="POST" th:object="${p}">
                 <input type="hidden" name="_method" value="put"/>
                 <div class="row">
                     <div class="mb-3">
@@ -84,7 +84,7 @@
         </div>
         <div class="col-4">
 
-            <a th:href="@{/admin/products/add-prDetail?productId=__${p.productId}__}" class="btn btn-primary btn-sm"
+            <a th:href="@{/admin/productDetail/add-prDetail?productId=__${p.productId}__}" class="btn btn-primary btn-sm"
                role="button">Thêm chi tiết
             </a>
 
@@ -93,7 +93,7 @@
                         onclick="confirmDelete(this.id)">
                     <i class="fas fa-trash-alt"></i> Delete
                 </button>
-                <a th:href="@{/admin/products/update-details/__${pd.productDetailId}__}" class="btn btn-primary btn-sm"
+                <a th:href="@{/admin/productDetail/update-detail/__${pd.productDetailId}__}" class="btn btn-primary btn-sm"
                    role="button">
                     <i class="fas fa-pencil-alt"></i> Edit
                 </a>
@@ -107,7 +107,7 @@
         console.log(productDetailId)
         var result = confirm("Bạn có muốn xóa sản phẩm này?");
         if (result) {
-            window.location.href = '/admin/products/delete/prDetail?prDetailId=' + productDetailId;
+            window.location.href = '/admin/productDetail/delete/prDetail?prDetailId=' + productDetailId;
         }
     }
 </script>

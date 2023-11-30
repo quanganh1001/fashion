@@ -13,7 +13,7 @@ import project.fashion.service.CategoryService;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/categories")
+@RequestMapping("/admin/category")
 public class CtlAdminCategory {
     @Autowired
     private CategoryService repoCategoryImp;
@@ -43,15 +43,15 @@ public class CtlAdminCategory {
     }
 
     @PostMapping("/add-category")
-    public String addCat(Model model, @ModelAttribute Category category) {
+    public String addCat(@ModelAttribute Category category) {
         repoCategoryImp.save(category);
-        return "redirect:/admin/categories";
+        return "redirect:/admin/category";
     }
 
     @GetMapping("/delete-cat/{catId}")
     public String deleteCat(@PathVariable("catId") String catId, Model model) {
         repoCategoryImp.deleteById(catId);
-        return "redirect:/admin/categories";
+        return "redirect:/admin/category";
     }
 
     @GetMapping("/update-category/{catId}")
@@ -70,6 +70,6 @@ public class CtlAdminCategory {
     public String updateCat(@PathVariable("catId") String catId, @ModelAttribute Category c) {
         repoCategoryImp.setCatActive(catId,c.getIsCatActive());
         repoCategoryImp.save(c);
-        return "redirect:/admin/categories";
+        return "redirect:/admin/category";
     }
 }

@@ -9,11 +9,11 @@
 
     <div class="container mt-5">
         <h2>Categories</h2>
-        <a href="/admin/categories/add-category">
+        <a href="/admin/category/add-category">
             <button type="button" class="btn btn-primary">Thêm danh mục</button>
         </a>
 
-        <form th:action="@{/admin/categories}" method="get">
+        <form th:action="@{/admin/category}" method="get">
             <label for="key">Tìm kiếm:</label>
             <input type="text" id="key" name="key" th:value="${#strings.isEmpty(searchKey) ? '' : searchKey}"
                    placeholder="Nhập mã danh mục hoặc tên danh mục...">
@@ -24,19 +24,19 @@
         <nav aria-label="Page navigation">
             <ul class="pagination">
                 <li class="page-item" th:class="${currentPage == 0} ? 'page-item disabled' : 'page-item'">
-                    <a class="page-link" th:href="@{/admin/categories(page=${currentPage}-1,key=${key})}"
+                    <a class="page-link" th:href="@{/admin/category(page=${currentPage}-1,key=${key})}"
                        aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
                 <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
-                    <a class="page-link" th:href="@{/admin/categories(page=${i >= 0 ? i : 0},key=${key})}"
+                    <a class="page-link" th:href="@{/admin/category(page=${i >= 0 ? i : 0},key=${key})}"
                        th:text="${i + 1}"
                        th:class="${currentPage == i} ? 'page-link active' : 'page-link'"
                     ></a>
                 </li>
                 <li class="page-item" th:class="${currentPage == totalPages - 1} ? 'page-item disabled' : 'page-item'">
-                    <a class="page-link" th:href="@{/admin/categories(page=${currentPage+1},key=${key})}"
+                    <a class="page-link" th:href="@{/admin/category(page=${currentPage+1},key=${key})}"
                        aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
@@ -60,7 +60,7 @@
                 <!--            <td th:if="${c.catParent != null}" th:text="${c.catParent.catName}"></td>-->
                 <!--            <td th:unless="${c.catParent != null}">Không</td>-->
                 <td th:text="${c.isCatActive}==true ? 'Hoạt động' :'Đã ẩn'"></td>
-                <td class="button"><a th:href="@{/admin/categories/update-category/__${c.catId}__}">
+                <td class="button"><a th:href="@{/admin/category/update-category/__${c.catId}__}">
                     <button class="btn btn-primary">Sửa
                     </button>
                 </a>
@@ -81,7 +81,7 @@
         console.log(catId)
         var result = confirm("Bạn có muốn xóa danh mục này?");
         if (result) {
-            window.location.href = '/admin/categories/delete-cat/' + catId;
+            window.location.href = '/admin/category/delete-cat/' + catId;
         }
     }
 </script>

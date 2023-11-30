@@ -24,7 +24,7 @@ function saveNote(button) {
 
     $.ajax({
         type: 'POST',
-        url: '/admin/invoices/update-invoice', // Replace with your actual endpoint-->
+        url: '/admin/invoice/update-invoice', // Replace with your actual endpoint-->
         data: {invoiceId: invoiceId, newNote: newNote},
         success: function () {
             toggleEditMode(button);
@@ -44,7 +44,7 @@ function changeStatus(newStatus,invoiceId){
     //
     $.ajax({
         type: 'POST',
-        url: '/admin/invoices/update-invoice', // Replace with your actual endpoint-->
+        url: '/admin/invoice/update-invoice', // Replace with your actual endpoint-->
         data: {invoiceId: invoiceId, newStatus: newStatus},
         success: function () {
             window.location.reload()

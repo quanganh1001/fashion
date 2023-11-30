@@ -17,7 +17,7 @@ import project.fashion.service.InvoiceStatusService;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/invoices")
+@RequestMapping("/admin/invoice")
 public class CtlAdminInvoice {
     @Autowired
     private InvoiceService invoiceService;

@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import project.fashion.entity.ImgProduct;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ImgProductRepo extends JpaRepository<ImgProduct,Integer> {
     List<ImgProduct> findAllByProductProductId(String productId);
@@ -28,4 +29,7 @@ public interface ImgProductRepo extends JpaRepository<ImgProduct,Integer> {
     void setBackground2On(@Param("imgName") String imgName);
 
     void deleteByFileImg(String fileName);
+
+    Optional<ImgProduct> findByBackground1AndProductProductId(Boolean boo, String productId);
+    Optional<ImgProduct> findByBackground2AndProductProductId(Boolean boo,String productId);
 }

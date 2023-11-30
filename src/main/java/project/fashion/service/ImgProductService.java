@@ -204,6 +204,30 @@ public class ImgProductService implements ImgProductRepo {
         imgProductRepo.deleteByFileImg(fileName);
     }
 
+    @Override
+    public Optional<ImgProduct> findByBackground1AndProductProductId(Boolean boo,String productId) {
+        return imgProductRepo.findByBackground1AndProductProductId(boo,productId);
+    }
+
+    @Override
+    public Optional<ImgProduct> findByBackground2AndProductProductId(Boolean boo,String productId) {
+        return imgProductRepo.findByBackground2AndProductProductId(boo,productId);
+    }
+    public ImgProduct getImgBg(Integer imgbg,Boolean boo,String productId){
+        ImgProduct c = new ImgProduct();
+        if(imgbg == 1){
+            Optional<ImgProduct> OptionalImg1 =
+                    Optional.of(findByBackground1AndProductProductId(boo, productId).orElse(c));
+            ImgProduct Img1 = OptionalImg1.get();
+            return Img1;
+        }
+        else{
+            Optional<ImgProduct> OptionalImg2 = Optional.of(findByBackground2AndProductProductId(boo, productId).orElse(c));
+            ImgProduct Img2 = OptionalImg2.get();
+            return Img2;
+        }
+    }
+
     public void setBackground(String productId,String imgName,int imbg){
         if(imbg==1){
             setBackgound1Off(productId);

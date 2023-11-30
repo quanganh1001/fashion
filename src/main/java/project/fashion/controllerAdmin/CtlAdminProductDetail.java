@@ -2,6 +2,7 @@ package project.fashion.controllerAdmin;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ import project.fashion.service.SizeService;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/products")
+@RequestMapping("/admin/productDetail")
 public class CtlAdminProductDetail {
     @Autowired
     private ProductDetailService productDetailService;
@@ -49,10 +50,10 @@ public class CtlAdminProductDetail {
         productDetailService.save(productDetail);
 
         var p = productDetail.getProduct().getProductId();
-        return "redirect:/admin/products/update-product/" + p;
+        return "redirect:/admin/product/update-product/" + p;
     }
 
-    @GetMapping("update-details/{prDetailId}")
+    @GetMapping("update-detail/{prDetailId}")
     public String updateProductDetail(Model model, @PathVariable("prDetailId") Integer prDetailId) {
         List<Color> color = colorService.findAll();
         List<Size> size = sizeService.findAll();
@@ -66,14 +67,14 @@ public class CtlAdminProductDetail {
         return "/admin/UpdatePrDetail";
     }
 
-    @PutMapping("update-details/{prDetailId}")
+    @PutMapping("update-detail/{prDetailId}")
     @Transactional
     public String updateProductDetail(@PathVariable("prDetailId") Integer prDetailId,@ModelAttribute ProductDetail pd) {
         pd.setProductDetailId(prDetailId);
         var productId = pd.getProduct().getProductId();
         System.out.println("--------------------" + pd);
         productDetailService.save(pd);
-        return "redirect:/admin/products/update-product/" + productId;
+        return "redirect:/admin/product/update-product/" + productId;
     }
 
     @GetMapping ("/delete/prDetail")
@@ -83,7 +84,7 @@ public class CtlAdminProductDetail {
         var productId = pd.getProduct().getProductId();
 
         productDetailService.deleteById(prDetailId);
-        return "redirect:/admin/products/update-product/" + productId;
+        return "redirect:/admin/product/update-product/" + productId;
     }
 
 }

@@ -10,7 +10,7 @@
     <div class="container mt-5">
         <h2>THÊM ẢNH SẢN PHẨM</h2>
         <div class="a">
-            <form th:action="@{/admin/products/add-img?productId=__${productId}__}" method="post" th:object="${img}"
+            <form th:action="@{/admin/imgProduct/add-img?productId=__${productId}__}" method="post" th:object="${img}"
                   enctype="multipart/form-data">
                 <input id="productId" type="hidden" th:value="${productId}">
                 <div class="mb-3 col-6">
@@ -25,26 +25,32 @@
             <div class="bg">
                 <h4>Chọn nền 1</h4>
                 <select id="bg1">
-                    <option value=null>Không</option>
-                    <option th:each="i : ${imgProducts}" th:value="${i.fileImg}" th:text="${i.fileImg}"></option>
+                    <option th:selected="${i.imgId} == ${imgbg1}"
+                            th:each="i : ${imgProducts}"
+                            th:value="${i.fileImg}"
+                            th:text="${i.fileImg}">
+                    </option>
                 </select>
-                <img width="50px" id="imgbg1" src="">
+                <img width="50px" id="imgbg1" th:src="@{'/admin/imgProduct/'+${imgbg1Name}}">
 
                 <h4>Chọn nền 2</h4>
                 <select id="bg2">
-                    <option value=null>Không</option>
-                    <option th:each="i : ${imgProducts}" th:value="${i.fileImg}" th:text="${i.fileImg}"></option>
+                    <option th:selected="${i.imgId == imgbg2}"
+                            th:each="i : ${imgProducts}"
+                            th:value="${i.fileImg}"
+                            th:text="${i.fileImg}">
+                    </option>
                 </select>
-                <img width="50px" id="imgbg2" src="">
+                <img width="50px" id="imgbg2" th:src="@{'/admin/imgProduct/'+${imgbg2Name}}">
             </div>
         </div>
         <h2>Danh sách hình ảnh</h2>
         <ul th:each="i : ${imgProducts}">
             <img width="300px"
-                 th:src="@{'/admin/products/uploads/images/'+${i.fileImg}}"
+                 th:src="@{'/admin/imgProduct/'+${i.fileImg}}"
                  alt="Image">
             <td class="button">
-                <button class="btn btn-danger btn-sm" th:id="${p.imgId}"
+                <button class="btn btn-danger btn-sm" th:id="${i.fileImg}"
                         onclick="confirmDelete(this.id)">
                     <i class="fas fa-trash-alt"></i> Delete
                 </button>
@@ -59,10 +65,12 @@
             // Lấy giá trị của option được chọn
             var selectedImage = $(this).val();
             var productId = document.getElementById("productId").value;
+            console.log(selectedImage)
             console.log(productId)
             // Cập nhật đường dẫn ảnh trong #selectedImage
-            $('#imgbg1').attr('src', '/admin/products/imgbg/' + selectedImage + '?imbg=1&productId=' +
+            $('#imgbg1').attr('src', '/admin/imgProduct/imgbg/' + selectedImage + '?imbg=1&productId=' +
                 productId);
+            alert("Đỏi ảnh nền thành công")
         });
     });
     $(document).ready(function () {
@@ -73,16 +81,26 @@
             var productId = document.getElementById("productId").value;
             console.log(productId)
             // Cập nhật đường dẫn ảnh trong #selectedImage
-            $('#imgbg2').attr('src', '/admin/products/imgbg/' + selectedImage + '?imbg=2&productId=' +
+            $('#imgbg2').attr('src', '/admin/imgProduct/imgbg/' + selectedImage + '?imbg=2&productId=' +
                 productId);
+            alert("Đỏi ảnh nền thành công")
         });
     });
 
-    function confirmDelete(imgId) {
-        console.log(imgId)
+    function confirmDelete(fileImg) {
+        console.log(fileImg)
         var result = confirm("Bạn có muốn xóa ảnh này này?");
         if (result) {
-            window.location.href = '/admin/products/delete/' + imgId;
+            $.ajax({
+                type: 'GET',
+                url: '/admin/imgProduct/delete/' + fileImg,
+                success: function () {
+                    window.location.reload()
+                },
+                error: function () {
+                    alert('Failed to delete.');
+                }
+            });
         }
     }
 </script>
