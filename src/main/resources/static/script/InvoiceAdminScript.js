@@ -55,3 +55,4 @@ function changeStatus(newStatus,invoiceId){
         }
     });
 }
+

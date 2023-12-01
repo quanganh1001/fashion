@@ -64,7 +64,7 @@ public class CtlAdminCategory {
 
         return "/admin/UpdateCategory";
     }
-//
+
     @PutMapping("/update-category/{catId}")
     @Transactional
     public String updateCat(@PathVariable("catId") String catId, @ModelAttribute Category c) {

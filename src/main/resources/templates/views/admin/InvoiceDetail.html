@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+
+<head th:include="~{admin/fragment/head::head}"></head>
+<style>
+    .hidden{
+        display: none;
+    }
+</style>
+<body>
+<div class="ui-menu-item-wrapper">
+    <div th:include="~{admin/fragment/Menu::menu}"></div>
+
+    <div class="container mt-5">
+        <h2>CHI TIẾT ĐƠN HÀNG</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Tổng tiền</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="id:${invoiceDetails}">
+                <td th:text="${id.productDetail.product.productName}"></td>
+                <td th:text="${id.price}"></td>
+                <td>
+                    <div class="editable-note">
+                        <span th:id="'quantity' + ${id.detailId}" th:text="${id.quantity}"></span>
+                        <input class="hidden"
+                               th:id="'input' + ${id.detailId}"
+                               type="text"
+                               th:value="${id.quantity}"/>
+                        <span
+                                th:id="'edit' + ${id.detailId}"
+                                th:data-detail-id="${id.detailId}"
+                                onclick="toggleEditMode(this)">
+                            <i class="fa-regular fa-pen-to-square" style="color: #0033ff;"></i>
+                        </span>
+                        <span class="hidden"
+                              th:id="'done' + ${id.detailId}"
+                              th:data-detail-id="${id.detailId}"
+                              onclick="saveNote(this)">
+                            <i class="fa-solid fa-check" style="color: #00ff59;"></i>
+                        </span>
+                        <span class="hidden"
+                              th:id="'cancel' + ${id.detailId}"
+                              th:data-detail-id="${id.detailId}"
+                              onclick="toggleEditMode(this)">
+                            <i class="fa-solid fa-xmark" style="color: #ff0000;"></i>
+                        </span>
+                    </div>
+                </td>
+                <td th:text="${id.totalPrice}"></td>
+                <td class="button">
+                    <button class="btn btn-danger btn-sm" th:id="${id.detailId}"
+                            onclick="confirmDelete(this.id)">
+                        <i class="fas fa-trash-alt"></i> Delete
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+<script th:src="@{/script/InvoiceDetailScript.js}"></script>
+</body>
+</html>
