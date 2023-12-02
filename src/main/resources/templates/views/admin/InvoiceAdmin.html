@@ -3,35 +3,13 @@
 
 <head th:include="~{admin/fragment/head::head}"></head>
 <style>
-    .hidden {
-        display: none;
-    }
-
-    i:hover {
-        background-color: grey;
-
-    }
-
-    i {
-        margin: 5px;
-    }
-
-    .info-box {
+    .info-box{
         display: flex;
+        margin: 10px 5px;
     }
-
-    .row {
-        width: 100%;
-        border: 1px solid black;
-        margin: 5px;
+    .filter{
+        margin: 10px 5px;
     }
-
-    .btn {
-        background-color: grey;
-        margin: 10px 2px;
-        padding: 10px;
-    }
-
 </style>
 <body>
 <div class="ui-menu-item-wrapper">
@@ -40,76 +18,75 @@
     <div class="container mt-5">
         <h2>DANH SÁCH ĐƠN HÀNG</h2>
         <div class="row">
-            <a href="/admin/invoice/filter/-1?key=" class="btn col-md-3 col-sm-6 col-12">
+            <button th:data-filter="-1" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
                 <div class="info-box">
                     <span class="info-box-icon"><i class="fa-2xl fa-solid fa-file-invoice-dollar"
                                                    style="color: #000000;"></i></span>
                     <div class="info-box-content">
-                        <div class="info-box-text" style="color: white">Tất cả đơn hàng</div>
+                        <div class="info-box-text" >Tất cả đơn hàng</div>
                     </div>
                 </div>
-            </a>
-
-            <a href="/admin/invoice/filter/0?key=" class="btn col-md-3 col-sm-6 col-12">
+            </button>
+            <button th:data-filter="0" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
                 <div class="info-box ">
                     <span class="info-box-icon"><i class="fa-2xl fa-solid fa-xmark" style="color: #ff0000;"></i></span>
                     <div class="info-box-content">
-                        <div class="info-box-text" style="color: white">Đơn đã hủy</div>
+                        <div class="info-box-text" >Đơn đã hủy</div>
                     </div>
                 </div>
-            </a>
+            </button>
 
-            <a href="/admin/invoice/filter/1?key=" class="btn col-md-2 col-sm-6 col-12">
+            <button th:data-filter="1" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
                 <div class="info-box">
                     <span
                             class="info-box-icon"><i class="fa-2xl fa-solid fa-cart-plus"
                                                      style="color: #005eff;"></i></span>
                     <div class="info-box-content">
-                        <div class="info-box-text" style="color: white">Đơn mới</div>
+                        <div class="info-box-text" >Đơn mới</div>
                     </div>
                 </div>
-            </a>
+            </button>
 
-            <a href="/admin/invoice/filter/2?key=" class="btn col-md-3 col-sm-6 col-12">
+            <button th:data-filter="2" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
                 <div class="info-box">
                     <span class="info-box-icon"><i class="fa-2xl fa-solid fa-check"
                                                    style="color: #00800f;"></i></span>
                     <div class="info-box-content">
-                        <div class="info-box-text" style="color: white">Đơn đã lên</div>
+                        <div class="info-box-text" >Đơn đã lên</div>
                     </div>
                 </div>
-            </a>
+            </button>
 
-            <a href="/admin/invoice/filter/3?key=" class="btn col-md-3 col-sm-6 col-12">
+            <button th:data-filter="3" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
                 <div class="info-box">
                     <span
                             class="info-box-icon"><i class="fa-2xl fa-solid fa-truck-fast" style="color: #ffc800;"></i></span>
                     <div class="info-box-content">
-                        <div class="info-box-text" style="color: white">Đơn đang giao</div>
+                        <div class="info-box-text" >Đơn đang giao</div>
                     </div>
                 </div>
-            </a>
+            </button>
 
-            <a href="/admin/invoice/filter/4?key=" class="btn col-md-3 col-sm-6 col-12">
+            <button th:data-filter="4" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
                 <div class="info-box ">
                     <span class="info-box-icon"><i class="fa-2xl fa-solid fa-circle-check"
                                                    style="color: #0045bd;"></i></span>
                     <div class="info-box-content">
-                        <div class="info-box-text" style="color: white">Đơn thành công</div>
+                        <div class="info-box-text" >Đơn thành công</div>
                     </div>
                 </div>
-            </a>
+            </button>
 
-            <a href="/admin/invoice/filter/5?key=" class="btn col-md-3 col-sm-6 col-12">
+            <button th:data-filter="5" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
                 <div class="info-box ">
                     <span
                             class="info-box-icon"><i class="fa-2xl fa-solid fa-ban"
                                                      style="color: #ff0000;"></i></span>
                     <div class="info-box-content">
-                        <div class="info-box-text" style="color: white">Đơn hoàn</div>
+                        <div class="info-box-text">Đơn hoàn</div>
                     </div>
                 </div>
-            </a>
+            </button>
         </div>
 
         <form th:action="@{/admin/invoice/filter/__${filterStatus}__}" method="get">

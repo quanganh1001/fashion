@@ -38,13 +38,9 @@ function saveNote(button) {
 }
 
 function changeStatus(newStatus,invoiceId){
-    console.log(invoiceId)
-    console.log(newStatus)
-    // var status = select;
-    //
     $.ajax({
         type: 'POST',
-        url: '/admin/invoice/update-invoice', // Replace with your actual endpoint-->
+        url: '/admin/invoice/update-invoice',
         data: {invoiceId: invoiceId, newStatus: newStatus},
         success: function () {
             window.location.reload()
@@ -55,4 +51,23 @@ function changeStatus(newStatus,invoiceId){
         }
     });
 }
+
+$(document).ready(function(){
+    $(".filter").click(function(){
+        // Lấy giá trị của thuộc tính data-filter của phần tử được click
+        var filterStatus = $(this).data('filter');
+        console.log(filterStatus)
+        // Xử lý sự kiện ở đây
+        $.ajax({
+            type: 'GET',
+            url: "/admin/invoice/filter/" + filterStatus + "?key=", // Replace with your actual endpoint-->
+            success: function (data) {
+                window.location.href="/admin/invoice/filter/" + filterStatus + "?key=";
+            },
+            error: function () {
+                alert('Failed to update status.');
+            }
+        });
+    });
+});
 

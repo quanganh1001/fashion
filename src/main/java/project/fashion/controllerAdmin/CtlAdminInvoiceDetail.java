@@ -32,18 +32,16 @@ public class CtlAdminInvoiceDetail {
         return "/admin/InvoiceDetail";
     }
 
-    @PostMapping("update-quantity")
-    public ResponseEntity<Void> updateDetail(@RequestParam("detailId") Integer detailId,
+    @PutMapping("update-quantity")
+    public ResponseEntity<String> updateDetail(@RequestParam("detailId") Integer detailId,
                                               @RequestParam(value = "newQuantity") Integer newQuantity){
-        invoiceDetailService.setQuantity(newQuantity,detailId);
-        return ResponseEntity.ok().build();
+        return invoiceDetailService.changeQuantity(newQuantity,detailId);
+
     }
 
-    @GetMapping("/delete/{detailId}")
-    public String deleteCat(@PathVariable("detailId") Integer detailId) {
-        invoiceDetailService.deleteById(detailId);
-
-        String invoiceId = invoiceDetailService.getInvoiceId(detailId);
-        return "redirect:/admin/invoiceDetail/" + invoiceId;
+    @DeleteMapping("/delete/{detailId}")
+    public ResponseEntity<String> deleteCat(@PathVariable("detailId") Integer detailId) {
+        return invoiceDetailService.deleteByDetailId(detailId);
     }
+
 }

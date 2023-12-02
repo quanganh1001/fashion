@@ -44,3 +44,6 @@ h2{
     display: flex;
     flex-wrap: wrap;
 }
+.hidden{
+    display: none;
+}

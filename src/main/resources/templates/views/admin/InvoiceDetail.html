@@ -23,6 +23,7 @@
             </tr>
             </thead>
             <tbody>
+
             <tr th:each="id:${invoiceDetails}">
                 <td th:text="${id.productDetail.product.productName}"></td>
                 <td th:text="${id.price}"></td>
@@ -33,7 +34,7 @@
                                th:id="'input' + ${id.detailId}"
                                type="text"
                                th:value="${id.quantity}"/>
-                        <span
+                        <span th:if="${id.invoice.invoiceStatus.statusId} == 1 or ${id.invoice.invoiceStatus.statusId} == 0"
                                 th:id="'edit' + ${id.detailId}"
                                 th:data-detail-id="${id.detailId}"
                                 onclick="toggleEditMode(this)">
@@ -42,7 +43,7 @@
                         <span class="hidden"
                               th:id="'done' + ${id.detailId}"
                               th:data-detail-id="${id.detailId}"
-                              onclick="saveNote(this)">
+                              onclick="saveQuantity(this)">
                             <i class="fa-solid fa-check" style="color: #00ff59;"></i>
                         </span>
                         <span class="hidden"
@@ -54,8 +55,10 @@
                     </div>
                 </td>
                 <td th:text="${id.totalPrice}"></td>
-                <td class="button">
-                    <button class="btn btn-danger btn-sm" th:id="${id.detailId}"
+                <td class="button"
+                    th:if="${id.invoice.invoiceStatus.statusId} == 1 or ${id.invoice.invoiceStatus.statusId} == 0">
+                    <button class="btn btn-danger btn-sm"
+                            th:id="${id.detailId}"
                             onclick="confirmDelete(this.id)">
                         <i class="fas fa-trash-alt"></i> Delete
                     </button>

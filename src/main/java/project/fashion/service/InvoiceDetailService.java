@@ -6,6 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import project.fashion.entity.InvoiceDetail;
 import project.fashion.repository.InvoiceDetailRepo;
@@ -141,9 +143,10 @@ public class InvoiceDetailService implements InvoiceDetailRepo {
     }
 
     @Override
-    public void deleteById(Integer integer) {
+    public void deleteById(Integer detailId) {
 
     }
+
 
     @Override
     public void delete(InvoiceDetail entity) {
@@ -182,9 +185,32 @@ public class InvoiceDetailService implements InvoiceDetailRepo {
 
     @Override
     public void setQuantity(Integer quantity, Integer detailId) {
-        if (quantity >= 1)
-            invoiceDetailRepo.setQuantity(quantity, detailId);
-        else
-            invoiceDetailRepo.setQuantity(1, detailId);
+        invoiceDetailRepo.setQuantity(quantity,detailId);
+    }
+
+    public ResponseEntity<String> changeQuantity(Integer quantity, Integer detailId) {
+        Optional<InvoiceDetail> OptionalInvoiceDetail = findById(detailId);
+        var status = OptionalInvoiceDetail.get().getInvoice().getInvoiceStatus().getStatusId();
+
+        if (status == 0 || status == 1) {
+            if (quantity >= 1)
+                setQuantity(quantity, detailId);
+            else
+                setQuantity(1, detailId);
+            return ResponseEntity.ok().build();
+        } else
+            return new ResponseEntity<>("Không thể sửa vì đã lên đơn",HttpStatus.BAD_REQUEST);
+    }
+
+    @Override
+    public ResponseEntity<String> deleteByDetailId(Integer detailId) {
+        Optional<InvoiceDetail> OptionalInvoiceDetail = findById(detailId);
+        var status = OptionalInvoiceDetail.get().getInvoice().getInvoiceStatus().getStatusId();
+
+        if (status == 0 || status == 1) {
+            invoiceDetailRepo.deleteById(detailId);
+            return ResponseEntity.ok().build();
+        }else return new ResponseEntity<>("Không thể cập xóa vì đã lên đơn hàng", HttpStatus.BAD_REQUEST);
+
     }
 }
