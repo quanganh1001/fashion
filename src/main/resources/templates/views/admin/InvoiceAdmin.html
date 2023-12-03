@@ -92,7 +92,7 @@
         <form th:action="@{/admin/invoice/filter/__${filterStatus}__}" method="get">
             <label for="key">Tìm kiếm:</label>
             <input type="text" id="key" name="key" th:value="${#strings.isEmpty(searchKey) ? '' : searchKey}"
-                   placeholder="Nhập SĐT khách hàng hoặc mã đơn hàng...">
+                   placeholder="Nhập SĐT hoặc mã đơn hàng...">
             <button type="submit" class="btn-primary">Tìm kiếm</button>
         </form>
 
@@ -144,7 +144,6 @@
                 <td th:text="${invoice.address}"></td>
                 <td th:text="${invoice.totalAmount}"></td>
                 <td th:text="${invoice.createdAt}"></td>
-                <!--                <td th:text="${invoice.note}"></td>-->
                 <td>
                     <div class="editable-note">
                         <span th:id="'note' + ${invoice.invoiceId}" th:text="${invoice.note}"></span>

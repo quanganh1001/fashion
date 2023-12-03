@@ -67,4 +67,6 @@ public class CtlAdminInvoiceDetail {
         // Trả về phản hồi với hình ảnh
         return ResponseEntity.ok().body(imageResource);
     }
+
+
 }
