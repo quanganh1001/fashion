@@ -205,24 +205,24 @@ public class ImgProductService implements ImgProductRepo {
     }
 
     @Override
-    public Optional<ImgProduct> findByBackground1AndProductProductId(Boolean boo,String productId) {
-        return imgProductRepo.findByBackground1AndProductProductId(boo,productId);
+    public Optional<ImgProduct> findByBackground1TrueAndProductProductId(String productId) {
+        return imgProductRepo.findByBackground1TrueAndProductProductId(productId);
     }
 
     @Override
-    public Optional<ImgProduct> findByBackground2AndProductProductId(Boolean boo,String productId) {
-        return imgProductRepo.findByBackground2AndProductProductId(boo,productId);
+    public Optional<ImgProduct> findByBackground2TrueAndProductProductId( String productId) {
+        return imgProductRepo.findByBackground2TrueAndProductProductId(productId);
     }
-    public ImgProduct getImgBg(Integer imgbg,Boolean boo,String productId){
+    public ImgProduct getImgBg(Integer imgbg,String productId){
         ImgProduct c = new ImgProduct();
         if(imgbg == 1){
             Optional<ImgProduct> OptionalImg1 =
-                    Optional.of(findByBackground1AndProductProductId(boo, productId).orElse(c));
+                    Optional.of(findByBackground1TrueAndProductProductId(productId).orElse(c));
             ImgProduct Img1 = OptionalImg1.get();
             return Img1;
         }
         else{
-            Optional<ImgProduct> OptionalImg2 = Optional.of(findByBackground2AndProductProductId(boo, productId).orElse(c));
+            Optional<ImgProduct> OptionalImg2 = Optional.of(findByBackground2TrueAndProductProductId(productId).orElse(c));
             ImgProduct Img2 = OptionalImg2.get();
             return Img2;
         }

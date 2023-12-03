@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: localhost
--- Thời gian đã tạo: Th10 30, 2023 lúc 05:22 PM
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th12 03, 2023 lúc 02:16 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.2.4
+-- Phiên bản PHP: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `fashion`
+-- Cơ sở dữ liệu: `fashion_project`
 --
 
 -- --------------------------------------------------------
@@ -217,7 +217,21 @@ INSERT INTO `history` (`id`, `invoice_id`, `old_invoice_status`, `new_invoice_st
 (58, 'QWEASVXZ', 1, 0, '2023-11-30 12:05:35'),
 (59, 'QWEASVXZ', 0, 1, '2023-11-30 13:09:08'),
 (60, 'QWEASVXZ', 1, 0, '2023-11-30 13:09:14'),
-(61, 'QWEASVXZ', 0, 1, '2023-11-30 13:09:19');
+(61, 'QWEASVXZ', 0, 1, '2023-11-30 13:09:19'),
+(62, 'QWEASVXZ', 1, 2, '2023-12-03 10:09:31'),
+(63, 'QWEASVXZ', 2, 3, '2023-12-03 10:16:42'),
+(64, 'SDDFGSEW', 1, 0, '2023-12-03 10:17:02'),
+(65, 'SDDFGSEW', 0, 1, '2023-12-03 10:17:48'),
+(66, 'SDDFGSEW', 1, 0, '2023-12-03 11:00:47'),
+(67, 'SDDFGSEW', 0, 1, '2023-12-03 11:06:17'),
+(68, 'SDDFGSEW', 1, 2, '2023-12-03 11:12:49'),
+(69, 'SDDFGSEW', 2, 1, '2023-12-03 11:15:05'),
+(70, 'QWEASVXZ', 3, 4, '2023-12-03 12:55:46'),
+(71, 'QWEASVXZ', 4, 3, '2023-12-03 12:55:51'),
+(72, 'QWEASVXZ', 3, 4, '2023-12-03 12:55:57'),
+(73, 'SDDFGSEW', 1, 2, '2023-12-03 13:15:19'),
+(74, 'SDDFGSEW', 2, 0, '2023-12-03 13:15:25'),
+(75, 'SDDFGSEW', 0, 1, '2023-12-03 13:15:34');
 
 -- --------------------------------------------------------
 
@@ -502,8 +516,8 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `total_amount`, `created_at`, `note`, `invoice_status`) VALUES
-('QWEASVXZ', 'zxca', '93232', 'vxdvs', 2050000, '2023-11-26 09:39:38', 'dfdfdfs3', 1),
-('SDDFGSEW', 'qfwqfq', '932', '4dvs', 2050000, '2023-11-26 09:39:38', 'fdsfd', 1),
+('QWEASVXZ', 'zxca', '93232', 'vxdvs', 2050000, '2023-12-03 12:55:57', 'dfdfdfs3', 4),
+('SDDFGSEW', 'quang anh', '932', '4dvsdsf', 2050000, '2023-12-03 13:15:42', 'd', 1),
 ('VCXBDSGS', 'SF', '93232', '4fdsdvs', 2050000, '2023-11-26 09:39:38', 'dsf', 1),
 ('YHJFSFAS', 'Qvxa', '21932', '4cddvs', 2050000, '2023-11-26 09:39:38', '', 1);
 
@@ -625,10 +639,11 @@ CREATE TABLE `invoices_status` (
 INSERT INTO `invoices_status` (`status_id`, `status`) VALUES
 (0, 'Hủy'),
 (1, 'Đơn mới'),
-(2, 'Đã lên đơn'),
-(3, 'Đang giao hàng'),
-(4, 'Thành công'),
-(5, 'Hoàn');
+(2, 'Đang xử lý'),
+(3, 'Đã lên đơn'),
+(4, 'Đang giao hàng'),
+(5, 'Thành công'),
+(6, 'Hoàn');
 
 -- --------------------------------------------------------
 
@@ -657,7 +672,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `product_name`, `cat_id`, `price`, `discount_price`, `discount_percent`, `is_discount`, `brand`, `description`, `img_size_id`, `total_size`, `total_color`, `is_product_active`) VALUES
-('DSTP611', '', 'PLHT', 3333333, NULL, NULL, b'0', 'Torano', '', 1, 4, 1, b'1'),
+('DSTP611', 'Áo polo trơn bo kẻ DSTP611\r\n', 'PLHT', 3333333, NULL, NULL, b'0', 'Torano', '', 1, 4, 1, b'1'),
 ('DSTP650', 'Áo Polo monogram TRN DSTP650', 'PLCP', 450000, NULL, NULL, b'0', 'TORANO', 'Áo Polo monogram TRN 1.DSTP650', 1, 4, 1, b'1'),
 ('DSTP903', 'Áo polo can phối Horizontal Color Scheme DSTP903', 'PLCP', 420000, 290000, 31, b'1', 'TORANO', '', 1, 4, 2, b'1'),
 ('ESTP001', 'Áo polo họa tiết in tràn ESTP001', 'PLHT', 420000, NULL, NULL, b'0', 'TORANO', '', 1, 4, 1, b'1'),
@@ -1286,7 +1301,7 @@ ALTER TABLE `accounts`
 -- AUTO_INCREMENT cho bảng `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_product`

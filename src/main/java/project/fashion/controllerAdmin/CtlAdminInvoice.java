@@ -9,12 +9,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.fashion.entity.Invoice;
+import project.fashion.entity.InvoiceDetail;
 import project.fashion.entity.InvoiceStatus;
 import project.fashion.entity.Product;
+import project.fashion.service.InvoiceDetailService;
 import project.fashion.service.InvoiceService;
 import project.fashion.service.InvoiceStatusService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin/invoice")
@@ -25,6 +28,9 @@ public class CtlAdminInvoice {
     @Autowired
     private InvoiceStatusService invoiceStatusService;
 
+    @Autowired
+    private InvoiceDetailService invoiceDetailService;
+
     @GetMapping("filter/{filterStatus}")
     public String filterStatus(Model model,
                                @PathVariable("filterStatus") Integer filterStatus,
@@ -32,7 +38,6 @@ public class CtlAdminInvoice {
                                @RequestParam(name = "key", required = false) String key){
         if (page < 0)
             page = 0;
-        List<InvoiceStatus> status = invoiceStatusService.findAll();
 
         Page<Invoice> searchInvoice = invoiceService.findInvoiceByKeyAndStatus(key,filterStatus, PageRequest.of(page, 10));
 
@@ -41,18 +46,19 @@ public class CtlAdminInvoice {
         model.addAttribute("totalItems", searchInvoice.getTotalElements());
         model.addAttribute("invoice", searchInvoice.getContent());
         model.addAttribute("key", key);
-        model.addAttribute("status", status);
         model.addAttribute("filterStatus",filterStatus);
 
         return "admin/InvoiceAdmin";
 
     }
 
-    @PostMapping("update-status")
-    public ResponseEntity<Void> updateInvoice(@RequestParam("invoiceId") String invoiceId,
-                                             @RequestParam("newStatus") Integer newStatus){
-        invoiceService.setInvoice(newStatus,invoiceId);
-        return ResponseEntity.ok().build();
+    @PutMapping("/update-invoice/{invoiceId}")
+    public ResponseEntity<String> updateInvoice(@PathVariable("invoiceId") String invoiceId,
+                                                @ModelAttribute Invoice i) throws Exception {
+
+        return invoiceService.setInvoice(invoiceId,i);
+
+
     }
 
 }

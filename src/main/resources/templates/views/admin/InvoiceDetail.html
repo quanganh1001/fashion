@@ -6,16 +6,27 @@
     .hidden {
         display: none;
     }
-
+   .invoice{
+       margin: 5px 0 20px 0;
+   }
+   h4{
+       margin: 20px 0 0 0;
+   }
+   #plus{
+       margin: 5px 0;
+   }
 </style>
+
 <body>
+
+
 <div class="ui-menu-item-wrapper">
     <div th:include="~{admin/fragment/Menu::menu}"></div>
 
     <div class="container mt-5">
         <h2>CHI TIẾT ĐƠN HÀNG</h2>
-        <div class="col-12">
-            <form th:action="@{/admin/invoice/update-invoice/__${invoice.invoiceId}__}" method="POST" th:object="${i}">
+        <div class="invoice col-12">
+            <form id="form" th:action="@{/admin/invoice/update-invoice/__${invoice.invoiceId}__}" method="POST" th:object="${i}">
                 <input type="hidden" name="_method" value="put"/>
                 <div class="row">
                     <div class="mb-3 col-6">
@@ -48,12 +59,23 @@
                         </textarea>
                     </div>
 
+                    <div class="mb-3 col-2">
+                        <p>Trạng thái đơn hàng:</p>
+                        <select class="form-control"
+                                th:field="${invoice.invoiceStatus.statusId}"
+                                th:data-invoice-id="${invoice.invoiceId}"
+                                th:data-old-status="${invoice.invoiceStatus.statusId}"
+                                onchange="changeStatus(this)">
+                            <option th:each="s : ${status}"
+                                    th:value="${s.statusId}"
+                                    th:text="${s.status}"
+                                    th:selected="${s.statusId == invoice.invoiceStatus.statusId}">
+                            </option>
+                        </select>
+                    </div>
                 </div>
-                <button style="text-align: center" type="submit" class="col-2 btn btn-primary">Lưu đơn hàng</button>
-                <div class="mb-3 col-6">
-                    <p>Trạng thái đơn hàng: <span id="status" style="color: red"
-                                                   th:text="${invoice.invoiceStatus.status}"></span></p>
-                </div>
+
+                <button style="text-align: center" type="submit" class="col-2 btn btn-primary" onclick="submitForm()">Cập nhập đơn hàng</button>
             </form>
         </div>
 
@@ -61,7 +83,11 @@
         <table>
             <thead>
             <tr>
+                <th>Image</th>
+                <th>Mã sản phẩm</th>
                 <th>Tên sản phẩm</th>
+                <th>Màu sắc</th>
+                <th>Size</th>
                 <th>Giá</th>
                 <th>Số lượng</th>
                 <th>Tổng tiền</th>
@@ -70,7 +96,11 @@
             <tbody>
 
             <tr th:each="id:${invoiceDetails}">
+                <td> <img width="50px" th:src="@{'/admin/invoiceDetail/img/'+${id.productDetail.product.productId}}"></td>
+                <td th:text="${id.productDetail.code}"></td>
                 <td th:text="${id.productDetail.product.productName}"></td>
+                <td th:text="${id.productDetail.color.name}"></td>
+                <td th:text="${id.productDetail.size.name}"></td>
                 <td th:text="${id.price}"></td>
                 <td>
                     <div class="editable-note">
@@ -79,7 +109,7 @@
                                th:id="'input' + ${id.detailId}"
                                type="text"
                                th:value="${id.quantity}"/>
-                        <span th:if="${id.invoice.invoiceStatus.statusId} == 1 or ${id.invoice.invoiceStatus.statusId} == 0"
+                        <span th:if="${id.invoice.invoiceStatus.statusId} >= 0 and ${id.invoice.invoiceStatus.statusId} <=2"
                               th:id="'edit' + ${id.detailId}"
                               th:data-detail-id="${id.detailId}"
                               onclick="toggleEditMode(this)">
@@ -101,7 +131,7 @@
                 </td>
                 <td th:text="${id.totalPrice}"></td>
                 <td class="button"
-                    th:if="${id.invoice.invoiceStatus.statusId} == 1 or ${id.invoice.invoiceStatus.statusId} == 0">
+                    th:if="${id.invoice.invoiceStatus.statusId} >= 0 and ${id.invoice.invoiceStatus.statusId} <= 2">
                     <button class="btn btn-danger btn-sm"
                             th:id="${id.detailId}"
                             onclick="confirmDelete(this.id)">
@@ -111,14 +141,11 @@
             </tr>
             </tbody>
         </table>
+        <button id="plus" class="btn btn-primary" th:data-invoice-id="${invoice.invoiceId}"><i class="fa-solid fa-plus" style="color: #ffffff;"></i>Thêm</button>
 
         <div class="col-12">
             <h4 style="color:red">Tổng đơn hàng: <span th:text="${invoice.totalAmount}"></span>đ</h4>
         </div>
-
-        <button th:if="${invoice.invoiceStatus.statusId} == 1" id="send" style="text-align: center" type="submit"
-                class="col-2 btn btn-warning">In đơn hàng
-        </button>
 
     </div>
 

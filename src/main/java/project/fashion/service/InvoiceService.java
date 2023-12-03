@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import project.fashion.entity.Invoice;
 import project.fashion.repository.InvoiceRepo;
@@ -102,7 +104,7 @@ public class InvoiceService implements InvoiceRepo {
 
     @Override
     public <S extends Invoice> S save(S entity) {
-        return null;
+        return invoiceRepo.save(entity);
     }
 
     @Override
@@ -196,10 +198,25 @@ public class InvoiceService implements InvoiceRepo {
                     key, key, pageable);
     }
 
+    public ResponseEntity<String> setInvoice(String invoiceId, Invoice invoice) throws Exception {
+        Optional<Invoice> optionalInvoice = findById(invoiceId);
+        var status = optionalInvoice.get().getInvoiceStatus().getStatusId();
+        var newStatus = invoice.getInvoiceStatus().getStatusId();
+        var totalAmount = optionalInvoice.get().getTotalAmount();
+        var phone = optionalInvoice.get().getPhone();
 
-    public void setInvoice(Integer newStatus, String invoiceId){
-            setStatus(newStatus,invoiceId);
+        if((status >= 3 && status <= 6) && (newStatus == 0 ||newStatus == 1 || newStatus == 2))
+            throw new Exception("Đơn đã gửi thì không thể đổi trạng thái về lúc chưa gửi") ;
 
+        else if((status >= 0 && status <= 2) && (newStatus == 4 || newStatus == 5 || newStatus == 6 )){
+            throw new Exception("Đơn chưa gửi không thể cập nhập trạng thái đang chuyển, thành công hoặc hoàn") ;
+        }
+        else {
+            invoice.setTotalAmount(totalAmount);
+            invoice.setPhone(phone);
+            save(invoice);
+            return ResponseEntity.ok().build();
+        }
     }
 
 }

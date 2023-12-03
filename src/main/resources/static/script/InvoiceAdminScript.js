@@ -37,24 +37,8 @@ function saveNote(button) {
     });
 }
 
-function changeStatus(select){
-    var invoiceId = select.getAttribute("data-invoice-id");
-    $.ajax({
-        type: 'POST',
-        url: '/admin/invoice/update-status',
-        data: {invoiceId: invoiceId, newStatus: newStatus},
-        success: function () {
-            window.location.reload()
-            alert("Cập nhập trạng thái thành công!");
-        },
-        error: function () {
-            alert('Failed to update status.');
-        }
-    });
-}
-
-$(document).ready(function(){
-    $(".filter").click(function(){
+$(document).ready(() =>{
+    $(".filter").click(() =>{
         // Lấy giá trị của thuộc tính data-filter của phần tử được click
         var filterStatus = $(this).data('filter');
         console.log(filterStatus)
@@ -62,10 +46,10 @@ $(document).ready(function(){
         $.ajax({
             type: 'GET',
             url: "/admin/invoice/filter/" + filterStatus + "?key=", // Replace with your actual endpoint-->
-            success: function (data) {
+            success:  ()=> {
                 window.location.href="/admin/invoice/filter/" + filterStatus + "?key=";
             },
-            error: function () {
+            error:  () =>{
                 alert('Failed to update status.');
             }
         });

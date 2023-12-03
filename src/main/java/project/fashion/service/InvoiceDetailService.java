@@ -183,26 +183,7 @@ public class InvoiceDetailService implements InvoiceDetailRepo {
         return invoiceDetailRepo.findAllByInvoice_InvoiceId(invoiceId);
     }
 
-    @Override
-    public void setQuantity(Integer quantity, Integer detailId) {
-        invoiceDetailRepo.setQuantity(quantity,detailId);
-    }
 
-    public ResponseEntity<String> changeQuantity(Integer quantity, Integer detailId) {
-        Optional<InvoiceDetail> OptionalInvoiceDetail = findById(detailId);
-        var status = OptionalInvoiceDetail.get().getInvoice().getInvoiceStatus().getStatusId();
-
-        if (status == 0 || status == 1) {
-            if (quantity >= 1)
-                setQuantity(quantity, detailId);
-            else
-                setQuantity(1, detailId);
-            return ResponseEntity.ok().build();
-        } else
-            return new ResponseEntity<>("Không thể sửa vì đã lên đơn",HttpStatus.BAD_REQUEST);
-    }
-
-    @Override
     public ResponseEntity<String> deleteByDetailId(Integer detailId) {
         Optional<InvoiceDetail> OptionalInvoiceDetail = findById(detailId);
         var status = OptionalInvoiceDetail.get().getInvoice().getInvoiceStatus().getStatusId();
@@ -210,7 +191,9 @@ public class InvoiceDetailService implements InvoiceDetailRepo {
         if (status == 0 || status == 1) {
             invoiceDetailRepo.deleteById(detailId);
             return ResponseEntity.ok().build();
-        }else return new ResponseEntity<>("Không thể cập xóa vì đã lên đơn hàng", HttpStatus.BAD_REQUEST);
+        }else return new ResponseEntity<>("Không thể xóa xóa vì đã lên đơn hàng", HttpStatus.BAD_REQUEST);
 
     }
+
+
 }

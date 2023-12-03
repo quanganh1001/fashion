@@ -121,7 +121,7 @@ public class ProductDetailService implements ProductDetailRepo {
 
     @Override
     public Optional<ProductDetail> findById(Integer s) {
-        return Optional.empty();
+        return productDetailRepo.findById(s);
     }
 
     @Override

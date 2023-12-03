@@ -44,11 +44,11 @@ public class CtlAdminImgProduct {
     public String addImg(Model model, @RequestParam("productId") String productId) {
         List<ImgProduct> imgProducts = imgProductService.findAllByProductProductId(productId);
 
-        ImgProduct img1 = imgProductService.getImgBg(1,true,productId);
+        ImgProduct img1 = imgProductService.getImgBg(1,productId);
         var imgbg1 = img1.getImgId();
         var imgbg1Name = img1.getFileImg();
 
-        ImgProduct img2 = imgProductService.getImgBg(2,true,productId);
+        ImgProduct img2 = imgProductService.getImgBg(2,productId);
         var imgbg2 = img2.getImgId();
         var imgbg2Name = img2.getFileImg();
 

@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/admin")
 public class CtlAdmin {
-
     @GetMapping
     public String getHome(Model model){
 

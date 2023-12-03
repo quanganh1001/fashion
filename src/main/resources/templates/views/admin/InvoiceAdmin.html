@@ -172,18 +172,8 @@
                         </span>
                     </div>
                 </td>
-                <td>
-                    <select class="form-control"
-                            th:data-invoice-id="${invoice.invoiceId}"
-                            th:data-old-status="${invoice.invoiceStatus.statusId}"
-                            onchange="changeStatus(this)">
-                        <option th:each="s : ${status}"
-                                th:value="${s.statusId}"
-                                th:text="${s.status}"
-                                th:selected="${s.statusId == invoice.invoiceStatus.statusId}">
-                        </option>
-                    </select>
-                </td>
+                <td th:text="${invoice.invoiceStatus.status}"></td>
+
                 <td><a th:href="@{/admin/invoiceDetail/__${invoice.invoiceId}__}"><i class="fa-regular fa-eye"></i></a></td>
             </tr>
             </tbody>

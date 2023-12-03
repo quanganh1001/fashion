@@ -30,6 +30,6 @@ public interface ImgProductRepo extends JpaRepository<ImgProduct,Integer> {
 
     void deleteByFileImg(String fileName);
 
-    Optional<ImgProduct> findByBackground1AndProductProductId(Boolean boo, String productId);
-    Optional<ImgProduct> findByBackground2AndProductProductId(Boolean boo,String productId);
+    Optional<ImgProduct> findByBackground1TrueAndProductProductId( String productId);
+    Optional<ImgProduct> findByBackground2TrueAndProductProductId(String productId);
 }
