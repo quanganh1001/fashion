@@ -31,7 +31,7 @@ th,tr,td{
     /*align-content: center;*/
 }
 .container{
-    justify-content: space-around;
+    justify-content: space-between;
     display: flex;
     flex-wrap: wrap;
 }

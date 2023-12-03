@@ -48,11 +48,10 @@ public class CtlAdminInvoice {
 
     }
 
-    @PostMapping("update-invoice")
+    @PostMapping("update-status")
     public ResponseEntity<Void> updateInvoice(@RequestParam("invoiceId") String invoiceId,
-                                             @RequestParam(value = "newStatus",defaultValue = "") Integer newStatus,
-                                              @RequestParam(value = "newNote",defaultValue = "") String newNote){
-        invoiceService.setInvoice(newStatus,newNote,invoiceId);
+                                             @RequestParam("newStatus") Integer newStatus){
+        invoiceService.setInvoice(newStatus,invoiceId);
         return ResponseEntity.ok().build();
     }
 

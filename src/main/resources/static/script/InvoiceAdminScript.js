@@ -37,10 +37,11 @@ function saveNote(button) {
     });
 }
 
-function changeStatus(newStatus,invoiceId){
+function changeStatus(select){
+    var invoiceId = select.getAttribute("data-invoice-id");
     $.ajax({
         type: 'POST',
-        url: '/admin/invoice/update-invoice',
+        url: '/admin/invoice/update-status',
         data: {invoiceId: invoiceId, newStatus: newStatus},
         success: function () {
             window.location.reload()

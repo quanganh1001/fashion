@@ -112,7 +112,7 @@ public class InvoiceService implements InvoiceRepo {
 
     @Override
     public Optional<Invoice> findById(String s) {
-        return Optional.empty();
+        return invoiceRepo.findById(s);
     }
 
     @Override
@@ -197,13 +197,9 @@ public class InvoiceService implements InvoiceRepo {
     }
 
 
-    public void setInvoice(Integer newStatus,String newNote, String invoiceId){
-        if(newStatus != null){
+    public void setInvoice(Integer newStatus, String invoiceId){
             setStatus(newStatus,invoiceId);
-        }
-        else {
-            setNote(newNote, invoiceId);
-        }
+
     }
 
 }

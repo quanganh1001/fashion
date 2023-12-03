@@ -3,9 +3,10 @@
 
 <head th:include="~{admin/fragment/head::head}"></head>
 <style>
-    .hidden{
+    .hidden {
         display: none;
     }
+
 </style>
 <body>
 <div class="ui-menu-item-wrapper">
@@ -13,6 +14,50 @@
 
     <div class="container mt-5">
         <h2>CHI TIẾT ĐƠN HÀNG</h2>
+        <div class="col-12">
+            <form th:action="@{/admin/invoice/update-invoice/__${invoice.invoiceId}__}" method="POST" th:object="${i}">
+                <input type="hidden" name="_method" value="put"/>
+                <div class="row">
+                    <div class="mb-3 col-6">
+                        <label for="invoice_id" class="form-label">Mã đơn hàng<span style="color:red">*</span></label>
+                        <input disabled type="text" class="form-control" id="invoice_id"
+                               th:field="${invoice.invoiceId}"/>
+                    </div>
+
+                    <div class="mb-3 col-6">
+                        <label for="name" class="form-label">Tên khách hàng<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="name"
+                               th:field="${invoice.name}">
+                    </div>
+
+                    <div class="mb-3 col-6">
+                        <label for="phone" class="form-label">Số điện thoại<span>*</span></label>
+                        <input disabled type="text" class="form-control" id="phone" th:field="${invoice.phone}">
+                    </div>
+
+                    <div class="mb-3 col-6">
+                        <label for="address" class="form-label">Địa chỉ<span
+                                style="color:red">*</span></label>
+                        <input class="form-control" id="address" th:field="${invoice.address}">
+                    </div>
+
+                    <div class="mb-3 col-6">
+                        <label for="note" class="form-label">Ghi chú nội bộ</label>
+                        <textarea class="form-control" id="note" rows="4" cols="50"
+                                  th:field="${invoice.note}">
+                        </textarea>
+                    </div>
+
+                </div>
+                <button style="text-align: center" type="submit" class="col-2 btn btn-primary">Lưu đơn hàng</button>
+                <div class="mb-3 col-6">
+                    <p>Trạng thái đơn hàng: <span id="status" style="color: red"
+                                                   th:text="${invoice.invoiceStatus.status}"></span></p>
+                </div>
+            </form>
+        </div>
+
+
         <table>
             <thead>
             <tr>
@@ -35,9 +80,9 @@
                                type="text"
                                th:value="${id.quantity}"/>
                         <span th:if="${id.invoice.invoiceStatus.statusId} == 1 or ${id.invoice.invoiceStatus.statusId} == 0"
-                                th:id="'edit' + ${id.detailId}"
-                                th:data-detail-id="${id.detailId}"
-                                onclick="toggleEditMode(this)">
+                              th:id="'edit' + ${id.detailId}"
+                              th:data-detail-id="${id.detailId}"
+                              onclick="toggleEditMode(this)">
                             <i class="fa-regular fa-pen-to-square" style="color: #0033ff;"></i>
                         </span>
                         <span class="hidden"
@@ -66,8 +111,17 @@
             </tr>
             </tbody>
         </table>
+
+        <div class="col-12">
+            <h4 style="color:red">Tổng đơn hàng: <span th:text="${invoice.totalAmount}"></span>đ</h4>
+        </div>
+
+        <button th:if="${invoice.invoiceStatus.statusId} == 1" id="send" style="text-align: center" type="submit"
+                class="col-2 btn btn-warning">In đơn hàng
+        </button>
+
     </div>
-</div>
+
 </div>
 <script th:src="@{/script/InvoiceDetailScript.js}"></script>
 </body>

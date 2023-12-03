@@ -23,12 +23,22 @@ public class CtlAdminInvoiceDetail {
     @Autowired
     private InvoiceDetailService invoiceDetailService;
 
+    @Autowired
+    private InvoiceService invoiceService;
+
+
     @GetMapping("/{invoiceId}")
     public String getInvoiceDetail(Model model,
                                    @PathVariable("invoiceId") String invoiceId){
         List<InvoiceDetail> invoiceDetails = invoiceDetailService.findAllByInvoice_InvoiceId(invoiceId);
 
+        Optional<Invoice> optionalInvoice = invoiceService.findById(invoiceId);
+        Invoice invoice = optionalInvoice.get();
+
+
         model.addAttribute("invoiceDetails",invoiceDetails);
+        model.addAttribute("invoice",invoice);
+
         return "/admin/InvoiceDetail";
     }
 

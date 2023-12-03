@@ -176,7 +176,7 @@
                     <select class="form-control"
                             th:data-invoice-id="${invoice.invoiceId}"
                             th:data-old-status="${invoice.invoiceStatus.statusId}"
-                            onchange="changeStatus(this.value,this.getAttribute('data-invoice-id'))">
+                            onchange="changeStatus(this)">
                         <option th:each="s : ${status}"
                                 th:value="${s.statusId}"
                                 th:text="${s.status}"
