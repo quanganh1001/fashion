@@ -6,15 +6,42 @@
     .hidden {
         display: none;
     }
-   .invoice{
-       margin: 5px 0 20px 0;
-   }
-   h4{
-       margin: 20px 0 0 0;
-   }
-   #plus{
-       margin: 5px 0;
-   }
+
+    .invoice {
+        margin: 5px 0 20px 0;
+    }
+
+    h4 {
+        margin: 20px 0 0 0;
+    }
+
+    #plus {
+        margin: 5px 0;
+    }
+
+    .result:hover {
+        background-color: grey;
+        color: white;
+    }
+
+    #add {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #input-plus{
+        height: 43px;
+        width: 80%;
+    }
+    #list-result {
+        width: 80%;
+        position: absolute;
+        top: 50px;
+        right: 0;
+        left: auto;
+    }
 </style>
 
 <body>
@@ -26,7 +53,8 @@
     <div class="container mt-5">
         <h2>CHI TIẾT ĐƠN HÀNG</h2>
         <div class="invoice col-12">
-            <form id="form" th:action="@{/admin/invoice/update-invoice/__${invoice.invoiceId}__}" method="POST" th:object="${i}">
+            <form id="form" th:action="@{/admin/invoice/update-invoice/__${invoice.invoiceId}__}" method="POST"
+                  th:object="${i}">
                 <input type="hidden" name="_method" value="put"/>
                 <div class="row">
                     <div class="mb-3 col-6">
@@ -75,7 +103,9 @@
                     </div>
                 </div>
 
-                <button style="text-align: center" type="submit" class="col-2 btn btn-primary" onclick="submitForm()">Cập nhập đơn hàng</button>
+                <button style="text-align: center" type="submit" class="col-2 btn btn-primary" onclick="submitForm()">
+                    Cập nhập đơn hàng
+                </button>
             </form>
         </div>
 
@@ -96,7 +126,8 @@
             <tbody>
 
             <tr th:each="id:${invoiceDetails}">
-                <td> <img width="50px" th:src="@{'/admin/invoiceDetail/img/'+${id.productDetail.product.productId}}"></td>
+                <td><img width="50px" th:src="@{'/admin/invoiceDetail/img/'+${id.productDetail.product.productId}}">
+                </td>
                 <td th:text="${id.productDetail.code}"></td>
                 <td th:text="${id.productDetail.product.productName}"></td>
                 <td th:text="${id.productDetail.color.name}"></td>
@@ -141,11 +172,38 @@
             </tr>
             </tbody>
         </table>
-        <button id="plus" class="btn btn-primary" th:data-invoice-id="${invoice.invoiceId}"><i class="fa-solid fa-plus" style="color: #ffffff;"></i>Thêm</button>
-
-        <div class="col-12">
-            <h4 style="color:red">Tổng đơn hàng: <span th:text="${invoice.totalAmount}"></span>đ</h4>
+        <div class="col-6">
+            <div class="col-6">
+                <h4 style="color:red">Tổng đơn hàng: <span th:text="${invoice.totalAmount}"></span>đ</h4>
+            </div>
+            <div id="add">
+                <button id="plus" class="col-2 btn btn-primary " th:data-invoice-id="${invoice.invoiceId}"><i
+                        class="fa-solid fa-plus" style="color: #ffffff;"></i>Thêm
+                </button>
+                <input type="text" id="input-plus" class="form-control"  >
+                <div id="list-result">
+                    <ul class="list-group" th:if="${searchResult != null} " th:each="result :${searchResult}">
+                        <li class="result list-group-item" style="display: flex">
+                            <img class="img-thumbnail" width="50px"
+                                 th:src="@{'/admin/invoiceDetail/img/'+${result.product.productId}}">
+                            <div>
+                                <span th:text="${result.product.productName} + '-' +  ${result.size.name} + '-' +  ${result.color.name}"></span>
+                                <div>
+                                    <div th:if="${result.product.isDiscount == true}">
+                                        <span th:text="${result.product.price} + 'đ'"
+                                              style="text-decoration: line-through;"></span>
+                                        <span th:text="${result.product.discountPrice} + 'đ'" style="color:red"></span>
+                                    </div>
+                                    <span th:unless="${result.product.isDiscount == true}"
+                                          th:text="${result.product.price} + 'đ'" style="color:red"></span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
+
 
     </div>
 

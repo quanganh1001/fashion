@@ -3,6 +3,7 @@ $(document).ready(function () {
     $('#bg1').change(function () {
         // Lấy giá trị của option được chọn
         var selectedImage = $(this).val();
+        console.log(selectedImage)
         var productId = document.getElementById("productId").value;
         console.log(selectedImage)
         console.log(productId)

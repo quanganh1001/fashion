@@ -33,6 +33,9 @@ public class CtlAdminInvoiceDetail {
     @Autowired
     private ImgProductService imgProductService;
 
+    @Autowired
+    private ProductDetailService productDetailService;
+
     @GetMapping("/{invoiceId}")
     public String getInvoiceDetail(Model model,
                                    @PathVariable("invoiceId") String invoiceId) {
@@ -43,10 +46,11 @@ public class CtlAdminInvoiceDetail {
 
         List<InvoiceStatus> status = invoiceStatusService.findAll();
 
-
+        List<ProductDetail> productDetails = productDetailService.findAll();
         model.addAttribute("invoiceDetails", invoiceDetails);
         model.addAttribute("invoice", invoice);
         model.addAttribute("status", status);
+        model.addAttribute("searchResult",productDetails);
 
         return "/admin/InvoiceDetail";
     }
