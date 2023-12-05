@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import project.fashion.entity.InvoiceDetail;
 import project.fashion.entity.ProductDetail;
 
 import java.util.List;
@@ -17,4 +18,5 @@ public interface ProductDetailRepo extends JpaRepository<ProductDetail,Integer> 
 
     List<ProductDetail> findAllByProductProductId(String productId);
 
+    List<ProductDetail> searchProductDetailByProductProductNameContainingIgnoreCase(String key);
 }

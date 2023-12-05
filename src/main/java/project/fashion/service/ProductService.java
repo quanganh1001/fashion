@@ -191,14 +191,14 @@ public class ProductService implements ProductRepo {
     }
 
     @Override
-    public Page<Product> searchProductsByProductIdContainingOrProductNameContainingIgnoreCase(String key1, String key2, Pageable pageable) {
-        return productRepo.searchProductsByProductIdContainingOrProductNameContainingIgnoreCase(key1,key2,pageable);
+    public Page<Product> searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase(String key1, String key2, Pageable pageable) {
+        return productRepo.searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase(key1,key2,pageable);
     }
 
 
     public Page<Product> searchProduct(String key, Pageable pageable) {
         if (key != null && !key.isEmpty()) {
-            return productRepo.searchProductsByProductIdContainingOrProductNameContainingIgnoreCase(
+            return productRepo.searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase(
                     key, key, pageable);
         } else {
             return productRepo.findAll(pageable);

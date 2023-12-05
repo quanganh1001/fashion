@@ -14,4 +14,5 @@ public interface InvoiceDetailRepo extends JpaRepository<InvoiceDetail,Integer> 
     List<InvoiceDetail> findAllByInvoice_InvoiceId(String invoiceId);
 
     ResponseEntity<String> deleteByDetailId(Integer detailId);
+
 }

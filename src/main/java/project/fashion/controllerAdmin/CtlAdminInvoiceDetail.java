@@ -50,9 +50,9 @@ public class CtlAdminInvoiceDetail {
         model.addAttribute("invoiceDetails", invoiceDetails);
         model.addAttribute("invoice", invoice);
         model.addAttribute("status", status);
-        model.addAttribute("searchResult",productDetails);
+        model.addAttribute("searchResult", productDetails);
 
-        return "/admin/InvoiceDetail";
+        return "admin/InvoiceDetail";
     }
 
 
@@ -72,5 +72,11 @@ public class CtlAdminInvoiceDetail {
         return ResponseEntity.ok().body(imageResource);
     }
 
-
+    @GetMapping("/searchProduct")
+    public String searchProduct(Model model, @RequestParam("key") String key) {
+        List<ProductDetail> search =
+                productDetailService.searchProductDetailByProductProductNameContainingIgnoreCase(key);
+            model.addAttribute("search", search);
+        return "admin/fragment/SearchProduct";
+    }
 }

@@ -30,6 +30,13 @@ public class ProductDetailService implements ProductDetailRepo {
     }
 
     @Override
+    public List<ProductDetail> searchProductDetailByProductProductNameContainingIgnoreCase(String key) {
+        if(key != null && !key.isEmpty())
+        return productDetailRepo.searchProductDetailByProductProductNameContainingIgnoreCase(key);
+        else return null;
+    }
+
+    @Override
     public void flush() {
 
     }

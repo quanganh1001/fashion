@@ -93,7 +93,7 @@
             <label for="key">Tìm kiếm:</label>
             <input type="text" id="key" name="key" th:value="${#strings.isEmpty(searchKey) ? '' : searchKey}"
                    placeholder="Nhập SĐT hoặc mã đơn hàng...">
-            <button type="submit" class="btn-primary">Tìm kiếm</button>
+            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
         </form>
 
         <div>Tổng: <span th:text="${totalItems}" style="color:red"></span> đơn hàng</div>

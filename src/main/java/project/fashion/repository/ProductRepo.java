@@ -18,7 +18,7 @@ public interface ProductRepo extends JpaRepository<Product, String> {
 
     List<Product> findByCategoryCatId(String cat_id);
 
-    Page<Product> searchProductsByProductIdContainingOrProductNameContainingIgnoreCase(String key1,
+    Page<Product> searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase(String key1,
                                                                                        String key2,
                                                                                        Pageable pageable);
 

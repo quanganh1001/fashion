@@ -1,0 +1,24 @@
+<div th:fragment="SearchProduct">
+    <ul class="list-group" th:if="${search != null} " th:each="result :${search}">
+        <li th:data-detail-id="${result.productDetailId}" class="result list-group-item" style="display: flex">
+            <img class="img-thumbnail" width="50px"
+                 th:src="@{'/admin/invoiceDetail/img/'+${result.product.productId}}">
+            <div>
+                <span th:text="${result.product.productName} + '-' +  ${result.size.name} + '-' +  ${result.color.name}"></span>
+                <div class="d-flex justify-content-between">
+                    <div th:if="${result.product.isDiscount == true}">
+                                        <span th:text="${result.product.price} + 'đ'"
+                                              style="text-decoration: line-through;">
+                                        </span>
+                        <span th:text="${result.product.discountPrice} + 'đ'" style="color:red"></span>
+                    </div>
+                    <span th:unless="${result.product.isDiscount == true}"
+                          th:text="${result.product.price} + 'đ'" style="color:red">
+                    </span>
+
+                    <span class="fw-lighter" th:text="'Số lượng: '+${result.quantity}"></span>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

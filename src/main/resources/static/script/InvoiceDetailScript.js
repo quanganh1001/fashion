@@ -74,24 +74,6 @@ function changeStatus(select) {
     }
 }
 
-$(document).ready(() => {
-    $("#plus").click(() => {
-
-
-        $.ajax({
-            type: 'GET',
-            url: "/admin/invoice/filter/" + filterStatus + "?key=", // Replace with your actual endpoint-->
-            success: () => {
-                window.location.href = "/admin/invoice/filter/" + filterStatus + "?key=";
-            },
-            error: () => {
-                alert('Failed to update status.');
-            }
-        });
-    });
-});
-
-
 function submitForm() {
     var formData = $('#form').serialize(); // Lấy dữ liệu form
     var url = $('#form').attr('action'); // Lấy URL của form
@@ -111,3 +93,41 @@ function submitForm() {
     });
 }
 
+$(document).ready(() => {
+    $("#plus").click(() => {
+        $("#plus-cancel").removeClass("hidden")
+        $("#plus").addClass("hidden")
+        $("#input-plus").removeClass("hidden")
+    })
+    $("#plus-cancel").click(() => {
+        $("#plus-cancel").addClass("hidden")
+        $("#plus").removeClass("hidden")
+        $("#input-plus").addClass("hidden")
+        $("#list-result").addClass("hidden")
+    })
+
+    var inputValue = ""
+    $("#input-plus").keyup(()=>{
+        inputValue = $("#input-plus").val();
+        console.log(inputValue)
+        if (inputValue != null && inputValue !== ""){
+            $("#list-result").removeClass("hidden")
+
+            $.ajax({
+                type: 'GET',
+                url: "/admin/invoiceDetail/searchProduct?key=" + inputValue,
+                success: function (data) {
+                    $("#list-result").html(data)
+                },
+                error: function (error) {
+                    console.log(error)
+                }
+            });
+        }else
+            $("#list-result").addClass("hidden")
+    })
+
+    $(".result").click(() => {
+        console.log($(this))
+    })
+})
