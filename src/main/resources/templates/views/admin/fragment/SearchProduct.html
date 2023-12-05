@@ -4,7 +4,11 @@
             <img class="img-thumbnail" width="50px"
                  th:src="@{'/admin/invoiceDetail/img/'+${result.product.productId}}">
             <div>
-                <span th:text="${result.product.productName} + '-' +  ${result.size.name} + '-' +  ${result.color.name}"></span>
+                <span th:if="${result.outOfStock == true}"
+                        th:text="${result.product.productName} + ' | ' +  ${result.size.name} + ' | ' +  ${result.color.name}"></span>
+                <span th:unless="${result.outOfStock == true}"
+                      th:text="${result.product.productName} + ' | ' +  ${result.size.name} + ' | ' +  ${result.color.name}"
+                      style="text-decoration: line-through;"></span>
                 <div class="d-flex justify-content-between">
                     <div th:if="${result.product.isDiscount == true}">
                                         <span th:text="${result.product.price} + 'đ'"
