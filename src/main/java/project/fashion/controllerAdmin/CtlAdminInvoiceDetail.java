@@ -47,6 +47,7 @@ public class CtlAdminInvoiceDetail {
         List<InvoiceStatus> status = invoiceStatusService.findAll();
 
         List<ProductDetail> productDetails = productDetailService.findAll();
+
         model.addAttribute("invoiceDetails", invoiceDetails);
         model.addAttribute("invoice", invoice);
         model.addAttribute("status", status);
@@ -73,10 +74,19 @@ public class CtlAdminInvoiceDetail {
     }
 
     @GetMapping("/searchProduct")
-    public String searchProduct(Model model, @RequestParam("key") String key) {
+    public String searchProduct(Model model, @RequestParam("key") String key,@RequestParam("invoiceId") String invoiceId) {
         List<ProductDetail> search =
                 productDetailService.searchProductDetailByProductProductNameContainingIgnoreCase(key);
             model.addAttribute("search", search);
+            model.addAttribute("invoiceId",invoiceId);
         return "admin/fragment/SearchProduct";
+    }
+
+    @PostMapping("/addProduct")
+    public String addProduct(@RequestParam("productDetailId") Integer productDetailId,
+                                             @RequestParam("invoiceId") String invoiceId){
+        invoiceDetailService.addProductInvoiceDetail(productDetailId,invoiceId);
+        return "admin/fragment/SearchProduct";
+
     }
 }

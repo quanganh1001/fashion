@@ -9,10 +9,16 @@ import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import project.fashion.entity.Invoice;
 import project.fashion.entity.InvoiceDetail;
+import project.fashion.entity.Product;
+import project.fashion.entity.ProductDetail;
 import project.fashion.repository.InvoiceDetailRepo;
+import project.fashion.repository.InvoiceRepo;
+import project.fashion.repository.ProductDetailRepo;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -20,6 +26,12 @@ import java.util.function.Function;
 public class InvoiceDetailService implements InvoiceDetailRepo {
     @Autowired
     private InvoiceDetailRepo invoiceDetailRepo;
+
+    @Autowired
+    private InvoiceRepo invoiceRepo;
+
+    @Autowired
+    private ProductDetailRepo productDetailRepo;
 
     @Override
     public void flush() {
@@ -103,7 +115,7 @@ public class InvoiceDetailService implements InvoiceDetailRepo {
 
     @Override
     public <S extends InvoiceDetail> S save(S entity) {
-        return null;
+        return invoiceDetailRepo.save(entity);
     }
 
     @Override
@@ -195,5 +207,50 @@ public class InvoiceDetailService implements InvoiceDetailRepo {
 
     }
 
+    public void addProductInvoiceDetail(Integer productDetailId,String invoiceId){
+        System.out.println(productDetailId);
+        System.out.println(invoiceId);
+        InvoiceDetail newInvoiceDetail = new InvoiceDetail();
+        List<InvoiceDetail> invoiceDetails = findAllByInvoice_InvoiceId(invoiceId);
 
+        InvoiceDetail result = invoiceDetails.stream()
+                .filter(detail -> Objects.equals(detail.getProductDetail().getProductDetailId(), productDetailId))
+                .findFirst()
+                .orElse(null);
+        System.out.println(result);
+
+        if(result == null){
+            Optional<Invoice> OptionalInvoice = invoiceRepo.findById(invoiceId);
+            Invoice invoice = OptionalInvoice.get();
+
+            Optional<ProductDetail> OptionalProductDetail = productDetailRepo.findById(productDetailId);
+            ProductDetail productDetail = OptionalProductDetail.get();
+            var isDiscount = OptionalProductDetail.get().getProduct().getIsDiscount();
+
+            if(isDiscount == false){
+                var price = OptionalProductDetail.get().getProduct().getPrice();
+                newInvoiceDetail.setPrice(price);
+                newInvoiceDetail.setTotalPrice(price);
+            }else {
+                var price = OptionalProductDetail.get().getProduct().getDiscountPrice();
+                newInvoiceDetail.setPrice(price);
+                newInvoiceDetail.setTotalPrice(price);
+            }
+
+            newInvoiceDetail.setInvoice(invoice);
+            newInvoiceDetail.setProductDetail(productDetail);
+            newInvoiceDetail.setQuantity(1);
+
+            System.out.println(newInvoiceDetail);
+            save(newInvoiceDetail);
+        }
+
+        else {
+            var quantity = result.getQuantity();
+            var newQuantity = quantity + 1;
+            result.setQuantity(newQuantity);
+
+            save(result);
+        }
+    }
 }

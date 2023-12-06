@@ -35,15 +35,13 @@
         overflow-y: auto;
     }
 </style>
-
 <body>
-
-
 <div class="ui-menu-item-wrapper">
     <div th:include="~{admin/fragment/Menu::menu}"></div>
 
     <div class="container mt-5">
         <h2>CHI TIẾT ĐƠN HÀNG</h2>
+        <div>Ngày đặt hàng: <span th:text="${invoice.createdAt}"></span></div>
         <div class="invoice col-12">
             <form id="form" th:action="@{/admin/invoice/update-invoice/__${invoice.invoiceId}__}" method="POST"
                   th:object="${i}">
@@ -174,7 +172,7 @@
             </button>
 
             <div id="search" class="col-6">
-                <input type="text" placeholder="Nhập mã sản phẩm hoặc tên sản phẩm..." id="input-plus"
+                <input th:data-invoice-id="${invoiceId}" type="text" placeholder="Nhập mã sản phẩm hoặc tên sản phẩm..." id="input-plus"
                        class="col-6 hidden form-control">
                 <div id="list-result" class="col-12 hidden"
                      th:include="~{admin/fragment/SearchProduct::SearchProduct}"></div>

@@ -10,9 +10,9 @@ public class InvoiceDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer detailId;
-    private Double  price;
+    private Integer price;
     private Integer quantity;
-    private Double totalPrice;
+    private Integer totalPrice;
 
     @ManyToOne
     @JoinColumn(name = "product_detail_id")

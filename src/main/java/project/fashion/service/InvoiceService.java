@@ -11,6 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import project.fashion.entity.Invoice;
+import project.fashion.entity.InvoiceDetail;
+import project.fashion.entity.ProductDetail;
+import project.fashion.repository.InvoiceDetailRepo;
 import project.fashion.repository.InvoiceRepo;
 
 import java.util.List;
@@ -21,6 +24,9 @@ import java.util.function.Function;
 public class InvoiceService implements InvoiceRepo {
     @Autowired
     private InvoiceRepo invoiceRepo;
+
+    @Autowired
+    private InvoiceDetailRepo invoiceDetailRepo;
 
     @Override
     public void flush() {
@@ -198,23 +204,31 @@ public class InvoiceService implements InvoiceRepo {
                     key, key, pageable);
     }
 
-    public ResponseEntity<String> setInvoice(String invoiceId, Invoice invoice) throws Exception {
+    public ResponseEntity<String> setInvoice(String invoiceId, Invoice i) throws Exception {
+        List<InvoiceDetail> invoiceDetails = invoiceDetailRepo.findAllByInvoice_InvoiceId(invoiceId);
+
+
         Optional<Invoice> optionalInvoice = findById(invoiceId);
         var status = optionalInvoice.get().getInvoiceStatus().getStatusId();
-        var newStatus = invoice.getInvoiceStatus().getStatusId();
+        var newStatus = i.getInvoiceStatus().getStatusId();
         var totalAmount = optionalInvoice.get().getTotalAmount();
         var phone = optionalInvoice.get().getPhone();
 
-        if((status >= 3 && status <= 6) && (newStatus == 0 ||newStatus == 1 || newStatus == 2))
+
+
+//        if (status == 3){
+//            var quantity = i.get
+//        }
+         if((status >= 4 && status <= 6) && (newStatus == 0 ||newStatus == 1 || newStatus == 2))
             throw new Exception("Đơn đã gửi thì không thể đổi trạng thái về lúc chưa gửi") ;
 
         else if((status >= 0 && status <= 2) && (newStatus == 4 || newStatus == 5 || newStatus == 6 )){
             throw new Exception("Đơn chưa gửi không thể cập nhập trạng thái đang chuyển, thành công hoặc hoàn") ;
         }
         else {
-            invoice.setTotalAmount(totalAmount);
-            invoice.setPhone(phone);
-            save(invoice);
+            i.setTotalAmount(totalAmount);
+            i.setPhone(phone);
+            save(i);
             return ResponseEntity.ok().build();
         }
     }

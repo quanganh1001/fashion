@@ -1,6 +1,8 @@
 <div th:fragment="SearchProduct">
     <ul class="list-group" th:if="${search != null} " th:each="result :${search}">
-        <li th:data-detail-id="${result.productDetailId}" class="result list-group-item" style="display: flex">
+        <li th:data-product-detail-id="${result.productDetailId}"
+            th:data-invoice-id="${invoiceId}"
+            class="result list-group-item" style="display: flex">
             <img class="img-thumbnail" width="50px"
                  th:src="@{'/admin/invoiceDetail/img/'+${result.product.productId}}">
             <div>
@@ -25,4 +27,27 @@
             </div>
         </li>
     </ul>
+
+    <script>
+        $(document).ready(() => {
+            $(".result").on("click", function () {
+                var productDetailId = $(this).attr("data-product-detail-id")
+                var invoiceId = $(this).attr("data-invoice-id")
+                console.log(invoiceId)
+                console.log(productDetailId)
+                $.ajax({
+                    type: 'POST',
+                    url: "/admin/invoiceDetail/addProduct",
+                    data: {productDetailId:productDetailId,invoiceId:invoiceId},
+                    success: function () {
+                        location.reload()
+
+                    },
+                    error: function (error) {
+                        console.log(error)
+                    }
+                });
+            });
+        })
+    </script>
 </div>

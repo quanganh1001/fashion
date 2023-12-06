@@ -25,12 +25,6 @@ public class CtlAdminInvoice {
     @Autowired
     private InvoiceService invoiceService;
 
-    @Autowired
-    private InvoiceStatusService invoiceStatusService;
-
-    @Autowired
-    private InvoiceDetailService invoiceDetailService;
-
     @GetMapping("filter/{filterStatus}")
     public String filterStatus(Model model,
                                @PathVariable("filterStatus") Integer filterStatus,

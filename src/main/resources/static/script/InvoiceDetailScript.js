@@ -44,6 +44,7 @@ function confirmDelete(detailId) {
             success: function (result) {
                 // Xử lý kết quả sau khi xóa thành công
                 alert("Xóa thành công!")
+                location.reload();
             },
             error: function (err) {
                 // Xử lý lỗi nếu có
@@ -59,7 +60,7 @@ function changeStatus(select) {
     var newStatus = select.value;
     console.log(invoiceId)
     // kiểm tra nếu đơn đã gửi thì không thể chuyển trạng thái về chưa gửi
-    if ((oldStatus >= 3 && oldStatus <= 6) && (newStatus >= 0 && newStatus <= 2)) {
+    if ((oldStatus >= 4 && oldStatus <= 6) && (newStatus >= 0 && newStatus <= 2)) {
         select.value = oldStatus
         alert('Đơn đã gửi thì không thể đổi trạng thái về lúc chưa gửi');
     }
@@ -106,8 +107,11 @@ $(document).ready(() => {
         $("#list-result").addClass("hidden")
     })
 
+
+    var invoiceId = $("#input-plus").attr("data-invoice-id");
     var inputValue = ""
     $("#input-plus").keyup(()=>{
+
         inputValue = $("#input-plus").val();
         console.log(inputValue)
         if (inputValue != null && inputValue !== ""){
@@ -115,7 +119,8 @@ $(document).ready(() => {
 
             $.ajax({
                 type: 'GET',
-                url: "/admin/invoiceDetail/searchProduct?key=" + inputValue,
+                url: "/admin/invoiceDetail/searchProduct",
+                data: {invoiceId:invoiceId,key:inputValue},
                 success: function (data) {
                     $("#list-result").html(data)
                 },
@@ -125,9 +130,5 @@ $(document).ready(() => {
             });
         }else
             $("#list-result").addClass("hidden")
-    })
-
-    $(".result").click(() => {
-        console.log($(this))
     })
 })
