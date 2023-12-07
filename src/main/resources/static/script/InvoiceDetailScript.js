@@ -17,14 +17,14 @@ function toggleEditMode(button) {
 }
 
 function saveQuantity(button) {
-    var detailId = button.getAttribute('data-detail-id');
-    var quantityElement = $('#input' + detailId);
+    var invoiceDetailId = button.getAttribute('data-detail-id');
+    var quantityElement = $('#input' + invoiceDetailId);
     var newQuantity = quantityElement.val();
 
     $.ajax({
         type: 'PUT',
         url: '/admin/invoiceDetail/update-quantity', // Replace with your actual endpoint-->
-        data: {detailId: detailId, newQuantity: newQuantity},
+        data: {newQuantity: newQuantity,invoiceDetailId: invoiceDetailId},
         success: function () {
             toggleEditMode(button);
             window.location.reload();

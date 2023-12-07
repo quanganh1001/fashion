@@ -51,8 +51,6 @@ public class CtlAdminInvoice {
                                                 @ModelAttribute Invoice i) throws Exception {
 
         return invoiceService.setInvoice(invoiceId,i);
-
-
     }
 
 }

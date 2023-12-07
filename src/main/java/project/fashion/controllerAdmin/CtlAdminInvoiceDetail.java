@@ -87,6 +87,12 @@ public class CtlAdminInvoiceDetail {
                                              @RequestParam("invoiceId") String invoiceId){
         invoiceDetailService.addProductInvoiceDetail(productDetailId,invoiceId);
         return "admin/fragment/SearchProduct";
+    }
 
+    @PutMapping("/update-quantity")
+    public String updateQuantity(@RequestParam("newQuantity") Integer newQuantity,
+                             @RequestParam("invoiceDetailId") Integer invoiceDetailId){
+        invoiceDetailService.updateQuantity(newQuantity,invoiceDetailId);
+        return "admin/fragment/SearchProduct";
     }
 }

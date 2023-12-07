@@ -195,6 +195,10 @@ public class InvoiceDetailService implements InvoiceDetailRepo {
         return invoiceDetailRepo.findAllByInvoice_InvoiceId(invoiceId);
     }
 
+    @Override
+    public void updateQuantity(Integer newQuantity,Integer invoiceDetailId){
+        invoiceDetailRepo.updateQuantity(newQuantity,invoiceDetailId);
+    }
 
     public ResponseEntity<String> deleteByDetailId(Integer detailId) {
         Optional<InvoiceDetail> OptionalInvoiceDetail = findById(detailId);
@@ -251,4 +255,6 @@ public class InvoiceDetailService implements InvoiceDetailRepo {
             save(result);
         }
     }
+
+
 }
