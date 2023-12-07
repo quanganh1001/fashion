@@ -129,10 +129,6 @@ public class InvoiceDetailService implements InvoiceDetailRepo {
         return Optional.of(invoiceDetailRepo.findById(integer).orElse(detail));
     }
 
-    public String getInvoiceId(Integer detailId) {
-        Optional<InvoiceDetail> detailOptional = findById(detailId);
-        return detailOptional.get().getInvoice().getInvoiceId();
-    }
 
     @Override
     public boolean existsById(Integer integer) {

@@ -16,27 +16,6 @@ function toggleEditMode(button) {
     cancelElement.toggleClass('hidden');
 }
 
-function saveNote(button) {
-    var invoiceId = button.getAttribute('data-invoice-id');
-    var noteElement = $('#input' + invoiceId);
-    var newNote = noteElement.val();
-    var noteElement = $('#note' + invoiceId);
-
-    $.ajax({
-        type: 'POST',
-        url: '/admin/invoice/update-invoice', // Replace with your actual endpoint-->
-        data: {invoiceId: invoiceId, newNote: newNote},
-        success: function () {
-            toggleEditMode(button);
-            window.location.reload();
-
-        },
-        error: function () {
-            alert('Failed to update note.');
-        }
-    });
-}
-
 $(document).ready(() =>{
     $(".filter").click(() =>{
         // Lấy giá trị của thuộc tính data-filter của phần tử được click

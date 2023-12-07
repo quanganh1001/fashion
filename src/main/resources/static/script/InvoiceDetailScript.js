@@ -58,18 +58,17 @@ function changeStatus(select) {
     var invoiceId = select.getAttribute("data-invoice-id");
     var oldStatus = select.getAttribute("data-old-status")
     var newStatus = select.value;
-    console.log(invoiceId)
     // kiểm tra nếu đơn đã gửi thì không thể chuyển trạng thái về chưa gửi
-    if ((oldStatus >= 4 && oldStatus <= 6) && (newStatus >= 0 && newStatus <= 2)) {
+    if (oldStatus >= 4 && newStatus <= 2) {
         select.value = oldStatus
         alert('Đơn đã gửi thì không thể đổi trạng thái về lúc chưa gửi');
     }
-
     // kiểm tra nếu đơn chưa gửi thì không thể chuyển trạng thái thành công hoặc hoàn
-    else if ((oldStatus >= 0 && oldStatus <= 2) && (newStatus >= 4 && newStatus <= 6)) {
+    else if (oldStatus <= 2 && newStatus >= 4) {
         select.value = oldStatus
         alert("Đơn chưa gửi không thể cập nhập trạng thái đang chuyển, thành công hoặc hoàn")
-    } else if ((oldStatus === 5 || oldStatus === 6)) {
+    }
+    else if (oldStatus == 5 || oldStatus == 6) {
         select.value = oldStatus
         alert("Đơn hàng đã thành công hoặc hoàn thì không thể cập nhập trạng thái")
     }

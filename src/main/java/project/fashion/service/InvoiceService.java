@@ -205,30 +205,33 @@ public class InvoiceService implements InvoiceRepo {
     }
 
     public ResponseEntity<String> setInvoice(String invoiceId, Invoice i) throws Exception {
-
         Optional<Invoice> optionalInvoice = findById(invoiceId);
         var status = optionalInvoice.get().getInvoiceStatus().getStatusId();
         var newStatus = i.getInvoiceStatus().getStatusId();
         var totalAmount = optionalInvoice.get().getTotalAmount();
-        var phone = optionalInvoice.get().getPhone();
 
+        List<InvoiceDetail> invoiceDetails = invoiceDetailRepo.findAllByInvoice_InvoiceId(invoiceId);
+        if (status != 3 && newStatus == 3) {
+            for (InvoiceDetail id : invoiceDetails) {
+                var oldQuantity = id.getProductDetail().getQuantity();
+                var quantity = id.getQuantity();
+                var productDetaiId = id.getProductDetail().getProductDetailId();
+                System.out.println("~~~" + oldQuantity);
+                System.out.println("~~~" + quantity);
+                var newQuantity = oldQuantity - quantity;
+                invoiceDetailRepo.updateQuantity(newQuantity,productDetaiId);
+            }
+        }else if ((status >= 4) && (newStatus <= 2))
+            throw new Exception("Đơn đã gửi thì không thể đổi trạng thái về lúc chưa gửi");
 
-//        if (status == 3){
-//            var quantity = i.get
-//        }
-         if((status >= 4 && status <= 6) && (newStatus == 0 ||newStatus == 1 || newStatus == 2))
-            throw new Exception("Đơn đã gửi thì không thể đổi trạng thái về lúc chưa gửi") ;
-
-        else if((status >= 0 && status <= 2) && (newStatus == 4 || newStatus == 5 || newStatus == 6 )){
-            throw new Exception("Đơn chưa gửi không thể cập nhập trạng thái đang chuyển, thành công hoặc hoàn") ;
-        }
-        else {
+        else if ((status >= 0 && status <= 2) && (newStatus >= 4)) {
+            throw new Exception("Đơn chưa gửi không thể cập nhập trạng thái đang chuyển, thành công hoặc hoàn");
+        } else {
             i.setTotalAmount(totalAmount);
-            i.setPhone(phone);
+            System.out.println(i);
             save(i);
-            return ResponseEntity.ok().build();
         }
+        return ResponseEntity.ok().build();
     }
-
 }
 

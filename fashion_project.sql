@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 03, 2023 lúc 02:16 PM
+-- Máy chủ: localhost
+-- Thời gian đã tạo: Th12 07, 2023 lúc 09:25 AM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.0.28
+-- Phiên bản PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -433,8 +433,8 @@ INSERT INTO `imgs_product` (`img_id`, `product_id`, `file_img`, `background_1`, 
 (245, 'ESTP047', '2_25c38d6c27394c258025535e2bc9d5bd_master.jpg', b'0', b'0'),
 (246, 'ESTP047', '6_e4d2cb26997d464985a485cc7f212599_master.jpg', b'0', b'0'),
 (247, 'ESTP047', '4_a52dff1ab14f48e7b978ced85dfb6806_master.jpg', b'0', b'0'),
-(248, 'ESTP047', 'estp047-1_1f39491e95314848a3036b88e0bdcc90_master.jpg', b'0', b'0'),
-(249, 'ESTP047', 'estp047-2_7378910d66be4c0a8dcc152afcb330e0_master.jpg', b'0', b'0'),
+(248, 'ESTP047', 'estp047-1_1f39491e95314848a3036b88e0bdcc90_master.jpg', b'1', b'0'),
+(249, 'ESTP047', 'estp047-2_7378910d66be4c0a8dcc152afcb330e0_master.jpg', b'0', b'1'),
 (254, 'TP004', 'tp004_45415f65d7bc4f4c8d52f4893d682a43_master.jpg', b'1', b'0'),
 (255, 'TP004', 'tp004-2_572851b755514fa7b302d5120a7d3b94_master.jpg', b'0', b'1'),
 (256, 'TP004', '5_14e1329ad875426cbc7afb776056eeae_master.jpg', b'0', b'0'),
@@ -516,10 +516,10 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `total_amount`, `created_at`, `note`, `invoice_status`) VALUES
-('QWEASVXZ', 'zxca', '93232', 'vxdvs', 2050000, '2023-12-03 12:55:57', 'dfdfdfs3', 4),
-('SDDFGSEW', 'quang anh', '932', '4dvsdsf', 2050000, '2023-12-03 13:15:42', 'd', 1),
-('VCXBDSGS', 'SF', '93232', '4fdsdvs', 2050000, '2023-11-26 09:39:38', 'dsf', 1),
-('YHJFSFAS', 'Qvxa', '21932', '4cddvs', 2050000, '2023-11-26 09:39:38', '', 1);
+('QWEASVXZ', 'zxca', '93232', 'vxdvs', 2383333, '2023-12-03 12:55:57', 'dfdfdfs3', 4),
+('SDDFGSEW', 'quang anh', '932', '4dvsdsf', 2799999, '2023-12-07 03:23:57', 'hello\r\nx', 1),
+('VCXBDSGS', 'SF', '93232', '4fdsdvs', 333333, '2023-11-26 09:39:38', 'dsf', 1),
+('YHJFSFAS', 'Qvxa', '21932', '4cddvs', 2550000, '2023-11-26 09:39:38', '', 1);
 
 --
 -- Bẫy `invoices`
@@ -554,21 +554,39 @@ CREATE TABLE `invoices_detail` (
 --
 
 INSERT INTO `invoices_detail` (`detail_id`, `invoice_id`, `product_detail_id`, `price`, `quantity`, `total_price`) VALUES
-(1, 'SDDFGSEW', 47, 490000, 1, 490000),
-(2, 'SDDFGSEW', 191, 390000, 4, 1560000),
 (3, 'YHJFSFAS', 87, 490000, 1, 490000),
 (4, 'YHJFSFAS', 195, 390000, 4, 1560000),
-(5, 'VCXBDSGS', 245, 490000, 1, 490000),
-(6, 'VCXBDSGS', 244, 390000, 4, 1560000),
 (7, 'QWEASVXZ', 190, 490000, 1, 490000),
-(8, 'QWEASVXZ', 246, 390000, 4, 1560000);
+(8, 'QWEASVXZ', 246, 390000, 4, 1560000),
+(25, 'SDDFGSEW', 46, 333333, 3, 999999),
+(26, 'SDDFGSEW', 246, 450000, 3, 1350000),
+(28, 'SDDFGSEW', 247, 450000, 1, 450000),
+(29, 'QWEASVXZ', 46, 333333, 1, 333333),
+(30, 'VCXBDSGS', 47, 333333, 1, 333333),
+(31, 'YHJFSFAS', 234, 500000, 1, 500000);
 
 --
 -- Bẫy `invoices_detail`
 --
 DELIMITER $$
+CREATE TRIGGER `calculate_delete` AFTER DELETE ON `invoices_detail` FOR EACH ROW BEGIN
+    DECLARE total int;
+
+    -- Tính tổng tiền cho invoice có id tương ứng với dòng mới chèn vào invoice_detail
+    SELECT SUM(total_price) INTO total
+    FROM invoices_detail
+    WHERE invoice_id = invoice_id;
+
+    -- Cập nhật tổng tiền vào bảng invoice
+    UPDATE invoices
+    SET total_amount = 0
+    WHERE invoice_id = invoice_id;
+END
+$$
+DELIMITER ;
+DELIMITER $$
 CREATE TRIGGER `calculate_invoice_total` AFTER INSERT ON `invoices_detail` FOR EACH ROW BEGIN
-    DECLARE total double;
+    DECLARE total int;
 
     -- Tính tổng tiền cho invoice có id tương ứng với dòng mới chèn vào invoice_detail
     SELECT SUM(total_price) INTO total
@@ -584,7 +602,7 @@ $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `calculate_invoice_total_update` AFTER UPDATE ON `invoices_detail` FOR EACH ROW BEGIN
-    DECLARE total double;
+    DECLARE total int;
 
     -- Tính tổng tiền cho invoice có id tương ứng với dòng mới chèn vào invoice_detail
     SELECT SUM(total_price) INTO total
@@ -672,7 +690,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `product_name`, `cat_id`, `price`, `discount_price`, `discount_percent`, `is_discount`, `brand`, `description`, `img_size_id`, `total_size`, `total_color`, `is_product_active`) VALUES
-('DSTP611', 'Áo polo trơn bo kẻ DSTP611\r\n', 'PLHT', 3333333, NULL, NULL, b'0', 'Torano', '', 1, 4, 1, b'1'),
+('DSTP611', 'Áo polo trơn bo kẻ DSTP611', 'PLHT', 333333, NULL, NULL, b'0', 'Torano', '', 1, 4, 1, b'1'),
 ('DSTP650', 'Áo Polo monogram TRN DSTP650', 'PLCP', 450000, NULL, NULL, b'0', 'TORANO', 'Áo Polo monogram TRN 1.DSTP650', 1, 4, 1, b'1'),
 ('DSTP903', 'Áo polo can phối Horizontal Color Scheme DSTP903', 'PLCP', 420000, 290000, 31, b'1', 'TORANO', '', 1, 4, 2, b'1'),
 ('ESTP001', 'Áo polo họa tiết in tràn ESTP001', 'PLHT', 420000, NULL, NULL, b'0', 'TORANO', '', 1, 4, 1, b'1'),
@@ -1325,7 +1343,7 @@ ALTER TABLE `incvoice_status`
 -- AUTO_INCREMENT cho bảng `invoices_detail`
 --
 ALTER TABLE `invoices_detail`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT cho bảng `invoices_status`
