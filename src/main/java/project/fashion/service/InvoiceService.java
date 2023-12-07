@@ -212,6 +212,8 @@ public class InvoiceService implements InvoiceRepo {
         var status = optionalInvoice.get().getInvoiceStatus().getStatusId();
         var newStatus = i.getInvoiceStatus().getStatusId();
         var totalAmount = optionalInvoice.get().getTotalAmount();
+//        var createdAt = optionalInvoice.get().getCreatedAt();
+//        i.setCreatedAt(createdAt);
         i.setTotalAmount(totalAmount);
         List<InvoiceDetail> invoiceDetails = invoiceDetailRepo.findAllByInvoice_InvoiceId(invoiceId);
         if (status != 3 && newStatus == 3) {
@@ -232,6 +234,7 @@ public class InvoiceService implements InvoiceRepo {
         else if ((status >= 0 && status <= 2) && (newStatus >= 4)) {
             throw new Exception("Đơn chưa gửi không thể cập nhập trạng thái đang chuyển, thành công hoặc hoàn");
         }
+        System.out.println(i);
         save(i);
 
         return ResponseEntity.ok().build();

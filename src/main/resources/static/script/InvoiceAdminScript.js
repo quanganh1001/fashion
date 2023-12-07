@@ -17,7 +17,7 @@ function toggleEditMode(button) {
 }
 
 $(document).ready(() =>{
-    $(".filter").click(() =>{
+    $(".filter").click(function () {
         // Lấy giá trị của thuộc tính data-filter của phần tử được click
         var filterStatus = $(this).data('filter');
         console.log(filterStatus)
@@ -29,7 +29,7 @@ $(document).ready(() =>{
                 window.location.href="/admin/invoice/filter/" + filterStatus + "?key=";
             },
             error:  () =>{
-                alert('Failed to update status.');
+                alert('Failed.');
             }
         });
     });
