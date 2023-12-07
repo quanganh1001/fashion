@@ -129,11 +129,8 @@
                 <th>Mã đơn hàng</th>
                 <th>Tên khách hàng</th>
                 <th>Số điện thoại</th>
-                <th>Địa chỉ</th>
-                <th>Tổng đơn hàng</th>
-                <th>Ngày đặt hàng</th>
-                <th>Ghi chú nội bộ</th>
                 <th>Trạng thái</th>
+                <th>Ngày đặt hàng</th>
             </tr>
             </thead>
             <tbody>
@@ -141,39 +138,11 @@
                 <td th:text="${invoice.invoiceId}"></td>
                 <td th:text="${invoice.name}"></td>
                 <td th:text="${invoice.phone}"></td>
-                <td th:text="${invoice.address}"></td>
-                <td th:text="${invoice.totalAmount}"></td>
-                <td th:text="${invoice.createdAt}"></td>
-                <td>
-                    <div class="editable-note">
-                        <span th:id="'note' + ${invoice.invoiceId}" th:text="${invoice.note}"></span>
-                        <input class="hidden"
-                               th:id="'input' + ${invoice.invoiceId}"
-                               type="text"
-                               th:value="${invoice.note}"/>
-                        <span
-                                th:id="'edit' + ${invoice.invoiceId}"
-                                th:data-invoice-id="${invoice.invoiceId}"
-                                onclick="toggleEditMode(this)">
-                            <i class="fa-regular fa-pen-to-square" style="color: #0033ff;"></i>
-                        </span>
-                        <span class="hidden"
-                              th:id="'done' + ${invoice.invoiceId}"
-                              th:data-invoice-id="${invoice.invoiceId}"
-                              onclick="saveNote(this)">
-                            <i class="fa-solid fa-check" style="color: #00ff59;"></i>
-                        </span>
-                        <span class="hidden"
-                              th:id="'cancel' + ${invoice.invoiceId}"
-                              th:data-invoice-id="${invoice.invoiceId}"
-                              onclick="toggleEditMode(this)">
-                            <i class="fa-solid fa-xmark" style="color: #ff0000;"></i>
-                        </span>
-                    </div>
-                </td>
                 <td th:text="${invoice.invoiceStatus.status}"></td>
-
-                <td><a th:href="@{/admin/invoiceDetail/__${invoice.invoiceId}__}"><i class="fa-regular fa-eye"></i></a></td>
+                <td th:text="${invoice.createdAt}"></td>
+                <td><a
+                        th:href="@{/admin/invoiceDetail?invoiceId=__${invoice.invoiceId}__}"><i
+                        class="fa-regular fa-eye"></i></a></td>
             </tr>
             </tbody>
         </table>

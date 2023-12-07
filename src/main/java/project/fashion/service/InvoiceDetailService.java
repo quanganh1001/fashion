@@ -217,7 +217,6 @@ public class InvoiceDetailService implements InvoiceDetailRepo {
                 .filter(detail -> Objects.equals(detail.getProductDetail().getProductDetailId(), productDetailId))
                 .findFirst()
                 .orElse(null);
-        System.out.println(result);
 
         if(result == null){
             Optional<Invoice> OptionalInvoice = invoiceRepo.findById(invoiceId);
@@ -241,7 +240,6 @@ public class InvoiceDetailService implements InvoiceDetailRepo {
             newInvoiceDetail.setProductDetail(productDetail);
             newInvoiceDetail.setQuantity(1);
 
-            System.out.println(newInvoiceDetail);
             save(newInvoiceDetail);
         }
 

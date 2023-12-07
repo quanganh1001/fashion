@@ -36,14 +36,15 @@ public class CtlAdminInvoiceDetail {
     @Autowired
     private ProductDetailService productDetailService;
 
-    @GetMapping("/{invoiceId}")
+    @GetMapping()
     public String getInvoiceDetail(Model model,
-                                   @PathVariable("invoiceId") String invoiceId) {
+                                   @RequestParam("invoiceId") String invoiceId) {
         List<InvoiceDetail> invoiceDetails = invoiceDetailService.findAllByInvoice_InvoiceId(invoiceId);
 
         Optional<Invoice> optionalInvoice = invoiceService.findById(invoiceId);
         Invoice invoice = optionalInvoice.get();
 
+        System.out.println("~~~~"+invoice);
         List<InvoiceStatus> status = invoiceStatusService.findAll();
 
         List<ProductDetail> productDetails = productDetailService.findAll();
@@ -52,7 +53,6 @@ public class CtlAdminInvoiceDetail {
         model.addAttribute("invoice", invoice);
         model.addAttribute("status", status);
         model.addAttribute("searchResult", productDetails);
-
         return "admin/InvoiceDetail";
     }
 

@@ -114,6 +114,7 @@ $(document).ready(() => {
 
         inputValue = $("#input-plus").val();
         console.log(inputValue)
+        console.log(invoiceId)
         if (inputValue != null && inputValue !== ""){
             $("#list-result").removeClass("hidden")
 

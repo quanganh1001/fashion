@@ -205,15 +205,12 @@ public class InvoiceService implements InvoiceRepo {
     }
 
     public ResponseEntity<String> setInvoice(String invoiceId, Invoice i) throws Exception {
-        List<InvoiceDetail> invoiceDetails = invoiceDetailRepo.findAllByInvoice_InvoiceId(invoiceId);
-
 
         Optional<Invoice> optionalInvoice = findById(invoiceId);
         var status = optionalInvoice.get().getInvoiceStatus().getStatusId();
         var newStatus = i.getInvoiceStatus().getStatusId();
         var totalAmount = optionalInvoice.get().getTotalAmount();
         var phone = optionalInvoice.get().getPhone();
-
 
 
 //        if (status == 3){
