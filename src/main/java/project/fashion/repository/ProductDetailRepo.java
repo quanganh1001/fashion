@@ -1,5 +1,6 @@
 package project.fashion.repository;
 
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -19,4 +20,11 @@ public interface ProductDetailRepo extends JpaRepository<ProductDetail,Integer> 
     List<ProductDetail> findAllByProductProductId(String productId);
 
     List<ProductDetail> searchProductDetailByProductProductNameContainingIgnoreCase(String key);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE products_detail SET quantity = :newQuantity WHERE product_detail_id = :productDetailId",
+            nativeQuery = true)
+    void updateQuantityProduct(@Param("newQuantity") Integer newQuantity,
+                            @Param("productDetailId")Integer productDetailId);
 }

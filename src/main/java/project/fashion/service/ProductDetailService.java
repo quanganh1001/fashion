@@ -37,6 +37,11 @@ public class ProductDetailService implements ProductDetailRepo {
     }
 
     @Override
+    public void updateQuantityProduct(Integer newQuantity, Integer productDetailId) {
+        productDetailRepo.updateQuantityProduct(newQuantity,productDetailId);
+    }
+
+    @Override
     public void flush() {
 
     }

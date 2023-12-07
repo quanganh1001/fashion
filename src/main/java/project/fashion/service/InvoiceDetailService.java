@@ -208,8 +208,6 @@ public class InvoiceDetailService implements InvoiceDetailRepo {
     }
 
     public void addProductInvoiceDetail(Integer productDetailId,String invoiceId){
-        System.out.println(productDetailId);
-        System.out.println(invoiceId);
         InvoiceDetail newInvoiceDetail = new InvoiceDetail();
         List<InvoiceDetail> invoiceDetails = findAllByInvoice_InvoiceId(invoiceId);
 

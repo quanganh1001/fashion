@@ -15,6 +15,7 @@ import project.fashion.entity.InvoiceDetail;
 import project.fashion.entity.ProductDetail;
 import project.fashion.repository.InvoiceDetailRepo;
 import project.fashion.repository.InvoiceRepo;
+import project.fashion.repository.ProductDetailRepo;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +29,8 @@ public class InvoiceService implements InvoiceRepo {
     @Autowired
     private InvoiceDetailRepo invoiceDetailRepo;
 
+    @Autowired
+    private ProductDetailRepo productDetailRepo;
     @Override
     public void flush() {
 
@@ -209,28 +212,28 @@ public class InvoiceService implements InvoiceRepo {
         var status = optionalInvoice.get().getInvoiceStatus().getStatusId();
         var newStatus = i.getInvoiceStatus().getStatusId();
         var totalAmount = optionalInvoice.get().getTotalAmount();
-
+        i.setTotalAmount(totalAmount);
         List<InvoiceDetail> invoiceDetails = invoiceDetailRepo.findAllByInvoice_InvoiceId(invoiceId);
         if (status != 3 && newStatus == 3) {
             for (InvoiceDetail id : invoiceDetails) {
                 var oldQuantity = id.getProductDetail().getQuantity();
                 var quantity = id.getQuantity();
                 var productDetaiId = id.getProductDetail().getProductDetailId();
-                System.out.println("~~~" + oldQuantity);
-                System.out.println("~~~" + quantity);
                 var newQuantity = oldQuantity - quantity;
-                invoiceDetailRepo.updateQuantity(newQuantity,productDetaiId);
+                System.out.println(oldQuantity);
+                System.out.println(quantity);
+                System.out.println(newQuantity);
+                System.out.println(productDetaiId);
+                productDetailRepo.updateQuantityProduct(newQuantity,productDetaiId);
             }
         }else if ((status >= 4) && (newStatus <= 2))
             throw new Exception("Đơn đã gửi thì không thể đổi trạng thái về lúc chưa gửi");
 
         else if ((status >= 0 && status <= 2) && (newStatus >= 4)) {
             throw new Exception("Đơn chưa gửi không thể cập nhập trạng thái đang chuyển, thành công hoặc hoàn");
-        } else {
-            i.setTotalAmount(totalAmount);
-            System.out.println(i);
-            save(i);
         }
+        save(i);
+
         return ResponseEntity.ok().build();
     }
 }
