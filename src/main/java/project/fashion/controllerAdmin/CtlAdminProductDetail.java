@@ -7,6 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.fashion.entity.*;
+import project.fashion.repository.ColorRepo;
+import project.fashion.repository.ProductDetailRepo;
+import project.fashion.repository.ProductRepo;
+import project.fashion.repository.SizeRepo;
 import project.fashion.service.ColorService;
 import project.fashion.service.ProductDetailService;
 import project.fashion.service.ProductService;
@@ -18,36 +22,37 @@ import java.util.List;
 @RequestMapping("/admin/productDetail")
 public class CtlAdminProductDetail {
     @Autowired
-    private ProductDetailService productDetailService;
+    private ProductDetailRepo productDetailRepo;
 
     @Autowired
-    private ProductService productService;
+    private ProductRepo productRepo;
 
     @Autowired
-    private ColorService colorService;
+    private ColorRepo colorRepo;
 
     @Autowired
-    private SizeService sizeService;
+    private SizeRepo sizeRepo;
 
 
     @GetMapping("/add-prDetail")
     public String addProductDetail(Model model,@RequestParam("productId") String productId) {
-        List<Size> s = sizeService.findAll();
-        List<Color> cl = colorService.findAll();
+        List<Size> s = sizeRepo.findAll();
+        List<Color> cl = colorRepo.findAll();
         ProductDetail pd = new ProductDetail();
         model.addAttribute("productId", productId);
         model.addAttribute("s", s);
         model.addAttribute("cl", cl);
         model.addAttribute("pd", pd);
+        model.addAttribute("select",true);
         return "/admin/AddProductDetail";
     }
 
     @PostMapping("/add-prDetail")
     public String addPrDetail(@ModelAttribute ProductDetail productDetail, @RequestParam("productId") String productId) {
-        Product product = productService.getById(productId);
+        Product product = productRepo.getById(productId);
         productDetail.setProduct(product);
 
-        productDetailService.save(productDetail);
+        productDetailRepo.save(productDetail);
 
         var p = productDetail.getProduct().getProductId();
         return "redirect:/admin/product/update-product/" + p;
@@ -55,15 +60,16 @@ public class CtlAdminProductDetail {
 
     @GetMapping("update-detail/{prDetailId}")
     public String updateProductDetail(Model model, @PathVariable("prDetailId") Integer prDetailId) {
-        List<Color> color = colorService.findAll();
-        List<Size> size = sizeService.findAll();
-        List<Product> product =  productService.findAll();
-        ProductDetail pd = productDetailService.getById(prDetailId);
+        List<Color> color = colorRepo.findAll();
+        List<Size> size = sizeRepo.findAll();
+        List<Product> product =  productRepo.findAll();
+        ProductDetail pd = productDetailRepo.getById(prDetailId);
 
         model.addAttribute("color", color);
         model.addAttribute("size", size);
         model.addAttribute("product", product);
         model.addAttribute("pd",pd);
+        model.addAttribute("select",true);
         return "/admin/UpdatePrDetail";
     }
 
@@ -73,17 +79,17 @@ public class CtlAdminProductDetail {
         pd.setProductDetailId(prDetailId);
         var productId = pd.getProduct().getProductId();
         System.out.println("--------------------" + pd);
-        productDetailService.save(pd);
+        productDetailRepo.save(pd);
         return "redirect:/admin/product/update-product/" + productId;
     }
 
     @GetMapping ("/delete/prDetail")
     @Transactional
     public String deleteProductDetail(@RequestParam("prDetailId") Integer prDetailId, Model model) {
-        ProductDetail pd = productDetailService.getById(prDetailId);
+        ProductDetail pd = productDetailRepo.getById(prDetailId);
         var productId = pd.getProduct().getProductId();
 
-        productDetailService.deleteById(prDetailId);
+        productDetailRepo.deleteById(prDetailId);
         return "redirect:/admin/product/update-product/" + productId;
     }
 

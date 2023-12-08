@@ -22,7 +22,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 @Service
-public class InvoiceService implements InvoiceRepo {
+public class InvoiceService{
     @Autowired
     private InvoiceRepo invoiceRepo;
 
@@ -31,211 +31,56 @@ public class InvoiceService implements InvoiceRepo {
 
     @Autowired
     private ProductDetailRepo productDetailRepo;
-    @Override
-    public void flush() {
 
-    }
-
-    @Override
-    public <S extends Invoice> S saveAndFlush(S entity) {
-        return null;
-    }
-
-    @Override
-    public <S extends Invoice> List<S> saveAllAndFlush(Iterable<S> entities) {
-        return null;
-    }
-
-    @Override
-    public void deleteAllInBatch(Iterable<Invoice> entities) {
-
-    }
-
-    @Override
-    public void deleteAllByIdInBatch(Iterable<String> strings) {
-
-    }
-
-    @Override
-    public void deleteAllInBatch() {
-
-    }
-
-    @Override
-    public Invoice getOne(String s) {
-        return null;
-    }
-
-    @Override
-    public Invoice getById(String s) {
-        return null;
-    }
-
-    @Override
-    public Invoice getReferenceById(String s) {
-        return null;
-    }
-
-    @Override
-    public <S extends Invoice> Optional<S> findOne(Example<S> example) {
-        return Optional.empty();
-    }
-
-    @Override
-    public <S extends Invoice> List<S> findAll(Example<S> example) {
-        return null;
-    }
-
-    @Override
-    public <S extends Invoice> List<S> findAll(Example<S> example, Sort sort) {
-        return null;
-    }
-
-    @Override
-    public <S extends Invoice> Page<S> findAll(Example<S> example, Pageable pageable) {
-        return null;
-    }
-
-    @Override
-    public <S extends Invoice> long count(Example<S> example) {
-        return 0;
-    }
-
-    @Override
-    public <S extends Invoice> boolean exists(Example<S> example) {
-        return false;
-    }
-
-    @Override
-    public <S extends Invoice, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
-        return null;
-    }
-
-    @Override
-    public <S extends Invoice> S save(S entity) {
-        return invoiceRepo.save(entity);
-    }
-
-    @Override
-    public <S extends Invoice> List<S> saveAll(Iterable<S> entities) {
-        return null;
-    }
-
-    @Override
-    public Optional<Invoice> findById(String s) {
-        return invoiceRepo.findById(s);
-    }
-
-    @Override
-    public boolean existsById(String s) {
-        return false;
-    }
-
-    @Override
-    public List<Invoice> findAll() {
-        return invoiceRepo.findAll();
-    }
-
-    @Override
-    public List<Invoice> findAllById(Iterable<String> strings) {
-        return null;
-    }
-
-    @Override
-    public long count() {
-        return 0;
-    }
-
-    @Override
-    public void deleteById(String s) {
-
-    }
-
-    @Override
-    public void delete(Invoice entity) {
-
-    }
-
-    @Override
-    public void deleteAllById(Iterable<? extends String> strings) {
-
-    }
-
-    @Override
-    public void deleteAll(Iterable<? extends Invoice> entities) {
-
-    }
-
-    @Override
-    public void deleteAll() {
-
-    }
-
-    @Override
-    public List<Invoice> findAll(Sort sort) {
-        return null;
-    }
-
-    @Override
-    public Page<Invoice> findAll(Pageable pageable) {
-        return null;
-    }
-
-
-    @Override
-    public Page<Invoice> searchInvoicesByInvoiceIdContainingOrPhoneContainingIgnoreCase(String key1, String key2, Pageable pageable) {
-        return invoiceRepo.searchInvoicesByInvoiceIdContainingOrPhoneContainingIgnoreCase(key1, key2, pageable);
-    }
-
-    @Override
-    public void setNote(String newNote, String invoiceId) {
-        invoiceRepo.setNote(newNote, invoiceId);
-    }
-
-    @Override
-    public void setStatus(Integer status, String invoiceId) {
-        invoiceRepo.setStatus(status, invoiceId);
-    }
-
-    @Override
     public Page<Invoice> findInvoiceByKeyAndStatus(String key, Integer filterStatus, Pageable pageable) {
         if (filterStatus != -1) {
             return invoiceRepo.findInvoiceByKeyAndStatus(key, filterStatus, pageable);
         }else
             //trả về tất cả kết quả
-            return searchInvoicesByInvoiceIdContainingOrPhoneContainingIgnoreCase(
+            return invoiceRepo.searchInvoicesByInvoiceIdContainingOrPhoneContainingIgnoreCase(
                     key, key, pageable);
     }
 
-    public ResponseEntity<String> setInvoice(String invoiceId, Invoice i) throws Exception {
-        Optional<Invoice> optionalInvoice = findById(invoiceId);
+    public ResponseEntity<String> updateInvoice(String invoiceId, Invoice i) throws Exception {
+        Optional<Invoice> optionalInvoice = invoiceRepo.findById(invoiceId);
         var status = optionalInvoice.get().getInvoiceStatus().getStatusId();
         var newStatus = i.getInvoiceStatus().getStatusId();
-        var totalAmount = optionalInvoice.get().getTotalAmount();
-//        var createdAt = optionalInvoice.get().getCreatedAt();
-//        i.setCreatedAt(createdAt);
-        i.setTotalAmount(totalAmount);
+
         List<InvoiceDetail> invoiceDetails = invoiceDetailRepo.findAllByInvoice_InvoiceId(invoiceId);
+
+        // chưa lên đơn -> đã lên đơn => giảm số lượng
         if (status != 3 && newStatus == 3) {
             for (InvoiceDetail id : invoiceDetails) {
                 var oldQuantity = id.getProductDetail().getQuantity();
                 var quantity = id.getQuantity();
                 var productDetaiId = id.getProductDetail().getProductDetailId();
                 var newQuantity = oldQuantity - quantity;
-                System.out.println(oldQuantity);
-                System.out.println(quantity);
-                System.out.println(newQuantity);
-                System.out.println(productDetaiId);
-                productDetailRepo.updateQuantityProduct(newQuantity,productDetaiId);
+
+                productDetailRepo.updateQuantityProductRepo(newQuantity, productDetaiId);
             }
-        }else if ((status >= 4) && (newStatus <= 2))
+
+        // đã lên đơn -> chưa lên đơn => tăng số lượng
+        }else if(status == 3 && newStatus <= 2){
+            for (InvoiceDetail id : invoiceDetails) {
+                var oldQuantity = id.getProductDetail().getQuantity();
+                var quantity = id.getQuantity();
+                var productDetaiId = id.getProductDetail().getProductDetailId();
+                var newQuantity = oldQuantity + quantity;
+
+                productDetailRepo.updateQuantityProductRepo(newQuantity, productDetaiId);
+            }
+        }
+
+        else if (status >= 4 && newStatus <= 2)
             throw new Exception("Đơn đã gửi thì không thể đổi trạng thái về lúc chưa gửi");
 
-        else if ((status >= 0 && status <= 2) && (newStatus >= 4)) {
+        else if (status <= 2 && newStatus >= 4) {
             throw new Exception("Đơn chưa gửi không thể cập nhập trạng thái đang chuyển, thành công hoặc hoàn");
         }
-        System.out.println(i);
-        save(i);
+
+        var totalAmount = optionalInvoice.get().getTotalAmount();
+        i.setTotalAmount(totalAmount);
+        invoiceRepo.save(i);
 
         return ResponseEntity.ok().build();
     }

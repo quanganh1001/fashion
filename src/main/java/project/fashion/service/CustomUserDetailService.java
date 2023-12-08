@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import project.fashion.entity.Account;
 import project.fashion.entity.CustomUserDetail;
+import project.fashion.repository.AccountRepo;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -16,11 +17,11 @@ import java.util.HashSet;
 @Service
 public class CustomUserDetailService implements UserDetailsService {
     @Autowired
-    private AccountService accountService;
+    private AccountRepo accountRepo;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account account = accountService.findByUserName(username);
+        Account account = accountRepo.findByUserName(username);
         if(account == null){
             throw new UsernameNotFoundException("Sai");
         }

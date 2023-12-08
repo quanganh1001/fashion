@@ -1,18 +1,40 @@
 
-<div th:fragment="menu" class="navbar-expand-lg navbar-dark bg-dark"
+<div th:fragment="menu"
      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <ul>
-        <li><a href="/admin">Trang chủ</a></li>
-        <li><a href="/admin/product">Quản lý Sản phẩm</a></li>
-        <li><a href="/admin/category">Quản lý danh mục Sản phẩm</a></li>
-        <li><a href="/admin/invoice/filter/-1?key=">Quản lý đơn hàng</a></li>
+    <ul class="list-group">
+        <li class="list-group-item" id="home" ><a style="text-decoration-line: none" href="/admin" >Trang chủ</a></li>
+        <li class=" list-group-item" id="product"><a style="text-decoration-line: none" href="/admin/product">Quản lý Sản phẩm</a></li>
+        <li  class=" list-group-item" id="category"><a style="text-decoration-line: none" href="/admin/category">Quản lý danh mục Sản phẩm</a></li>
+        <li  class=" list-group-item" id="invoice"><a style="text-decoration-line: none" href="/admin/invoice/filter/-1?key=">Quản lý đơn hàng</a></li>
         <div>
             <div sec:authorize="isAuthenticated()">
                 Welcome, <span sec:authentication="name"></span>!
             </div>
             <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Đăng xuất">
+                <input class="btn btn-primary" type="submit" value="Đăng xuất">
             </form>
         </div>
     </ul>
+
+    <script th:inline="javascript">
+        $(document).ready(()=>{
+            if([[${select}]] === "home"){
+                $("#home").addClass("active");
+                $("#home a").addClass("text-light")
+            }
+            else if([[${select}]] === "product"){
+                $("#product").addClass("active");
+                $("#product a").addClass("text-light")
+            }
+            else if([[${select}]] === "category"){
+                $("#category").addClass("active");
+                $("#category a").addClass("text-light")
+            }
+            else if([[${select}]] === "invoice"){
+                $("#invoice").addClass("active");
+                $("#invoice a").addClass("text-light")
+            }
+        })
+    </script>
+
 </div>

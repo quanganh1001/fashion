@@ -10,6 +10,7 @@ import project.fashion.entity.InvoiceDetail;
 import project.fashion.entity.ProductDetail;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface InvoiceDetailRepo extends JpaRepository<InvoiceDetail,Integer> {
     List<InvoiceDetail> findAllByInvoice_InvoiceId(String invoiceId);
@@ -20,5 +21,9 @@ public interface InvoiceDetailRepo extends JpaRepository<InvoiceDetail,Integer> 
     @Transactional
     @Query(value = "UPDATE invoices_detail SET quantity = :newQuantity WHERE detail_id = :invoiceDetailId",
             nativeQuery = true)
-    void updateQuantity(@Param("newQuantity") Integer newQuantity, @Param("invoiceDetailId")Integer invoiceDetailId);
+    void updateQuantityInvoiceDetail(@Param("newQuantity") Integer newQuantity, @Param("invoiceDetailId")Integer invoiceDetailId);
+
+    Boolean existsByProductDetailProductDetailId(Integer productDetailId);
+
+    Optional<InvoiceDetail> findByProductDetailProductDetailId(Integer productDetailId);
 }

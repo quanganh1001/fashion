@@ -41,6 +41,7 @@ public class CtlAdminInvoice {
         model.addAttribute("invoice", searchInvoice.getContent());
         model.addAttribute("key", key);
         model.addAttribute("filterStatus",filterStatus);
+        model.addAttribute("select","invoice");
 
         return "admin/InvoiceAdmin";
 
@@ -49,7 +50,7 @@ public class CtlAdminInvoice {
     @PutMapping("/update-invoice/{invoiceId}")
     public ResponseEntity<String> updateInvoice(@PathVariable("invoiceId") String invoiceId,
                                                 @ModelAttribute Invoice i) throws Exception {
-        return invoiceService.setInvoice(invoiceId,i);
+        return invoiceService.updateInvoice(invoiceId,i);
     }
 
 }

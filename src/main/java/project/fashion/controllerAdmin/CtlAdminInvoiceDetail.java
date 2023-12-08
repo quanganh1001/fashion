@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.fashion.entity.*;
+import project.fashion.repository.*;
 import project.fashion.service.*;
 
 import java.io.IOException;
@@ -25,34 +26,41 @@ public class CtlAdminInvoiceDetail {
     private InvoiceDetailService invoiceDetailService;
 
     @Autowired
-    private InvoiceService invoiceService;
+    private InvoiceDetailRepo invoiceDetailRepo;
 
     @Autowired
-    private InvoiceStatusService invoiceStatusService;
+    private InvoiceRepo invoiceRepo;
 
     @Autowired
-    private ImgProductService imgProductService;
+    private InvoiceStatusRepo invoiceStatusRepo;
+
+    @Autowired
+    private ImgProductRepo imgProductRepo;
 
     @Autowired
     private ProductDetailService productDetailService;
 
+    @Autowired
+    private ProductDetailRepo productDetailRepo;
+
     @GetMapping()
     public String getInvoiceDetail(Model model,
                                    @RequestParam("invoiceId") String invoiceId) {
-        List<InvoiceDetail> invoiceDetails = invoiceDetailService.findAllByInvoice_InvoiceId(invoiceId);
+        List<InvoiceDetail> invoiceDetails = invoiceDetailRepo.findAllByInvoice_InvoiceId(invoiceId);
 
-        Optional<Invoice> optionalInvoice = invoiceService.findById(invoiceId);
+        Optional<Invoice> optionalInvoice = invoiceRepo.findById(invoiceId);
         Invoice invoice = optionalInvoice.get();
 
-        System.out.println("~~~~"+invoice);
-        List<InvoiceStatus> status = invoiceStatusService.findAll();
+        List<InvoiceStatus> status = invoiceStatusRepo.findAll();
 
-        List<ProductDetail> productDetails = productDetailService.findAll();
+        List<ProductDetail> productDetails = productDetailRepo.findAll();
 
         model.addAttribute("invoiceDetails", invoiceDetails);
         model.addAttribute("invoice", invoice);
         model.addAttribute("status", status);
         model.addAttribute("searchResult", productDetails);
+        model.addAttribute("select","invoice");
+
         return "admin/InvoiceDetail";
     }
 
@@ -65,7 +73,7 @@ public class CtlAdminInvoiceDetail {
 
     @GetMapping("/img/{productId}")
     public ResponseEntity<Resource> serveImage(@PathVariable String productId) throws IOException {
-        Optional<ImgProduct> OptimalImgProduct = imgProductService.findByBackground1TrueAndProductProductId(productId);
+        Optional<ImgProduct> OptimalImgProduct = imgProductRepo.findByBackground1TrueAndProductProductId(productId);
         var fileName = OptimalImgProduct.get().getFileImg();
         Path imagePath = Paths.get("src/main/uploads/images").resolve(fileName);
         Resource imageResource = new UrlResource(imagePath.toUri());
@@ -90,9 +98,9 @@ public class CtlAdminInvoiceDetail {
     }
 
     @PutMapping("/update-quantity")
-    public String updateQuantity(@RequestParam("newQuantity") Integer newQuantity,
+    public String updateQuantityInvoiceDetail(@RequestParam("newQuantity") Integer newQuantity,
                              @RequestParam("invoiceDetailId") Integer invoiceDetailId){
-        invoiceDetailService.updateQuantity(newQuantity,invoiceDetailId);
+        invoiceDetailService.updateQuantityInvoiceDetail(newQuantity,invoiceDetailId);
         return "admin/fragment/SearchProduct";
     }
 }

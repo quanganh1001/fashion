@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.fashion.entity.Category;
+import project.fashion.repository.CategoryRepo;
 import project.fashion.service.CategoryService;
 
 import java.util.List;
@@ -16,51 +17,56 @@ import java.util.List;
 @RequestMapping("/admin/category")
 public class CtlAdminCategory {
     @Autowired
-    private CategoryService repoCategoryImp;
+    private CategoryService categoryService;
 
+    @Autowired
+    private CategoryRepo categoryRepo;
     @GetMapping
     public String getAllCategories(Model model,@RequestParam(defaultValue = "0") int page,@RequestParam(name = "key",
             required = false) String key){
         if(page <0)
             page = 0;
-        Page<Category> searchCategory = repoCategoryImp.searchCategory(key,PageRequest.of(page, 10));
+        Page<Category> searchCategory = categoryService.searchCategory(key,PageRequest.of(page, 10));
 
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", searchCategory.getTotalPages());
         model.addAttribute("totalItems", searchCategory.getTotalElements());
         model.addAttribute("category", searchCategory.getContent());
         model.addAttribute("key",key);
+        model.addAttribute("select","category");
         return "/admin/CategoryAdmin";
     }
 
     @GetMapping("/add-category")
     public String addCategory(Model model) {
-        List<Category> cat = repoCategoryImp.findAll();
+        List<Category> cat = categoryRepo.findAll();
         Category category = new Category();
         model.addAttribute("category", category);
         model.addAttribute("cat", cat);
+        model.addAttribute("select",category);
         return "/admin/AddCategory";
     }
 
     @PostMapping("/add-category")
     public String addCat(@ModelAttribute Category category) {
-        repoCategoryImp.save(category);
+        categoryRepo.save(category);
         return "redirect:/admin/category";
     }
 
     @GetMapping("/delete-cat/{catId}")
     public String deleteCat(@PathVariable("catId") String catId, Model model) {
-        repoCategoryImp.deleteById(catId);
+        categoryRepo.deleteById(catId);
         return "redirect:/admin/category";
     }
 
     @GetMapping("/update-category/{catId}")
     public String updateCategory(Model model, @PathVariable("catId") String catId) {
-        List<Category> c = repoCategoryImp.findAll();
-        Category cat = repoCategoryImp.getById(catId);
+        List<Category> c = categoryRepo.findAll();
+        Category cat = categoryRepo.getById(catId);
 
         model.addAttribute("c", c);
         model.addAttribute("cat", cat);
+        model.addAttribute("select","category");
 
         return "/admin/UpdateCategory";
     }
@@ -68,8 +74,8 @@ public class CtlAdminCategory {
     @PutMapping("/update-category/{catId}")
     @Transactional
     public String updateCat(@PathVariable("catId") String catId, @ModelAttribute Category c) {
-        repoCategoryImp.setCatActive(catId,c.getIsCatActive());
-        repoCategoryImp.save(c);
+        categoryService.setCatActive(catId,c.getIsCatActive());
+        categoryRepo.save(c);
         return "redirect:/admin/category";
     }
 }

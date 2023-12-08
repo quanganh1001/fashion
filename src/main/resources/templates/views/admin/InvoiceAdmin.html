@@ -18,7 +18,7 @@
     <div class="container mt-5">
         <h2>DANH SÁCH ĐƠN HÀNG</h2>
         <div class="row">
-            <button th:data-filter="-1" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
+            <button th:data-filter="-1" id="-1" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
                 <div class="info-box">
                     <span class="info-box-icon"><i class="fa-2xl fa-solid fa-file-invoice-dollar"
                                                    style="color: #000000;"></i></span>
@@ -27,7 +27,8 @@
                     </div>
                 </div>
             </button>
-            <button th:data-filter="0" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
+
+            <button th:data-filter="0" id="0" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
                 <div class="info-box ">
                     <span class="info-box-icon"><i class="fa-2xl fa-solid fa-xmark" style="color: #ff0000;"></i></span>
                     <div class="info-box-content">
@@ -36,7 +37,7 @@
                 </div>
             </button>
 
-            <button th:data-filter="1" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
+            <button th:data-filter="1" id="1" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
                 <div class="info-box">
                     <span
                             class="info-box-icon"><i class="fa-2xl fa-solid fa-cart-plus"
@@ -47,7 +48,7 @@
                 </div>
             </button>
 
-            <button th:data-filter="2" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
+            <button th:data-filter="2" id="2" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
                 <div class="info-box">
                     <span class="info-box-icon"><i class="fa-2xl fa-solid fa-check"
                                                    style="color: #00800f;"></i></span>
@@ -57,7 +58,7 @@
                 </div>
             </button>
 
-            <button th:data-filter="3" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
+            <button th:data-filter="3" id="3" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
                 <div class="info-box">
                     <span
                             class="info-box-icon"><i class="fa-2xl fa-solid fa-truck-fast" style="color: #ffc800;"></i></span>
@@ -67,7 +68,7 @@
                 </div>
             </button>
 
-            <button th:data-filter="4" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
+            <button th:data-filter="4" id="4" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
                 <div class="info-box ">
                     <span class="info-box-icon"><i class="fa-2xl fa-solid fa-circle-check"
                                                    style="color: #0045bd;"></i></span>
@@ -77,7 +78,7 @@
                 </div>
             </button>
 
-            <button th:data-filter="5" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
+            <button th:data-filter="5" id="5" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
                 <div class="info-box ">
                     <span
                             class="info-box-icon"><i class="fa-2xl fa-solid fa-ban"
@@ -87,6 +88,8 @@
                     </div>
                 </div>
             </button>
+
+
         </div>
 
         <form th:action="@{/admin/invoice/filter/__${filterStatus}__}" method="get">
@@ -148,7 +151,39 @@
         </table>
     </div>
 </div>
-</div>
+<script th:inline="javascript">
+    $(document).ready(()=>{
+        if([[${filterStatus}]] === -1){
+            $("#-1").removeClass("btn-secondary");
+            $("#-1").addClass("btn-primary");
+        }
+        else if([[${filterStatus}]] === 0){
+            $("#0").removeClass("btn-secondary");
+            $("#0").addClass("btn-primary");
+        }
+        else if([[${filterStatus}]] === 1){
+            $("#1").removeClass("btn-secondary");
+            $("#1").addClass("btn-primary");
+        }
+        else if([[${filterStatus}]] === 2){
+            $("#2").removeClass("btn-secondary");
+            $("#2").addClass("btn-primary");
+        }
+        else if([[${filterStatus}]] === 3){
+            $("#3").removeClass("btn-secondary");
+            $("#3").addClass("btn-primary");
+        }
+        else if([[${filterStatus}]] === 4){
+            $("#4").removeClass("btn-secondary");
+            $("#4").addClass("btn-primary");
+        }
+        else if([[${filterStatus}]] === 5){
+            $("#5").removeClass("btn-secondary");
+            $("#5").addClass("btn-primary");
+        }
+    })
+
+</script>
 <script th:src="@{/script/InvoiceAdminScript.js}"></script>
 
 </body>

@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import project.fashion.entity.*;
+import project.fashion.repository.ImgProductRepo;
+import project.fashion.repository.ProductRepo;
 import project.fashion.service.ImgProductService;
 import project.fashion.service.ProductService;
 
@@ -23,13 +25,15 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/admin/imgProduct")
 public class CtlAdminImgProduct {
-    @Autowired
-    private ProductService productService;
 
     @Autowired
     private ImgProductService imgProductService;
 
+    @Autowired
+    private ImgProductRepo imgProductRepo;
 
+    @Autowired
+    private ProductRepo productRepo;
     private final String imageDirectory = "src/main/uploads/images";
 
     @GetMapping("/{imageName}")
@@ -42,7 +46,7 @@ public class CtlAdminImgProduct {
 
     @GetMapping("/add-img")
     public String addImg(Model model, @RequestParam("productId") String productId) {
-        List<ImgProduct> imgProducts = imgProductService.findAllByProductProductId(productId);
+        List<ImgProduct> imgProducts = imgProductRepo.findAllByProductProductId(productId);
 
         ImgProduct img1 = imgProductService.getImgBg(1,productId);
         var imgbg1 = img1.getImgId();
@@ -66,6 +70,7 @@ public class CtlAdminImgProduct {
         model.addAttribute("imgbg2", imgbg2);
         model.addAttribute("imgbg1Name", imgbg1Name);
         model.addAttribute("imgbg2Name", imgbg2Name);
+        model.addAttribute("select","product");
 
         return "/admin/ImgProduct";
     }
@@ -82,7 +87,7 @@ public class CtlAdminImgProduct {
                         imgs.setBackground2(false);
                     }
 
-                    Product product = productService.getById(productId);
+                    Product product = productRepo.getById(productId);
                     imgs.setProduct(product);
 
                     // Lưu ảnh vào thư mục ngoài 'static'
@@ -95,7 +100,7 @@ public class CtlAdminImgProduct {
 
                     imgs.setFileImg(fileName);
 //                System.out.println(img);
-                    imgProductService.save(imgs);
+                    imgProductRepo.save(imgs);
                 } catch (IOException e) {
                     e.printStackTrace();
                     // Xử lý lỗi nếu có
@@ -127,7 +132,7 @@ public class CtlAdminImgProduct {
             Files.delete(path);
             System.out.println("Đã xóa");
         }
-        imgProductService.deleteByFileImg(imageName);
+        imgProductRepo.deleteByFileImg(imageName);
 
         return ResponseEntity.ok().build();
     }

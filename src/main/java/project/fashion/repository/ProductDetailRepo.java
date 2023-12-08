@@ -25,6 +25,7 @@ public interface ProductDetailRepo extends JpaRepository<ProductDetail,Integer> 
     @Transactional
     @Query(value = "UPDATE products_detail SET quantity = :newQuantity WHERE product_detail_id = :productDetailId",
             nativeQuery = true)
-    void updateQuantityProduct(@Param("newQuantity") Integer newQuantity,
+    void updateQuantityProductRepo(@Param("newQuantity") Integer newQuantity,
                             @Param("productDetailId")Integer productDetailId);
+
 }

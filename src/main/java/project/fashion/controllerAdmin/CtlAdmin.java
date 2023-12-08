@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 public class CtlAdmin {
     @GetMapping
     public String getHome(Model model){
-
+        model.addAttribute("select","home");
         return "admin/Admin";
     }
 
