@@ -76,14 +76,7 @@
         </table>
     </div>
 </div>
-<script>
-    function confirmDelete(productId) {
-        console.log(productId)
-        var result = confirm("Bạn có muốn xóa sản phẩm này?");
-        if (result) {
-            window.location.href = '/admin/product/delete-product/' + productId;
-        }
-    }
+<script th:src="@{/script/ProductAdminScript.js}">
 </script>
 </body>
 </html>

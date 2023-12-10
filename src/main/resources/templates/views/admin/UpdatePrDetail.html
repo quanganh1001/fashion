@@ -50,15 +50,6 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="product" class="form-label">Sản phẩm<span
-                            style="color:red">*</span></label>
-                    <select class="form-control" id="product" th:field="${pd.product.productId}">
-                        <option th:each="p : ${product}" th:value="${p.productId}"
-                                th:text="${p.productName} + ' - ' + ${p.productId}"></option>
-                    </select>
-                </div>
-
-                <div class="mb-3">
                     <label for="isActive" class="form-label">Trạng thái<span style="color:red">*</span></label>
                     <input id="isActive" type="checkbox" th:field="${pd.productDetailActive}">Hoạt động/Ẩn
                 </div>

@@ -32,16 +32,10 @@ public class CtlAdminImgProduct {
     @Autowired
     private ImgProductRepo imgProductRepo;
 
-    @Autowired
-    private ProductRepo productRepo;
-    private final String imageDirectory = "src/main/uploads/images";
 
     @GetMapping("/{imageName}")
     public ResponseEntity<Resource> serveImage(@PathVariable String imageName) throws IOException {
-        Path imagePath = Paths.get(imageDirectory).resolve(imageName);
-        Resource imageResource = new UrlResource(imagePath.toUri());
-        // Trả về phản hồi với hình ảnh
-        return ResponseEntity.ok().body(imageResource);
+        return imgProductService.getImg(imageName);
     }
 
     @GetMapping("/add-img")
@@ -78,61 +72,24 @@ public class CtlAdminImgProduct {
     @PostMapping("/add-img")
     public String addImgPr(@ModelAttribute("img") ImgProduct img, @RequestParam("productId") String productId,
                            @RequestParam(value = "file", required = false) MultipartFile[] files) {
-        for (MultipartFile file : files) {
-            if (!file.isEmpty() & file != null) {
-                try {
-                    ImgProduct imgs = new ImgProduct();
-                    if (img.getBackground1() == null || img.getBackground2() == null) {
-                        imgs.setBackground1(false);
-                        imgs.setBackground2(false);
-                    }
+        imgProductService.addImg(files,img,productId);
 
-                    Product product = productRepo.getById(productId);
-                    imgs.setProduct(product);
-
-                    // Lưu ảnh vào thư mục ngoài 'static'
-                    String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-                    File destFile = new File(System.getProperty("user.dir") + "/src/main/uploads/images/" + fileName);
-                    System.out.println(destFile);
-                    file.transferTo(destFile);
-
-                    // Lưu thông tin vào cơ sở dữ liệu
-
-                    imgs.setFileImg(fileName);
-//                System.out.println(img);
-                    imgProductRepo.save(imgs);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    // Xử lý lỗi nếu có
-                }
-            }
-        }
         return "redirect:/admin/imgProduct/add-img?productId=" + productId;
     }
 
     @GetMapping("/imgbg/{imageName}")
-    @Transactional
     public ResponseEntity<Resource> changeImg(@PathVariable String imageName, @RequestParam("imbg") int imbg,
                                               @RequestParam("productId") String productId)
                                                throws IOException {
-        imgProductService.setBackground(productId, imageName,imbg);
-        Path imagePath = Paths.get(imageDirectory).resolve(imageName);
-        Resource imageResource = new UrlResource(imagePath.toUri());
-        // Trả về phản hồi với hình ảnh
-        return ResponseEntity.ok().body(imageResource);
+        return imgProductService.setBackground(productId,imageName,imbg);
+
     }
 
-    @GetMapping("/delete/{imageName}")
+    @DeleteMapping("/delete")
     @Transactional
-    public ResponseEntity<Void> delelteImg(@PathVariable String imageName) throws IOException {
-        String filePath = imageDirectory + '/' + imageName;
-        Path path = Paths.get(filePath);
-        // Kiểm tra xem file tồn tại không
-        if (Files.exists(path)) {
-            Files.delete(path);
-            System.out.println("Đã xóa");
-        }
-        imgProductRepo.deleteByFileImg(imageName);
+    public ResponseEntity<Void> delelteImg(@RequestParam String imageName) throws IOException {
+
+        imgProductService.deleteByFileImg(imageName);
 
         return ResponseEntity.ok().build();
     }

@@ -28,4 +28,5 @@ public interface ProductDetailRepo extends JpaRepository<ProductDetail,Integer> 
     void updateQuantityProductRepo(@Param("newQuantity") Integer newQuantity,
                             @Param("productDetailId")Integer productDetailId);
 
+    void deleteAllByProductProductId(String productId);
 }

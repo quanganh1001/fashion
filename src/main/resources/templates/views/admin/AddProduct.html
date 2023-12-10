@@ -9,7 +9,7 @@
 
     <div class="container mt-5">
         <h2>THÊM MỚI SẢN PHẨM</h2>
-        <form th:action="@{/admin/product/add-product}" method="post" th:object="${product}">
+        <form id="form" th:action="@{/admin/product/add-product}" method="post" th:object="${product}">
             <div class="row">
                 <div class="mb-3 col-6">
                     <label for="product_id" class="form-label">Mã sản phẩm<span style="color:red">*</span></label>
@@ -42,7 +42,7 @@
 
                 <div class="mb-3 col-6">
                     <label for="brand" class="form-label">Thương hiệu<span style="color:red">*</span></label>
-                    <input type="text" class="form-control" id="brand" value="TORANO" th:field="${product.brand}">
+                    <input type="text" class="form-control" id="brand" value="TORANO" name="brand">
                 </div>
 
                 <div class="mb-3">
@@ -62,12 +62,13 @@
                 </div>
 
 
-                <button style="text-align: center" type="submit" class="col-2 btn btn-primary">Thêm sản phẩm</button>
+                <button style="text-align: center" type="button" id="submit" class="col-2 btn btn-primary">Thêm sản phẩm</button>
             </div>
         </form>
 
     </div>
 </div>
+<script th:src="@{/script/AddProductScript.js}"></script>
 </body>
 </html>
 

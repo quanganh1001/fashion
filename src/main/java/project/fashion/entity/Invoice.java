@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Table(name = "invoices")
 public class Invoice {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String invoiceId;
     private String name;
     private String phone;

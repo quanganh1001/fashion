@@ -47,3 +47,7 @@ h2{
 .hidden{
     display: none;
 }
+
+li:hover{
+    cursor: pointer;
+}

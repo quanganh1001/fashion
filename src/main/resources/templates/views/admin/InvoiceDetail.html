@@ -46,8 +46,7 @@
         <h2>CHI TIẾT ĐƠN HÀNG</h2>
 
         <div class="invoice col-12">
-            <form id="form" th:action="@{/admin/invoice/update-invoice/__${invoice.invoiceId}__}" method="POST"
-                  th:object="${i}">
+            <form id="form" th:action="@{/admin/invoice/update-invoice/__${invoice.invoiceId}__}" method="POST">
                 <input type="hidden" name="_method" value="put"/>
                 <input type="hidden" name="createdAt" th:value="${invoice.createdAt}"/>
                 <div>Ngày đặt hàng: <span th:text="${invoice.createdAt}"></span></div>

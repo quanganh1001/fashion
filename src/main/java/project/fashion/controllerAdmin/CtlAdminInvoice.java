@@ -30,10 +30,8 @@ public class CtlAdminInvoice {
                                @PathVariable("filterStatus") Integer filterStatus,
                                @RequestParam(name = "page",defaultValue = "0") int page,
                                @RequestParam(name = "key", required = false) String key){
-        if (page < 0)
-            page = 0;
 
-        Page<Invoice> searchInvoice = invoiceService.findInvoiceByKeyAndStatus(key,filterStatus, PageRequest.of(page, 10));
+        Page<Invoice> searchInvoice = invoiceService.findInvoiceByKeyAndStatus(key,filterStatus,page);
 
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", searchInvoice.getTotalPages());
@@ -45,6 +43,16 @@ public class CtlAdminInvoice {
 
         return "admin/InvoiceAdmin";
 
+    }
+    @GetMapping("/add")
+    public String addInvoice(Model model){
+        model.addAttribute("select","invoice");
+        return "admin/AddInvoice";
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<String> addInvoice(@ModelAttribute Invoice invoice){
+        return invoiceService.saveInvoice(invoice);
     }
 
     @PutMapping("/update-invoice/{invoiceId}")

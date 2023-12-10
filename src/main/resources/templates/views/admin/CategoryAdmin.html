@@ -13,7 +13,7 @@
             <button type="button" class="btn btn-primary">Thêm danh mục</button>
         </a>
 
-        <form th:action="@{/admin/category}" method="get">
+        <form id="form" th:action="@{/admin/category}" method="get">
             <label for="key">Tìm kiếm:</label>
             <input type="text" id="key" name="key" th:value="${#strings.isEmpty(searchKey) ? '' : searchKey}"
                    placeholder="Nhập mã danh mục hoặc tên danh mục...">
@@ -49,7 +49,6 @@
             <tr>
                 <th>ID</th>
                 <th>Tên danh mục</th>
-                <!--            <th>Danh mục cha</th>-->
                 <th>Trạng thái</th>
             </tr>
             </thead>

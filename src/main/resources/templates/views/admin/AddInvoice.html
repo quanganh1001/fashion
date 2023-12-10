@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <head th:include="~{admin/fragment/head::head}"></head>
+</head>
+<body>
+<div class="ui-menu-item-wrapper">
+    <div th:include="~{admin/fragment/Menu::menu}"></div>
+
+    <div class="container mt-5">
+        <h2>CHI TIẾT ĐƠN HÀNG</h2>
+
+        <div class="invoice col-12">
+            <form id="form" th:action="@{/admin/invoice/add}" method="POST" th:object="${i}">
+                <div class="row">
+                    <div class="mb-3 col-6">
+                        <label for="name" class="form-label">Tên khách hàng<span style="color:red">*</span></label>
+                        <input type="text" class="form-control"
+                               id="name"
+                               name="name">
+                    </div>
+
+                    <div class="mb-3 col-6">
+                        <label for="phone" class="form-label">Số điện thoại<span>*</span></label>
+                        <input type="text" class="form-control"
+                               id="phone" name="phone"
+                        >
+                    </div>
+
+                    <div class="mb-3 col-6">
+                        <label for="address" class="form-label">Địa chỉ<span
+                                style="color:red">*</span></label>
+                        <input class="form-control" id="address" name="address">
+                    </div>
+
+                    <div class="mb-3 col-6">
+                        <label for="note" class="form-label">Ghi chú nội bộ</label>
+                        <textarea class="form-control" id="note" rows="4" cols="50" name="note">
+                        </textarea>
+                    </div>
+                </div>
+
+                <button style="text-align: center" type="button" id="btn-submit" class="col-2 btn btn-primary">
+                    Thêm sản phẩm
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<script th:src="@{/script/AddInvoiceScripts.js}">
+</script>
+</body>
+</html>

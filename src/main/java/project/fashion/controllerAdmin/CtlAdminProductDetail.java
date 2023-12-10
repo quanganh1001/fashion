@@ -74,23 +74,17 @@ public class CtlAdminProductDetail {
     }
 
     @PutMapping("update-detail/{prDetailId}")
-    @Transactional
     public String updateProductDetail(@PathVariable("prDetailId") Integer prDetailId,@ModelAttribute ProductDetail pd) {
         pd.setProductDetailId(prDetailId);
-        var productId = pd.getProduct().getProductId();
-        System.out.println("--------------------" + pd);
+
         productDetailRepo.save(pd);
-        return "redirect:/admin/product/update-product/" + productId;
+        return "redirect:/admin/productDetail/update-detail/"+prDetailId;
     }
 
-    @GetMapping ("/delete/prDetail")
-    @Transactional
-    public String deleteProductDetail(@RequestParam("prDetailId") Integer prDetailId, Model model) {
-        ProductDetail pd = productDetailRepo.getById(prDetailId);
-        var productId = pd.getProduct().getProductId();
-
-        productDetailRepo.deleteById(prDetailId);
-        return "redirect:/admin/product/update-product/" + productId;
+    @DeleteMapping ("/delete/prDetail")
+    public ResponseEntity<Void> deleteProductDetail(@RequestParam("prDetailId") Integer prDetailId) {
+         productDetailRepo.deleteById(prDetailId);
+         return ResponseEntity.ok().build();
     }
 
 }

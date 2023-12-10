@@ -55,7 +55,6 @@ function confirmDelete(detailId) {
 }
 
 function changeStatus(select) {
-    var invoiceId = select.getAttribute("data-invoice-id");
     var oldStatus = select.getAttribute("data-old-status")
     var newStatus = select.value;
     // kiểm tra nếu đơn đã gửi thì không thể chuyển trạng thái về chưa gửi
@@ -82,12 +81,12 @@ function submitForm() {
         type: 'PUT',
         url: url,
         data: formData,
-        success: function (data) {
+        success:  (data) => {
             alert('Đã cập nhật đơn hàng thành công!');
             window.location.reload();
             // Có thể thực hiện các hành động khác sau khi cập nhật thành công
         },
-        error: function (error) {
+        error:  (error) => {
             alert('Có lỗi xảy ra khi cập nhật đơn hàng!');
         }
     });

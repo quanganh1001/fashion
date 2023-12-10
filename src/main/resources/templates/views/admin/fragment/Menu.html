@@ -2,10 +2,10 @@
 <div th:fragment="menu"
      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <ul class="list-group">
-        <li class="list-group-item" id="home" ><a style="text-decoration-line: none" href="/admin" >Trang chủ</a></li>
-        <li class=" list-group-item" id="product"><a style="text-decoration-line: none" href="/admin/product">Quản lý Sản phẩm</a></li>
-        <li  class=" list-group-item" id="category"><a style="text-decoration-line: none" href="/admin/category">Quản lý danh mục Sản phẩm</a></li>
-        <li  class=" list-group-item" id="invoice"><a style="text-decoration-line: none" href="/admin/invoice/filter/-1?key=">Quản lý đơn hàng</a></li>
+        <li class="list-group-item" id="home" >Trang chủ</li>
+        <li class=" list-group-item" id="product">Quản lý Sản phẩm</li>
+        <li  class=" list-group-item" id="category">Quản lý danh mục Sản phẩm</li>
+        <li  class=" list-group-item" id="invoice">Quản lý đơn hàng</li>
         <div>
             <div sec:authorize="isAuthenticated()">
                 Welcome, <span sec:authentication="name"></span>!
@@ -18,6 +18,20 @@
 
     <script th:inline="javascript">
         $(document).ready(()=>{
+            $("#home").click(() => {
+                window.location.href= "/admin"
+            })
+            $("#product").click(() => {
+                window.location.href= "/admin/product"
+            })
+            $("#category").click(() => {
+                window.location.href= "/admin/category"
+            })
+            $("#invoice").click(() => {
+                window.location.href= "/admin/invoice/filter/-1?key="
+            })
+
+
             if([[${select}]] === "home"){
                 $("#home").addClass("active");
                 $("#home a").addClass("text-light")

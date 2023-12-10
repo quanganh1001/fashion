@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import project.fashion.service.ImgSizeService;
 import project.fashion.service.ProductService;
 import project.fashion.service.ProductDetailService;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -69,15 +71,16 @@ public class CtlAdminProduct {
     }
 
     @PostMapping("/add-product")
-    public String addProduct(Model model, @ModelAttribute Product product) {
-        productRepo.save(product);
-        return "redirect:/admin/product";
+    public ResponseEntity<String> addProduct(@ModelAttribute Product product) {
+        var productId = product.getProductId();
+        productService.saveProduct(productId,product);
+
+        return ResponseEntity.ok(productId);
     }
 
-    @GetMapping("/delete-product/{productId}")
-    public String deleteProduct(@PathVariable("productId") String productId, Model model) {
-        productRepo.deleteById(productId);
-        return "redirect:/admin/product";
+    @DeleteMapping("/delete-product/{productId}")
+    public ResponseEntity<String> deleteProduct(@PathVariable("productId") String productId) throws IOException {
+        return productService.deleteProduct(productId);
     }
 
     @GetMapping("/update-product/{productId}")
@@ -96,10 +99,8 @@ public class CtlAdminProduct {
     }
 
     @PutMapping("/update-product/{productId}")
-    @Transactional
     public String updateProduct(@PathVariable("productId") String productId, @ModelAttribute Product p) {
-        productDetailRepo.setProductDetailActive(productId,p.getIsProductActive());
-        productRepo.save(p);
+        productService.saveProduct(productId,p);
             return "redirect:/admin/product";
         }
 

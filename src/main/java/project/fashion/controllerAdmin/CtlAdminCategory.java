@@ -24,9 +24,8 @@ public class CtlAdminCategory {
     @GetMapping
     public String getAllCategories(Model model,@RequestParam(defaultValue = "0") int page,@RequestParam(name = "key",
             required = false) String key){
-        if(page <0)
-            page = 0;
-        Page<Category> searchCategory = categoryService.searchCategory(key,PageRequest.of(page, 10));
+
+        Page<Category> searchCategory = categoryService.searchCategory(key,page);
 
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", searchCategory.getTotalPages());
@@ -47,9 +46,10 @@ public class CtlAdminCategory {
         return "/admin/AddCategory";
     }
 
+
     @PostMapping("/add-category")
     public String addCat(@ModelAttribute Category category) {
-        categoryRepo.save(category);
+        categoryService.saveCategory(category);
         return "redirect:/admin/category";
     }
 
@@ -72,10 +72,8 @@ public class CtlAdminCategory {
     }
 
     @PutMapping("/update-category/{catId}")
-    @Transactional
     public String updateCat(@PathVariable("catId") String catId, @ModelAttribute Category c) {
-        categoryService.setCatActive(catId,c.getIsCatActive());
-        categoryRepo.save(c);
+        categoryService.saveCategory(c);
         return "redirect:/admin/category";
     }
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 08, 2023 lúc 12:46 PM
+-- Thời gian đã tạo: Th12 10, 2023 lúc 06:54 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.0.28
 
@@ -65,6 +65,8 @@ INSERT INTO `categories` (`cat_id`, `cat_name`, `parent_id`, `is_cat_active`) VA
 ('AKG', 'Áo khoác gió', 'AK', b'1'),
 ('AO', 'Áo nam', NULL, b'1'),
 ('BN', 'Bộ nỉ', 'SET', b'1'),
+('cvcx', 'd', NULL, b'1'),
+('d', 'd', NULL, b'1'),
 ('PLBK', 'Polo bo kẻ', 'POLO', b'1'),
 ('PLCP', 'Polo can phối', 'POLO', b'1'),
 ('PLHT', 'Polo họa tiết', 'POLO', b'1'),
@@ -102,6 +104,7 @@ INSERT INTO `categories` (`cat_id`, `cat_name`, `parent_id`, `is_cat_active`) VA
 ('SMNTHT', 'Sơ mi ngắn tay họa tiết', 'SMN', b'1'),
 ('SMNTK', 'Sơ mi ngắn tay kẻ', 'SMN', b'1'),
 ('SMNTT', 'Sơ mi ngắn tay trơn', 'SMN', b'1'),
+('test', 'xcz', NULL, b'1'),
 ('THUN', 'Áo thun', 'AO', b'1'),
 ('TIH', 'Thun in hình', 'THUN', b'1'),
 ('TT', 'Tank top', 'THUN', b'1');
@@ -231,7 +234,12 @@ INSERT INTO `history` (`id`, `invoice_id`, `old_invoice_status`, `new_invoice_st
 (72, 'QWEASVXZ', 3, 4, '2023-12-03 12:55:57'),
 (73, 'SDDFGSEW', 1, 2, '2023-12-03 13:15:19'),
 (74, 'SDDFGSEW', 2, 0, '2023-12-03 13:15:25'),
-(75, 'SDDFGSEW', 0, 1, '2023-12-03 13:15:34');
+(75, 'SDDFGSEW', 0, 1, '2023-12-03 13:15:34'),
+(76, 'SDDFGSEW', 1, 3, '2023-12-08 11:48:36'),
+(77, 'SDDFGSEW', 3, 2, '2023-12-08 11:48:47'),
+(78, 'SDDFGSEW', 2, 3, '2023-12-08 11:49:13'),
+(79, 'SDDFGSEW', 3, 1, '2023-12-08 12:14:57'),
+(80, 'SDDFGSEW', 1, 0, '2023-12-08 12:40:08');
 
 -- --------------------------------------------------------
 
@@ -449,7 +457,10 @@ INSERT INTO `imgs_product` (`img_id`, `product_id`, `file_img`, `background_1`, 
 (303, 'ESTP074', '1701361255443_4_aaa0fd53411a441e85605a458aab67f7_master.jpg', b'0', b'0'),
 (304, 'ESTP074', '1701361255445_3_e2f6d02236ac4e0397a15b372c85bfb2_master.jpg', b'0', b'0'),
 (305, 'ESTP074', '1701361255449_2_5933a603e4074662bfe7cc6b5fe1e44b_master.jpg', b'1', b'0'),
-(306, 'ESTP074', '1701361255452_1_50f16dbd5df34aa3acc99865b4820084_master.jpg', b'0', b'1');
+(306, 'ESTP074', '1701361255452_1_50f16dbd5df34aa3acc99865b4820084_master.jpg', b'0', b'1'),
+(337, 'gdfgdf', '1702220767155_1_50f16dbd5df34aa3acc99865b4820084_master - Copy - Copy.jpg', b'0', b'1'),
+(338, 'gdfgdf', '1702220767160_1_50f16dbd5df34aa3acc99865b4820084_master - Copy (2).jpg', b'1', b'0'),
+(339, 'gdfgdf', '1702220767166_1_50f16dbd5df34aa3acc99865b4820084_master - Copy.jpg', b'0', b'0');
 
 -- --------------------------------------------------------
 
@@ -502,12 +513,12 @@ INSERT INTO `incvoice_status` (`invoice_status`, `status`) VALUES
 
 CREATE TABLE `invoices` (
   `invoice_id` varchar(8) NOT NULL,
-  `name` varchar(30) DEFAULT NULL,
-  `phone` varchar(15) DEFAULT NULL,
+  `name` varchar(30) NOT NULL,
+  `phone` varchar(15) NOT NULL,
   `address` text DEFAULT NULL,
   `total_amount` double NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `note` varchar(255) NOT NULL,
+  `note` varchar(255) DEFAULT NULL,
   `invoice_status` int(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -516,10 +527,24 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `total_amount`, `created_at`, `note`, `invoice_status`) VALUES
-('QWEASVXZ', 'zxca', '93232', 'vxdvs', 0, '2023-12-03 12:55:57', 'dfdfdfs3', 4),
-('SDDFGSEW', 'quang anh', '932', '4dvsdsf', 0, '2023-12-03 13:15:42', 'd', 1),
-('VCXBDSGS', 'SF', '93232', '4fdsdvs', 0, '2023-11-26 09:39:38', 'dsf', 1),
-('YHJFSFAS', 'Qvxa', '21932', '4cddvs', 0, '2023-11-26 09:39:38', '', 1);
+('1C91Y9F2', ' bb Địa chỉ* Ghi chú nội bộ', '2432', 'dgfd', 666666, '2023-12-10 10:52:47', '                        gdf', 1),
+('6HT6O9GK', '', '453213', 'hfg', 420000, '2023-12-10 10:50:54', 'gsdgds         ', 1),
+('C7OKWZYI', 'quang anh', '234532', 'fas', 420000, '2023-12-10 11:13:27', '               à         ', 1),
+('DDWW6F8X', 'quang anh', 'dfggdf', 'dfgd', 420000, '2023-12-10 10:58:40', '                      fdgd  ', 1),
+('EM6WTDFS', 'sfsd', '34543', 'gfd', 420000, '2023-12-10 11:15:19', '                        gdf', 1),
+('IAKOVTYV', 'fsd', '65534534', 'dhgdf', 420000, '2023-12-10 11:32:22', '                       dhd ', 1),
+('KWIATN3L', 'fsd', '5433', 'dfgdf', 420000, '2023-12-10 11:16:03', '           dfgd             ', 1),
+('LRQFINMZ', 'quang anh', '3422323', 'gfd', 420000, '2023-12-10 11:25:22', '                        bgfdg', 1),
+('NB2Y231R', '', '452352', 'dgfd', 420000, '2023-12-10 10:50:20', '     gsdg                   ', 1),
+('QWEASVXZ', 'zxca', '93232', 'vxdvs', 420000, '2023-12-03 12:55:57', 'dfdfdfs3', 4),
+('SDDFGSEW', 'quang anh', '932423', '4dvsdsf', 420000, '2023-12-03 13:15:42', 'dfsd', 0),
+('TDIAJGEN', 'quang anh', '0365151822', '4dvsdsf', 420000, '2023-12-10 11:14:38', '                        sdgsd', 1),
+('TE3QD212', 'quang anh', '0365151822', '4dvsdsf', 420000, '2023-12-10 11:15:03', '             fasfsa           ', 1),
+('UJZOVW4I', 'quang anh', '54353443', 'hdfhg', 420000, '2023-12-10 11:32:04', '                fghf       ', 1),
+('VCXBDSGS', 'SF', '93232', '4fdsdvs', 420000, '2023-11-26 09:39:38', 'dsf', 1),
+('VJHVSAU5', 'quang anh', '234324', 'sfsd', 420000, '2023-12-10 11:17:01', '                        dsfs', 1),
+('YHJFSFAS', 'Qvxa', '21932', '4cddvs', 420000, '2023-11-26 09:39:38', '', 1),
+('YTC4qwqb', 'quang anh', '0365151822', '4dvsdsf', 420000, '2023-12-10 10:44:48', '                        hfdfd', 1);
 
 --
 -- Bẫy `invoices`
@@ -555,11 +580,13 @@ CREATE TABLE `invoices_detail` (
 
 INSERT INTO `invoices_detail` (`detail_id`, `invoice_id`, `product_detail_id`, `price`, `quantity`, `total_price`) VALUES
 (3, 'YHJFSFAS', 87, 490000, 1, 490000),
-(4, 'YHJFSFAS', 195, 390000, 4, 1560000),
 (5, 'VCXBDSGS', 245, 490000, 1, 490000),
-(6, 'VCXBDSGS', 244, 390000, 4, 1560000),
 (7, 'QWEASVXZ', 190, 490000, 1, 490000),
-(8, 'QWEASVXZ', 246, 390000, 4, 1560000);
+(8, 'QWEASVXZ', 246, 390000, 4, 1560000),
+(15, 'SDDFGSEW', 46, 3333333, 24, 79999992),
+(25, 'TDIAJGEN', 47, 333333, 1, 333333),
+(26, '1C91Y9F2', 46, 333333, 2, 666666),
+(29, '6HT6O9GK', 161, 420000, 1, 420000);
 
 --
 -- Bẫy `invoices_detail`
@@ -603,11 +630,11 @@ CREATE TRIGGER `delete` AFTER DELETE ON `invoices_detail` FOR EACH ROW BEGIN
     -- Tính tổng tiền cho invoice có id tương ứng với dòng mới chèn vào invoice_detail
     SELECT SUM(total_price) INTO total
     FROM invoices_detail
-    WHERE invoice_id = invoice_id;
+    WHERE invoice_id = OLD.invoice_id;
 
     -- Cập nhật tổng tiền vào bảng invoice
     UPDATE invoices
-    SET total_amount = 0
+    SET total_amount = total
     WHERE invoice_id = invoice_id;
 END
 $$
@@ -686,7 +713,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `product_name`, `cat_id`, `price`, `discount_price`, `discount_percent`, `is_discount`, `brand`, `description`, `img_size_id`, `total_size`, `total_color`, `is_product_active`) VALUES
-('DSTP611', 'Áo polo trơn bo kẻ DSTP611\r\n', 'PLHT', 3333333, NULL, NULL, b'0', 'Torano', '', 1, 4, 1, b'1'),
+('DSTP611', 'Áo polo trơn bo kẻ DSTP611', 'PLHT', 340000, NULL, NULL, b'0', 'Torano', '', 1, 4, 1, b'1'),
 ('DSTP650', 'Áo Polo monogram TRN DSTP650', 'PLCP', 450000, NULL, NULL, b'0', 'TORANO', 'Áo Polo monogram TRN 1.DSTP650', 1, 4, 1, b'1'),
 ('DSTP903', 'Áo polo can phối Horizontal Color Scheme DSTP903', 'PLCP', 420000, 290000, 31, b'1', 'TORANO', '', 1, 4, 2, b'1'),
 ('ESTP001', 'Áo polo họa tiết in tràn ESTP001', 'PLHT', 420000, NULL, NULL, b'0', 'TORANO', '', 1, 4, 1, b'1'),
@@ -712,6 +739,9 @@ INSERT INTO `products` (`product_id`, `product_name`, `cat_id`, `price`, `discou
 ('ESTP060', 'Áo Polo can phối 2 màu ESTP060', 'PLCP', 420000, NULL, NULL, b'0', 'TORANO', 'Áo polo nam cao cấp đẹp, tôn dáng. Chất vải dệt mềm, dày dặn không bai xù nhăn nhàu', 1, 4, 2, b'1'),
 ('ESTP067', 'Áo Polo trơn bo kẻ cổ ESTP067', 'PLT', 380000, NULL, NULL, b'0', 'TORANO', '', 1, 5, 3, b'1'),
 ('ESTP074', 'Áo Polo trơn bo kẻ ESTP074', 'PLT', 420000, NULL, NULL, b'0', 'TORANO', 'Áo Polo nam trơn bo kẻ cao cấp phong cách trẻ trung và lịch lãm thích hợp với mọi dáng người.', 1, 4, 2, b'1'),
+('gdfgdf', 'gdfg', 'AK', 543543, 4535, 99, b'1', 'TORANO', '', 2, 0, 0, b'1'),
+('sss', 'gdfg', 'AKG', 340000, NULL, NULL, b'0', 'TORANO', '', 2, 0, 0, b'1'),
+('test', 'gdfg', 'AKG', 340000, NULL, NULL, b'0', 'TORANO', '', 2, 1, 1, b'1'),
 ('TP004', 'Áo polo phối màu color-block 1.TP004', 'PLBK', 450000, NULL, NULL, b'0', 'TORANO', 'Áo polo phối màu color-block TP004', 1, 4, 1, b'1');
 
 --
@@ -837,7 +867,7 @@ INSERT INTO `products_detail` (`product_detail_id`, `product_id`, `code`, `color
 (43, 'ESTP028', 'ESTP02872CV00SB_NV-L', 'NV', 'L', 0, b'0', b'1'),
 (44, 'ESTP028', 'ESTP02872CV00SB_NV-XL', 'NV', 'XL', 0, b'0', b'1'),
 (45, 'ESTP028', 'ESTP02872CV00SB_NV-XXL', 'NV', 'XXL', 0, b'0', b'1'),
-(46, 'DSTP611', 'DSTP61172CX00SB_WH-S', 'WH', 'S', 999, b'1', b'1'),
+(46, 'DSTP611', 'DSTP61172CX00SB_WH-S', 'WH', 'S', 998, b'1', b'1'),
 (47, 'DSTP611', 'DSTP61172CX00SB_WH-M', 'WH', 'M', 999, b'1', b'1'),
 (48, 'DSTP611', 'DSTP61172CX00SB_WH-L', 'WH', 'L', 999, b'1', b'1'),
 (49, 'DSTP611', 'DSTP61172CX00SB_WH-XL', 'WH', 'XL', 999, b'1', b'1'),
@@ -1034,7 +1064,8 @@ INSERT INTO `products_detail` (`product_detail_id`, `product_id`, `code`, `color
 (256, 'TP004', 'DSTP00472CV32SB_BL-S', 'BL', 'S', 999, b'1', b'1'),
 (257, 'TP004', 'DSTP00472CV32SB_BL-M', 'BL', 'M', 999, b'1', b'1'),
 (258, 'TP004', 'DSTP00472CV32SB_BL-L', 'BL', 'L', 999, b'1', b'1'),
-(259, 'TP004', 'DSTP00472CV32SB_BL-XL', 'BL', 'XL', 999, b'1', b'1');
+(259, 'TP004', 'DSTP00472CV32SB_BL-XL', 'BL', 'XL', 999, b'1', b'1'),
+(277, NULL, 'test2222', 'BBR', 'L', 4, b'1', b'1');
 
 --
 -- Bẫy `products_detail`
@@ -1315,13 +1346,13 @@ ALTER TABLE `accounts`
 -- AUTO_INCREMENT cho bảng `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_product`
 --
 ALTER TABLE `imgs_product`
-  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=307;
+  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=343;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_size`
@@ -1339,7 +1370,7 @@ ALTER TABLE `incvoice_status`
 -- AUTO_INCREMENT cho bảng `invoices_detail`
 --
 ALTER TABLE `invoices_detail`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT cho bảng `invoices_status`
@@ -1351,7 +1382,7 @@ ALTER TABLE `invoices_status`
 -- AUTO_INCREMENT cho bảng `products_detail`
 --
 ALTER TABLE `products_detail`
-  MODIFY `product_detail_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=271;
+  MODIFY `product_detail_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=278;
 
 --
 -- AUTO_INCREMENT cho bảng `roles`

@@ -50,8 +50,10 @@
                  th:src="@{'/admin/imgProduct/'+${i.fileImg}}"
                  alt="Image">
             <td class="button">
-                <button class="btn btn-danger btn-sm" th:id="${i.fileImg}"
-                        onclick="confirmDelete(this.id)">
+                <button class="btn btn-danger btn-sm"
+                        th:data-image-name="${i.fileImg}"
+                        th:data-product-id="${productId}"
+                        onclick="confirmDelete(this)">
                     <i class="fas fa-trash-alt"></i> Delete
                 </button>
             </td>

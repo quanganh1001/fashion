@@ -35,12 +35,6 @@ public class CtlAdminInvoiceDetail {
     private InvoiceStatusRepo invoiceStatusRepo;
 
     @Autowired
-    private ImgProductRepo imgProductRepo;
-
-    @Autowired
-    private ProductDetailService productDetailService;
-
-    @Autowired
     private ProductDetailRepo productDetailRepo;
 
     @GetMapping()
@@ -73,18 +67,13 @@ public class CtlAdminInvoiceDetail {
 
     @GetMapping("/img/{productId}")
     public ResponseEntity<Resource> serveImage(@PathVariable String productId) throws IOException {
-        Optional<ImgProduct> OptimalImgProduct = imgProductRepo.findByBackground1TrueAndProductProductId(productId);
-        var fileName = OptimalImgProduct.get().getFileImg();
-        Path imagePath = Paths.get("src/main/uploads/images").resolve(fileName);
-        Resource imageResource = new UrlResource(imagePath.toUri());
-        // Trả về phản hồi với hình ảnh
-        return ResponseEntity.ok().body(imageResource);
+        return invoiceDetailService.getImgBg(productId);
     }
 
     @GetMapping("/searchProduct")
     public String searchProduct(Model model, @RequestParam("key") String key,@RequestParam("invoiceId") String invoiceId) {
         List<ProductDetail> search =
-                productDetailService.searchProductDetailByProductProductNameContainingIgnoreCase(key);
+                productDetailRepo.searchProductDetailByProductProductNameContainingIgnoreCase(key);
             model.addAttribute("search", search);
             model.addAttribute("invoiceId",invoiceId);
         return "admin/fragment/SearchProduct";

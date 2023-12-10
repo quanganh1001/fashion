@@ -13,7 +13,7 @@
             <a th:href="@{/admin/imgProduct/add-img?productId=__${p.productId}__}" class="btn btn-primary btn-sm"
                role="button">Thêm ảnh sản phẩm
             </a>
-            <form th:action="@{/admin/product/update-product/__${p.productId}__}" method="POST" th:object="${p}">
+            <form id="form" th:action="@{/admin/product/update-product/__${p.productId}__}" method="POST" th:object="${p}">
                 <input type="hidden" name="_method" value="put"/>
                 <div class="row">
                     <div class="mb-3">
@@ -89,8 +89,10 @@
             </a>
 
             <li th:each="pd : ${prDetail}" class="list-group-item">
-                <button class="btn btn-danger btn-sm" th:id="${pd.productDetailId}"
-                        onclick="confirmDelete(this.id)">
+                <button class="btn btn-danger btn-sm"
+                        th:data-prDetail-id="${pd.productDetailId}"
+                        th:data-product-id="${p.productId}"
+                        onclick="confirmDelete(this)">
                     <i class="fas fa-trash-alt"></i> Delete
                 </button>
                 <a th:href="@{/admin/productDetail/update-detail/__${pd.productDetailId}__}" class="btn btn-primary btn-sm"
@@ -102,14 +104,7 @@
         </div>
     </div>
 </div>
-<script>
-    function confirmDelete(productDetailId) {
-        console.log(productDetailId)
-        var result = confirm("Bạn có muốn xóa sản phẩm này?");
-        if (result) {
-            window.location.href = '/admin/productDetail/delete/prDetail?prDetailId=' + productDetailId;
-        }
-    }
-</script>
+<script th:src="@{/script/UpdateProductScript.js}"></script>
+
 </body>
 </html>
