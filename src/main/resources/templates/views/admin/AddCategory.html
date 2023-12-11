@@ -10,8 +10,8 @@
 
     <div class="container mt-5">
 
-        <h2>THÊM MỚI SẢN PHẨM</h2>
-        <form id="form" th:action="@{/admin/category/add-category}" method="post" th:object="${category}">
+        <h2>THÊM MỚI DANH MỤC</h2>
+        <form id="form" th:action="@{/admin/category/add-category?parent=__${category.catParent.catId}__}" method="post" th:object="${category}">
             <div class="row">
                 <div class="mb-3">
                     <label for="catId" class="form-label">Mã danh mục<span style="color:red">*</span></label>
@@ -24,11 +24,11 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="parentId" class="form-label">Nằm trong danh mục<span style="color:red">*</span></label>
-                    <select class="form-control" id="parentId" th:field="${category.catParent}">
+                    <label th:for="parentId" class="form-label">Nằm trong danh mục<span style="color:red">*</span></label>
+                    <select class="form-control" th:id="parentId" th:field="${category.catParent}">
                         <option value="">Không có</option>
                         <option th:each="cat : ${cat}" th:value="${cat.catId}"
-                                th:text="${cat.catName}"></option>
+                                th:text="${cat.catId} + ' - ' + ${cat.catName}" ></option>
                     </select>
                 </div>
 

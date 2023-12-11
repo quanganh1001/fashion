@@ -9,41 +9,13 @@
 
     <div class="container mt-5">
         <h2>Categories</h2>
-        <a href="/admin/category/add-category">
-            <button type="button" class="btn btn-primary">Thêm danh mục</button>
-        </a>
-
-        <form id="form" th:action="@{/admin/category}" method="get">
-            <label for="key">Tìm kiếm:</label>
-            <input type="text" id="key" name="key" th:value="${#strings.isEmpty(searchKey) ? '' : searchKey}"
-                   placeholder="Nhập mã danh mục hoặc tên danh mục...">
-            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-        </form>
-
-        <div>Tổng: <span th:text="${totalItems}" style="color: red"></span> danh mục</div>
-        <nav aria-label="Page navigation">
-            <ul class="pagination">
-                <li class="page-item" th:class="${currentPage == 0} ? 'page-item disabled' : 'page-item'">
-                    <a class="page-link" th:href="@{/admin/category(page=${currentPage}-1,key=${key})}"
-                       aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
-                    <a class="page-link" th:href="@{/admin/category(page=${i >= 0 ? i : 0},key=${key})}"
-                       th:text="${i + 1}"
-                       th:class="${currentPage == i} ? 'page-link active' : 'page-link'"
-                    ></a>
-                </li>
-                <li class="page-item" th:class="${currentPage == totalPages - 1} ? 'page-item disabled' : 'page-item'">
-                    <a class="page-link" th:href="@{/admin/category(page=${currentPage+1},key=${key})}"
-                       aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-
+        <div>
+            <h4 th:if="${cat.catId } != null" th:text="${cat.catId} + ' - ' + ${cat.catName}"></h4>
+            <h4 th:unless="${cat.catId } != null"></h4>
+            <a class="mt-5 mb-5" th:href="@{/admin/category/add-category?catParentId=__${cat.catId}__}">
+                <button type="button" class="btn btn-primary">Thêm danh mục</button>
+            </a>
+        </div>
         <table>
             <thead>
             <tr>
@@ -53,11 +25,13 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="c:${category}">
-                <td th:text="${c.catId}"></td>
+            <tr th:each="c:${categories}">
+                <td>
+                    <a th:href="@{/admin/category(parent=${c.catId})}" th:text="${c.catId}"></a>
+                </td>
                 <td th:text="${c.catName}"></td>
-                <!--            <td th:if="${c.catParent != null}" th:text="${c.catParent.catName}"></td>-->
-                <!--            <td th:unless="${c.catParent != null}">Không</td>-->
+                <td th:if="${c.catParent != null}" th:text="${c.catParent.catName}"></td>
+                <td th:unless="${c.catParent != null}">Không</td>
                 <td th:text="${c.isCatActive}==true ? 'Hoạt động' :'Đã ẩn'"></td>
                 <td class="button"><a th:href="@{/admin/category/update-category/__${c.catId}__}">
                     <button class="btn btn-primary">Sửa
@@ -65,8 +39,10 @@
                 </a>
                 </td>
                 <td class="button">
-                    <button class="btn btn-danger btn-sm" th:id="${c.catId}"
-                            onclick="confirmDelete(this.id)">
+                    <button class="btn btn-danger btn-sm"
+                            th:data-catId="${c.catId}"
+                            th:data-parentId="${c.catParent}"
+                            onclick="confirmDelete(this)">
                         <i class="fas fa-trash-alt"></i> Delete
                     </button>
                 </td>
@@ -75,14 +51,6 @@
         </table>
     </div>
 </div>
-<script>
-    function confirmDelete(catId) {
-        console.log(catId)
-        var result = confirm("Bạn có muốn xóa danh mục này?");
-        if (result) {
-            window.location.href = '/admin/category/delete-cat/' + catId;
-        }
-    }
-</script>
+<script th:src="@{/script/CategoryAdminScript.js}"></script>
 </body>
 </html>

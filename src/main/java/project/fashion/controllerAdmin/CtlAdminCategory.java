@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,9 @@ import project.fashion.entity.Category;
 import project.fashion.repository.CategoryRepo;
 import project.fashion.service.CategoryService;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin/category")
@@ -21,42 +24,38 @@ public class CtlAdminCategory {
 
     @Autowired
     private CategoryRepo categoryRepo;
-    @GetMapping
-    public String getAllCategories(Model model,@RequestParam(defaultValue = "0") int page,@RequestParam(name = "key",
-            required = false) String key){
+    @GetMapping()
+    public String getCat(Model model, @RequestParam(name = "parent", defaultValue = "") String parent ){
+        Optional<Category> category = Optional.of(categoryRepo.findById(parent).orElse(new Category()));
+        var cat = category.get();
 
-        Page<Category> searchCategory = categoryService.searchCategory(key,page);
+        List<Category> categories = categoryService.getCat(model,parent);
 
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", searchCategory.getTotalPages());
-        model.addAttribute("totalItems", searchCategory.getTotalElements());
-        model.addAttribute("category", searchCategory.getContent());
-        model.addAttribute("key",key);
+        model.addAttribute("categories",categories);
+        model.addAttribute("cat",cat);
         model.addAttribute("select","category");
-        return "/admin/CategoryAdmin";
+        return  "admin/CategoryAdmin";
     }
 
     @GetMapping("/add-category")
-    public String addCategory(Model model) {
-        List<Category> cat = categoryRepo.findAll();
-        Category category = new Category();
-        model.addAttribute("category", category);
-        model.addAttribute("cat", cat);
-        model.addAttribute("select",category);
+    public String addCategory(Model model,@RequestParam(value = "catParentId",defaultValue = "") String catParentId) {
+        categoryService.addCategory(model,catParentId);
+
+        model.addAttribute("select","category");
         return "/admin/AddCategory";
     }
 
 
     @PostMapping("/add-category")
-    public String addCat(@ModelAttribute Category category) {
+    public String addCat(@ModelAttribute Category category,@RequestParam(name = "parent", defaultValue = "") String parent) {
         categoryService.saveCategory(category);
-        return "redirect:/admin/category";
+        return "redirect:/admin/category?parent="+parent;
     }
 
-    @GetMapping("/delete-cat/{catId}")
-    public String deleteCat(@PathVariable("catId") String catId, Model model) {
-        categoryRepo.deleteById(catId);
-        return "redirect:/admin/category";
+    @DeleteMapping("/delete-cat")
+    public ResponseEntity<String> deleteCat(@RequestParam("catId") String catId) {
+        categoryService.deleteById(catId);
+        return ResponseEntity.ok("done");
     }
 
     @GetMapping("/update-category/{catId}")

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 10, 2023 lúc 06:54 PM
+-- Thời gian đã tạo: Th12 11, 2023 lúc 07:28 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.0.28
 
@@ -65,8 +65,6 @@ INSERT INTO `categories` (`cat_id`, `cat_name`, `parent_id`, `is_cat_active`) VA
 ('AKG', 'Áo khoác gió', 'AK', b'1'),
 ('AO', 'Áo nam', NULL, b'1'),
 ('BN', 'Bộ nỉ', 'SET', b'1'),
-('cvcx', 'd', NULL, b'1'),
-('d', 'd', NULL, b'1'),
 ('PLBK', 'Polo bo kẻ', 'POLO', b'1'),
 ('PLCP', 'Polo can phối', 'POLO', b'1'),
 ('PLHT', 'Polo họa tiết', 'POLO', b'1'),
@@ -104,7 +102,6 @@ INSERT INTO `categories` (`cat_id`, `cat_name`, `parent_id`, `is_cat_active`) VA
 ('SMNTHT', 'Sơ mi ngắn tay họa tiết', 'SMN', b'1'),
 ('SMNTK', 'Sơ mi ngắn tay kẻ', 'SMN', b'1'),
 ('SMNTT', 'Sơ mi ngắn tay trơn', 'SMN', b'1'),
-('test', 'xcz', NULL, b'1'),
 ('THUN', 'Áo thun', 'AO', b'1'),
 ('TIH', 'Thun in hình', 'THUN', b'1'),
 ('TT', 'Tank top', 'THUN', b'1');
@@ -239,7 +236,8 @@ INSERT INTO `history` (`id`, `invoice_id`, `old_invoice_status`, `new_invoice_st
 (77, 'SDDFGSEW', 3, 2, '2023-12-08 11:48:47'),
 (78, 'SDDFGSEW', 2, 3, '2023-12-08 11:49:13'),
 (79, 'SDDFGSEW', 3, 1, '2023-12-08 12:14:57'),
-(80, 'SDDFGSEW', 1, 0, '2023-12-08 12:40:08');
+(80, 'SDDFGSEW', 1, 0, '2023-12-08 12:40:08'),
+(81, 'NQZDKR7V', 1, 3, '2023-12-11 14:40:20');
 
 -- --------------------------------------------------------
 
@@ -536,6 +534,7 @@ INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `total_amount`
 ('KWIATN3L', 'fsd', '5433', 'dfgdf', 420000, '2023-12-10 11:16:03', '           dfgd             ', 1),
 ('LRQFINMZ', 'quang anh', '3422323', 'gfd', 420000, '2023-12-10 11:25:22', '                        bgfdg', 1),
 ('NB2Y231R', '', '452352', 'dgfd', 420000, '2023-12-10 10:50:20', '     gsdg                   ', 1),
+('NQZDKR7V', 'quang anh', '932423', '4dvsdsf', 340000, '2023-12-11 14:40:08', '                    r    ', 3),
 ('QWEASVXZ', 'zxca', '93232', 'vxdvs', 420000, '2023-12-03 12:55:57', 'dfdfdfs3', 4),
 ('SDDFGSEW', 'quang anh', '932423', '4dvsdsf', 420000, '2023-12-03 13:15:42', 'dfsd', 0),
 ('TDIAJGEN', 'quang anh', '0365151822', '4dvsdsf', 420000, '2023-12-10 11:14:38', '                        sdgsd', 1),
@@ -586,7 +585,8 @@ INSERT INTO `invoices_detail` (`detail_id`, `invoice_id`, `product_detail_id`, `
 (15, 'SDDFGSEW', 46, 3333333, 24, 79999992),
 (25, 'TDIAJGEN', 47, 333333, 1, 333333),
 (26, '1C91Y9F2', 46, 333333, 2, 666666),
-(29, '6HT6O9GK', 161, 420000, 1, 420000);
+(29, '6HT6O9GK', 161, 420000, 1, 420000),
+(30, 'NQZDKR7V', 49, 340000, 1, 340000);
 
 --
 -- Bẫy `invoices_detail`
@@ -870,7 +870,7 @@ INSERT INTO `products_detail` (`product_detail_id`, `product_id`, `code`, `color
 (46, 'DSTP611', 'DSTP61172CX00SB_WH-S', 'WH', 'S', 998, b'1', b'1'),
 (47, 'DSTP611', 'DSTP61172CX00SB_WH-M', 'WH', 'M', 999, b'1', b'1'),
 (48, 'DSTP611', 'DSTP61172CX00SB_WH-L', 'WH', 'L', 999, b'1', b'1'),
-(49, 'DSTP611', 'DSTP61172CX00SB_WH-XL', 'WH', 'XL', 999, b'1', b'1'),
+(49, 'DSTP611', 'DSTP61172CX00SB_WH-XL', 'WH', 'XL', 998, b'1', b'1'),
 (50, 'ESTP010', 'ESTP01072TC00SB_DGN-S', 'DGN', 'S', 999, b'1', b'1'),
 (51, 'ESTP010', 'ESTP01072TC00SB_DGN-M', 'DGN', 'M', 999, b'1', b'1'),
 (52, 'ESTP010', 'ESTP01072TC00SB_DGN-L', 'DGN', 'L', 999, b'1', b'1'),
@@ -1346,7 +1346,7 @@ ALTER TABLE `accounts`
 -- AUTO_INCREMENT cho bảng `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_product`
@@ -1370,7 +1370,7 @@ ALTER TABLE `incvoice_status`
 -- AUTO_INCREMENT cho bảng `invoices_detail`
 --
 ALTER TABLE `invoices_detail`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT cho bảng `invoices_status`

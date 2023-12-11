@@ -8,11 +8,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import project.fashion.entity.Category;
 import project.fashion.repository.CategoryRepo;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class CategoryService{
@@ -36,18 +38,6 @@ public class CategoryService{
         categoryRepo.setCatActive(cat_id,boo);
     }
 
-    public Page<Category> searchCategory(String key, Integer page) {
-        if(page < 0) {
-            page = 0;
-        }
-
-        if (key != null && !key.isEmpty()) {
-            return categoryRepo.searchCategoriesByCatIdContainingOrCatNameContainingIgnoreCase(
-                    key, key, PageRequest.of(page, 10));
-        } else {
-            return categoryRepo.findAll(PageRequest.of(page, 10));
-        }
-    }
 
     @Transactional
     public ResponseEntity<String> saveCategory(Category category){
@@ -62,5 +52,27 @@ public class CategoryService{
             categoryRepo.save(category);
            return ResponseEntity.ok("done");
         }
+    }
+
+    public List<Category> getCat(Model model, String parent){
+        List<Category> categories;
+        if(parent.isEmpty()){
+            return categories = categoryRepo.findCategoriesByCatParentCatId(null);
+        }else
+            return categories = categoryRepo.findCategoriesByCatParentCatId(parent);
+    }
+
+    public void addCategory(Model model,String catParentId){
+        List<Category> cat = categoryRepo.findAll();
+        Category category = new Category();
+        Optional<Category> catParent = Optional.of(categoryRepo.findById(catParentId).orElse(new Category()));
+        category.setCatParent(catParent.get());
+
+        model.addAttribute("category", category);
+        model.addAttribute("cat", cat);
+    }
+
+    public void deleteById(String catId){
+        categoryRepo.deleteById(catId);
     }
 }
