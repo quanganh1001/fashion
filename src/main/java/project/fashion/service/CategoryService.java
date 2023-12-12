@@ -54,12 +54,13 @@ public class CategoryService{
         }
     }
 
-    public List<Category> getCat(Model model, String parent){
+    public List<Category> getCategoriesByCatParentCatId(String parent){
         List<Category> categories;
         if(parent.isEmpty()){
-            return categories = categoryRepo.findCategoriesByCatParentCatId(null);
+             categories = categoryRepo.findCategoriesByCatParentCatId(null);
         }else
-            return categories = categoryRepo.findCategoriesByCatParentCatId(parent);
+             categories = categoryRepo.findCategoriesByCatParentCatId(parent);
+        return categories;
     }
 
     public void addCategory(Model model,String catParentId){

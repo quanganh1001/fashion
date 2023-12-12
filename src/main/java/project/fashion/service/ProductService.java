@@ -10,11 +10,14 @@ import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import project.fashion.entity.Category;
 import project.fashion.entity.Product;
+import project.fashion.repository.CategoryRepo;
 import project.fashion.repository.ProductDetailRepo;
 import project.fashion.repository.ProductRepo;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -33,6 +36,10 @@ public class ProductService{
 
     @Autowired
     private ImgProductService imgProductService;
+
+    @Autowired
+    private CategoryService categoryService;
+
     public void setProductActive(String cat_id, Boolean boo) {
         List<Product> product = productRepo.findByCategoryCatId(cat_id);
         for (Product p : product){
@@ -49,6 +56,26 @@ public class ProductService{
             return productRepo.findAll(pageable);
         }
     }
+
+
+
+    public List<Product> searchProductByCatId(String catId) {
+
+        List<Product> products = new ArrayList<>(productRepo.findByCategoryCatId(catId));
+
+        List<Category> categories = categoryService.getCategoriesByCatParentCatId(catId);
+        if(!categories.isEmpty()) {
+            for (Category c : categories) {
+                var cId = c.getCatId();
+                products.addAll(productRepo.findByCategoryCatId(cId));
+
+                searchProductByCatId(c.getCatId());
+            }
+        }else return products;
+
+        return products;
+    }
+
     @Transactional
     public ResponseEntity<String> saveProduct(String productId,Product product){
 

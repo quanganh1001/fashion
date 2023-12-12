@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.fashion.entity.Category;
+import project.fashion.entity.Product;
 import project.fashion.repository.CategoryRepo;
 import project.fashion.service.CategoryService;
+import project.fashion.service.ProductService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +26,16 @@ public class CtlAdminCategory {
 
     @Autowired
     private CategoryRepo categoryRepo;
+
+    @Autowired
+    private ProductService productService;
+
     @GetMapping()
     public String getCat(Model model, @RequestParam(name = "parent", defaultValue = "") String parent ){
         Optional<Category> category = Optional.of(categoryRepo.findById(parent).orElse(new Category()));
         var cat = category.get();
 
-        List<Category> categories = categoryService.getCat(model,parent);
+        List<Category> categories = categoryService.getCategoriesByCatParentCatId(parent);
 
         model.addAttribute("categories",categories);
         model.addAttribute("cat",cat);
@@ -75,4 +81,12 @@ public class CtlAdminCategory {
         categoryService.saveCategory(c);
         return "redirect:/admin/category";
     }
+
+//    @GetMapping("/product")
+//    public String findProductByCategory(Model model,@RequestParam("catId") String catId){
+//        List<Product> products = productService.searchProductByCatId(catId);
+//
+//        model.addAttribute("products",products);
+//
+//    }
 }

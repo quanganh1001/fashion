@@ -102,6 +102,6 @@ public class CtlAdminProduct {
     public String updateProduct(@PathVariable("productId") String productId, @ModelAttribute Product p) {
         productService.saveProduct(productId,p);
             return "redirect:/admin/product";
-        }
+    }
 
 }

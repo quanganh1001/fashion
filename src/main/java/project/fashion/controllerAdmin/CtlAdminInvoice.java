@@ -55,10 +55,4 @@ public class CtlAdminInvoice {
         return invoiceService.saveInvoice(invoice);
     }
 
-    @PutMapping("/update-invoice/{invoiceId}")
-    public ResponseEntity<String> updateInvoice(@PathVariable("invoiceId") String invoiceId,
-                                                @ModelAttribute Invoice i) throws Exception {
-        return invoiceService.updateInvoice(invoiceId,i);
-    }
-
 }

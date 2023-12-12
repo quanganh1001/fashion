@@ -21,7 +21,4 @@ public interface CategoryRepo extends JpaRepository<Category,String> {
             nativeQuery = true)
     void setCatActive(@Param("cat_id") String cat_id, @Param("boo") Boolean boo);
 
-    Page<Category> searchCategoriesByCatIdContainingOrCatNameContainingIgnoreCase(String key1,
-                                                                                  String key2,
-                                                                                  Pageable pageable);
 }

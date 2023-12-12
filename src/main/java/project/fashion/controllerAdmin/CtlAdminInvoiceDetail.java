@@ -37,6 +37,9 @@ public class CtlAdminInvoiceDetail {
     @Autowired
     private ProductDetailRepo productDetailRepo;
 
+    @Autowired
+    private InvoiceService invoiceService;
+
     @GetMapping()
     public String getInvoiceDetail(Model model,
                                    @RequestParam("invoiceId") String invoiceId) {
@@ -91,5 +94,11 @@ public class CtlAdminInvoiceDetail {
                              @RequestParam("invoiceDetailId") Integer invoiceDetailId){
         invoiceDetailService.updateQuantityInvoiceDetail(newQuantity,invoiceDetailId);
         return "admin/fragment/SearchProduct";
+    }
+
+    @PutMapping("/update-invoice/{invoiceId}")
+    public ResponseEntity<String> updateInvoice(@PathVariable("invoiceId") String invoiceId,
+                                                @ModelAttribute Invoice i) throws Exception {
+        return invoiceService.updateInvoice(invoiceId,i);
     }
 }
