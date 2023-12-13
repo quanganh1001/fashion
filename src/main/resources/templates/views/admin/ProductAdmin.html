@@ -48,6 +48,7 @@
             <tr>
                 <th>ID</th>
                 <th>Tên sản phâm</th>
+                <th>Danh mục</th>
                 <th>Trạng thái</th>
                 <th></th>
                 <th></th>
@@ -57,6 +58,7 @@
             <tr th:each="p:${products}">
                 <td th:text="${p.productId}"></td>
                 <td th:text="${p.productName}"></td>
+                <td th:text="${p.category.catName}">
                 <td th:text="${p.isProductActive}==true ? 'Hoạt động' :'Đã ẩn'"></td>
 
                 <td class="button"><a th:href="@{/admin/product/update-product/__${p.productId}__}">

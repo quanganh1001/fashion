@@ -37,8 +37,6 @@ public class ProductService{
     @Autowired
     private ImgProductService imgProductService;
 
-    @Autowired
-    private CategoryService categoryService;
 
     public void setProductActive(String cat_id, Boolean boo) {
         List<Product> product = productRepo.findByCategoryCatId(cat_id);
@@ -55,25 +53,6 @@ public class ProductService{
         } else {
             return productRepo.findAll(pageable);
         }
-    }
-
-
-
-    public List<Product> searchProductByCatId(String catId) {
-
-        List<Product> products = new ArrayList<>(productRepo.findByCategoryCatId(catId));
-
-        List<Category> categories = categoryService.getCategoriesByCatParentCatId(catId);
-        if(!categories.isEmpty()) {
-            for (Category c : categories) {
-                var cId = c.getCatId();
-                products.addAll(productRepo.findByCategoryCatId(cId));
-
-                searchProductByCatId(c.getCatId());
-            }
-        }else return products;
-
-        return products;
     }
 
     @Transactional

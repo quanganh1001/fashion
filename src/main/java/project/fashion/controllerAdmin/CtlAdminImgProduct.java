@@ -1,9 +1,7 @@
 package project.fashion.controllerAdmin;
 
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,16 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import project.fashion.entity.*;
 import project.fashion.repository.ImgProductRepo;
-import project.fashion.repository.ProductRepo;
 import project.fashion.service.ImgProductService;
-import project.fashion.service.ProductService;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin/imgProduct")
@@ -86,7 +78,6 @@ public class CtlAdminImgProduct {
     }
 
     @DeleteMapping("/delete")
-    @Transactional
     public ResponseEntity<Void> delelteImg(@RequestParam String imageName) throws IOException {
 
         imgProductService.deleteByFileImg(imageName);

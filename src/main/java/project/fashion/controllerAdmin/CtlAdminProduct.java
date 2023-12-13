@@ -1,6 +1,5 @@
 package project.fashion.controllerAdmin;
 
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,10 +15,7 @@ import project.fashion.repository.CategoryRepo;
 import project.fashion.repository.ImgSizeRepo;
 import project.fashion.repository.ProductDetailRepo;
 import project.fashion.repository.ProductRepo;
-import project.fashion.service.CategoryService;
-import project.fashion.service.ImgSizeService;
 import project.fashion.service.ProductService;
-import project.fashion.service.ProductDetailService;
 
 import java.io.IOException;
 import java.util.List;
@@ -35,7 +31,6 @@ public class CtlAdminProduct {
 
     @Autowired
     private ProductRepo productRepo;
-
 
     @Autowired
     private CategoryRepo categoryRepo;
@@ -99,9 +94,8 @@ public class CtlAdminProduct {
     }
 
     @PutMapping("/update-product/{productId}")
-    public String updateProduct(@PathVariable("productId") String productId, @ModelAttribute Product p) {
-        productService.saveProduct(productId,p);
-            return "redirect:/admin/product";
+    public ResponseEntity<String> updateProduct(@PathVariable("productId") String productId, @ModelAttribute Product p) {
+        return productService.saveProduct(productId,p);
     }
 
 }

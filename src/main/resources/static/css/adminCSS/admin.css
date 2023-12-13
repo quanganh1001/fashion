@@ -20,7 +20,7 @@ table{
 th{
     text-align: center;
 }
-th,tr,td{
+th,td{
     width: auto;
     border: 1px solid black;
 }

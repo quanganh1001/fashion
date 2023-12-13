@@ -1,9 +1,6 @@
 package project.fashion.controllerAdmin;
 
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +9,6 @@ import project.fashion.entity.Category;
 import project.fashion.entity.Product;
 import project.fashion.repository.CategoryRepo;
 import project.fashion.service.CategoryService;
-import project.fashion.service.ProductService;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,8 +21,6 @@ public class CtlAdminCategory {
     @Autowired
     private CategoryRepo categoryRepo;
 
-    @Autowired
-    private ProductService productService;
 
     @GetMapping()
     public String getCat(Model model, @RequestParam(name = "parent", defaultValue = "") String parent ){
@@ -69,24 +61,19 @@ public class CtlAdminCategory {
         List<Category> c = categoryRepo.findAll();
         Category cat = categoryRepo.getById(catId);
 
+        List<Product> products = categoryService.searchProductByCatId(catId);
+
         model.addAttribute("c", c);
         model.addAttribute("cat", cat);
         model.addAttribute("select","category");
-
+        model.addAttribute("products",products);
+        model.addAttribute("select","category");
         return "/admin/UpdateCategory";
     }
 
-    @PutMapping("/update-category/{catId}")
-    public String updateCat(@PathVariable("catId") String catId, @ModelAttribute Category c) {
+    @PutMapping("/update-category")
+    public String updateCat(@ModelAttribute Category c) {
         categoryService.saveCategory(c);
         return "redirect:/admin/category";
     }
-
-//    @GetMapping("/product")
-//    public String findProductByCategory(Model model,@RequestParam("catId") String catId){
-//        List<Product> products = productService.searchProductByCatId(catId);
-//
-//        model.addAttribute("products",products);
-//
-//    }
 }

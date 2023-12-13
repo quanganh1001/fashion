@@ -66,7 +66,7 @@ public class ImgProductService{
         // Trả về phản hồi với hình ảnh
         return ResponseEntity.ok().body(imageResource);
     }
-
+    @Transactional
     public void deleteByFileImg(String imageName) throws IOException {
         String filePath = "src/main/uploads/images/" + imageName;
         Path path = Paths.get(filePath);

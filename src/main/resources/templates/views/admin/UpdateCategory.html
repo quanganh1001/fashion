@@ -8,8 +8,9 @@
     <div th:include="~{admin/fragment/Menu::menu}"></div>
 
     <div class="container mt-5">
-        <h2>SỬA SẢN PHẨM</h2>
-        <form th:action="@{/admin/category/update-category/__${cat.catId}__}" method="POST" th:object="${cat}">
+        <h2>SỬA DANH MỤC</h2>
+        <form id="form" th:action="@{/admin/category/update-category}" method="POST"
+              th:object="${cat}">
             <input type="hidden" name="_method" value="put"/>
             <div class="row">
                 <div class="mb-3 col-6">
@@ -42,7 +43,53 @@
                 <button style="text-align: center" type="submit" class="col-2 btn btn-primary">Sửa danh mục</button>
             </div>
         </form>
+
+        <div class="mt-5 col-12">
+            <h4>Danh sách sản phẩm</h4>
+            <div class="mb-3 mt-3">
+                <a href="/admin/product/add-product">
+                    <button type="button" class="btn btn-primary">Thêm sản phẩm</button>
+                </a>
+            </div>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên sản phâm</th>
+                    <th>Danh mục</th>
+                    <th>Trạng thái</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p:${products}">
+                    <td th:text="${p.productId}"></td>
+                    <td th:text="${p.productName}"></td>
+                    <td th:text="${p.category.catName}">
+                    <td th:text="${p.isProductActive}==true ? 'Hoạt động' :'Đã ẩn'"></td>
+
+                    <td class="button"><a th:href="@{/admin/product/update-product/__${p.productId}__}">
+                        <button class="btn btn-primary">Sửa
+                        </button>
+                    </a>
+
+                    </td>
+                    <td class="button">
+                        <button class="btn btn-danger btn-sm" th:id="${p.productId}"
+                                onclick="confirmDelete(this.id)">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
+
+
 </div>
+<script th:src="@{/script/UpdateCategoryScript.js}"></script>
 </body>
 </html>

@@ -8,13 +8,16 @@
     <div th:include="~{admin/fragment/Menu::menu}"></div>
 
     <div class="container mt-5">
-        <h2>Categories</h2>
+        <h2>DANH MỤC SẢN PHẨM</h2>
         <div>
             <h4 th:if="${cat.catId } != null" th:text="${cat.catId} + ' - ' + ${cat.catName}"></h4>
             <h4 th:unless="${cat.catId } != null"></h4>
-            <a class="mt-5 mb-5" th:href="@{/admin/category/add-category?catParentId=__${cat.catId}__}">
-                <button type="button" class="btn btn-primary">Thêm danh mục</button>
-            </a>
+            <div class=" mb-5">
+                <a  th:href="@{/admin/category/add-category?catParentId=__${cat.catId}__}">
+                    <button type="button" class="btn btn-primary">Thêm danh mục</button>
+                </a>
+            </div>
+
         </div>
         <table>
             <thead>
@@ -31,8 +34,6 @@
                 </td>
                 <td th:text="${c.catName}"></td>
                 <td th:if="${c.catParent != null}" th:text="${c.catParent.catName}"></td>
-                <td th:unless="${c.catParent != null}">Không</td>
-                <td th:text="${c.isCatActive}==true ? 'Hoạt động' :'Đã ẩn'"></td>
                 <td class="button"><a th:href="@{/admin/category/update-category/__${c.catId}__}">
                     <button class="btn btn-primary">Sửa
                     </button>

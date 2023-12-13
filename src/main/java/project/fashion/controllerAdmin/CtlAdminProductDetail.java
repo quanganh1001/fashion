@@ -1,6 +1,5 @@
 package project.fashion.controllerAdmin;
 
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -11,10 +10,6 @@ import project.fashion.repository.ColorRepo;
 import project.fashion.repository.ProductDetailRepo;
 import project.fashion.repository.ProductRepo;
 import project.fashion.repository.SizeRepo;
-import project.fashion.service.ColorService;
-import project.fashion.service.ProductDetailService;
-import project.fashion.service.ProductService;
-import project.fashion.service.SizeService;
 
 import java.util.List;
 

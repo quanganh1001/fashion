@@ -2,9 +2,6 @@ package project.fashion.controllerAdmin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,10 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import project.fashion.entity.*;
 import project.fashion.repository.*;
 import project.fashion.service.*;
-
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
