@@ -16,5 +16,13 @@ import java.util.Optional;
 import java.util.function.Function;
 @Service
 public class ProductDetailService{
+    @Autowired
+    private ProductDetailRepo productDetailRepo;
+
+    public ResponseEntity<String> save(Integer prDetailId,ProductDetail pd){
+        pd.setProductDetailId(prDetailId);
+        productDetailRepo.save(pd);
+        return ResponseEntity.ok("done");
+    }
 
 }

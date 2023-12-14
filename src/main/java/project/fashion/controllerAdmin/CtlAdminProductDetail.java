@@ -10,6 +10,7 @@ import project.fashion.repository.ColorRepo;
 import project.fashion.repository.ProductDetailRepo;
 import project.fashion.repository.ProductRepo;
 import project.fashion.repository.SizeRepo;
+import project.fashion.service.ProductDetailService;
 
 import java.util.List;
 
@@ -21,6 +22,9 @@ public class CtlAdminProductDetail {
 
     @Autowired
     private ProductRepo productRepo;
+
+    @Autowired
+    private ProductDetailService productDetailService;
 
     @Autowired
     private ColorRepo colorRepo;
@@ -69,11 +73,10 @@ public class CtlAdminProductDetail {
     }
 
     @PutMapping("update-detail/{prDetailId}")
-    public String updateProductDetail(@PathVariable("prDetailId") Integer prDetailId,@ModelAttribute ProductDetail pd) {
-        pd.setProductDetailId(prDetailId);
+    public ResponseEntity<String> updateProductDetail(@PathVariable("prDetailId") Integer prDetailId,
+                                       @ModelAttribute ProductDetail pd) {
+        return productDetailService.save(prDetailId,pd);
 
-        productDetailRepo.save(pd);
-        return "redirect:/admin/productDetail/update-detail/"+prDetailId;
     }
 
     @DeleteMapping ("/delete/prDetail")
