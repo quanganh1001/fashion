@@ -18,13 +18,9 @@ public class CtlAdminCategory {
     @Autowired
     private CategoryService categoryService;
 
-    @Autowired
-    private CategoryRepo categoryRepo;
-
-
     @GetMapping()
     public String getCat(Model model, @RequestParam(name = "parent", defaultValue = "") String parent ){
-        Optional<Category> category = Optional.of(categoryRepo.findById(parent).orElse(new Category()));
+        Optional<Category> category = Optional.of(categoryService.findById(parent).orElse(new Category()));
         var cat = category.get();
 
         List<Category> categories = categoryService.getCategoriesByCatParentCatId(parent);
@@ -58,8 +54,9 @@ public class CtlAdminCategory {
 
     @GetMapping("/update-category/{catId}")
     public String updateCategory(Model model, @PathVariable("catId") String catId) {
-        List<Category> c = categoryRepo.findAll();
-        Category cat = categoryRepo.getById(catId);
+        List<Category> c = categoryService.findAll();
+        Optional<Category> OptionalCat = categoryService.findById(catId);
+        Category cat = OptionalCat.get();
 
         List<Product> products = categoryService.searchProductByCatId(catId);
 

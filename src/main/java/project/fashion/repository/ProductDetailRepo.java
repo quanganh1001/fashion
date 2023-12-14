@@ -29,4 +29,6 @@ public interface ProductDetailRepo extends JpaRepository<ProductDetail,Integer> 
                             @Param("productDetailId")Integer productDetailId);
 
     void deleteAllByProductProductId(String productId);
+
+    Boolean existsByCode(String code);
 }

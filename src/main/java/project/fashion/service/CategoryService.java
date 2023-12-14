@@ -95,4 +95,12 @@ public class CategoryService {
     public void deleteById(String catId) {
         categoryRepo.deleteById(catId);
     }
+
+    public Optional<Category> findById(String catId){
+        return categoryRepo.findById(catId);
+    }
+
+    public List<Category> findAll(){
+        return categoryRepo.findAll();
+    }
 }

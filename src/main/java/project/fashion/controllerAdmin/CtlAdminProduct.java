@@ -15,6 +15,7 @@ import project.fashion.repository.CategoryRepo;
 import project.fashion.repository.ImgSizeRepo;
 import project.fashion.repository.ProductDetailRepo;
 import project.fashion.repository.ProductRepo;
+import project.fashion.service.ProductDetailService;
 import project.fashion.service.ProductService;
 
 import java.io.IOException;
@@ -24,13 +25,10 @@ import java.util.List;
 @RequestMapping("/admin/product")
 public class CtlAdminProduct {
     @Autowired
-    private ProductDetailRepo productDetailRepo;
+    private ProductDetailService productDetailService;
 
     @Autowired
     private ProductService productService;
-
-    @Autowired
-    private ProductRepo productRepo;
 
     @Autowired
     private CategoryRepo categoryRepo;
@@ -82,8 +80,8 @@ public class CtlAdminProduct {
     public String updateProduct(Model model, @PathVariable("productId") String productId) {
         List<Category> cat = categoryRepo.findAll();
         List<ImgSize> img = imgSizeRepo.findAll();
-        List<ProductDetail> prDetail =  productDetailRepo.findAllByProductProductId(productId);
-        Product p = productRepo.getById(productId);
+        List<ProductDetail> prDetail =  productDetailService.findAllByProductProductId(productId);
+        Product p = productService.findById(productId);
 
         model.addAttribute("cat", cat);
         model.addAttribute("img", img);

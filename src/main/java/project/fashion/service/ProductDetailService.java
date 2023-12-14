@@ -1,28 +1,58 @@
 package project.fashion.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.FluentQuery;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import project.fashion.entity.Product;
 import project.fashion.entity.ProductDetail;
 import project.fashion.repository.ProductDetailRepo;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
+
 @Service
 public class ProductDetailService{
     @Autowired
     private ProductDetailRepo productDetailRepo;
 
-    public ResponseEntity<String> save(Integer prDetailId,ProductDetail pd){
+    @Autowired
+    private ProductService productService;
+
+    public ResponseEntity<String> updatePrDetail(Integer prDetailId,ProductDetail pd){
         pd.setProductDetailId(prDetailId);
         productDetailRepo.save(pd);
         return ResponseEntity.ok("done");
     }
 
+    public void deleteById(Integer prDetailId){
+        productDetailRepo.deleteById(prDetailId);
+    }
+
+    public ProductDetail getById(Integer prDetailId){
+        return productDetailRepo.getById(prDetailId);
+    }
+
+    public ResponseEntity<String> save(String productId, ProductDetail pd){
+        if(productDetailRepo.existsByCode(pd.getCode())){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Sản phẩm đã tồn tại");
+        }else {
+            Product product = productService.findById(productId);
+            pd.setProduct(product);
+            productDetailRepo.save(pd);
+            return ResponseEntity.ok("done");
+        }
+
+    }
+
+    public List<ProductDetail> findAll(){
+        return productDetailRepo.findAll();
+    }
+
+    public List<ProductDetail> searchProductDetailByProductProductNameContainingIgnoreCase(String key){
+        return productDetailRepo.searchProductDetailByProductProductNameContainingIgnoreCase(key);
+    }
+
+    public List<ProductDetail> findAllByProductProductId(String productId){
+        return productDetailRepo.findAllByProductProductId(productId);
+    }
 }

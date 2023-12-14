@@ -33,6 +33,11 @@ public class InvoiceService {
     @Autowired
     private ProductDetailRepo productDetailRepo;
 
+    public Invoice findById(String invoiceId){
+        Optional<Invoice> OptionalInvoice = Optional.of(invoiceRepo.findById(invoiceId).orElse(new Invoice()));
+        return OptionalInvoice.get();
+    }
+
     public Page<Invoice> findInvoiceByKeyAndStatus(String key, Integer filterStatus, Integer page) {
         if(page<0)
             page=0;

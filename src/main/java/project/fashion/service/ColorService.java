@@ -16,6 +16,13 @@ import java.util.function.Function;
 
 @Service
 public class ColorService{
+    @Autowired
+    private ColorRepo colorRepo;
+
+    public List<Color> findAll(){
+        return colorRepo.findAll();
+    }
+
 
 
 }

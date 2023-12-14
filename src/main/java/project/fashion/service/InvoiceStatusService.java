@@ -15,7 +15,12 @@ import java.util.Optional;
 import java.util.function.Function;
 
 @Service
-public class InvoiceStatusService{
+public class InvoiceStatusService {
+    @Autowired
+    private InvoiceStatusRepo invoiceStatusRepo;
 
+    public List<InvoiceStatus> findAll(){
+        return invoiceStatusRepo.findAll();
+    }
 
 }

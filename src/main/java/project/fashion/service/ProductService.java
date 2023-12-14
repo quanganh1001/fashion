@@ -9,9 +9,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import project.fashion.entity.Category;
 import project.fashion.entity.Product;
+import project.fashion.entity.ProductDetail;
 import project.fashion.repository.CategoryRepo;
 import project.fashion.repository.ProductDetailRepo;
 import project.fashion.repository.ProductRepo;
@@ -83,5 +85,16 @@ public class ProductService{
         productRepo.deleteById(productId);
         return ResponseEntity.ok("done");
     }
+
+    public List<Product> findAll(){
+        return productRepo.findAll();
+    }
+
+    public Product findById(String productId){
+        Optional<Product> productOptional = Optional.of(productRepo.findById(productId).orElse(new Product()));
+        Product product = productOptional.get();
+        return product;
+    }
+
 
 }

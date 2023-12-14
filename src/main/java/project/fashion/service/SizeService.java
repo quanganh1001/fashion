@@ -16,4 +16,10 @@ import java.util.function.Function;
 
 @Service
 public class SizeService{
+    @Autowired
+    private SizeRepo sizeRepo;
+
+    public List<Size> findAll(){
+        return sizeRepo.findAll();
+    }
 }

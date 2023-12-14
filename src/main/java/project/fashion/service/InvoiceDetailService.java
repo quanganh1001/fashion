@@ -44,6 +44,10 @@ public class InvoiceDetailService{
     @Autowired
     public ImgProductRepo imgProductRepo;
 
+    public List<InvoiceDetail> findAllByInvoice_InvoiceId(String invoiceId){
+        return invoiceDetailRepo.findAllByInvoice_InvoiceId(invoiceId);
+    }
+
     public ResponseEntity<String> deleteByDetailId(Integer detailId) {
         Optional<InvoiceDetail> OptionalInvoiceDetail = invoiceDetailRepo.findById(detailId);
         var status = OptionalInvoiceDetail.get().getInvoice().getInvoiceStatus().getStatusId();

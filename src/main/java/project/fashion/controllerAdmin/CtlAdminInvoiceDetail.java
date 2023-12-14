@@ -20,16 +20,10 @@ public class CtlAdminInvoiceDetail {
     private InvoiceDetailService invoiceDetailService;
 
     @Autowired
-    private InvoiceDetailRepo invoiceDetailRepo;
+    private InvoiceStatusService invoiceStatusService;
 
     @Autowired
-    private InvoiceRepo invoiceRepo;
-
-    @Autowired
-    private InvoiceStatusRepo invoiceStatusRepo;
-
-    @Autowired
-    private ProductDetailRepo productDetailRepo;
+    private ProductDetailService productDetailService;
 
     @Autowired
     private InvoiceService invoiceService;
@@ -37,14 +31,13 @@ public class CtlAdminInvoiceDetail {
     @GetMapping()
     public String getInvoiceDetail(Model model,
                                    @RequestParam("invoiceId") String invoiceId) {
-        List<InvoiceDetail> invoiceDetails = invoiceDetailRepo.findAllByInvoice_InvoiceId(invoiceId);
+        List<InvoiceDetail> invoiceDetails = invoiceDetailService.findAllByInvoice_InvoiceId(invoiceId);
 
-        Optional<Invoice> optionalInvoice = invoiceRepo.findById(invoiceId);
-        Invoice invoice = optionalInvoice.get();
+        Invoice invoice = invoiceService.findById(invoiceId);
 
-        List<InvoiceStatus> status = invoiceStatusRepo.findAll();
+        List<InvoiceStatus> status = invoiceStatusService.findAll();
 
-        List<ProductDetail> productDetails = productDetailRepo.findAll();
+        List<ProductDetail> productDetails = productDetailService.findAll();
 
         model.addAttribute("invoiceDetails", invoiceDetails);
         model.addAttribute("invoice", invoice);
@@ -70,7 +63,7 @@ public class CtlAdminInvoiceDetail {
     @GetMapping("/searchProduct")
     public String searchProduct(Model model, @RequestParam("key") String key,@RequestParam("invoiceId") String invoiceId) {
         List<ProductDetail> search =
-                productDetailRepo.searchProductDetailByProductProductNameContainingIgnoreCase(key);
+                productDetailService.searchProductDetailByProductProductNameContainingIgnoreCase(key);
             model.addAttribute("search", search);
             model.addAttribute("invoiceId",invoiceId);
         return "admin/fragment/SearchProduct";

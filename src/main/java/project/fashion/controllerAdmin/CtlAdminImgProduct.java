@@ -21,10 +21,6 @@ public class CtlAdminImgProduct {
     @Autowired
     private ImgProductService imgProductService;
 
-    @Autowired
-    private ImgProductRepo imgProductRepo;
-
-
     @GetMapping("/{imageName}")
     public ResponseEntity<Resource> serveImage(@PathVariable String imageName) throws IOException {
         return imgProductService.getImg(imageName);
@@ -32,7 +28,7 @@ public class CtlAdminImgProduct {
 
     @GetMapping("/add-img")
     public String addImg(Model model, @RequestParam("productId") String productId) {
-        List<ImgProduct> imgProducts = imgProductRepo.findAllByProductProductId(productId);
+        List<ImgProduct> imgProducts = imgProductService.findAllByProductProductId(productId);
 
         ImgProduct img1 = imgProductService.getImgBg(1,productId);
         var imgbg1 = img1.getImgId();

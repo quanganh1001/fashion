@@ -50,6 +50,10 @@ public class ImgProductService{
         }
     }
 
+    public List<ImgProduct> findAllByProductProductId(String productId){
+        return imgProductRepo.findAllByProductProductId(productId);
+    }
+
     @Transactional
     public ResponseEntity<Resource> setBackground(String productId, String imageName, int imbg) throws MalformedURLException {
         if(imbg==1){
