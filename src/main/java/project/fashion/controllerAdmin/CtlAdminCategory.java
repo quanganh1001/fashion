@@ -69,8 +69,7 @@ public class CtlAdminCategory {
     }
 
     @PutMapping("/update-category")
-    public String updateCat(@ModelAttribute Category c) {
-        categoryService.saveCategory(c);
-        return "redirect:/admin/category";
+    public ResponseEntity<String> updateCat(@ModelAttribute Category c) {
+       return categoryService.saveCategory(c);
     }
 }

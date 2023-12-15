@@ -7,8 +7,9 @@
 <div class="ui-menu-item-wrapper">
     <div th:include="~{admin/fragment/Menu::menu}"></div>
 
-    <div class="container p-4">
+    <div class="container p-4 ">
         <h2>Danh sách sản phẩm</h2>
+        <div class="mt-5 mb-3 d-flex flex-wrap justify-content-between">
         <a href="/admin/product/add-product">
             <button type="button" class="btn btn-primary">Thêm sản phẩm</button>
         </a>
@@ -42,7 +43,7 @@
                 </li>
             </ul>
         </nav>
-
+        </div>
         <table>
             <thead>
             <tr>
@@ -61,14 +62,14 @@
                 <td th:text="${p.category.catName}">
                 <td th:text="${p.isProductActive}==true ? 'Hoạt động' :'Đã ẩn'"></td>
 
-                <td class="button"><a th:href="@{/admin/product/update-product/__${p.productId}__}">
-                    <button class="btn btn-primary">Sửa
+                <td class="align-items-center"><a th:href="@{/admin/product/update-product/__${p.productId}__}">
+                    <button class="align-items-center btn btn-primary">Sửa
                     </button>
                 </a>
 
                 </td>
-                <td class="button">
-                    <button class="btn btn-danger btn-sm" th:id="${p.productId}"
+                <td class="align-items-center">
+                    <button class="align-items-center btn btn-danger btn-sm" th:id="${p.productId}"
                             onclick="confirmDelete(this.id)">
                         <i class="fas fa-trash-alt"></i> Delete
                     </button>

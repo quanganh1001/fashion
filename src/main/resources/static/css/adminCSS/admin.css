@@ -20,23 +20,18 @@ th,td{
     border: 1px solid black;
 }
 
-.button{
-    text-align: center;
-    /*justify-items: center;*/
-    /*align-content: center;*/
-}
-
 h2{
     width: 100%;
     text-align: center;
     color: darkmagenta;
 }
-.a{
-    display: flex;
-    flex-wrap: wrap;
-}
+
 .hidden{
     display: none;
+}
+
+.readonly{
+    background-color: #c4c4c4;
 }
 
 li:hover{

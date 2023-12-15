@@ -32,9 +32,12 @@ public class CategoryService {
     public ResponseEntity<String> saveCategory(Category category) {
         if (Objects.equals(category.getCatId(), "") || category.getCatId() == null ||
                 Objects.equals(category.getCatName(), "") || category.getCatName() == null) {
+            System.out.println(category);
             return new ResponseEntity<>("Lỗi validate", HttpStatus.BAD_REQUEST);
         } else {
+
             setCatActive(category.getCatId(), category.getIsCatActive());
+
             categoryRepo.save(category);
             return ResponseEntity.ok("done");
         }
