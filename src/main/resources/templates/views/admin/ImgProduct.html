@@ -7,7 +7,7 @@
 <div class="ui-menu-item-wrapper">
     <div th:include="~{admin/fragment/Menu::menu}"></div>
 
-    <div class="container mt-5">
+    <div class="container p-4">
         <h2>THÊM ẢNH SẢN PHẨM</h2>
         <div class="a">
             <form th:action="@{/admin/imgProduct/add-img?productId=__${productId}__}" method="post" th:object="${img}"

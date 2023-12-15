@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th12 14, 2023 lúc 11:38 AM
+-- Thời gian đã tạo: Th12 15, 2023 lúc 04:18 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -1085,7 +1085,8 @@ INSERT INTO `products_detail` (`product_detail_id`, `product_id`, `code`, `color
 (272, 'ESTA010', 'ESTA01012CT06MB_NV-S', 'NV', 'S', 0, b'0', b'1'),
 (273, 'ESTA010', 'ESTA01012CT06MB_NV-L', 'NV', 'L', 0, b'0', b'1'),
 (277, 'ESTA010', 'ESTA01012CT06MB_NV-XL', 'NV', 'XL', 0, b'0', b'1'),
-(278, 'ESTA006', 'ESTA00612CT06MB_BL-S', 'BL', 'S', 999, b'1', b'1');
+(283, 'ESTA006', 'ESTA00612CT06MB_BL', 'BL', 'S', 999, b'1', b'1'),
+(284, 'ESTA006', ' ESTA00612CT06MB_BL-S', 'BL', 'S', 999, b'1', b'1');
 
 --
 -- Bẫy `products_detail`
@@ -1402,7 +1403,7 @@ ALTER TABLE `invoices_status`
 -- AUTO_INCREMENT cho bảng `products_detail`
 --
 ALTER TABLE `products_detail`
-  MODIFY `product_detail_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=282;
+  MODIFY `product_detail_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=285;
 
 --
 -- AUTO_INCREMENT cho bảng `roles`

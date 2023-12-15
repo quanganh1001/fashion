@@ -46,10 +46,8 @@ public class CtlAdminProductDetail {
     }
 
     @PostMapping("/add-prDetail")
-    public String addPrDetail(@ModelAttribute ProductDetail productDetail, @RequestParam("productId") String productId) {
-        productDetailService.save(productId,productDetail);
-        var p = productDetail.getProduct().getProductId();
-        return "redirect:/admin/product/update-product/" + p;
+    public ResponseEntity<String> addPrDetail(@ModelAttribute ProductDetail productDetail, @RequestParam("productId") String productId) {
+        return productDetailService.save(productId,productDetail);
     }
 
     @GetMapping("update-detail/{prDetailId}")

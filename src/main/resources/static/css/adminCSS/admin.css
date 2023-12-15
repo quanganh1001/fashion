@@ -4,11 +4,6 @@
     /*flex-wrap: wrap;*/
 }
 
-.content{
-    display: flex;
-    flex-wrap: wrap;
-}
-
 .active{
     background-color: #5b5bd4;
     color: white;
@@ -30,11 +25,7 @@ th,td{
     /*justify-items: center;*/
     /*align-content: center;*/
 }
-.container{
-    justify-content: space-between;
-    display: flex;
-    flex-wrap: wrap;
-}
+
 h2{
     width: 100%;
     text-align: center;

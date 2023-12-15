@@ -7,7 +7,7 @@
 <div class="ui-menu-item-wrapper">
     <div th:include="~{admin/fragment/Menu::menu}"></div>
 
-    <div class="container mt-5">
+    <div class="container p-4">
         <h2>SỬA DANH MỤC</h2>
         <form id="form" th:action="@{/admin/category/update-category}" method="POST"
               th:object="${cat}">

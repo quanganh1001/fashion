@@ -33,10 +33,13 @@ public class ProductDetailService{
     }
 
     public ResponseEntity<String> save(String productId, ProductDetail pd){
+        System.out.println(productId);
         if(productDetailRepo.existsByCode(pd.getCode())){
+            System.out.println("xcxcz" + pd.getCode());
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Sản phẩm đã tồn tại");
         }else {
             Product product = productService.findById(productId);
+            System.out.println(product);
             pd.setProduct(product);
             productDetailRepo.save(pd);
             return ResponseEntity.ok("done");

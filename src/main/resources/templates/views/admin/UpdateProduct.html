@@ -7,13 +7,18 @@
 <div class="ui-menu-item-wrapper">
     <div th:include="~{admin/fragment/Menu::menu}"></div>
 
-    <div class="container mt-5">
-        <h2>SỬA SẢN PHẨM</h2>
-        <div class="col-6 product">
-            <a th:href="@{/admin/imgProduct/add-img?productId=__${p.productId}__}" class="btn btn-primary btn-sm"
-               role="button">Thêm ảnh sản phẩm
-            </a>
-            <form id="form" th:action="@{/admin/product/update-product/__${p.productId}__}" method="POST" th:object="${p}">
+    <div class="container p-4">
+        <h2>SẢN PHẨM</h2>
+        <div class="d-flex flex-wrap justify-content-between">
+            <div class="mb-3 col-12"><a th:href="@{/admin/imgProduct/add-img?productId=__${p.productId}__}"
+                                        class="btn btn-primary btn-sm"
+                                        role="button">Thêm ảnh sản phẩm
+            </a></div>
+
+            <form id="form" class="col-7"
+                  th:action="@{/admin/product/update-product/__${p.productId}__}"
+                  method="POST"
+                  th:object="${p}">
                 <input type="hidden" name="_method" value="put"/>
                 <div class="row">
                     <div class="mb-3">
@@ -76,31 +81,32 @@
                         <input id="isActive" type="checkbox" th:field="${p.isProductActive}">Hoạt động/Ẩn
                     </div>
 
-                    <button style="text-align: center" type="button" id="button" class="col-4 btn btn-primary">Lưu sản phẩm
+                    <button style="text-align: center" type="button" id="button" class="col-4 btn btn-primary">Lưu sản
+                        phẩm
                     </button>
                 </div>
             </form>
+            <div class="col-4 border p-3 pl-3">
+                <div class="mb-3"><a th:href="@{/admin/productDetail/add-prDetail?productId=__${p.productId}__}"
+                                     class="btn btn-primary btn-sm"
+                                     role="button">Thêm chi tiết
+                </a></div>
 
-        </div>
-        <div class="col-4">
-
-            <a th:href="@{/admin/productDetail/add-prDetail?productId=__${p.productId}__}" class="btn btn-primary btn-sm"
-               role="button">Thêm chi tiết
-            </a>
-
-            <li th:each="pd : ${prDetail}" class="list-group-item">
-                <button class="btn btn-danger btn-sm"
-                        th:data-prDetail-id="${pd.productDetailId}"
-                        th:data-product-id="${p.productId}"
-                        onclick="confirmDelete(this)">
-                    <i class="fas fa-trash-alt"></i> Delete
-                </button>
-                <a th:href="@{/admin/productDetail/update-detail/__${pd.productDetailId}__}" class="btn btn-primary btn-sm"
-                   role="button">
-                    <i class="fas fa-pencil-alt"></i> Edit
-                </a>
-                <span th:text="${pd.code}"></span>
-            </li>
+                <li th:each="pd : ${prDetail}" class="mb-2 list-group-item">
+                    <button class="btn btn-danger btn-sm"
+                            th:data-prDetail-id="${pd.productDetailId}"
+                            th:data-product-id="${p.productId}"
+                            onclick="confirmDelete(this)">
+                        <i class="fas fa-trash-alt"></i> Delete
+                    </button>
+                    <a th:href="@{/admin/productDetail/update-detail/__${pd.productDetailId}__}"
+                       class="btn btn-primary btn-sm"
+                       role="button">
+                        <i class="fas fa-pencil-alt"></i> Edit
+                    </a>
+                    <span th:text="${pd.code}"></span>
+                </li>
+            </div>
         </div>
     </div>
 </div>

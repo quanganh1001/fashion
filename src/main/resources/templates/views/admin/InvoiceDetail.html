@@ -7,20 +7,12 @@
         display: none;
     }
 
-    .invoice {
-        margin: 10px 0 30px 0;
-    }
-
     #search {
         position: relative;
     }
 
     #input-plus {
         height: 43px;
-    }
-
-    #add{
-        margin-top: 5px;
     }
 
     #list-result {
@@ -37,10 +29,10 @@
 <div class="ui-menu-item-wrapper">
     <div th:include="~{admin/fragment/Menu::menu}"></div>
 
-    <div class="container mt-5">
+    <div class="container p-4">
         <h2>CHI TIẾT ĐƠN HÀNG</h2>
 
-        <div class="invoice col-12">
+        <div class="mt-3 mb-5 col-12">
             <form id="form" th:action="@{/admin/invoiceDetail/update-invoice/__${invoice.invoiceId}__}" method="POST">
                 <input type="hidden" name="_method" value="put"/>
                 <input type="hidden" name="createdAt" th:value="${invoice.createdAt}"/>
@@ -177,7 +169,7 @@
             </tbody>
         </table>
 
-        <div id="add" class="d-flex justify-content-between align-items-center col-12">
+        <div id="add" class="mt-2 d-flex justify-content-between align-items-center col-12">
             <button th:if="${invoice.invoiceStatus.statusId} >= 0 and ${invoice.invoiceStatus.statusId} <=2"
                     id="plus" class="col-1 btn btn-primary "><i
                     class="fa-solid fa-plus" style="color: #ffffff;"></i>Thêm

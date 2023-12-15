@@ -2,25 +2,18 @@
 <html lang="en">
 
 <head th:include="~{admin/fragment/head::head}"></head>
-<style>
-    .info-box{
-        display: flex;
-        margin: 10px 5px;
-    }
-    .filter{
-        margin: 10px 5px;
-    }
-</style>
+
 <body>
 <div class="ui-menu-item-wrapper">
     <div th:include="~{admin/fragment/Menu::menu}"></div>
 
-    <div class="container mt-5">
+    <div class="container p-4">
         <h2>DANH SÁCH ĐƠN HÀNG</h2>
 
-        <div class="row">
-            <button th:data-filter="-1" id="-1" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
-                <div class="info-box">
+        <div class=" d-flex flex-wrap justify-content-start">
+            <button th:data-filter="-1" id="-1"
+                    class="filter m-3 p-2 btn-secondary btn col-2">
+                <div class="info-box d-flex p-2">
                     <span class="info-box-icon"><i class="fa-2xl fa-solid fa-file-invoice-dollar"
                                                    style="color: #000000;"></i></span>
                     <div class="info-box-content">
@@ -29,8 +22,8 @@
                 </div>
             </button>
 
-            <button th:data-filter="0" id="0" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
-                <div class="info-box ">
+            <button th:data-filter="0" id="0" class="filter col-2 m-3 p-2 btn-secondary btn">
+                <div class="info-box d-flex ">
                     <span class="info-box-icon"><i class="fa-2xl fa-solid fa-xmark" style="color: #ff0000;"></i></span>
                     <div class="info-box-content">
                         <div class="info-box-text" >Đơn đã hủy</div>
@@ -38,8 +31,8 @@
                 </div>
             </button>
 
-            <button th:data-filter="1" id="1" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
-                <div class="info-box">
+            <button th:data-filter="1" id="1" class="filter col-2 m-3 p-2 btn-secondary btn">
+                <div class="info-box d-flex ">
                     <span
                             class="info-box-icon"><i class="fa-2xl fa-solid fa-cart-plus"
                                                      style="color: #005eff;"></i></span>
@@ -49,8 +42,8 @@
                 </div>
             </button>
 
-            <button th:data-filter="2" id="2" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
-                <div class="info-box">
+            <button th:data-filter="2" id="2" class="filter col-2 m-3 p-2 btn-secondary btn">
+                <div class="info-box d-flex">
                     <span class="info-box-icon"><i class="fa-2xl fa-solid fa-check"
                                                    style="color: #00800f;"></i></span>
                     <div class="info-box-content">
@@ -59,8 +52,8 @@
                 </div>
             </button>
 
-            <button th:data-filter="3" id="3" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
-                <div class="info-box">
+            <button th:data-filter="3" id="3" class="filter col-2 m-3 p-2 btn-secondary btn">
+                <div class="info-box d-flex ">
                     <span
                             class="info-box-icon"><i class="fa-2xl fa-solid fa-truck-fast" style="color: #ffc800;"></i></span>
                     <div class="info-box-content">
@@ -69,8 +62,8 @@
                 </div>
             </button>
 
-            <button th:data-filter="4" id="4" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
-                <div class="info-box ">
+            <button th:data-filter="4" id="4" class="filter col-2 m-3 p-2 btn-secondary btn">
+                <div class="info-box d-flex">
                     <span class="info-box-icon"><i class="fa-2xl fa-solid fa-circle-check"
                                                    style="color: #0045bd;"></i></span>
                     <div class="info-box-content">
@@ -79,8 +72,8 @@
                 </div>
             </button>
 
-            <button th:data-filter="5" id="5" class="filter btn-secondary btn col-md-2 col-sm-6 col-12">
-                <div class="info-box ">
+            <button th:data-filter="5" id="5" class="filter col-2 m-3 p-2 btn-secondary btn">
+                <div class="info-box d-flex">
                     <span
                             class="info-box-icon"><i class="fa-2xl fa-solid fa-ban"
                                                      style="color: #ff0000;"></i></span>
