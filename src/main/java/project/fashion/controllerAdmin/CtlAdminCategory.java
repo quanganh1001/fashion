@@ -41,15 +41,14 @@ public class CtlAdminCategory {
 
 
     @PostMapping("/add-category")
-    public String addCat(@ModelAttribute Category category,@RequestParam(name = "parent", defaultValue = "") String parent) {
-        categoryService.saveCategory(category);
-        return "redirect:/admin/category?parent="+parent;
+    public ResponseEntity<String> addCat(@ModelAttribute Category category,
+                                         @RequestParam(name = "parent", defaultValue = "") String parent) {
+        return categoryService.saveCategory(category);
     }
 
     @DeleteMapping("/delete-cat")
     public ResponseEntity<String> deleteCat(@RequestParam("catId") String catId) {
-        categoryService.deleteById(catId);
-        return ResponseEntity.ok("done");
+        return categoryService.deleteById(catId);
     }
 
     @GetMapping("/update-category/{catId}")

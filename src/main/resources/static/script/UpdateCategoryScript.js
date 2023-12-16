@@ -8,24 +8,14 @@ $(document).ready(() => {
         else {
             var formData = $('#form').serialize(); // Lấy dữ liệu form
             var url = $('#form').attr('action'); // Lấy URL của form
-            var catId = ""
 
-
-            var parentIdString = $('#form').attr('data-parent-id');
-
-            if (parentIdString === undefined) {
-                catId = "";
-            }else {
-                var catIdMatch = parentIdString.match(/catId=([^,]+)/);
-                catId = catIdMatch ? catIdMatch[1] : null;
-            }
             $.ajax({
                 type: 'PUT',
                 url: url,
                 data: formData,
                 success:  (data) => {
                     alert('Đã cập nhật thành công!');
-                    window.location.href="/admin/category?parent=" + catId;
+                    window.location.href="/admin/category?parent=" + data;
                     // Có thể thực hiện các hành động khác sau khi cập nhật thành công
                 },
                 error:  (error) => {

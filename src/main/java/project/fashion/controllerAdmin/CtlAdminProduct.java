@@ -65,10 +65,7 @@ public class CtlAdminProduct {
 
     @PostMapping("/add-product")
     public ResponseEntity<String> addProduct(@ModelAttribute Product product) {
-        var productId = product.getProductId();
-        productService.saveProduct(productId,product);
-
-        return ResponseEntity.ok(productId);
+        return productService.saveProduct(product);
     }
 
     @DeleteMapping("/delete-product/{productId}")
@@ -91,9 +88,9 @@ public class CtlAdminProduct {
         return "/admin/UpdateProduct";
     }
 
-    @PutMapping("/update-product/{productId}")
-    public ResponseEntity<String> updateProduct(@PathVariable("productId") String productId, @ModelAttribute Product p) {
-        return productService.saveProduct(productId,p);
+    @PutMapping("/update-product")
+    public ResponseEntity<String> updateProduct(@ModelAttribute Product p) {
+        return productService.saveProduct(p);
     }
 
 }

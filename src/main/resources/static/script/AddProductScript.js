@@ -22,8 +22,12 @@ $(document).ready(() => {
                     window.location.href = "/admin/product/update-product/" + data;
 
                 },
-                error: function (error) {
-                    alert('Có lỗi xảy ra khi tạo sản phẩm!' + error);
+                error: (jqXHR, textStatus, errorThrown) => {
+                    if (jqXHR.status === 409) {
+                        alert('Lỗi xảy ra: Đã có sản phẩm này rồi');
+                    } else {
+                        alert('Có lỗi xảy ra khi tạo đơn hàng! ' + textStatus + ': ' + errorThrown);
+                    }
                 }
             });
         }

@@ -1,19 +1,19 @@
 $(document).ready(() => {
     $("#btn-submit").click(()=>{
-        if ($("#code").val() === "" || $("#quantity").val() === "" || isNaN($("#quantity").val())){
+        if ($("#code").val() === "" || $("#quantity").val() === ""|| $("#color").val() =="" || isNaN($("#quantity").val())){
             alert("Nhập sai hoặc thiếu thông tin")
         }
         else {
             var formData = $('#form').serialize(); // Lấy dữ liệu form
             var url = $('#form').attr('action'); // Lấy URL của form
-            var productId = $("#btn-submit").attr("data-product-id")
+
             $.ajax({
                 type: 'POST',
                 url: url,
                 data: formData,
                 success:  (data) => {
                     alert('Đã tạo thành công!');
-                    window.location.href="/admin/product/update-product" + productId;
+                    window.location.href="/admin/product/update-product/" + data;
 
                 },
                 error: (jqXHR, textStatus, errorThrown) => {
@@ -25,6 +25,5 @@ $(document).ready(() => {
                 }
             });
         }
-
     })
 })

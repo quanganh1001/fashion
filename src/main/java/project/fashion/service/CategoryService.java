@@ -35,11 +35,9 @@ public class CategoryService {
             System.out.println(category);
             return new ResponseEntity<>("Lỗi validate", HttpStatus.BAD_REQUEST);
         } else {
-
             setCatActive(category.getCatId(), category.getIsCatActive());
-
             categoryRepo.save(category);
-            return ResponseEntity.ok("done");
+            return ResponseEntity.ok(category.getCatParent().getCatId());
         }
     }
 
@@ -95,8 +93,17 @@ public class CategoryService {
         }
     }
 
-    public void deleteById(String catId) {
-        categoryRepo.deleteById(catId);
+    public ResponseEntity<String> deleteById(String catId) {
+        try{
+            Optional<Category> category = Optional.of(categoryRepo.findById(catId).orElse(new Category()));
+            var parentId = category.get().getCatParent().getCatId();
+            categoryRepo.deleteById(catId);
+            return ResponseEntity.ok(parentId);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>("Lỗi không thể xóa",HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     public Optional<Category> findById(String catId){

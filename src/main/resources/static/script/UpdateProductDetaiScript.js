@@ -16,7 +16,7 @@ $(document).ready(() => {
                 data: formData,
                 success:  (data) => {
                     alert('Đã cập nhật thành công!');
-                    window.location.reload();
+                    window.location.href="/admin/product/update-product/" + data;
                     // Có thể thực hiện các hành động khác sau khi cập nhật thành công
                 },
                 error:  (error) => {

@@ -10,8 +10,7 @@
     <div class="container p-4">
         <h2>SỬA DANH MỤC</h2>
         <form id="form" th:action="@{/admin/category/update-category}" method="POST"
-              th:object="${cat}"
-              th:data-parent-id="${cat.catParent}">
+              th:object="${cat}">
             <input type="hidden" name="_method" value="put"/>
             <div class="row">
                 <div class="mb-3 col-6">

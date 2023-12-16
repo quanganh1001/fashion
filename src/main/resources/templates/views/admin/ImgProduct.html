@@ -45,19 +45,21 @@
             </div>
         </div>
         <h2>Danh sách hình ảnh</h2>
-        <ul th:each="i : ${imgProducts}">
-            <img width="300px"
-                 th:src="@{'/admin/imgProduct/'+${i.fileImg}}"
-                 alt="Image">
-            <td class="button">
-                <button class="btn btn-danger btn-sm"
-                        th:data-image-name="${i.fileImg}"
-                        th:data-product-id="${productId}"
-                        onclick="confirmDelete(this)">
-                    <i class="fas fa-trash-alt"></i> Delete
-                </button>
-            </td>
-        </ul>
+        <div class="d-flex flex-wrap justify-content-start">
+            <ul class="d-flex" th:each="i : ${imgProducts}">
+                <img width="250px"
+                     th:src="@{'/admin/imgProduct/'+${i.fileImg}}"
+                     alt="Image">
+                <td class="button">
+                    <button class="btn btn-danger btn-sm"
+                            th:data-image-name="${i.fileImg}"
+                            th:data-product-id="${productId}"
+                            onclick="confirmDelete(this)">
+                        <i class="fas fa-trash-alt"></i> Delete
+                    </button>
+                </td>
+            </ul>
+        </div>
     </div>
 </div>
 <script th:src="@{/script/ImgProductScript.js}"></script>

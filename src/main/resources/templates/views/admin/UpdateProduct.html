@@ -16,14 +16,14 @@
             </a></div>
 
             <form id="form" class="col-7"
-                  th:action="@{/admin/product/update-product/__${p.productId}__}"
+                  th:action="@{/admin/product/update-product}"
                   method="POST"
                   th:object="${p}">
                 <input type="hidden" name="_method" value="put"/>
                 <div class="row">
                     <div class="mb-3">
                         <label for="product_id" class="form-label">Mã sản phẩm<span style="color:red">*</span></label>
-                        <input disabled type="text" class="form-control" id="product_id"
+                        <input readonly type="text" class="readonly form-control" id="product_id"
                                th:field="${p.productId}"/>
                     </div>
 

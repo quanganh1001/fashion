@@ -58,8 +58,7 @@ public class ProductService{
     }
 
     @Transactional
-    public ResponseEntity<String> saveProduct(String productId,Product product){
-
+    public ResponseEntity<String> saveProduct(Product product){
         if(Objects.equals(product.getProductId(), "")|| product.getProductId() == null||
                 Objects.equals(product.getProductName(), "")|| product.getProductName() == null||
                 Objects.equals(product.getPrice(), "")|| product.getPrice() == null|| !isNumeric(product.getPrice().toString())||
@@ -69,12 +68,15 @@ public class ProductService{
             return new ResponseEntity<>("Lỗi validate", HttpStatus.BAD_REQUEST);
         }else if(product.getDiscountPrice() != null && !isNumeric(product.getDiscountPrice().toString())){
                 return new ResponseEntity<>("Lỗi validate", HttpStatus.BAD_REQUEST);
+        }else if(productRepo.existsById(product.getProductId())) {
+            System.out.println(product.getProductId() + "@#@#@@ffsfsfs");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Sản phẩm đã tồn tại");
         }
 
         else {
-            productDetailRepo.setProductDetailActive(productId,product.getIsProductActive());
+            productDetailRepo.setProductDetailActive(product.getProductId(),product.getIsProductActive());
             productRepo.save(product);
-            return ResponseEntity.ok("Done");
+            return ResponseEntity.ok(product.getProductId());
         }
     }
 

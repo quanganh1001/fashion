@@ -1,5 +1,6 @@
 package project.fashion.service;
 
+import com.fasterxml.jackson.core.sym.NameN;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,9 @@ import project.fashion.entity.ProductDetail;
 import project.fashion.repository.ProductDetailRepo;
 
 import java.util.List;
+import java.util.Objects;
+
+import static org.springframework.jdbc.support.JdbcUtils.isNumeric;
 
 @Service
 public class ProductDetailService{
@@ -21,7 +25,7 @@ public class ProductDetailService{
     public ResponseEntity<String> updatePrDetail(Integer prDetailId,ProductDetail pd){
         pd.setProductDetailId(prDetailId);
         productDetailRepo.save(pd);
-        return ResponseEntity.ok("done");
+        return ResponseEntity.ok(pd.getProduct().getProductId());
     }
 
     public void deleteById(Integer prDetailId){
@@ -33,16 +37,21 @@ public class ProductDetailService{
     }
 
     public ResponseEntity<String> save(String productId, ProductDetail pd){
-        System.out.println(productId);
         if(productDetailRepo.existsByCode(pd.getCode())){
-            System.out.println("xcxcz" + pd.getCode());
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Sản phẩm đã tồn tại");
-        }else {
+        } else if (pd.getProduct() == null || Objects.equals(pd.getProduct(), "")||
+                !isNumeric(pd.getQuantity()) || pd.getQuantity() == null||
+                Objects.equals(pd.getProductDetailId(), "")|| pd.getProductDetailId() == null ||
+                Objects.equals(pd.getSize(), "") || pd.getSize() == null ||
+                Objects.equals(pd.getColor(), "") || pd.getColor() == null||
+                Objects.equals(pd.getCode(), "") || pd.getCode() == null){
+            return new ResponseEntity<>("Lỗi validate",HttpStatus.BAD_REQUEST);
+
+        } else {
             Product product = productService.findById(productId);
-            System.out.println(product);
             pd.setProduct(product);
             productDetailRepo.save(pd);
-            return ResponseEntity.ok("done");
+            return ResponseEntity.ok(productId);
         }
 
     }

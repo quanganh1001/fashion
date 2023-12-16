@@ -9,11 +9,12 @@ function confirmDelete(button) {
             data: {catId:catId},
             success:  (data) => {
                 alert('Đã xóa thành công!');
-                window.location.href="/admin/category?parent="+parentId;
-
+                window.location.href="/admin/category?parent="+data;
             },
-            error: function (error) {
-                alert('Có lỗi xảy ra khi tạo đơn hàng!' + error);
+            error: function(xhr) {
+
+                var errorMessage = xhr;
+                alert("Đã xảy ra lỗi: " + errorMessage);
             }
         });
     }

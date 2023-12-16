@@ -1,5 +1,5 @@
 function confirmDelete(productId) {
-    console.log(productId)
+
     var result = confirm("Bạn có muốn xóa sản phẩm này?");
     if (result) {
         $.ajax({
