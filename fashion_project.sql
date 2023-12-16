@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th12 15, 2023 lúc 04:18 PM
+-- Thời gian đã tạo: Th12 16, 2023 lúc 11:48 AM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -489,7 +489,49 @@ INSERT INTO `imgs_product` (`img_id`, `product_id`, `file_img`, `background_1`, 
 (309, 'ESTA010', '1702537484260_esta010-4_270b822eb48441a1a53f5546346ddd40_master.webp', b'0', b'0'),
 (310, 'ESTA010', '1702537484263_esta010-3_0ba6357a968c46e0affaf07666b9c01b_master.webp', b'0', b'0'),
 (311, 'ESTA010', '1702537484266_esta010-2_8a537af4aa4444c0aa99eeaca96547da_master.webp', b'0', b'1'),
-(312, 'ESTA010', '1702537484269_esta010-1_ad9f734ad81a4f339a557960d10dd7f5_master.webp', b'1', b'0');
+(312, 'ESTA010', '1702537484269_esta010-1_ad9f734ad81a4f339a557960d10dd7f5_master.webp', b'1', b'0'),
+(313, 'ESTA006', '1702700896436_esta006-4_c514e01db8474d70b33092f7cd99164c_master.jpg', b'0', b'0'),
+(314, 'ESTA006', '1702700896469_esta006-3_4df5bd70d3eb4967ad32074a57d6ba39_master.jpg', b'0', b'0'),
+(315, 'ESTA006', '1702700896473_esta006-2_1c9f30407e6b4054a8e1d8851dcecdab_master.jpg', b'0', b'1'),
+(316, 'ESTA006', '1702700896477_esta006-1_2a8dce82b88d4fd798c0434cf9bed833_master.jpg', b'1', b'0'),
+(317, 'ESTA003', '1702701667209_eata005-2_d7ce58698163437ba1db1dedb9eb6b11_master.jpg', b'0', b'1'),
+(318, 'ESTA003', '1702701667249_eata003-4_3278e31069de4a949432bdb95d84b15a_master.jpg', b'0', b'0'),
+(319, 'ESTA003', '1702701667255_eata003-3_fcd31b6aead047a49d37bd2f4f15e7aa_master.jpg', b'0', b'0'),
+(320, 'ESTA003', '1702701667264_eata003-2_06740cf99ddb4d81a574ea48aa9a34b9_master.jpg', b'0', b'0'),
+(321, 'ESTA003', '1702701667271_eata003-1_c8e90efa55944401946efba4f0ae02bf_master.jpg', b'1', b'0'),
+(322, 'ESTA005', '1702702646779_eata005-6_6c157a33937a44b497592693b64d7feb_master.jpg', b'1', b'0'),
+(323, 'ESTA005', '1702702646814_eata005-5_3cc9485ee40445818e4c67208dcdf9b2_master.jpg', b'0', b'0'),
+(324, 'ESTA005', '1702702646819_eata005-4_4024f1e717604680ace040117d1f362f_master.jpg', b'0', b'0'),
+(325, 'ESTA005', '1702702646824_eata005-3_a2bc7b29fc1b47b6a97348d13ea83f41_master.jpg', b'0', b'0'),
+(326, 'ESTA005', '1702702646831_eata005-2_ef46f711d4734ba6a8be08d07f8f3567_master.jpg', b'0', b'1'),
+(327, 'ESTS040', '1702703208763_ests040-5_52987217372_o_72ea4d648501425a806b5111c47b91b6_master.jpg', b'0', b'0'),
+(328, 'ESTS040', '1702703208771_ests040-4_52987961469_o_c152e6e7afcd4facbd707fb5586bc689_master.jpg', b'0', b'0'),
+(329, 'ESTS040', '1702703208775_ests040-1_52988193050_o_0e50794abc7045348461b2a44f2f7756_master.jpg', b'0', b'0'),
+(330, 'ESTS040', '1702703208778_ests040-3_52988281533_o_ef60746768644df19e5c12428fb5ed6b_master.jpg', b'0', b'0'),
+(331, 'ESTS040', '1702703208781_ests040-4_52985587859_o_bc41df09b2474dc483a02fd152f7d372_master.jpg', b'0', b'0'),
+(332, 'ESTS040', '1702703208783_ests040-3_52985817640_o_8ae0d260d3e2495991ce73334cbc2adc_master.jpg', b'0', b'0'),
+(333, 'ESTS040', '1702703208788_ests040-2_52985443091_o_82ed730d0f54440a839469648c303994_master.jpg', b'0', b'0'),
+(334, 'ESTS040', '1702703208791_ests040-1_52985817645_o_da637e28e79a4c9a8f467bc9801869fc_compact.jpg', b'1', b'0'),
+(335, 'ESTS040', '1702703208795_ests040-2_52988193045_o_8fd6a00033484ba78cd9122314ac7912_master.jpg', b'0', b'1'),
+(336, 'ESTS044', '1702717326826_ests044-7_52952326015_o_0bac266322e846e0a8fdfbef6ad564ac_master.jpg', b'0', b'0'),
+(337, 'ESTS044', '1702717326846_ests044-5_52952083504_o_5fae14cac84f41df80684c063252f356_master.jpg', b'0', b'1'),
+(338, 'ESTS044', '1702717326849_ests044-4_52952325920_o_db452e2aca604cc99f713286eecff353_master.jpg', b'0', b'0'),
+(339, 'ESTS044', '1702717326853_ests044-2_52951946131_o_7ae2b619a4d64636be4010f88b76f599_master.jpg', b'0', b'0'),
+(340, 'ESTS044', '1702717326858_ests044-1_52951946161_o_5b02f5c9e0ad4e30ad598e66309be6f9_master.jpg', b'0', b'0'),
+(341, 'ESTS044', '1702717326862_ests044-3_52952396788_o_5673812b89994da69cfc7ad22ca9677e_master.jpg', b'1', b'0'),
+(342, 'ESTS021', '1702717756299_52952382618_a5bfb52264_o_1dd1d8bfd5964b5ba39fa794245413c2_master.jpg', b'0', b'0'),
+(343, 'ESTS021', '1702717756307_52951331472_2666f11939_o_4df65f417d014c27a790ea7f10643760_master.jpg', b'0', b'0'),
+(344, 'ESTS021', '1702717756310_52951331432_de924a7667_o_ee8f89781bd546bbb3a8491609d8508b_master.jpg', b'0', b'0'),
+(345, 'ESTS021', '1702717756312_ests021-2_e1e40d9fbd9949b3a121eb0118255897_master.jpg', b'0', b'1'),
+(346, 'ESTS021', '1702717756315_ests021-1_c15a97c09eef4e6eb14482be0b841e8a_master.jpg', b'0', b'0'),
+(347, 'ESTS021', '1702717756318_ests021_64a34ff68d6d4857bae234b1364576fc_master.jpg', b'1', b'0'),
+(348, 'ESTS022', '1702718117487_52951937061_92243d6e45_o_ca94c82b16494c9b9793430d8e7b15d4_master.jpg', b'0', b'0'),
+(349, 'ESTS022', '1702718117504_52952317055_21f6d07b81_o_a97461a0670c4cbead0e5da53c3c0c43_master.jpg', b'0', b'0'),
+(350, 'ESTS022', '1702718117511_52952317020_5a5acd55df_o_f25b8bc297194c388c8e3446f14caae5_master.jpg', b'0', b'0'),
+(351, 'ESTS022', '1702718117514_52951937146_fdfcd499a9_o_5206d8dc36454bafb3e2516fe062a131_master.jpg', b'0', b'0'),
+(352, 'ESTS022', '1702718117517_52951937116_cec5444b57_o_fbf007e4241c40098d4b27ff6cd1e17c_master.jpg', b'0', b'0'),
+(353, 'ESTS022', '1702718117520_a_c11e97a5799c434fbe1eb35e043c1639_master.jpg', b'1', b'0'),
+(354, 'ESTS022', '1702718117524_b_24593f7f476f48a1b9f6ea09a0c448e8_master.jpg', b'0', b'1');
 
 -- --------------------------------------------------------
 
@@ -733,7 +775,9 @@ INSERT INTO `products` (`product_id`, `product_name`, `cat_id`, `price`, `discou
 ('DSTP611', 'Áo polo trơn bo kẻ DSTP611', 'PLHT', 333333, NULL, NULL, b'0', 'Torano', '', 1, 4, 1, b'1'),
 ('DSTP650', 'Áo Polo monogram TRN DSTP650', 'PLCP', 450000, NULL, NULL, b'0', 'TORANO', 'Áo Polo monogram TRN 1.DSTP650', 1, 4, 1, b'1'),
 ('DSTP903', 'Áo polo can phối Horizontal Color Scheme DSTP903', 'PLCP', 420000, 290000, 31, b'1', 'TORANO', '', 1, 4, 2, b'1'),
-('ESTA006', 'Áo tanktop họa tiết in Shoes ESTA006', 'TT', 250000, NULL, NULL, b'0', 'TORANO', '', 1, 1, 1, b'1'),
+('ESTA003', 'Áo tanktop in họa tiết Tents 2. ESTA003', 'TT', 300000, NULL, NULL, b'0', 'TORANO', '', 1, 4, 2, b'1'),
+('ESTA005', 'Áo Tanktop họa tiết in Wild Sool 1.ESTA005', 'TT', 250000, NULL, NULL, b'0', 'TORANO', '', 1, 4, 1, b'1'),
+('ESTA006', 'Áo tanktop họa tiết in Shoes ESTA006', 'TT', 250000, NULL, NULL, b'0', 'TORANO', '', 1, 4, 1, b'1'),
 ('ESTA010', 'Áo Tanktop họa tiết Defeat ESTA010', 'TT', 250000, NULL, NULL, b'0', 'TORANO', 'Áo tanktop nam cá tính, năng động mặc cực thoải mái. Mẫu áo ba lỗ nam trẻ trung với 2 màu dễ mặc.\r\n', 1, 4, 1, b'1'),
 ('ESTP001', 'Áo polo họa tiết in tràn ESTP001', 'PLHT', 420000, NULL, NULL, b'0', 'TORANO', '', 1, 4, 1, b'1'),
 ('ESTP005', 'Áo polo trơn bo kẻ, logo cánh tay ESTP005', 'PLT', 420000, NULL, NULL, b'0', 'TORANO', 'Áo polo trơn bo kẻ, logo cánh tay ESTP005', 1, 4, 1, b'1'),
@@ -758,6 +802,11 @@ INSERT INTO `products` (`product_id`, `product_name`, `cat_id`, `price`, `discou
 ('ESTP060', 'Áo Polo can phối 2 màu ESTP060', 'PLCP', 420000, NULL, NULL, b'0', 'TORANO', 'Áo polo nam cao cấp đẹp, tôn dáng. Chất vải dệt mềm, dày dặn không bai xù nhăn nhàu', 1, 4, 2, b'1'),
 ('ESTP067', 'Áo Polo trơn bo kẻ cổ ESTP067', 'PLT', 380000, NULL, NULL, b'0', 'TORANO', '', 1, 5, 3, b'1'),
 ('ESTP074', 'Áo Polo trơn bo kẻ ESTP074', 'PLT', 420000, NULL, NULL, b'0', 'TORANO', 'Áo Polo nam trơn bo kẻ cao cấp phong cách trẻ trung và lịch lãm thích hợp với mọi dáng người.', 1, 4, 2, b'1'),
+('ESTS021', 'Áo T shirt họa tiết in Color scheme ESTS021', 'TIH', 300000, NULL, NULL, b'0', 'TORANO', '', 1, 4, 2, b'1'),
+('ESTS022', 'Áo T shirt họa tiết in Color scheme', 'TIH', 300000, 300000, 0, b'1', 'TORANO', '', 1, 4, 2, b'1'),
+('ESTS038', 'Áo T shirt họa tiết in Vagabond 2.ESTS038', 'TIH', 300000, NULL, NULL, b'0', 'TORANO', '', 1, 1, 1, b'1'),
+('ESTS040', 'Áo T shirt họa tiết in Smithereens 2.ESTS040', 'TIH', 300000, NULL, NULL, b'0', 'TORANO', '', 1, 4, 2, b'1'),
+('ESTS044', 'Áo T shirt họa tiết in monogram TRN 1.ESTS044', 'TIH', 300000, NULL, NULL, b'0', 'TORANO', '', 1, 4, 1, b'1'),
 ('TP004', 'Áo polo phối màu color-block 1.TP004', 'PLBK', 450000, NULL, NULL, b'0', 'TORANO', 'Áo polo phối màu color-block TP004', 1, 4, 1, b'1');
 
 --
@@ -1085,8 +1134,51 @@ INSERT INTO `products_detail` (`product_detail_id`, `product_id`, `code`, `color
 (272, 'ESTA010', 'ESTA01012CT06MB_NV-S', 'NV', 'S', 0, b'0', b'1'),
 (273, 'ESTA010', 'ESTA01012CT06MB_NV-L', 'NV', 'L', 0, b'0', b'1'),
 (277, 'ESTA010', 'ESTA01012CT06MB_NV-XL', 'NV', 'XL', 0, b'0', b'1'),
-(283, 'ESTA006', 'ESTA00612CT06MB_BL', 'BL', 'S', 999, b'1', b'1'),
-(284, 'ESTA006', ' ESTA00612CT06MB_BL-S', 'BL', 'S', 999, b'1', b'1');
+(283, 'ESTA006', 'ESTA00612CT06MB_BL-M', 'BL', 'M', 999, b'1', b'1'),
+(284, 'ESTA006', ' ESTA00612CT06MB_BL-S', 'BL', 'S', 999, b'1', b'1'),
+(285, 'ESTA006', ' ESTA00612CT06MB_BL-L', 'BL', 'L', 999, b'1', b'1'),
+(286, 'ESTA006', ' ESTA00612CT06MB_BL-XL', 'BL', 'XL', 998, b'1', b'1'),
+(287, 'ESTA003', 'ESTA00312CT06MB_NV-S', 'NV', 'S', 999, b'1', b'1'),
+(288, 'ESTA003', 'ESTA00312CT06MB_NV-M', 'NV', 'M', 0, b'0', b'1'),
+(289, 'ESTA003', 'ESTA00312CT06MB_NV-L', 'NV', 'L', 999, b'1', b'1'),
+(290, 'ESTA003', 'ESTA00312CT06MB_NV-XL', 'NV', 'XL', 998, b'1', b'1'),
+(291, 'ESTA003', 'ESTA00312CT06MB_WH-S', 'WH', 'S', 998, b'1', b'1'),
+(292, 'ESTA003', 'ESTA00312CT06MB_WH-M', 'WH', 'M', 0, b'0', b'1'),
+(293, 'ESTA003', 'ESTA00312CT06MB_WH-L', 'WH', 'L', 999, b'1', b'1'),
+(294, 'ESTA003', 'ESTA00312CT06MB_WH-XL', 'WH', 'XL', 0, b'0', b'1'),
+(295, 'ESTA005', 'ESTA00512CT06MB_BL-S', 'BL', 'S', 999, b'1', b'1'),
+(296, 'ESTA005', 'ESTA00512CT06MB_BL-M', 'BL', 'M', 999, b'1', b'1'),
+(297, 'ESTA005', 'ESTA00512CT06MB_BL-L', 'BL', 'L', 0, b'0', b'1'),
+(298, 'ESTA005', 'ESTA00512CT06MB_BL-XL', 'BL', 'XL', 999, b'1', b'1'),
+(299, 'ESTS040', 'ESTS04012CA06MB_WH-S', 'WH', 'S', 999, b'1', b'1'),
+(300, 'ESTS040', 'ESTS04012CA06MB_WH-M', 'WH', 'M', 998, b'1', b'1'),
+(301, 'ESTS040', 'ESTS04012CA06MB_WH-L', 'WH', 'L', 0, b'0', b'1'),
+(302, 'ESTS040', 'ESTS04012CA06MB_WH-XL', 'WH', 'XL', 999, b'1', b'1'),
+(303, 'ESTS040', 'ESTS04012CA06MB_BL-S', 'BL', 'S', 0, b'0', b'1'),
+(304, 'ESTS040', 'ESTS04012CA06MB_BL-M', 'BL', 'M', 999, b'1', b'1'),
+(305, 'ESTS040', 'ESTS04012CA06MB_BL-L', 'BL', 'L', 999, b'1', b'1'),
+(306, 'ESTS040', 'ESTS04012CA06MB_BL_XL', 'BL', 'XL', 999, b'1', b'1'),
+(307, 'ESTS044', 'ESTS04412CA04MB_WH-S', 'WH', 'S', 998, b'1', b'1'),
+(308, 'ESTS044', 'ESTS04412CA04MB_WH-M', 'WH', 'M', 0, b'0', b'1'),
+(309, 'ESTS044', 'ESTS04412CA04MB_WH-L', 'WH', 'L', 999, b'1', b'1'),
+(310, 'ESTS044', 'ESTS04412CA04MB_WH-XL', 'WH', 'XL', 0, b'0', b'1'),
+(311, 'ESTS021', 'ESTS02112CV06MB_DCB-S', 'DCB', 'S', 0, b'0', b'1'),
+(312, 'ESTS021', 'ESTS02112CV06MB_DCB-M', 'DCB', 'M', 0, b'0', b'1'),
+(313, 'ESTS021', 'ESTS02112CV06MB_DCB-L', 'DCB', 'L', 999, b'1', b'1'),
+(314, 'ESTS021', 'ESTS02112CV06MB_DCB-XL', 'WH', 'XL', 998, b'1', b'1'),
+(315, 'ESTS021', 'ESTS02112CV06MB_WH-L', 'WH', 'L', 999, b'1', b'1'),
+(316, 'ESTS021', 'ESTS02112CV06MB_WH-S', 'WH', 'S', 999, b'1', b'1'),
+(317, 'ESTS021', 'ESTS02112CV06MB_WH-M', 'WH', 'M', 999, b'1', b'1'),
+(318, 'ESTS021', 'ESTS02112CV06MB_WH-XL', 'WH', 'XL', 998, b'1', b'1'),
+(319, 'ESTS022', 'ESTS02212CV06MB_BR-L', 'BR', 'L', 0, b'0', b'1'),
+(320, 'ESTS022', 'ESTS02212CV06MB_BR-S', 'BR', 'M', 999, b'1', b'1'),
+(321, 'ESTS022', 'ESTS02212CV06MB_BR-M', 'BR', 'M', 999, b'1', b'1'),
+(322, 'ESTS022', 'ESTS02212CV06MB_BR-XL', 'BR', 'XL', 999, b'1', b'1'),
+(323, 'ESTS022', 'ESTS02212CV06MB_BL-L', 'BL', 'S', 999, b'1', b'1'),
+(324, 'ESTS022', 'ESTS02212CV06MB_BL-M', 'BL', 'M', 0, b'0', b'1'),
+(325, 'ESTS022', 'ESTS02212CV06MB_BL-XL', 'BL', 'L', 998, b'1', b'1'),
+(326, 'ESTS022', 'ESTS02212CV06MB_BL-S', 'BL', 'S', 999, b'1', b'1'),
+(327, 'ESTS038', 'ESTS03812CT06MB_NV-M', 'NV', 'M', 999, b'1', b'1');
 
 --
 -- Bẫy `products_detail`
@@ -1373,7 +1465,7 @@ ALTER TABLE `history`
 -- AUTO_INCREMENT cho bảng `imgs_product`
 --
 ALTER TABLE `imgs_product`
-  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=313;
+  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=355;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_size`
@@ -1403,7 +1495,7 @@ ALTER TABLE `invoices_status`
 -- AUTO_INCREMENT cho bảng `products_detail`
 --
 ALTER TABLE `products_detail`
-  MODIFY `product_detail_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=285;
+  MODIFY `product_detail_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=328;
 
 --
 -- AUTO_INCREMENT cho bảng `roles`
