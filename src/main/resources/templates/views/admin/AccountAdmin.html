@@ -29,7 +29,7 @@
 
                 <td th:if="${ac.role != 'ADMIN'}">
                     <div class="d-flex justify-content-center">
-                        <a th:href="@{/admin/account/update-account/__${ac.accountId}__}">
+                        <a th:href="@{/admin/account/update-account?accountId=__${ac.accountId}__}">
                             <button class="align-items-center btn btn-primary">Sửa
                             </button>
                         </a>

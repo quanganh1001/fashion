@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+
+<head th:include="~{admin/fragment/head::head}"></head>
+
+<body>
+<div class="ui-menu-item-wrapper">
+    <div th:include="~{admin/fragment/Menu::menu}"></div>
+
+    <div class="container p-4">
+        <h2>Cập nhập tài khoản</h2>
+        <form id="form" th:action="@{/admin/account/update-account?accountId=__${account.accountId}__}"
+              th:object="${pd}">
+            <div class="row">
+                <div class="mb-3">
+                    <label for="userName" class="form-label">Tài khoản<span style="color:red">*</span></label>
+                    <input type="text" class="form-control" id="userName"
+                           th:field="${account.userName}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="quantity" class="form-label">Số lượng<span>*</span></label>
+                    <input type="text" class="form-control" id="quantity" th:field="${pd.quantity}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="color" class="form-label">Màu<span
+                            style="color:red">*</span></label>
+                    <select class="form-control" id="color" th:field="${pd.color.colorId}">
+                        <option th:each="cl : ${color}" th:value="${cl.colorId}"
+                                th:text="${cl.name} + ' - ' + ${cl.colorId}"></option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="size" class="form-label">Size<span
+                            style="color:red">*</span></label>
+                    <select class="form-control" id="size" th:field="${pd.size.sizeId}">
+                        <option th:each="s : ${size}" th:value="${s.sizeId}"
+                                th:text="${s.name}"></option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="isActive" class="form-label">Trạng thái<span style="color:red">*</span></label>
+                    <input id="isActive" type="checkbox" th:field="${pd.productDetailActive}">Hoạt động/Ẩn
+                </div>
+
+                <button style="text-align: center" type="button" id="button"  class="col-4 btn btn-primary">Sửa</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script th:src="@{/script/UpdateProductDetaiScript.js}"></script>
+</body>
+</html>

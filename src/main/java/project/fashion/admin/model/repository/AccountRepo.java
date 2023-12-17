@@ -5,4 +5,5 @@ import project.fashion.admin.model.entity.Account;
 
 public interface AccountRepo extends JpaRepository<Account, Integer> {
     Account findByUserName(String userName);
+    Boolean existsByUserName(String userName);
 }
