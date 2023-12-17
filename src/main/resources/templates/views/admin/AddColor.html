@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+
+<head th:include="~{admin/fragment/head::head}"></head>
+
+<body>
+<div class="ui-menu-item-wrapper">
+    <div th:include="~{admin/fragment/Menu::menu}"></div>
+
+    <div class="container p-4">
+        <h2>THÊM MỚI SẢN PHẨM</h2>
+        <form id="form" th:action="@{/admin/color/add-color}" method="post" th:object="${cl}">
+            <div class="row">
+                <div class="mb-3 col-6">
+                    <label for="colorId" class="form-label">Mã màu<span style="color:red">*</span></label>
+                    <input type="text" class="form-control" id="colorId" th:field="${color.colorId}">
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label for="name" class="form-label">Tên sản phẩm<span style="color:red">*</span></label>
+                    <input type="text" class="form-control" id="name" th:field="${color.name}">
+                </div>
+
+                <button style="text-align: center" type="button" id="btn-submit" class="col-2 btn btn-primary">Thêm mã màu</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+<script th:src="@{/script/AddColorScript.js}"></script>
+</body>
+</html>
+

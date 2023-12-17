@@ -20,7 +20,7 @@ $(document).ready(() => {
                     // Có thể thực hiện các hành động khác sau khi cập nhật thành công
                 },
                 error:  (error) => {
-                    alert('Có lỗi xảy ra khi cập nhật đơn hàng!');
+                    alert('Có lỗi xảy ra khi cập nhật!');
                 }
             });
         }

@@ -37,3 +37,6 @@ h2{
 li:hover{
     cursor: pointer;
 }
+li{
+    list-style-type: none;
+}

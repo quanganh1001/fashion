@@ -2,7 +2,12 @@
 <html lang="en">
 
 <head th:include="~{admin/fragment/head::head}"></head>
-
+<style>
+    .pd {
+        max-height: 100vh;
+        overflow-y: auto;
+    }
+</style>
 <body>
 <div class="ui-menu-item-wrapper">
     <div th:include="~{admin/fragment/Menu::menu}"></div>
@@ -86,26 +91,28 @@
                     </button>
                 </div>
             </form>
-            <div class="col-4 border p-3 pl-3">
+            <div class=" col-4 border p-3 pl-3">
                 <div class="mb-3"><a th:href="@{/admin/productDetail/add-prDetail?productId=__${p.productId}__}"
                                      class="btn btn-primary btn-sm"
                                      role="button">Thêm chi tiết
                 </a></div>
 
-                <li th:each="pd : ${prDetail}" class="mb-2 list-group-item">
-                    <button class="btn btn-danger btn-sm"
-                            th:data-prDetail-id="${pd.productDetailId}"
-                            th:data-product-id="${p.productId}"
-                            onclick="confirmDelete(this)">
-                        <i class="fas fa-trash-alt"></i> Delete
-                    </button>
-                    <a th:href="@{/admin/productDetail/update-detail/__${pd.productDetailId}__}"
-                       class="btn btn-primary btn-sm"
-                       role="button">
-                        <i class="fas fa-pencil-alt"></i> Edit
-                    </a>
-                    <span th:text="${pd.code}"></span>
-                </li>
+                <div class="pd">
+                    <li th:each="pd : ${prDetail}" class=" mb-2 list-group-item">
+                        <button class="btn btn-danger btn-sm"
+                                th:data-prDetail-id="${pd.productDetailId}"
+                                th:data-product-id="${p.productId}"
+                                onclick="confirmDelete(this)">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </button>
+                        <a th:href="@{/admin/productDetail/update-detail/__${pd.productDetailId}__}"
+                           class="btn btn-primary btn-sm"
+                           role="button">
+                            <i class="fas fa-pencil-alt"></i> Edit
+                        </a>
+                        <span th:text="${pd.code}"></span>
+                    </li>
+                </div>
             </div>
         </div>
     </div>

@@ -6,6 +6,7 @@
         <li class=" list-group-item" id="product">Quản lý Sản phẩm</li>
         <li  class=" list-group-item" id="category">Quản lý danh mục Sản phẩm</li>
         <li  class=" list-group-item" id="invoice">Quản lý đơn hàng</li>
+        <li  class=" list-group-item" id="color">Quản lý mã màu</li>
         <div>
             <div sec:authorize="isAuthenticated()">
                 Welcome, <span sec:authentication="name"></span>!
@@ -30,6 +31,9 @@
             $("#invoice").click(() => {
                 window.location.href= "/admin/invoice/filter/-1?key="
             })
+            $("#color").click(() => {
+                window.location.href= "/admin/color"
+            })
 
 
             if([[${select}]] === "home"){
@@ -47,6 +51,10 @@
             else if([[${select}]] === "invoice"){
                 $("#invoice").addClass("active");
                 $("#invoice a").addClass("text-light")
+            }
+            else if([[${select}]] === "color"){
+                $("#color").addClass("active");
+                $("#color a").addClass("text-light")
             }
         })
     </script>

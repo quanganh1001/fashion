@@ -10,14 +10,21 @@
     <div class="container p-4">
         <h2>DANH MỤC SẢN PHẨM</h2>
         <div>
-            <h4 th:if="${cat.catId } != null" th:text="${cat.catId} + ' - ' + ${cat.catName}"></h4>
-            <h4 th:unless="${cat.catId } != null"></h4>
-            <div class=" mb-5">
+            <a th:if="${cat.catId  != null and cat.catParent!=null} "
+               th:href="@{/admin/category?parent=__${cat.catParent.catId}__}">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span th:text="${cat.catId} + ' - ' + ${cat.catName}"></span>
+            </a>
+            <a th:unless="${cat.catId !=null and cat.catParent!=null}"
+               href="/admin/category?parent=">
+                <span th:if="${cat.catId!=null}"><i class="fa-solid fa-arrow-left"></i><span th:text="${cat.catId} + ' - ' + ${cat.catName}"></span></span>
+                <span th:unless="${cat.catId!=null}"></span>
+            </a>
+            <div class="mt-3 mb-5">
                 <a th:href="@{/admin/category/add-category?catParentId=__${cat.catId}__}">
                     <button type="button" class="btn btn-primary">Thêm danh mục</button>
                 </a>
             </div>
-
         </div>
         <table>
             <thead>
