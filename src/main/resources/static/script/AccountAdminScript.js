@@ -1,7 +1,8 @@
-function confirmDelete(accountId) {
-
-    var result = confirm("Bạn có muốn xóa tài khoản nyaf?");
+function deleteAccount(button) {
+    var result = confirm("Bạn có muốn xóa tài khoản này?");
     if (result) {
+        var accountId = button.getAttribute("data-accountId")
+        console.log(accountId)
         $.ajax({
             type: 'DELETE',
             data:{accountId:accountId},
@@ -20,3 +21,4 @@ function confirmDelete(accountId) {
         });
     }
 }
+

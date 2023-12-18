@@ -1,5 +1,6 @@
 package project.fashion.admin.model.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,11 +32,9 @@ public class AccountService {
         } else if (Objects.equals(ac.getRole(), "ADMIN")) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Không thể set quyền ADMIN");
         } else
-
             ac.setPassword(passwordEncoder.encode("123456"));
             ac.setEnabled(true);
             accountRepo.save(ac);
-        System.out.println(ac);
         return ResponseEntity.ok("done");
     }
 
@@ -60,5 +59,19 @@ public class AccountService {
     public Account getAccount(Integer accountId){
         Optional<Account> accountOptional = accountRepo.findById(accountId);
         return accountOptional.get();
+    }
+
+    @Transactional
+    public ResponseEntity<String> reset(Integer accountId){
+        try{
+            System.out.println(accountId);
+            var newPassword =   passwordEncoder.encode("123456");
+            accountRepo.resetPassword(accountId,newPassword);
+            return ResponseEntity.ok("done");
+        }catch (Exception e){
+            System.out.println(e);
+            return new ResponseEntity<>("có lỗi",HttpStatus.BAD_REQUEST);
+        }
+
     }
 }

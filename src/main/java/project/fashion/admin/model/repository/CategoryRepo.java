@@ -13,7 +13,6 @@ public interface CategoryRepo extends JpaRepository<Category,String> {
 
     List<Category> findCategoriesByCatParentCatId(String catId);
 
-
     @Modifying
     @Query(value = "UPDATE Categories SET is_cat_active = :boo WHERE parent_id = :cat_id",
             nativeQuery = true)

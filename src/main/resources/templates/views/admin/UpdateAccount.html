@@ -31,12 +31,21 @@
 
                 <div class="mb-3">
                     <label for="enabled" class="form-label">Trạng thái<span style="color:red">*</span></label>
-                    <input id="enabled" type="checkbox" th:field="${account.enabled}">Hoạt động/Ẩn
+                    <input id="enabled" type="checkbox" th:field="${account.enabled}">Hoạt động/Không kích hoạt
                 </div>
-
-                <button style="text-align: center" type="button" id="button"  class="col-4 btn btn-primary">Sửa</button>
             </div>
+
         </form>
+        <div class="col-6 d-flex justify-content-between">
+            <button style="text-align: center" type="button" id="button" class="col-2 btn btn-primary">Lưu</button>
+            <button class=" btn btn-warning">Đổi mật khẩu
+            </button>
+            <button th:data-account-id="${account.accountId}"
+                    id="reset-button"
+                    class="btn btn-warning">Đặt lại mật khẩu
+            </button>
+        </div>
+
     </div>
 </div>
 <script th:src="@{/script/UpdateAccountScript.js}"></script>

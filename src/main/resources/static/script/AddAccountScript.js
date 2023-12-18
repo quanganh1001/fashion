@@ -12,7 +12,7 @@ $(document).ready(() => {
                 url: url,
                 data: formData,
                 success:  (data) => {
-                    alert('Đã tạo thành công!');
+                    alert('Đã tạo thành công! Mật khẩu mặc định là: 123456');
                     window.location.href="/admin/account";
                 },
                 error: (jqXHR, textStatus, errorThrown) => {

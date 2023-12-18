@@ -41,7 +41,7 @@ public class CtlAdminAccount {
 
     @PostMapping("/add-account")
     public ResponseEntity<String> addAccount(@ModelAttribute Account ac) {
-
+        System.out.println(ac);
         return accountService.addAccount(ac);
     }
 
@@ -49,7 +49,9 @@ public class CtlAdminAccount {
     public String updateAccount(Model model,@RequestParam("accountId") Integer accountId) {
         Account account = accountService.getAccount(accountId);
         Account ac = new Account();
-        System.out.println(account);
+        List<RoleEnum> roles = Arrays.asList(RoleEnum.values());
+
+        model.addAttribute("roles",roles);
         model.addAttribute("ac",ac);
         model.addAttribute("account",account);
         model.addAttribute("select","account");
@@ -58,6 +60,11 @@ public class CtlAdminAccount {
     @PutMapping("/update-account")
     public ResponseEntity<String> updateAccount(@ModelAttribute Account ac) {
         return accountService.updateAccount(ac);
+    }
+
+    @PutMapping("/reset-password")
+    public ResponseEntity<String> updateAccount(@RequestParam("accountId") Integer accountId) {
+        return accountService.reset(accountId);
     }
 
     @DeleteMapping("/delete-account")

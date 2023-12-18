@@ -23,3 +23,29 @@ $(document).ready(() => {
         }
     });
 });
+
+$(document).ready(()=>{
+    $("#reset-button").click(()=>{
+        var result = confirm("Bạn có muốn đặt lại mật khẩu cho tài khoản này?");
+        if (result) {
+            var accountId = $("#reset-button").data("account-id");
+            console.log($("#reset-button"))
+            console.log(accountId)
+            $.ajax({
+                type: 'PUT',
+                data:{accountId:accountId},
+                url: '/admin/account/reset-password',
+                success:  () =>{
+                    alert("Đã reset mật khẩu tài khoản. Mật khẩu mặc định là: 123456")
+                },
+                error: (jqXHR, textStatus, errorThrown) => {
+                    if (jqXHR.status === 404) {
+                        alert('Không thể đặt lại mật khẩu');
+                    } else {
+                        alert('Có lỗi xảy ra! ' + textStatus + ': ' + errorThrown);
+                    }
+                }
+            });
+        }
+    })
+})
