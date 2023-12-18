@@ -48,14 +48,16 @@ public class CtlAdminAccount {
     @GetMapping("/update-account")
     public String updateAccount(Model model,@RequestParam("accountId") Integer accountId) {
         Account account = accountService.getAccount(accountId);
-
+        Account ac = new Account();
+        System.out.println(account);
+        model.addAttribute("ac",ac);
         model.addAttribute("account",account);
         model.addAttribute("select","account");
         return "admin/UpdateAccount";
     }
     @PutMapping("/update-account")
-    public ResponseEntity<String> updateAccount(@ModelAttribute Account ac,@RequestParam("accountId") Integer accountId) {
-        return accountService.updateAccount(ac,accountId);
+    public ResponseEntity<String> updateAccount(@ModelAttribute Account ac) {
+        return accountService.updateAccount(ac);
     }
 
     @DeleteMapping("/delete-account")

@@ -39,14 +39,10 @@ public class AccountService {
         return ResponseEntity.ok("done");
     }
 
-    public ResponseEntity<String> updateAccount(Account ac,Integer accountId){
+    public ResponseEntity<String> updateAccount(Account ac){
         if (Objects.equals(ac.getRole(), "ADMIN")){
             return new ResponseEntity<>("Không thể cập nhập thành ADMIN",HttpStatus.BAD_REQUEST);
         }else {
-            Optional<Account> accountOptional = accountRepo.findById(accountId);
-            Account account = accountOptional.get();
-            ac.setAccountId(accountId);
-            ac.setPassword(account.getPassword());
             accountRepo.save(ac);
             return ResponseEntity.ok("done");
         }
