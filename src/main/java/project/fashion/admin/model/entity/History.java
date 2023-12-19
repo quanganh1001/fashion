@@ -11,12 +11,10 @@ public class History {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer oldInvoiceStatus;
-    private Integer newInvoiceStatus;
+    private String account;
+    private String col;
+    private String oldValue;
+    private String newValue;
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime updatedAt;
-
-    @ManyToOne
-    @JoinColumn(name = "invoice_id")
-    private Invoice invoice;
 }

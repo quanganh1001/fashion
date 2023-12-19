@@ -49,7 +49,7 @@ public class InvoiceService {
                     key, key, PageRequest.of(page, 10));
     }
 
-    public ResponseEntity<String> updateInvoice(String invoiceId, Invoice i) throws Exception {
+    public ResponseEntity<String> updateInvoice(String invoiceId, Invoice i) {
         Optional<Invoice> optionalInvoice = invoiceRepo.findById(invoiceId);
         var status = optionalInvoice.get().getInvoiceStatus().getStatusId();
         var newStatus = i.getInvoiceStatus().getStatusId();
@@ -78,20 +78,20 @@ public class InvoiceService {
                 productDetailRepo.updateQuantityProductRepo(newQuantity, productDetaiId);
             }
         } else if (status >= 4 && newStatus <= 2)
-            throw new Exception("Đơn đã gửi thì không thể đổi trạng thái về lúc chưa gửi");
+            return new ResponseEntity<>("Đơn đã gửi thì không thể đổi trạng thái về lúc chưa gửi",HttpStatus.BAD_REQUEST);
 
         else if (status <= 2 && newStatus >= 4) {
-            throw new Exception("Đơn chưa gửi không thể cập nhập trạng thái đang chuyển, thành công hoặc hoàn");
+            return new ResponseEntity<>("Đơn chưa gửi không thể cập nhập trạng thái đang chuyển, thành công hoặc hoàn"
+                    ,HttpStatus.BAD_REQUEST);
+        }else {
+            var totalAmount = optionalInvoice.get().getTotalAmount();
+            i.setTotalAmount(totalAmount);
+            invoiceRepo.save(i);
         }
-
-        var totalAmount = optionalInvoice.get().getTotalAmount();
-        i.setTotalAmount(totalAmount);
-        invoiceRepo.save(i);
-
         return ResponseEntity.ok().build();
     }
 
-    public ResponseEntity<String> saveInvoice(Invoice invoice) {
+    public ResponseEntity<String> addInvoice(Invoice invoice) {
         if (Objects.equals(invoice.getName(), "") || Objects.equals(invoice.getPhone(), "") || !isNumeric(invoice.getPhone())){
             System.out.println("Lỗi");
             return new ResponseEntity<>("Lỗi thiếu dữ liệu",HttpStatus.BAD_REQUEST);

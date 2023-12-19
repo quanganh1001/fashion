@@ -10,7 +10,7 @@
         <li  class=" list-group-item" id="account">Quản lý tài khoản</li>
         <div>
             <div sec:authorize="isAuthenticated()">
-                Welcome, <span sec:authentication="name"></span>!
+                Welcome, <span sec:authentication="principal.username"></span>!
             </div>
             <form th:action="@{/logout}" method="post">
                 <input class="btn btn-primary" type="submit" value="Đăng xuất">

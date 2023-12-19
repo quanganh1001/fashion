@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 17, 2023 lúc 05:50 PM
+-- Máy chủ: localhost
+-- Thời gian đã tạo: Th12 19, 2023 lúc 03:15 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.0.28
+-- Phiên bản PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,8 +40,10 @@ CREATE TABLE `accounts` (
 --
 
 INSERT INTO `accounts` (`account_id`, `password`, `user_name`, `role`, `enabled`) VALUES
-(1, '$2a$10$ifLsngtFn4bz/L8N0tZRXuPEbGdaj5naeJWMJHW2gzD/yj1PwMGUW', 'ADMIN', 'ADMIN', b'1'),
-(2, '$2a$10$0M3cRk1i6cBwq8dpc4G3P.qKDz53zrszING.aqCKLRl418biSRAvG', 'EMPLOYEE', 'EMPLOYEE', b'1');
+(1, '$2a$10$ifLsngtFn4bz/L8N0tZRXuPEbGdaj5naeJWMJHW2gzD/yj1PwMGUW', 'quanly', 'MANAGER', b'1'),
+(2, '$2a$10$k88BBPZXAy6v6yyO8uLssez7YexG4C6aV3NErigPFhtOfanAzI9kC', 'nhanvien1', 'EMPLOYEE', b'1'),
+(4, '$2a$10$tpaoi/izGUSiZJlapt.s7uPSHbw4eUB0JlPFnqlb7yHXaVJsj0FHG', 'nhanvien2', 'EMPLOYEE', b'1'),
+(5, '$2a$10$HsVgFhZYIjjLVxB/n9zhEe37SKaHWbaTLwq.RwJ/qtzwyh64RBSdu', 'nhanvien3', 'EMPLOYEE', b'1');
 
 -- --------------------------------------------------------
 
@@ -125,8 +127,8 @@ CREATE TABLE `colors` (
 INSERT INTO `colors` (`color_id`, `name`) VALUES
 ('BBR', 'Phối đen-nâu'),
 ('BCR', 'Phối xanh đá đậm - kem đậm'),
-('BE', 'Be'),
-('BL', 'black'),
+('BE', 'Màu be'),
+('BL', 'Màu đen'),
 ('BLE', 'Phối đen-be'),
 ('BR', 'Nâu'),
 ('BU', 'Xanh da trời'),
@@ -169,116 +171,12 @@ INSERT INTO `colors` (`color_id`, `name`) VALUES
 
 CREATE TABLE `history` (
   `id` int(11) NOT NULL,
-  `invoice_id` varchar(8) NOT NULL,
-  `old_invoice_status` int(1) DEFAULT NULL,
-  `new_invoice_status` int(1) DEFAULT NULL,
+  `account` varchar(10) NOT NULL,
+  `col` varchar(30) NOT NULL,
+  `old_value` varchar(255) DEFAULT NULL,
+  `new_value` varchar(255) DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Đang đổ dữ liệu cho bảng `history`
---
-
-INSERT INTO `history` (`id`, `invoice_id`, `old_invoice_status`, `new_invoice_status`, `updated_at`) VALUES
-(12, 'QWEASVXZ', 1, 2, '2023-11-29 14:00:22'),
-(13, 'QWEASVXZ', 2, 0, '2023-11-29 14:00:27'),
-(14, 'QWEASVXZ', 0, 1, '2023-11-29 14:00:30'),
-(15, 'QWEASVXZ', 1, 0, '2023-11-29 16:40:53'),
-(16, 'QWEASVXZ', 0, 1, '2023-11-29 16:41:03'),
-(17, 'QWEASVXZ', 1, 0, '2023-11-29 16:42:59'),
-(18, 'YHJFSFAS', 1, 0, '2023-11-29 16:43:26'),
-(19, 'QWEASVXZ', 0, 1, '2023-11-29 16:44:19'),
-(20, 'YHJFSFAS', 0, 1, '2023-11-29 16:44:22'),
-(21, 'SDDFGSEW', 1, 2, '2023-11-29 16:50:12'),
-(22, 'SDDFGSEW', 2, 0, '2023-11-29 16:50:18'),
-(23, 'SDDFGSEW', 0, 3, '2023-11-29 16:50:43'),
-(24, 'SDDFGSEW', 3, 0, '2023-11-29 16:50:48'),
-(25, 'SDDFGSEW', 0, 1, '2023-11-29 16:50:52'),
-(26, 'SDDFGSEW', 1, 3, '2023-11-29 16:51:21'),
-(27, 'QWEASVXZ', 1, 0, '2023-11-29 16:51:40'),
-(28, 'QWEASVXZ', 0, 1, '2023-11-29 16:51:44'),
-(29, 'QWEASVXZ', 1, 0, '2023-11-29 16:52:18'),
-(30, 'VCXBDSGS', 1, 0, '2023-11-29 16:52:55'),
-(31, 'QWEASVXZ', 0, 1, '2023-11-29 16:56:23'),
-(32, 'QWEASVXZ', 1, 0, '2023-11-29 16:57:57'),
-(33, 'VCXBDSGS', 0, 1, '2023-11-29 17:12:50'),
-(34, 'VCXBDSGS', 1, 0, '2023-11-29 17:12:58'),
-(35, 'YHJFSFAS', 1, 0, '2023-11-29 17:13:14'),
-(36, 'SDDFGSEW', 3, 0, '2023-11-29 17:13:21'),
-(37, 'QWEASVXZ', 0, 1, '2023-11-29 17:13:34'),
-(38, 'QWEASVXZ', 1, 2, '2023-11-29 17:33:34'),
-(39, 'SDDFGSEW', 0, 1, '2023-11-29 17:33:42'),
-(40, 'VCXBDSGS', 0, 1, '2023-11-29 17:33:45'),
-(41, 'YHJFSFAS', 0, 1, '2023-11-29 17:33:48'),
-(42, 'VCXBDSGS', 1, 0, '2023-11-29 17:34:01'),
-(43, 'VCXBDSGS', 0, 1, '2023-11-30 05:48:43'),
-(44, 'SDDFGSEW', 1, 2, '2023-11-30 05:48:51'),
-(45, 'VCXBDSGS', 1, 2, '2023-11-30 05:48:59'),
-(46, 'QWEASVXZ', 2, 0, '2023-11-30 07:34:06'),
-(47, 'SDDFGSEW', 2, 0, '2023-11-30 07:34:10'),
-(48, 'VCXBDSGS', 2, 0, '2023-11-30 07:34:13'),
-(49, 'VCXBDSGS', 0, 1, '2023-11-30 07:39:05'),
-(50, 'QWEASVXZ', 0, 1, '2023-11-30 07:44:07'),
-(51, 'QWEASVXZ', 1, 0, '2023-11-30 07:44:21'),
-(52, 'VCXBDSGS', 1, 0, '2023-11-30 07:44:23'),
-(53, 'YHJFSFAS', 1, 0, '2023-11-30 07:44:26'),
-(54, 'QWEASVXZ', 0, 1, '2023-11-30 11:58:09'),
-(55, 'SDDFGSEW', 0, 1, '2023-11-30 11:58:13'),
-(56, 'VCXBDSGS', 0, 1, '2023-11-30 11:58:16'),
-(57, 'YHJFSFAS', 0, 1, '2023-11-30 11:58:18'),
-(58, 'QWEASVXZ', 1, 0, '2023-11-30 12:05:35'),
-(59, 'QWEASVXZ', 0, 1, '2023-11-30 13:09:08'),
-(60, 'QWEASVXZ', 1, 0, '2023-11-30 13:09:14'),
-(61, 'QWEASVXZ', 0, 1, '2023-11-30 13:09:19'),
-(62, 'QWEASVXZ', 1, 2, '2023-12-03 10:09:31'),
-(63, 'QWEASVXZ', 2, 3, '2023-12-03 10:16:42'),
-(64, 'SDDFGSEW', 1, 0, '2023-12-03 10:17:02'),
-(65, 'SDDFGSEW', 0, 1, '2023-12-03 10:17:48'),
-(66, 'SDDFGSEW', 1, 0, '2023-12-03 11:00:47'),
-(67, 'SDDFGSEW', 0, 1, '2023-12-03 11:06:17'),
-(68, 'SDDFGSEW', 1, 2, '2023-12-03 11:12:49'),
-(69, 'SDDFGSEW', 2, 1, '2023-12-03 11:15:05'),
-(70, 'QWEASVXZ', 3, 4, '2023-12-03 12:55:46'),
-(71, 'QWEASVXZ', 4, 3, '2023-12-03 12:55:51'),
-(72, 'QWEASVXZ', 3, 4, '2023-12-03 12:55:57'),
-(73, 'SDDFGSEW', 1, 2, '2023-12-03 13:15:19'),
-(74, 'SDDFGSEW', 2, 0, '2023-12-03 13:15:25'),
-(75, 'SDDFGSEW', 0, 1, '2023-12-03 13:15:34'),
-(76, 'QWEASVXZ', 4, 5, '2023-12-07 08:38:18'),
-(77, 'QWEASVXZ', 5, 4, '2023-12-07 08:38:23'),
-(78, 'QWEASVXZ', 4, 3, '2023-12-07 08:38:29'),
-(79, 'QWEASVXZ', 3, 2, '2023-12-07 08:38:33'),
-(80, 'QWEASVXZ', 2, 3, '2023-12-07 08:38:38'),
-(81, 'QWEASVXZ', 3, 2, '2023-12-07 08:38:49'),
-(82, 'QWEASVXZ', 2, 3, '2023-12-07 08:39:03'),
-(83, 'QWEASVXZ', 3, 2, '2023-12-07 08:39:21'),
-(84, 'QWEASVXZ', 2, 3, '2023-12-07 08:39:29'),
-(85, 'QWEASVXZ', 3, 2, '2023-12-07 08:39:45'),
-(86, 'QWEASVXZ', 2, 3, '2023-12-07 08:40:05'),
-(87, 'QWEASVXZ', 3, 4, '2023-12-07 08:40:08'),
-(88, 'QWEASVXZ', 4, 5, '2023-12-07 09:18:42'),
-(89, 'SDDFGSEW', 1, 3, '2023-12-07 10:05:45'),
-(90, 'SDDFGSEW', 3, 2, '2023-12-07 10:08:17'),
-(91, 'SDDFGSEW', 2, 3, '2023-12-07 10:08:30'),
-(92, 'SDDFGSEW', 3, 2, '2023-12-07 10:30:25'),
-(93, 'SDDFGSEW', 2, 1, '2023-12-07 10:30:51'),
-(94, 'SDDFGSEW', 1, 2, '2023-12-07 10:31:28'),
-(95, 'SDDFGSEW', 2, 1, '2023-12-07 10:31:33'),
-(96, 'SDDFGSEW', 1, 2, '2023-12-07 11:33:58'),
-(97, 'SDDFGSEW', 2, 1, '2023-12-07 11:34:04'),
-(98, 'SDDFGSEW', 1, 0, '2023-12-07 11:34:11'),
-(99, 'SDDFGSEW', 0, 1, '2023-12-07 11:36:11'),
-(100, 'SDDFGSEW', 1, 2, '2023-12-07 11:36:15'),
-(101, 'SDDFGSEW', 2, 3, '2023-12-07 11:40:22'),
-(102, 'SDDFGSEW', 3, 2, '2023-12-07 11:41:36'),
-(103, 'SDDFGSEW', 2, 3, '2023-12-07 11:41:49'),
-(104, 'SDDFGSEW', 3, 2, '2023-12-07 11:43:22'),
-(105, 'SDDFGSEW', 2, 3, '2023-12-07 11:43:26'),
-(106, 'SDDFGSEW', 3, 2, '2023-12-07 11:44:24'),
-(107, 'SDDFGSEW', 2, 3, '2023-12-07 11:44:27'),
-(108, 'SDDFGSEW', 3, 2, '2023-12-07 11:47:51'),
-(109, 'SDDFGSEW', 2, 3, '2023-12-07 12:02:23'),
-(110, 'SDDFGSEW', 3, 2, '2023-12-07 13:25:00');
 
 -- --------------------------------------------------------
 
@@ -802,23 +700,10 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `total_amount`, `created_at`, `note`, `invoice_status`) VALUES
-('QWEASVXZ', 'fdsfsd', '93232', 'cxvcx', 2383333, '2023-12-07 09:21:21', 'cx', 5),
+('QWEASVXZ', 'fdsfsd', '93232', 'cxvcx', 2383333, '2023-12-07 09:21:21', 'cxfds', 5),
 ('SDDFGSEW', 'quang anh', '932', '4dvsdsf', 75349926, '2023-12-07 09:21:21', 'hello\r\nx', 2),
 ('VCXBDSGS', 'SF', '93232', '4fdsdvs', 333333, '2023-11-26 09:39:38', 'dsf', 1),
 ('YHJFSFAS', 'Qvxa', '21932', '4cddvs', 2550000, '2023-11-26 09:39:38', '', 1);
-
---
--- Bẫy `invoices`
---
-DELIMITER $$
-CREATE TRIGGER `update_status_history` AFTER UPDATE ON `invoices` FOR EACH ROW BEGIN
-    IF NEW.invoice_status <> OLD.invoice_status THEN
-        INSERT INTO history (invoice_id, old_invoice_status, new_invoice_status, updated_at)
-        VALUES (NEW.invoice_id, OLD.invoice_status, NEW.invoice_status, NOW());
-    END IF;
-END
-$$
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -1924,8 +1809,7 @@ ALTER TABLE `colors`
 -- Chỉ mục cho bảng `history`
 --
 ALTER TABLE `history`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `invoice_id` (`invoice_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Chỉ mục cho bảng `imgs_product`
@@ -2006,7 +1890,7 @@ ALTER TABLE `stores`
 -- AUTO_INCREMENT cho bảng `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `history`
@@ -2059,12 +1943,6 @@ ALTER TABLE `products_detail`
 --
 ALTER TABLE `categories`
   ADD CONSTRAINT `dsgsg` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`cat_id`);
-
---
--- Các ràng buộc cho bảng `history`
---
-ALTER TABLE `history`
-  ADD CONSTRAINT `history_ibfk_1` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`invoice_id`);
 
 --
 -- Các ràng buộc cho bảng `imgs_product`

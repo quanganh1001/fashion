@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head th:include="~{admin/fragment/head::head}"></head>
-<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
 
 <body>
 <div class="ui-menu-item-wrapper">
@@ -14,6 +13,8 @@
               th:object="${ac}">
             <input type="hidden" th:field="${account.accountId}">
             <input type="hidden" th:field="${account.password}">
+            <input th:if="${account.role == 'MANAGER'}" type="hidden" th:field="${account.role}">
+            <input th:if="${account.role == 'MANAGER'}" type="hidden" th:field="${account.enabled}">
             <div class="row">
                 <div class="mb-3">
                     <label for="userName" class="form-label">Tài khoản<span style="color:red">*</span></label>
@@ -21,7 +22,7 @@
                            th:field="${account.userName}">
                 </div>
 
-                <div class="mb-3">
+                <div th:if="${account.role != 'MANAGER'}" class="mb-3">
                     <label for="role" class="form-label">Quyền<span
                             style="color:red">*</span></label>
                     <select class="form-control" id="role" th:field="${account.role}">
@@ -30,9 +31,10 @@
                     </select>
                 </div>
 
-                <div class="mb-3">
+                <div class="mb-3" th:if="${account.role != 'MANAGER'}">
                     <label for="enabled" class="form-label">Trạng thái<span style="color:red">*</span></label>
-                    <input id="enabled" type="checkbox" th:field="${account.enabled}">Hoạt động/Không kích hoạt
+                    <input id="enabled" type="checkbox"
+                           th:field="${account.enabled}">Hoạt động/Không kích hoạt
                 </div>
             </div>
 
@@ -77,7 +79,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button id="change-pw-btn" th:data-accountId="${account.accountId}" type="button" class="btn btn-primary">Lưu thay
+                    <button id="change-pw-btn" th:data-account-id="${account.accountId}" type="button"
+                            class="btn btn-primary">Lưu thay
                         đổi</button>
                 </div>
             </div>

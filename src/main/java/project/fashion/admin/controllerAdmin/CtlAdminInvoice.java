@@ -41,7 +41,7 @@ public class CtlAdminInvoice {
 
     @PostMapping("/add")
     public ResponseEntity<String> addInvoice(@ModelAttribute Invoice invoice){
-        return invoiceService.saveInvoice(invoice);
+        return invoiceService.addInvoice(invoice);
     }
 
 }

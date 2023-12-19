@@ -20,11 +20,12 @@ public class AccountService {
 
     @Autowired
     private AccountRepo accountRepo;
+
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     public List<Account> findAll(){
         return accountRepo.findAll();
     }
-
 
     public ResponseEntity<String> addAccount(Account ac){
         if (accountRepo.existsByUserName(ac.getUserName())){
@@ -41,7 +42,9 @@ public class AccountService {
     public ResponseEntity<String> updateAccount(Account ac){
         if (Objects.equals(ac.getRole(), "ADMIN")){
             return new ResponseEntity<>("Không thể cập nhập thành ADMIN",HttpStatus.BAD_REQUEST);
-        }else {
+        } else if (accountRepo.existsByUserName(ac.getUserName())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Tên tài khoản này đã tồn tại");
+        } else {
             accountRepo.save(ac);
             return ResponseEntity.ok("done");
         }
@@ -66,12 +69,22 @@ public class AccountService {
         try{
             System.out.println(accountId);
             var newPassword =   passwordEncoder.encode("123456");
-            accountRepo.resetPassword(accountId,newPassword);
+            accountRepo.changePassword(accountId,newPassword);
             return ResponseEntity.ok("done");
         }catch (Exception e){
             System.out.println(e);
             return new ResponseEntity<>("có lỗi",HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @Transactional
+    public ResponseEntity<String> changePass(String oldPass,String newPass,Integer accountId){
+        Optional<Account> accountOptional= Optional.of(accountRepo.findById(accountId).orElse(new Account()));
+        if(passwordEncoder.matches(oldPass, accountOptional.get().getPassword())){
+            accountRepo.changePassword(accountId,passwordEncoder.encode(newPass));
+            return ResponseEntity.ok("done");
+        }else
+            return new ResponseEntity<>("Mật khẩu cũ không chính xác",HttpStatus.BAD_REQUEST);
 
     }
 }

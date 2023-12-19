@@ -13,5 +13,5 @@ public interface AccountRepo extends JpaRepository<Account, Integer> {
     @Modifying
     @Query(value = "UPDATE accounts SET password = :password WHERE account_id = :accountId",
             nativeQuery = true)
-    void resetPassword(@Param("accountId") Integer accountId,@Param("password") String password);
+    void changePassword(@Param("accountId") Integer accountId,@Param("password") String password);
 }

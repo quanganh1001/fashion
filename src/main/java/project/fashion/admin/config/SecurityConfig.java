@@ -25,7 +25,7 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.csrf(csrf -> csrf.disable()).authorizeRequests((auth) -> auth
                         .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasAuthority("ADMIN")
+                        .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasAuthority("MANAGER")
                       )
                 .formLogin(login -> login
                         .loginPage("/login")

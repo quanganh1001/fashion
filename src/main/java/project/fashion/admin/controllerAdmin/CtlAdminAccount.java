@@ -68,7 +68,14 @@ public class CtlAdminAccount {
     }
 
     @DeleteMapping("/delete-account")
-    public ResponseEntity<String> deleteColor(@RequestParam("accountId") Integer accountId) {
+    public ResponseEntity<String> deleteAccount(@RequestParam("accountId") Integer accountId) {
         return accountService.deleteAccount(accountId);
+    }
+
+    @PutMapping("/change-password")
+    public ResponseEntity<String> changePassword(@RequestParam("accountId") Integer accountId,
+                                                 @RequestParam("newPassword") String newPassword,
+                                                 @RequestParam("oldPassword") String oldPassword) {
+        return accountService.changePass(oldPassword,newPassword,accountId);
     }
 }
