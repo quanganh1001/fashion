@@ -1,4 +1,4 @@
-package project.fashion.admin;
+package project.fashion;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

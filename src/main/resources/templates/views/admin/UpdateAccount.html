@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head th:include="~{admin/fragment/head::head}"></head>
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
 
 <body>
 <div class="ui-menu-item-wrapper">
@@ -38,7 +39,8 @@
         </form>
         <div class="col-6 d-flex justify-content-between">
             <button style="text-align: center" type="button" id="button" class="col-2 btn btn-primary">Lưu</button>
-            <button class=" btn btn-warning">Đổi mật khẩu
+            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    class=" btn btn-warning">Đổi mật khẩu
             </button>
             <button th:data-account-id="${account.accountId}"
                     id="reset-button"
@@ -47,6 +49,41 @@
         </div>
 
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Thay đổi mật khẩu</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="oldPassword" class="form-label">Mật khẩu
+                            cũ<span style="color:red">*</span></label>
+                        <input type="password" class="form-control" id="oldPassword">
+                    </div>
+                    <div class="mb-3">
+                        <label for="newPassword" class="form-label">Mật khẩu
+                            mới<span style="color:red">*</span></label>
+                        <input type="password" class="form-control" id="newPassword">
+                    </div>
+                    <div class="mb-3">
+                        <label for="newPasswordAgain" class="form-label">Nhập lại
+                            mật khẩu mới<span style="color:red">*</span></label>
+                        <input type="password" class="form-control" id="newPasswordAgain">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button id="change-pw-btn" th:data-accountId="${account.accountId}" type="button" class="btn btn-primary">Lưu thay
+                        đổi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 <script th:src="@{/script/UpdateAccountScript.js}"></script>
 </body>
