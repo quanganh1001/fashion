@@ -41,11 +41,13 @@ public class CtlAdminInvoiceDetail {
 
         List<ProductDetail> productDetails = productDetailService.findAll();
 
-//        List<History> histories = historyService.findByInvoiceId(invoiceId);
+        List<History> histories = historyService.findByInvoiceId(invoiceId);
+
         model.addAttribute("invoiceDetails", invoiceDetails);
         model.addAttribute("invoice", invoice);
         model.addAttribute("status", status);
         model.addAttribute("searchResult", productDetails);
+        model.addAttribute("histories",histories);
         model.addAttribute("select","invoice");
 
         return "admin/InvoiceDetail";

@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 22, 2023 lúc 05:34 PM
+-- Máy chủ: localhost
+-- Thời gian đã tạo: Th12 22, 2023 lúc 06:35 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.0.28
+-- Phiên bản PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -173,8 +173,19 @@ CREATE TABLE `history` (
   `id` int(11) NOT NULL,
   `invoice_id` varchar(25) NOT NULL,
   `content` varchar(255) NOT NULL,
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `time_ago` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `history`
+--
+
+INSERT INTO `history` (`id`, `invoice_id`, `content`, `time`, `time_ago`) VALUES
+(140, 'PB8NR0T5', 'quanly đã tạo đơn hàng: <br>Mã đơn: PB8NR0T5,<br>Tên khách hàng: nguyễn quang anh,<br>Số điện thoại: 365151822,<br>Địa chỉ: số 18 ngõ 222 tựu liệt,thanh trì, hà nội,<br>Ghi chú:                         ', '2023-12-22 17:29:07', NULL),
+(141, 'PB8NR0T5', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đang xử lý', '2023-12-22 17:29:23', NULL),
+(142, 'PB8NR0T5', 'quanly đã thêm sản phẩm: DSTP90372CT32RB_WCB-M (giá = 290000)', '2023-12-22 17:29:37', NULL),
+(143, 'PB8NR0T5', 'quanly đã thay đổi Số lượng (DSTP90372CT32RB_WCB-M) :1 -> 2', '2023-12-22 17:30:02', NULL);
 
 -- --------------------------------------------------------
 
@@ -678,7 +689,9 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `total_amount`, `created_at`, `note`, `invoice_status`) VALUES
+('5N7P9LFG', 'nguyễn quang anh', '3', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', 0, '2023-12-22 17:21:17', '                        ', 1),
 ('LJ15RWML', 'quang anh', '0365151822', 'dsf', 0, '2023-12-22 15:42:02', 'sdfds', 1),
+('PB8NR0T5', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', 580000, '2023-12-22 17:30:02', '                        ', 2),
 ('QWEASVXZ', 'fdsfsd', '93232', 'cxvcx', 0, '2023-12-22 14:58:38', 'cxfds', 5),
 ('RNQT0948', 'quang anh', '33', 'ds', 0, '2023-12-22 15:43:24', 'a', 1),
 ('SDDFGSEW', 'quang anh', '932', '4dvsdsf', 0, '2023-12-22 15:27:44', 'hello\r\nx', 2),
@@ -694,7 +707,7 @@ CREATE TRIGGER `after_invoice_insert` AFTER INSERT ON `invoices` FOR EACH ROW BE
 	DECLARE content VARCHAR(255);
     DECLARE invoice_id VARCHAR(25);
     SET invoice_id = NEW.invoice_id;
-    SET content = CONCAT(@current_user , ' đã tạo đơn hàng: \r\nInvoice ID: ', NEW.invoice_id, ',\r\nTên khách hàng: ', NEW.name, ',\r\nSố điện thoại: ', NEW.phone, ',\r\nĐịa chỉ: ', NEW.address,',\r\nGhi chú: ', NEW.note);
+    SET content = CONCAT(@current_user , ' đã tạo đơn hàng: <br>Mã đơn: ', NEW.invoice_id, ',<br>Tên khách hàng: ', NEW.name, ',<br>Số điện thoại: ', NEW.phone, ',<br>Địa chỉ: ', NEW.address,',<br>Ghi chú: ', NEW.note);
 
     INSERT INTO History (invoice_id,content) VALUES (invoice_id,content);
 END
@@ -766,7 +779,8 @@ INSERT INTO `invoices_detail` (`detail_id`, `invoice_id`, `product_detail_id`, `
 (29, 'QWEASVXZ', 46, 333333, 1, 333333),
 (30, 'VCXBDSGS', 47, 333333, 2, 666666),
 (31, 'YHJFSFAS', 234, 500000, 1, 500000),
-(48, 'LJ15RWML', 527, 550000, 1, 550000);
+(48, 'LJ15RWML', 527, 550000, 1, 550000),
+(52, 'PB8NR0T5', 191, 290000, 2, 580000);
 
 --
 -- Bẫy `invoices_detail`
@@ -1966,7 +1980,7 @@ ALTER TABLE `accounts`
 -- AUTO_INCREMENT cho bảng `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_product`
@@ -1984,7 +1998,7 @@ ALTER TABLE `imgs_size`
 -- AUTO_INCREMENT cho bảng `invoices_detail`
 --
 ALTER TABLE `invoices_detail`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT cho bảng `invoices_status`

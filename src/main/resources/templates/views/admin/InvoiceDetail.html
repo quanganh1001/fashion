@@ -133,7 +133,7 @@
                 <td th:text="${id.productDetail.code}"></td>
                 <td th:text="${id.productDetail.product.productName}"></td>
                 <td th:text="${id.productDetail.color.name}"></td>
-                <td th:text="${id.productDetail.size.name}"></td>
+                <td th:text="${id.productDetail.size.sizeId}"></td>
                 <td th:text="${id.price}"></td>
                 <td>
                     <div class="editable-note">
@@ -141,6 +141,7 @@
                         <input class="hidden"
                                th:id="'input' + ${id.detailId}"
                                type="text"
+                               style="width:30px"
                                th:value="${id.quantity}"/>
                         <span th:if="${id.invoice.invoiceStatus.statusId} >= 0 and ${id.invoice.invoiceStatus.statusId} <=2"
                               th:id="'edit' + ${id.detailId}"
@@ -201,25 +202,27 @@
         </div>
     </div>
 
-    <!-- Modal -->
-<!--    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
-<!--        <div class="modal-dialog">-->
-<!--            <div class="modal-content">-->
-<!--                <div class="modal-header">-->
-<!--                    <h1 class="modal-title fs-5" id="exampleModalLabel">Lịch sử đơn hàng</h1>-->
-<!--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-<!--                </div>-->
-<!--                <div class="modal-body">-->
-<!--                    <ul th:if="${history != null}" th:each="h :${history}">-->
-<!--                        <li><p th:text="${h.content}"></p></li>-->
-<!--                    </ul>-->
-<!--                </div>-->
-<!--                <div class="modal-footer">-->
-<!--                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+     Modal
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Lịch sử đơn hàng</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul th:if="${histories != null}" th:each="history :${histories}">
+                        <li><p th:utext="${history.content}"></p><span th:text=" ${history.timeAgo}"
+                                                                       class="fw-lighter"></span></li>
+                    </ul>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script th:src="@{/script/InvoiceDetailScript.js}"></script>
 </body>

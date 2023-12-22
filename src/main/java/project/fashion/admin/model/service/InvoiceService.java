@@ -86,8 +86,6 @@ public class InvoiceService {
                 var newQuantity = oldQuantity + quantity;
 
                 productDetailRepo.updateQuantityProductRepo(newQuantity, productDetaiId);
-                // create history
-                historyService.setTriggerVariableForHistory();
             }
         } else if (status >= 4 && newStatus <= 2)
             return new ResponseEntity<>("Đơn đã gửi thì không thể đổi trạng thái về lúc chưa gửi",HttpStatus.BAD_REQUEST);
@@ -127,9 +125,9 @@ public class InvoiceService {
             invoice.setTotalAmount(0);
             invoice.setCreatedAt(LocalDateTime.now());
 
-            invoiceRepo.save(invoice);
             // create history
             historyService.setTriggerVariableForHistory();
+            invoiceRepo.save(invoice);
 
             return ResponseEntity.ok(randomId);
         }
