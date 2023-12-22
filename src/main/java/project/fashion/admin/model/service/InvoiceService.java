@@ -32,6 +32,9 @@ public class InvoiceService {
     @Autowired
     private ProductDetailRepo productDetailRepo;
 
+    @Autowired
+    private HistoryService historyService;
+
     public Invoice findById(String invoiceId){
         Optional<Invoice> OptionalInvoice = Optional.of(invoiceRepo.findById(invoiceId).orElse(new Invoice()));
         return OptionalInvoice.get();
