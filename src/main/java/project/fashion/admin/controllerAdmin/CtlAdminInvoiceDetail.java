@@ -6,14 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import project.fashion.admin.model.entity.Invoice;
-import project.fashion.admin.model.entity.InvoiceDetail;
-import project.fashion.admin.model.entity.InvoiceStatus;
-import project.fashion.admin.model.entity.ProductDetail;
-import project.fashion.admin.model.service.InvoiceDetailService;
-import project.fashion.admin.model.service.InvoiceService;
-import project.fashion.admin.model.service.InvoiceStatusService;
-import project.fashion.admin.model.service.ProductDetailService;
+import project.fashion.admin.model.entity.*;
+import project.fashion.admin.model.service.*;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -32,6 +27,9 @@ public class CtlAdminInvoiceDetail {
     @Autowired
     private InvoiceService invoiceService;
 
+    @Autowired
+    private HistoryService historyService;
+
     @GetMapping()
     public String getInvoiceDetail(Model model,
                                    @RequestParam("invoiceId") String invoiceId) {
@@ -43,6 +41,7 @@ public class CtlAdminInvoiceDetail {
 
         List<ProductDetail> productDetails = productDetailService.findAll();
 
+//        List<History> histories = historyService.findByInvoiceId(invoiceId);
         model.addAttribute("invoiceDetails", invoiceDetails);
         model.addAttribute("invoice", invoice);
         model.addAttribute("status", status);
@@ -55,6 +54,7 @@ public class CtlAdminInvoiceDetail {
 
     @DeleteMapping("/delete/{detailId}")
     public ResponseEntity<String> deleteCat(@PathVariable("detailId") Integer detailId) {
+        System.out.println(detailId);
         return invoiceDetailService.deleteByDetailId(detailId);
     }
 
@@ -73,18 +73,18 @@ public class CtlAdminInvoiceDetail {
         return "admin/fragment/SearchProduct";
     }
 
-    @PostMapping("/addProduct")
-    public String addProduct(@RequestParam("productDetailId") Integer productDetailId,
+    @PostMapping("/addProductInvoiceDetail")
+    public ResponseEntity<String> addProduct(@RequestParam("productDetailId") Integer productDetailId,
                                              @RequestParam("invoiceId") String invoiceId){
-        invoiceDetailService.addProductInvoiceDetail(productDetailId,invoiceId);
-        return "admin/fragment/SearchProduct";
+        System.out.println(productDetailId + invoiceId);
+        return invoiceDetailService.addProductInvoiceDetail(productDetailId,invoiceId);
+
     }
 
     @PutMapping("/update-quantity")
-    public String updateQuantityInvoiceDetail(@RequestParam("newQuantity") Integer newQuantity,
-                             @RequestParam("invoiceDetailId") Integer invoiceDetailId){
-        invoiceDetailService.updateQuantityInvoiceDetail(newQuantity,invoiceDetailId);
-        return "admin/fragment/SearchProduct";
+    public ResponseEntity<String> updateQuantityInvoiceDetail(@RequestParam("newQuantity") Integer newQuantity,
+                                                              @RequestParam("invoiceDetailId") Integer invoiceDetailId){
+        return invoiceDetailService.updateQuantityInvoiceDetail(newQuantity,invoiceDetailId);
     }
 
     @PutMapping("/update-invoice/{invoiceId}")
@@ -92,4 +92,5 @@ public class CtlAdminInvoiceDetail {
                                                 @ModelAttribute Invoice i) {
         return invoiceService.updateInvoice(invoiceId,i);
     }
+
 }

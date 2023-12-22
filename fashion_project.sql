@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: localhost
--- Thời gian đã tạo: Th12 19, 2023 lúc 03:15 PM
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th12 22, 2023 lúc 05:34 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.2.4
+-- Phiên bản PHP: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -171,10 +171,8 @@ INSERT INTO `colors` (`color_id`, `name`) VALUES
 
 CREATE TABLE `history` (
   `id` int(11) NOT NULL,
-  `account` varchar(10) NOT NULL,
-  `col` varchar(30) NOT NULL,
-  `old_value` varchar(255) DEFAULT NULL,
-  `new_value` varchar(255) DEFAULT NULL,
+  `invoice_id` varchar(25) NOT NULL,
+  `content` varchar(255) NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -661,26 +659,6 @@ INSERT INTO `imgs_size` (`img_size_id`, `img_name`, `link`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `incvoice_status`
---
-
-CREATE TABLE `incvoice_status` (
-  `invoice_status` int(1) NOT NULL,
-  `status` varchar(15) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Đang đổ dữ liệu cho bảng `incvoice_status`
---
-
-INSERT INTO `incvoice_status` (`invoice_status`, `status`) VALUES
-(0, 'Đã hủy'),
-(1, 'Đơn mới'),
-(2, 'Đã lên đơn');
-
--- --------------------------------------------------------
-
---
 -- Cấu trúc bảng cho bảng `invoices`
 --
 
@@ -700,10 +678,65 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `total_amount`, `created_at`, `note`, `invoice_status`) VALUES
-('QWEASVXZ', 'fdsfsd', '93232', 'cxvcx', 2383333, '2023-12-07 09:21:21', 'cxfds', 5),
-('SDDFGSEW', 'quang anh', '932', '4dvsdsf', 75349926, '2023-12-07 09:21:21', 'hello\r\nx', 2),
-('VCXBDSGS', 'SF', '93232', '4fdsdvs', 333333, '2023-11-26 09:39:38', 'dsf', 1),
-('YHJFSFAS', 'Qvxa', '21932', '4cddvs', 2550000, '2023-11-26 09:39:38', '', 1);
+('LJ15RWML', 'quang anh', '0365151822', 'dsf', 0, '2023-12-22 15:42:02', 'sdfds', 1),
+('QWEASVXZ', 'fdsfsd', '93232', 'cxvcx', 0, '2023-12-22 14:58:38', 'cxfds', 5),
+('RNQT0948', 'quang anh', '33', 'ds', 0, '2023-12-22 15:43:24', 'a', 1),
+('SDDFGSEW', 'quang anh', '932', '4dvsdsf', 0, '2023-12-22 15:27:44', 'hello\r\nx', 2),
+('VCXBDSGS', 'SF', '93232', '4fdsdvs', 0, '2023-12-22 15:27:44', 'dsf', 1),
+('YHJFSFAS', 'Qvxa', '21932', '4cddvs', 0, '2023-12-22 14:58:38', '', 1),
+('YHVJLZWX', 'fsd', '34543', 'df', 0, '2023-12-22 15:31:40', '', 1);
+
+--
+-- Bẫy `invoices`
+--
+DELIMITER $$
+CREATE TRIGGER `after_invoice_insert` AFTER INSERT ON `invoices` FOR EACH ROW BEGIN
+	DECLARE content VARCHAR(255);
+    DECLARE invoice_id VARCHAR(25);
+    SET invoice_id = NEW.invoice_id;
+    SET content = CONCAT(@current_user , ' đã tạo đơn hàng: \r\nInvoice ID: ', NEW.invoice_id, ',\r\nTên khách hàng: ', NEW.name, ',\r\nSố điện thoại: ', NEW.phone, ',\r\nĐịa chỉ: ', NEW.address,',\r\nGhi chú: ', NEW.note);
+
+    INSERT INTO History (invoice_id,content) VALUES (invoice_id,content);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_invoice_update` BEFORE UPDATE ON `invoices` FOR EACH ROW BEGIN
+	DECLARE content VARCHAR(255);
+    DECLARE invoice_id VARCHAR(25);
+    DECLARE old_status VARCHAR(25);
+    DECLARE new_status VARCHAR(25);
+    SET invoice_id = NEW.invoice_id;
+     SET old_status = (SELECT invoices_status.status FROM invoices_status WHERE status_id = OLD.invoice_status);
+    SET new_status = (SELECT invoices_status.status FROM invoices_status WHERE status_id = NEW.invoice_status);
+    
+	IF NEW.name != OLD.name THEN
+        SET content = CONCAT(@current_user , ' đã thay đổi Tên khách hàng: ', OLD.name, ' -> ', NEW.name);
+        INSERT INTO history (invoice_id,content) VALUES (invoice_id,content);
+    END IF;
+    
+    IF NEW.phone != OLD.phone THEN
+        SET content = CONCAT(@current_user ,' đã thay đổi Số điện thoại: ', OLD.phone, ' -> ', NEW.phone);
+        INSERT INTO history (invoice_id,content) VALUES (invoice_id,content);
+    END IF;
+    
+    IF NEW.address != OLD.address THEN
+        SET content = CONCAT(@current_user , ' đã thay đổi Địa chỉ: ', OLD.address, ' -> ', NEW.address);
+        INSERT INTO history (invoice_id,content) VALUES (invoice_id,content);
+    END IF;
+    
+    IF NEW.note != OLD.note THEN
+        SET content = CONCAT(@current_user , ' đã thay đổi Ghi chú: ', OLD.note, ' -> ', NEW.note);
+        INSERT INTO history (invoice_id,content) VALUES (invoice_id,content);
+    END IF;
+    
+    IF NEW.invoice_status != OLD.invoice_status THEN
+        SET content = CONCAT(@current_user , ' đã thay đổi Trạng thái đơn hàng: ', old_status , ' -> ', new_status);
+        INSERT INTO history (invoice_id,content) VALUES (invoice_id,content);
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -729,16 +762,59 @@ INSERT INTO `invoices_detail` (`detail_id`, `invoice_id`, `product_detail_id`, `
 (4, 'YHJFSFAS', 195, 390000, 4, 1560000),
 (7, 'QWEASVXZ', 190, 490000, 1, 490000),
 (8, 'QWEASVXZ', 246, 390000, 4, 1560000),
-(25, 'SDDFGSEW', 46, 333333, 222, 73999926),
-(26, 'SDDFGSEW', 246, 450000, 2, 900000),
-(28, 'SDDFGSEW', 247, 450000, 1, 450000),
+(25, 'SDDFGSEW', 46, 333333, 1, 333333),
 (29, 'QWEASVXZ', 46, 333333, 1, 333333),
-(30, 'VCXBDSGS', 47, 333333, 1, 333333),
-(31, 'YHJFSFAS', 234, 500000, 1, 500000);
+(30, 'VCXBDSGS', 47, 333333, 2, 666666),
+(31, 'YHJFSFAS', 234, 500000, 1, 500000),
+(48, 'LJ15RWML', 527, 550000, 1, 550000);
 
 --
 -- Bẫy `invoices_detail`
 --
+DELIMITER $$
+CREATE TRIGGER `after_invoiceDetail_delete` BEFORE DELETE ON `invoices_detail` FOR EACH ROW BEGIN
+	DECLARE content VARCHAR(255);
+	DECLARE product_code VARCHAR(255);
+    DECLARE invoice_id VARCHAR(25);
+    SET invoice_id = OLD.invoice_id;
+    SET product_code = (SELECT products_detail.code FROM products_detail WHERE product_detail_id = OLD.product_detail_id);
+    
+    SET content = CONCAT(@current_user, ' đã xóa sản phẩm: ',product_code,' (giá = ',OLD.price,')');
+
+    INSERT INTO History (invoice_id,content) VALUES (invoice_id,content);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_invoiceDetail_insert` BEFORE INSERT ON `invoices_detail` FOR EACH ROW BEGIN
+	DECLARE content VARCHAR(255);
+	DECLARE product_code VARCHAR(255);
+	DECLARE invoice_id VARCHAR(25);
+    SET invoice_id = NEW.invoice_id;
+	
+    SET product_code = (SELECT products_detail.code FROM products_detail WHERE product_detail_id = NEW.product_detail_id);
+    
+    SET content = CONCAT(@current_user, ' đã thêm sản phẩm: ',product_code,' (giá = ',NEW.price,')');
+
+    INSERT INTO History (invoice_id,content) VALUES (invoice_id,content);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_invoiceDetail_update` BEFORE UPDATE ON `invoices_detail` FOR EACH ROW BEGIN
+	DECLARE content VARCHAR(255);
+    DECLARE product_code VARCHAR(255);
+    DECLARE invoice_id VARCHAR(25);
+    SET invoice_id = NEW.invoice_id;
+    SET product_code = (SELECT products_detail.code FROM products_detail WHERE product_detail_id = NEW.product_detail_id);
+    
+	IF NEW.quantity != OLD.quantity THEN
+        SET content = CONCAT(@current_user , ' đã thay đổi Số lượng (', product_code,') :' , OLD.quantity, ' -> ', NEW.quantity);
+        INSERT INTO history (invoice_id,content) VALUES (invoice_id,content);
+    END IF;
+END
+$$
+DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `calculate_delete` AFTER DELETE ON `invoices_detail` FOR EACH ROW BEGIN
     DECLARE total int;
@@ -1825,12 +1901,6 @@ ALTER TABLE `imgs_size`
   ADD PRIMARY KEY (`img_size_id`);
 
 --
--- Chỉ mục cho bảng `incvoice_status`
---
-ALTER TABLE `incvoice_status`
-  ADD PRIMARY KEY (`invoice_status`);
-
---
 -- Chỉ mục cho bảng `invoices`
 --
 ALTER TABLE `invoices`
@@ -1896,7 +1966,7 @@ ALTER TABLE `accounts`
 -- AUTO_INCREMENT cho bảng `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_product`
@@ -1911,16 +1981,10 @@ ALTER TABLE `imgs_size`
   MODIFY `img_size_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT cho bảng `incvoice_status`
---
-ALTER TABLE `incvoice_status`
-  MODIFY `invoice_status` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
 -- AUTO_INCREMENT cho bảng `invoices_detail`
 --
 ALTER TABLE `invoices_detail`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT cho bảng `invoices_status`

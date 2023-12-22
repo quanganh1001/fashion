@@ -21,6 +21,10 @@
         max-height: 300px;
         overflow-y: auto;
     }
+    .history:hover{
+        cursor: pointer;
+        text-decoration: underline;
+    }
 </style>
 <body>
 <div class="ui-menu-item-wrapper">
@@ -101,6 +105,11 @@
                     Cập nhập đơn hàng
                 </button>
             </form>
+
+            <div data-bs-toggle="modal"
+               data-bs-target="#exampleModal" class="history mt-2 col-2">
+                Xem lịch sử đơn hàng
+            </div>
         </div>
 
         <table>
@@ -180,7 +189,8 @@
                        placeholder="Nhập mã sản phẩm hoặc tên sản phẩm..." id="input-plus"
                        class="col-6 hidden form-control">
                 <div id="list-result" class="col-12 hidden"
-                     th:include="~{admin/fragment/SearchProduct::SearchProduct}"></div>
+                     th:include="~{admin/fragment/SearchProduct::SearchProduct}">
+                </div>
             </div>
 
             <div >
@@ -190,6 +200,26 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+<!--    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--        <div class="modal-dialog">-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-header">-->
+<!--                    <h1 class="modal-title fs-5" id="exampleModalLabel">Lịch sử đơn hàng</h1>-->
+<!--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    <ul th:if="${history != null}" th:each="h :${history}">-->
+<!--                        <li><p th:text="${h.content}"></p></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 </div>
 <script th:src="@{/script/InvoiceDetailScript.js}"></script>
 </body>

@@ -37,7 +37,7 @@
                 console.log(productDetailId)
                 $.ajax({
                     type: 'POST',
-                    url: "/admin/invoiceDetail/addProduct",
+                    url: "/admin/invoiceDetail/addProductInvoiceDetail",
                     data: {productDetailId:productDetailId,invoiceId:invoiceId},
                     success: function () {
                         location.reload()

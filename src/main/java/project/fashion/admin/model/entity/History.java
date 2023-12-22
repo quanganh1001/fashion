@@ -11,10 +11,8 @@ public class History {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String account;
-    private String col;
-    private String oldValue;
-    private String newValue;
+    private String invoiceId;
+    private String content;
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime updatedAt;
 }

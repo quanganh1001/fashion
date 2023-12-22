@@ -14,16 +14,13 @@ import project.fashion.admin.model.service.CustomUserDetailService;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    @Autowired
-    private CustomUserDetailService  customUserDetailService;
-
     @Bean
     BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        http.authorizeRequests((auth) -> auth
+        http.csrf(csrf -> csrf.disable()).authorizeRequests((auth) -> auth
                         .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasAuthority("MANAGER")
                       )

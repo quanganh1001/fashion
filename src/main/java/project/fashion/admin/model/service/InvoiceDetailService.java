@@ -37,69 +37,83 @@ public class InvoiceDetailService{
     @Autowired
     public ImgProductRepo imgProductRepo;
 
+    @Autowired
+    public HistoryService historyService;
+
     public List<InvoiceDetail> findAllByInvoice_InvoiceId(String invoiceId){
         return invoiceDetailRepo.findAllByInvoice_InvoiceId(invoiceId);
     }
 
+    @Transactional
     public ResponseEntity<String> deleteByDetailId(Integer detailId) {
         Optional<InvoiceDetail> OptionalInvoiceDetail = invoiceDetailRepo.findById(detailId);
         var status = OptionalInvoiceDetail.get().getInvoice().getInvoiceStatus().getStatusId();
 
-        if (status == 0 || status == 1) {
+        if (status == 0 || status == 1 || status == 2) {
+            // create history
+            historyService.setTriggerVariableForHistory();
             invoiceDetailRepo.deleteById(detailId);
+
             return ResponseEntity.ok().build();
+
         }else return new ResponseEntity<>("Không thể xóa xóa vì đã lên đơn hàng", HttpStatus.BAD_REQUEST);
 
     }
 
-    public void addProductInvoiceDetail(Integer productDetailId,String invoiceId){
-        //kiểm tra sản phẩm đã tồn tại trong invoiceDetail chưa?
-        //nếu chưa thì thêm mới, nếu có rồi thì +1
-        InvoiceDetail newInvoiceDetail = new InvoiceDetail();
-        List<InvoiceDetail> invoiceDetails = invoiceDetailRepo.findAllByInvoice_InvoiceId(invoiceId);
-        InvoiceDetail result = invoiceDetails.stream()
-                .filter(detail -> Objects.equals(detail.getProductDetail().getProductDetailId(), productDetailId))
-                .findFirst()
-                .orElse(null);
+    @Transactional
+    public ResponseEntity<String> addProductInvoiceDetail(Integer productDetailId, String invoiceId) {
+            //kiểm tra sản phẩm đã tồn tại trong invoiceDetail chưa?
+            //nếu chưa thì thêm mới, nếu có rồi thì +1
+            InvoiceDetail newInvoiceDetail = new InvoiceDetail();
+            List<InvoiceDetail> invoiceDetails = invoiceDetailRepo.findAllByInvoice_InvoiceId(invoiceId);
+            InvoiceDetail result = invoiceDetails.stream()
+                    .filter(detail -> Objects.equals(detail.getProductDetail().getProductDetailId(), productDetailId))
+                    .findFirst()
+                    .orElse(null);
 
-        if(result == null){
-            Optional<Invoice> OptionalInvoice = invoiceRepo.findById(invoiceId);
-            Invoice invoice = OptionalInvoice.get();
-            System.out.println("ở đây");
-            Optional<ProductDetail> OptionalProductDetail = productDetailRepo.findById(productDetailId);
-            ProductDetail productDetail = OptionalProductDetail.get();
-            var isDiscount = OptionalProductDetail.get().getProduct().getIsDiscount();
+            if (result == null) {
+                Optional<Invoice> OptionalInvoice = invoiceRepo.findById(invoiceId);
+                Invoice invoice = OptionalInvoice.get();
+                Optional<ProductDetail> OptionalProductDetail = productDetailRepo.findById(productDetailId);
+                ProductDetail productDetail = OptionalProductDetail.get();
+                var isDiscount = OptionalProductDetail.get().getProduct().getIsDiscount();
 
-            if(!isDiscount){
-                var price = OptionalProductDetail.get().getProduct().getPrice();
-                newInvoiceDetail.setPrice(price);
-                newInvoiceDetail.setTotalPrice(price);
-            }else {
-                var price = OptionalProductDetail.get().getProduct().getDiscountPrice();
-                newInvoiceDetail.setPrice(price);
-                newInvoiceDetail.setTotalPrice(price);
+                if (!isDiscount) {
+                    var price = OptionalProductDetail.get().getProduct().getPrice();
+                    newInvoiceDetail.setPrice(price);
+                    newInvoiceDetail.setTotalPrice(price);
+                } else {
+                    var price = OptionalProductDetail.get().getProduct().getDiscountPrice();
+                    newInvoiceDetail.setPrice(price);
+                    newInvoiceDetail.setTotalPrice(price);
+                }
+
+                newInvoiceDetail.setInvoice(invoice);
+                newInvoiceDetail.setProductDetail(productDetail);
+                newInvoiceDetail.setQuantity(1);
+                System.out.println("ở đây");
+                // create history
+                historyService.setTriggerVariableForHistory();
+                invoiceDetailRepo.save(newInvoiceDetail);
+
+                return ResponseEntity.ok("done");
+            } else {
+                var quantity = result.getQuantity();
+                var newQuantity = quantity + 1;
+                result.setQuantity(newQuantity);
+
+                // create history
+                historyService.setTriggerVariableForHistory();
+                invoiceDetailRepo.save(result);
+
+                return ResponseEntity.ok("done");
             }
-
-            newInvoiceDetail.setInvoice(invoice);
-            newInvoiceDetail.setProductDetail(productDetail);
-            newInvoiceDetail.setQuantity(1);
-
-            invoiceDetailRepo.save(newInvoiceDetail);
-        }
-
-        else {
-
-            var quantity = result.getQuantity();
-            var newQuantity = quantity + 1;
-            result.setQuantity(newQuantity);
-
-            invoiceDetailRepo.save(result);
-        }
     }
 
     @Transactional
     public ResponseEntity<String> updateQuantityInvoiceDetail(Integer newQuantity,Integer invoiceDetailId){
         if(newQuantity >= 1){
+            historyService.setTriggerVariableForHistory();
             invoiceDetailRepo.updateQuantityInvoiceDetail(newQuantity,invoiceDetailId);
             return ResponseEntity.ok().build();
         } else if (newQuantity == 0) {

@@ -1,11 +1,16 @@
 package project.fashion.admin.model.service;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import project.fashion.admin.model.entity.Invoice;
 import project.fashion.admin.model.entity.InvoiceDetail;
@@ -35,6 +40,7 @@ public class InvoiceService {
     @Autowired
     private HistoryService historyService;
 
+
     public Invoice findById(String invoiceId){
         Optional<Invoice> OptionalInvoice = Optional.of(invoiceRepo.findById(invoiceId).orElse(new Invoice()));
         return OptionalInvoice.get();
@@ -52,6 +58,7 @@ public class InvoiceService {
                     key, key, PageRequest.of(page, 10));
     }
 
+    @Transactional
     public ResponseEntity<String> updateInvoice(String invoiceId, Invoice i) {
         Optional<Invoice> optionalInvoice = invoiceRepo.findById(invoiceId);
         var status = optionalInvoice.get().getInvoiceStatus().getStatusId();
@@ -79,6 +86,8 @@ public class InvoiceService {
                 var newQuantity = oldQuantity + quantity;
 
                 productDetailRepo.updateQuantityProductRepo(newQuantity, productDetaiId);
+                // create history
+                historyService.setTriggerVariableForHistory();
             }
         } else if (status >= 4 && newStatus <= 2)
             return new ResponseEntity<>("Đơn đã gửi thì không thể đổi trạng thái về lúc chưa gửi",HttpStatus.BAD_REQUEST);
@@ -90,15 +99,24 @@ public class InvoiceService {
             var totalAmount = optionalInvoice.get().getTotalAmount();
             i.setTotalAmount(totalAmount);
             invoiceRepo.save(i);
+            // create history
+            historyService.setTriggerVariableForHistory();
+
         }
         return ResponseEntity.ok().build();
     }
 
+    @Transactional
     public ResponseEntity<String> addInvoice(Invoice invoice) {
+        if(invoice.getNote() == null) {
+            invoice.setNote("");
+        }
+
         if (Objects.equals(invoice.getName(), "") || Objects.equals(invoice.getPhone(), "") || !isNumeric(invoice.getPhone())){
             System.out.println("Lỗi");
             return new ResponseEntity<>("Lỗi thiếu dữ liệu",HttpStatus.BAD_REQUEST);
-        }else {
+        }
+        else {
             String randomId = RandomStringUtils.randomAlphanumeric(8).toUpperCase();
             invoice.setInvoiceId(randomId);
 
@@ -108,12 +126,13 @@ public class InvoiceService {
             invoice.setInvoiceStatus(status);
             invoice.setTotalAmount(0);
             invoice.setCreatedAt(LocalDateTime.now());
+
             invoiceRepo.save(invoice);
+            // create history
+            historyService.setTriggerVariableForHistory();
 
             return ResponseEntity.ok(randomId);
         }
-
-
     }
 }
 
