@@ -139,7 +139,7 @@
                 <td th:text="${invoice.name}"></td>
                 <td th:text="${invoice.phone}"></td>
                 <td th:text="${invoice.invoiceStatus.status}"></td>
-                <td th:text="${invoice.createdAt}"></td>
+                <td th:text="${#temporals.format(invoice.createdAt, 'HH:mm:ss dd/MM/yyyy')}"></td>
                 <td><a
                         th:href="@{/admin/invoiceDetail?invoiceId=__${invoice.invoiceId}__}"><i
                         class="fa-regular fa-eye"></i></a></td>

@@ -134,7 +134,7 @@
                 <td th:text="${id.productDetail.product.productName}"></td>
                 <td th:text="${id.productDetail.color.name}"></td>
                 <td th:text="${id.productDetail.size.sizeId}"></td>
-                <td th:text="${id.price}"></td>
+                <td th:text="${#numbers.formatDecimal(id.price, 0, 'POINT', 0, 'POINT')}"></td>
                 <td>
                     <div class="editable-note">
                         <span th:id="'quantity' + ${id.detailId}" th:text="${id.quantity}"></span>
@@ -163,7 +163,7 @@
                         </span>
                     </div>
                 </td>
-                <td th:text="${id.totalPrice}"></td>
+                <td th:text="${#numbers.formatDecimal(id.totalPrice, 0, 'POINT', 0, 'POINT')}"></td>
                 <td class="button"
                     th:if="${id.invoice.invoiceStatus.statusId} >= 0 and ${id.invoice.invoiceStatus.statusId} <= 2">
                     <button class="btn btn-danger btn-sm"
@@ -196,13 +196,13 @@
 
             <div >
                 <h4 style="color:red">Tổng đơn hàng: <span
-                        th:text="${invoice.totalAmount}"></span>đ
+                    th:text="${#numbers.formatDecimal(invoice.totalAmount, 0, 'POINT', 0, 'POINT')}"></span>
                 </h4>
             </div>
         </div>
     </div>
 
-     Modal
+<!--     Modal-->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -212,8 +212,11 @@
                 </div>
                 <div class="modal-body">
                     <ul th:if="${histories != null}" th:each="history :${histories}">
-                        <li><p th:utext="${history.content}"></p><span th:text=" ${history.timeAgo}"
-                                                                       class="fw-lighter"></span></li>
+                        <li>
+                            <span th:text=" ${history.timeAgo}"
+                                  class="fw-lighter fs-8"></span>
+                            <p th:utext="${history.content}"></p>
+                        </li>
                     </ul>
 
                 </div>

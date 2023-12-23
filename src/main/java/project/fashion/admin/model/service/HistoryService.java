@@ -2,6 +2,7 @@ package project.fashion.admin.model.service;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import jdk.jfr.Timestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ public class HistoryService {
     @Autowired
     private HistoryRepo historyRepo;
 
+    @Transactional
     public void setTriggerVariableForHistory() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 

@@ -2,7 +2,8 @@
     <ul class="list-group" th:if="${search != null} " th:each="result :${search}">
         <li th:data-product-detail-id="${result.productDetailId}"
             th:data-invoice-id="${invoiceId}"
-            class="result list-group-item" style="display: flex">
+            th:id="${result.productDetailId}"
+            class="item list-group-item" style="display: flex">
             <img class="img-thumbnail" width="50px"
                  th:src="@{'/admin/invoiceDetail/img/'+${result.product.productId}}">
             <div>
@@ -28,25 +29,31 @@
         </li>
     </ul>
 
-    <script>
-        $(document).ready(() => {
-            $(".result").on("click", function () {
+    <script th:inline="javascript">
+        $(document).ready(function ()  {
+            $(".item").click( function () {
                 var productDetailId = $(this).attr("data-product-detail-id")
                 var invoiceId = $(this).attr("data-invoice-id")
-                console.log(invoiceId)
-                console.log(productDetailId)
-                $.ajax({
-                    type: 'POST',
-                    url: "/admin/invoiceDetail/addProductInvoiceDetail",
-                    data: {productDetailId:productDetailId,invoiceId:invoiceId},
-                    success: function () {
-                        location.reload()
+                if (!$(this).data('eventTriggered')) {
+                    console.log(invoiceId)
+                    console.log(productDetailId)
+                    $.ajax({
+                        type: 'POST',
+                        url: "/admin/invoiceDetail/addProductInvoiceDetail",
+                        data: {productDetailId:productDetailId,invoiceId:invoiceId},
+                        success: function () {
+                            window.location.reload();
 
-                    },
-                    error: function (error) {
-                        console.log(error)
-                    }
-                });
+                        },
+                        error: function (error) {
+                            console.log(error)
+                        }
+                    });
+
+                    // Đánh dấu đã thực hiện sự kiện cho phần tử này
+                    $(this).data('eventTriggered', true);
+                }
+
             });
         })
     </script>

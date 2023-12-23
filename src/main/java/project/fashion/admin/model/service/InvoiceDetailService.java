@@ -60,7 +60,7 @@ public class InvoiceDetailService{
 
     }
 
-    @Transactional
+
     public ResponseEntity<String> addProductInvoiceDetail(Integer productDetailId, String invoiceId) {
             //kiểm tra sản phẩm đã tồn tại trong invoiceDetail chưa?
             //nếu chưa thì thêm mới, nếu có rồi thì +1
@@ -101,7 +101,6 @@ public class InvoiceDetailService{
                 var quantity = result.getQuantity();
                 var newQuantity = quantity + 1;
                 result.setQuantity(newQuantity);
-
                 // create history
                 historyService.setTriggerVariableForHistory();
                 invoiceDetailRepo.save(result);

@@ -96,9 +96,10 @@ public class InvoiceService {
         }else {
             var totalAmount = optionalInvoice.get().getTotalAmount();
             i.setTotalAmount(totalAmount);
-            invoiceRepo.save(i);
             // create history
             historyService.setTriggerVariableForHistory();
+            invoiceRepo.save(i);
+
 
         }
         return ResponseEntity.ok().build();
