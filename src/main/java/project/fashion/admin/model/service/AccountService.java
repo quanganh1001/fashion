@@ -40,10 +40,13 @@ public class AccountService {
     }
 
     public ResponseEntity<String> updateAccount(Account ac){
+        Account account = accountRepo.findByUserName(ac.getUserName());
+        var accountIdOther = account.getAccountId();
         if (Objects.equals(ac.getRole(), "ADMIN")){
             return new ResponseEntity<>("Không thể cập nhập thành ADMIN",HttpStatus.BAD_REQUEST);
-        } else if (accountRepo.existsByUserName(ac.getUserName())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Tên tài khoản này đã tồn tại");
+        } else if (accountRepo.existsByUserName(ac.getUserName()) && !Objects.equals(accountIdOther, ac.getAccountId())) {
+            System.out.println(ac.getUserName() );
+            return new ResponseEntity<>("Tài khoản đã tồn tại",HttpStatus.CONFLICT);
         } else {
             accountRepo.save(ac);
             return ResponseEntity.ok("done");

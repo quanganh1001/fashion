@@ -29,7 +29,7 @@
         </li>
     </ul>
 
-    <script th:inline="javascript">
+    <script>
         $(document).ready(function ()  {
             $(".item").click( function () {
                 var productDetailId = $(this).attr("data-product-detail-id")
@@ -37,10 +37,16 @@
                 if (!$(this).data('eventTriggered')) {
                     console.log(invoiceId)
                     console.log(productDetailId)
+                    var csrfToken = $("meta[name='_csrf']").attr("content");
+                    var csrfHeader = $("meta[name='_csrf_header']").attr("content");
                     $.ajax({
                         type: 'POST',
                         url: "/admin/invoiceDetail/addProductInvoiceDetail",
                         data: {productDetailId:productDetailId,invoiceId:invoiceId},
+                        beforeSend: function (xhr) {
+                            // Sử dụng tên HTTP header chuẩn và giá trị token
+                            xhr.setRequestHeader(csrfHeader, csrfToken);
+                        },
                         success: function () {
                             window.location.reload();
 

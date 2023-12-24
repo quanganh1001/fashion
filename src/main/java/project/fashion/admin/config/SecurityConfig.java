@@ -7,8 +7,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import project.fashion.admin.model.service.CustomUserDetailService;
+
+import static org.springframework.http.HttpMethod.GET;
 
 
 @Configuration
@@ -20,10 +23,10 @@ public class SecurityConfig {
     }
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        http.csrf(csrf -> csrf.disable()).authorizeRequests((auth) -> auth
+        http.authorizeRequests((auth) -> auth
                         .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasAuthority("MANAGER")
-                      )
+                )
                 .formLogin(login -> login
                         .loginPage("/login")
                         .loginProcessingUrl("/login")

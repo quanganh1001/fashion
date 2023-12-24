@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import project.fashion.admin.model.entity.Account;
 
+import java.util.List;
+
 public interface AccountRepo extends JpaRepository<Account, Integer> {
     Account findByUserName(String userName);
     Boolean existsByUserName(String userName);

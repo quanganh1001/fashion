@@ -20,11 +20,17 @@ function saveQuantity(button) {
     var invoiceDetailId = button.getAttribute('data-detail-id');
     var quantityElement = $('#input' + invoiceDetailId);
     var newQuantity = quantityElement.val();
+    var csrfToken = $("meta[name='_csrf']").attr("content");
+    var csrfHeader = $("meta[name='_csrf_header']").attr("content");
 
     $.ajax({
         type: 'PUT',
         url: '/admin/invoiceDetail/update-quantity', // Replace with your actual endpoint-->
         data: {newQuantity: newQuantity,invoiceDetailId: invoiceDetailId},
+        beforeSend: function (xhr) {
+            // Sử dụng tên HTTP header chuẩn và giá trị token
+            xhr.setRequestHeader(csrfHeader, csrfToken);
+        },
         success: function () {
             toggleEditMode(button);
             window.location.reload();
@@ -38,9 +44,15 @@ function saveQuantity(button) {
 function confirmDelete(detailId) {
     var result = confirm("Bạn có muốn xóa sản phẩm này này?");
     if (result) {
+        var csrfToken = $("meta[name='_csrf']").attr("content");
+        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
         $.ajax({
             url: '/admin/invoiceDetail/delete/' + detailId,
             type: 'DELETE',
+            beforeSend: function (xhr) {
+                // Sử dụng tên HTTP header chuẩn và giá trị token
+                xhr.setRequestHeader(csrfHeader, csrfToken);
+            },
             success: function (result) {
                 // Xử lý kết quả sau khi xóa thành công
                 alert("Xóa thành công!")
@@ -76,11 +88,16 @@ function changeStatus(select) {
 function submitForm() {
     var formData = $('#form').serialize(); // Lấy dữ liệu form
     var url = $('#form').attr('action'); // Lấy URL của form
-
+    var csrfToken = $("meta[name='_csrf']").attr("content");
+    var csrfHeader = $("meta[name='_csrf_header']").attr("content");
     $.ajax({
         type: 'PUT',
         url: url,
         data: formData,
+        beforeSend: function (xhr) {
+            // Sử dụng tên HTTP header chuẩn và giá trị token
+            xhr.setRequestHeader(csrfHeader, csrfToken);
+        },
         success:  (data) => {
             alert('Đã cập nhật đơn hàng thành công!');
             window.location.reload();

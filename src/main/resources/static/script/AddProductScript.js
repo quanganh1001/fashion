@@ -12,11 +12,16 @@ $(document).ready(() => {
         else {
             var formData = $('#form').serialize();
             var url = $('#form').attr('action');
-
+            var csrfToken = $("meta[name='_csrf']").attr("content");
+            var csrfHeader = $("meta[name='_csrf_header']").attr("content");
             $.ajax({
                 type: 'POST',
                 url: url,
                 data: formData,
+                beforeSend: function (xhr) {
+                    // Sử dụng tên HTTP header chuẩn và giá trị token
+                    xhr.setRequestHeader(csrfHeader, csrfToken);
+                },
                 success: (data) => {
                     alert('Đã tạo sản phẩm thành công!');
                     window.location.href = "/admin/product/update-product/" + data;

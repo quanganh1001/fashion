@@ -3,10 +3,17 @@ function confirmDelete(button) {
     if (result) {
         var productDetailId = button.getAttribute('data-prDetail-id')
         var productId = button.getAttribute('data-product-id')
+        var csrfToken = $("meta[name='_csrf']").attr("content");
+        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+
         $.ajax({
             type: 'DELETE',
             url: '/admin/productDetail/delete/prDetail',
             data: {prDetailId:productDetailId},
+            beforeSend: function (xhr) {
+                // Sử dụng tên HTTP header chuẩn và giá trị token
+                xhr.setRequestHeader(csrfHeader, csrfToken);
+            },
             success:  (data) => {
                 alert('Đã xóa!');
                 window.location.href="/admin/product/update-product/" + productId;
@@ -32,11 +39,16 @@ $(document).ready(() => {
         }else {
             var formData = $('#form').serialize(); // Lấy dữ liệu form
             var url = $('#form').attr('action'); // Lấy URL của form
-
+            var csrfToken = $("meta[name='_csrf']").attr("content");
+            var csrfHeader = $("meta[name='_csrf_header']").attr("content");
             $.ajax({
                 type: 'PUT',
                 url: url,
                 data: formData,
+                beforeSend: function (xhr) {
+                    // Sử dụng tên HTTP header chuẩn và giá trị token
+                    xhr.setRequestHeader(csrfHeader, csrfToken);
+                },
                 success:  (data) => {
                     alert('Đã cập nhật thành công!');
                     window.location.reload();
