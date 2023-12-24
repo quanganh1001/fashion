@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 24, 2023 lúc 11:02 AM
+-- Thời gian đã tạo: Th12 24, 2023 lúc 05:26 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.0.28
 
@@ -43,7 +43,7 @@ INSERT INTO `accounts` (`account_id`, `password`, `user_name`, `role`, `enabled`
 (1, '$2a$10$ifLsngtFn4bz/L8N0tZRXuPEbGdaj5naeJWMJHW2gzD/yj1PwMGUW', 'quanly', 'MANAGER', b'1'),
 (2, '$2a$10$k88BBPZXAy6v6yyO8uLssez7YexG4C6aV3NErigPFhtOfanAzI9kC', 'nhanvien1', 'EMPLOYEE', b'1'),
 (4, '$2a$10$tpaoi/izGUSiZJlapt.s7uPSHbw4eUB0JlPFnqlb7yHXaVJsj0FHG', 'nhanvien2', 'EMPLOYEE', b'1'),
-(5, '$2a$10$HsVgFhZYIjjLVxB/n9zhEe37SKaHWbaTLwq.RwJ/qtzwyh64RBSdu', 'nhanvien3', 'EMPLOYEE', b'1');
+(8, '$2a$10$o1Jl1nTZq7O0CuynH5KPEu10MA46VbD/J5fsAsukT35H9KyJow7lu', 'nhanvien3', 'EMPLOYEE', b'1');
 
 -- --------------------------------------------------------
 
@@ -448,7 +448,15 @@ INSERT INTO `history` (`id`, `invoice_id`, `content`, `time`, `time_ago`) VALUES
 (442, '5N7P9LFG', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :3 -> 4', '2023-12-24 08:43:43', NULL),
 (443, '5N7P9LFG', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :4 -> 5', '2023-12-24 08:45:11', NULL),
 (444, '5N7P9LFG', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2023-12-24 08:45:24', NULL),
-(445, '5N7P9LFG', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-39) :1 -> 2', '2023-12-24 08:45:30', NULL);
+(445, '5N7P9LFG', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-39) :1 -> 2', '2023-12-24 08:45:30', NULL),
+(446, 'ASJNSHOV', 'quanly đã tạo đơn hàng: <br>Mã đơn: ASJNSHOV,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 0365151822,<br>Địa chỉ: 4dvsdsf,<br>Ghi chú: fsd', '2023-12-24 12:07:10', NULL),
+(447, 'ASJNSHOV', 'quanly đã thay đổi Số điện thoại: 0365151822 -> 0365151822333', '2023-12-24 12:07:17', NULL),
+(448, 'ASJNSHOV', 'quanly đã thay đổi Ghi chú: fsd -> dsdgd', '2023-12-24 12:07:17', NULL),
+(449, 'ASJNSHOV', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2023-12-24 12:08:39', NULL),
+(450, 'ASJNSHOV', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-39) :1 -> 2', '2023-12-24 12:08:44', NULL),
+(451, 'ASJNSHOV', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-39) :2 -> 1', '2023-12-24 12:08:47', NULL),
+(452, 'ASJNSHOV', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2023-12-24 12:08:54', NULL),
+(453, 'ASJNSHOV', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Hủy', '2023-12-24 12:08:59', NULL);
 
 -- --------------------------------------------------------
 
@@ -769,10 +777,6 @@ INSERT INTO `imgs_product` (`img_id`, `product_id`, `file_img`, `background_1`, 
 (409, 'EATB006', '1702806927311_eatb006-8_dc7583950c78485f9c62a509cccab61f_master.jpg', b'0', b'0'),
 (410, 'EATB006', '1702806927317_eatb006-6_ed5bf9508fe94a6da12e90ebd637f5bb_master.jpg', b'0', b'0'),
 (411, 'EATB006', '1702806927321_eatb006-1_802efda9723841d59eb56fabb46d7b22_master.jpg', b'0', b'1'),
-(412, 'DATB416', '1702807249298_52695476436_cfce895223_o_32bf8a7c12f04f34963103b2b30b3dd0_master.jpg', b'0', b'0'),
-(413, 'DATB416', '1702807249302_untitled_design__1__8e8dab846c1c444385812026eb549eb8_master.jpg', b'0', b'0'),
-(414, 'DATB416', '1702807249305_datb416_e53618f106c54b85a436bd3e7f3025db_master.jpg', b'1', b'0'),
-(415, 'DATB416', '1702807249307_52695741049_ab53170a62_o_d4d8d423351a4330b41d0fc19ade0513_master.jpg', b'0', b'1'),
 (416, 'EATB003', '1702807767083_eatb003-8_084c26b6c7684eb8b046a72e61083bb7_master.jpg', b'0', b'0'),
 (417, 'EATB003', '1702807767088_eatb003-7_46d35176d4ad45afb53f50cb2bde044c_master.jpg', b'0', b'0'),
 (418, 'EATB003', '1702807767092_eatb003-6_8eced11e6d14459cbb181b09b51ae20a_master.jpg', b'0', b'0'),
@@ -905,7 +909,11 @@ INSERT INTO `imgs_product` (`img_id`, `product_id`, `file_img`, `background_1`, 
 (562, 'ESBI006', '1702815216168_esbi006-5_cdcf55a55aed4974a2116be589cb2504_master.jpg', b'0', b'0'),
 (563, 'ESBI006', '1702815216171_esbi006-4_a3a684a716104aed8998d0f3dfd393f5_master.jpg', b'0', b'0'),
 (564, 'ESBI006', '1702815216174_esbi006-2_0080bf175388476fa2cb9a7e9f3d728c_master.jpg', b'1', b'0'),
-(565, 'ESBI006', '1702815216177_esbi006-1_405724795b8f4f22867f345eaab26319_master.jpg', b'0', b'1');
+(565, 'ESBI006', '1702815216177_esbi006-1_405724795b8f4f22867f345eaab26319_master.jpg', b'0', b'1'),
+(601, 'DATB416', '1703435106872_52695476436_cfce895223_o_32bf8a7c12f04f34963103b2b30b3dd0_master.jpg', b'0', b'0'),
+(602, 'DATB416', '1703435106878_untitled_design__1__8e8dab846c1c444385812026eb549eb8_master.jpg', b'0', b'1'),
+(603, 'DATB416', '1703435106881_datb416_e53618f106c54b85a436bd3e7f3025db_master.jpg', b'0', b'0'),
+(604, 'DATB416', '1703435106886_52695741049_ab53170a62_o_d4d8d423351a4330b41d0fc19ade0513_master.jpg', b'1', b'0');
 
 -- --------------------------------------------------------
 
@@ -952,6 +960,7 @@ CREATE TABLE `invoices` (
 
 INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `created_at`, `note`, `invoice_status`) VALUES
 ('5N7P9LFG', 'nguyễn quang anh', '3453', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2023-12-24 08:17:49', '          dsfsd              ', 1),
+('ASJNSHOV', 'quang anh', '0365151822333', '4dvsdsf', '2023-12-24 12:07:10', 'dsdgd', 0),
 ('LJ15RWML', 'quang anh', '0365151822', 'dsf', '2023-12-24 08:17:49', 'sdfds', 1),
 ('PB8NR0T5', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2023-12-24 08:17:49', '                        ', 2),
 ('QHSU5DIX', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2023-12-24 08:17:49', '                        dsv', 1),
@@ -2194,19 +2203,19 @@ ALTER TABLE `stores`
 -- AUTO_INCREMENT cho bảng `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT cho bảng `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=446;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=454;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_product`
 --
 ALTER TABLE `imgs_product`
-  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=566;
+  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=605;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_size`
@@ -2218,7 +2227,7 @@ ALTER TABLE `imgs_size`
 -- AUTO_INCREMENT cho bảng `invoices_detail`
 --
 ALTER TABLE `invoices_detail`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=212;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=213;
 
 --
 -- AUTO_INCREMENT cho bảng `invoices_status`
