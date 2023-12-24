@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -64,6 +65,7 @@ public class ImgProductService{
         // Trả về phản hồi với hình ảnh
         return ResponseEntity.ok().body(imageResource);
     }
+
     @Transactional
     public void deleteByFileImg(String imageName) throws IOException {
         String filePath = "src/main/uploads/images/" + imageName;
@@ -76,18 +78,27 @@ public class ImgProductService{
         imgProductRepo.deleteByFileImg(imageName);
     }
 
+    @Transactional
     public void deleteByProductId(String productId) throws IOException {
         List<ImgProduct> imgProducts = imgProductRepo.findAllByProductProductId(productId);
-        for(ImgProduct img: imgProducts){
-            String filePath = "src/main/uploads/images/" + img.getFileImg();
+        for(ImgProduct imgProduct:imgProducts){
+            imgProductRepo.deleteByFileImg(imgProduct.getFileImg());
+        }
+    }
+
+    @Transactional
+    public void deletePath(String productId) throws IOException {
+        List<ImgProduct> imgProducts = imgProductRepo.findAllByProductProductId(productId);
+        for(ImgProduct imgProduct:imgProducts){
+            String filePath = "src/main/uploads/images/" + imgProduct.getFileImg();
             Path path = Paths.get(filePath);
             // Kiểm tra xem file tồn tại không
             if (Files.exists(path)) {
                 Files.delete(path);
                 System.out.println("Đã xóa");
             }
-            imgProductRepo.deleteByFileImg(img.getFileImg());
         }
+
     }
 
     public ResponseEntity<Resource> getImg(String imageName) throws MalformedURLException {

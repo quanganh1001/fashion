@@ -19,7 +19,7 @@ function deleteAccount(button) {
                 window.location.href = "/admin/account";
             },
             error: (jqXHR, textStatus, errorThrown) => {
-                if (jqXHR.status === 404) {
+                if (jqXHR.status === 400) {
                     alert('Không thể xóa');
                 } else {
                     alert('Có lỗi xảy ra! ' + textStatus + ': ' + errorThrown);

@@ -3,6 +3,7 @@ package project.fashion.admin.controllerAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,7 +69,12 @@ public class CtlAdminProduct {
 
     @DeleteMapping("/delete-product/{productId}")
     public ResponseEntity<String> deleteProduct(@PathVariable("productId") String productId) throws IOException {
-        return productService.deleteProduct(productId);
+        try{
+            return productService.deleteProduct(productId);
+        }catch (Exception e){
+            return new ResponseEntity<>("Không thể xóa", HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @GetMapping("/update-product/{productId}")

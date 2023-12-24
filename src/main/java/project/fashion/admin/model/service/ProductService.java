@@ -7,7 +7,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import project.fashion.admin.model.entity.ImgProduct;
 import project.fashion.admin.model.entity.Product;
+import project.fashion.admin.model.repository.ImgProductRepo;
 import project.fashion.admin.model.repository.ProductDetailRepo;
 import project.fashion.admin.model.repository.ProductRepo;
 
@@ -30,6 +32,8 @@ public class ProductService{
     @Autowired
     private ImgProductService imgProductService;
 
+    @Autowired
+    private ImgProductRepo imgProductRepo;
 
     public void setProductActive(String cat_id, Boolean boo) {
         List<Product> product = productRepo.findByCategoryCatId(cat_id);
@@ -90,12 +94,27 @@ public class ProductService{
     }
 
     @Transactional
-    public ResponseEntity<String> deleteProduct(String productId) throws IOException {
-        imgProductService.deleteByProductId(productId);
-        productDetailRepo.deleteAllByProductProductId(productId);
-        productRepo.deleteById(productId);
-        return ResponseEntity.ok("done");
+    public ResponseEntity<String> deleteProduct(String productId) {
+        try {
+            // Gọi hàm xóa ảnh
+            imgProductService.deleteByProductId(productId);
+
+            // Gọi hàm xóa chi tiết sản phẩm
+            productDetailRepo.deleteAllByProductProductId(productId);
+
+            // Gọi hàm xóa sản phẩm
+            productRepo.deleteById(productId);
+
+            //xóa path ảnh
+            imgProductService.deletePath(productId);
+
+            return ResponseEntity.ok("done");
+        } catch (Exception e) {
+            // Nếu có lỗi, hệ thống sẽ tự động rollback
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred");
+        }
     }
+
 
     public List<Product> findAll(){
         return productRepo.findAll();
