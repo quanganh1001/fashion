@@ -94,8 +94,6 @@ public class InvoiceService {
             return new ResponseEntity<>("Đơn chưa gửi không thể cập nhập trạng thái đang chuyển, thành công hoặc hoàn"
                     ,HttpStatus.BAD_REQUEST);
         }else {
-            var totalAmount = optionalInvoice.get().getTotalAmount();
-            i.setTotalAmount(totalAmount);
             // create history
             historyService.setTriggerVariableForHistory();
             invoiceRepo.save(i);
@@ -123,7 +121,6 @@ public class InvoiceService {
             status.setStatusId(1);
 
             invoice.setInvoiceStatus(status);
-            invoice.setTotalAmount(0);
             invoice.setCreatedAt(LocalDateTime.now());
 
             // create history

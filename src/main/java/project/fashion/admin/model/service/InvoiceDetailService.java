@@ -60,7 +60,7 @@ public class InvoiceDetailService{
 
     }
 
-
+    @Transactional
     public ResponseEntity<String> addProductInvoiceDetail(Integer productDetailId, String invoiceId) {
             //kiểm tra sản phẩm đã tồn tại trong invoiceDetail chưa?
             //nếu chưa thì thêm mới, nếu có rồi thì +1
@@ -91,7 +91,6 @@ public class InvoiceDetailService{
                 newInvoiceDetail.setInvoice(invoice);
                 newInvoiceDetail.setProductDetail(productDetail);
                 newInvoiceDetail.setQuantity(1);
-                System.out.println("ở đây");
                 // create history
                 historyService.setTriggerVariableForHistory();
                 invoiceDetailRepo.save(newInvoiceDetail);
@@ -101,10 +100,12 @@ public class InvoiceDetailService{
                 var quantity = result.getQuantity();
                 var newQuantity = quantity + 1;
                 result.setQuantity(newQuantity);
+                System.out.println(result);
                 // create history
                 historyService.setTriggerVariableForHistory();
+                System.out.println(result);
                 invoiceDetailRepo.save(result);
-
+                System.out.println(result);
                 return ResponseEntity.ok("done");
             }
     }
@@ -129,5 +130,13 @@ public class InvoiceDetailService{
         Resource imageResource = new UrlResource(imagePath.toUri());
         // Trả về phản hồi với hình ảnh
         return ResponseEntity.ok().body(imageResource);
+    }
+
+    public Integer totalAdmount(List<InvoiceDetail> invoiceDetails){
+        var totalAmount = 0;
+        for (InvoiceDetail id:invoiceDetails){
+            totalAmount += id.getPrice() * id.getQuantity();
+        }
+        return totalAmount;
     }
 }

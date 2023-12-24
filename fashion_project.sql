@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: localhost
--- Thời gian đã tạo: Th12 23, 2023 lúc 04:51 PM
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th12 24, 2023 lúc 11:02 AM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.2.4
+-- Phiên bản PHP: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -428,7 +428,27 @@ INSERT INTO `history` (`id`, `invoice_id`, `content`, `time`, `time_ago`) VALUES
 (422, '5N7P9LFG', 'quanly đã thay đổi Số lượng (DATB41671CA11RB_NBX-39) :1 -> 2', '2023-12-23 15:50:54', NULL),
 (423, '5N7P9LFG', 'quanly đã thêm sản phẩm: DABJ00401CT00SB_NV-29 (giá = 550000)', '2023-12-23 15:50:59', NULL),
 (424, '5N7P9LFG', 'quanly đã thay đổi Số lượng (DATB41671CA11RB_NBX-39) :2 -> 1', '2023-12-23 15:51:03', NULL),
-(425, '5N7P9LFG', 'quanly đã xóa sản phẩm: DABJ00401CT00SB_NV-29 (giá = 550000)', '2023-12-23 15:51:11', NULL);
+(425, '5N7P9LFG', 'quanly đã xóa sản phẩm: DABJ00401CT00SB_NV-29 (giá = 550000)', '2023-12-23 15:51:11', NULL),
+(426, 'YHJFSFAS', 'quanly đã xóa sản phẩm: ESTP00572CT00SB_DNV-L (giá = 490000)', '2023-12-24 08:02:49', NULL),
+(427, '5N7P9LFG', 'quanly đã thay đổi Số lượng (DATB41671CA11RB_NBX-39) :1 -> 2', '2023-12-24 08:02:59', NULL),
+(428, 'YHVJLZWX', 'quanly đã thêm sản phẩm: DABJ00401CT00SB_NV-29 (giá = 550000)', '2023-12-24 08:03:06', NULL),
+(429, 'YHVJLZWX', 'quanly đã thay đổi Số lượng (DABJ00401CT00SB_NV-29) :1 -> 2', '2023-12-24 08:16:47', NULL),
+(430, 'YHVJLZWX', 'quanly đã xóa sản phẩm: DABJ00401CT00SB_NV-29 (giá = 550000)', '2023-12-24 08:17:49', NULL),
+(431, 'YHVJLZWX', 'quanly đã thêm sản phẩm: DABJ00401CT00SB_NV-29 (giá = 550000)', '2023-12-24 08:17:54', NULL),
+(432, 'YHVJLZWX', 'quanly đã xóa sản phẩm: DABJ00401CT00SB_NV-29 (giá = 550000)', '2023-12-24 08:17:57', NULL),
+(433, 'LJ15RWML', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-38 (giá = 480000)', '2023-12-24 08:20:45', NULL),
+(434, 'LJ15RWML', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2023-12-24 08:21:04', NULL),
+(435, 'QHSU5DIX', 'quanly đã xóa sản phẩm: DSBI01302LI00SB_BE-29 (giá = 380000)', '2023-12-24 08:21:49', NULL),
+(436, 'QHSU5DIX', 'quanly đã thay đổi Số lượng (DSBI01302LI00SB_BE-29) :1 -> 2', '2023-12-24 08:21:55', NULL),
+(437, 'LJ15RWML', 'quanly đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :1 -> 2', '2023-12-24 08:24:22', NULL),
+(438, 'LJ15RWML', 'quanly đã thêm sản phẩm: DSBI01302LI00SB_BE-29 (giá = 380000)', '2023-12-24 08:25:01', NULL),
+(439, '5N7P9LFG', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-38 (giá = 480000)', '2023-12-24 08:29:46', NULL),
+(440, '5N7P9LFG', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2023-12-24 08:29:49', NULL),
+(441, '5N7P9LFG', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :2 -> 3', '2023-12-24 08:43:36', NULL),
+(442, '5N7P9LFG', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :3 -> 4', '2023-12-24 08:43:43', NULL),
+(443, '5N7P9LFG', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :4 -> 5', '2023-12-24 08:45:11', NULL),
+(444, '5N7P9LFG', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2023-12-24 08:45:24', NULL),
+(445, '5N7P9LFG', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-39) :1 -> 2', '2023-12-24 08:45:30', NULL);
 
 -- --------------------------------------------------------
 
@@ -921,7 +941,6 @@ CREATE TABLE `invoices` (
   `name` varchar(30) DEFAULT NULL,
   `phone` varchar(15) DEFAULT NULL,
   `address` text DEFAULT NULL,
-  `total_amount` double NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   `note` varchar(255) NOT NULL,
   `invoice_status` int(1) NOT NULL DEFAULT 1
@@ -931,17 +950,17 @@ CREATE TABLE `invoices` (
 -- Đang đổ dữ liệu cho bảng `invoices`
 --
 
-INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `total_amount`, `created_at`, `note`, `invoice_status`) VALUES
-('5N7P9LFG', 'nguyễn quang anh', '3453', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', 480000, '2023-12-23 15:51:11', '          dsfsd              ', 1),
-('LJ15RWML', 'quang anh', '0365151822', 'dsf', 480000, '2023-12-23 15:50:49', 'sdfds', 1),
-('PB8NR0T5', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', 480000, '2023-12-23 15:50:49', '                        ', 2),
-('QHSU5DIX', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', 480000, '2023-12-23 15:50:49', '                        dsv', 1),
-('QWEASVXZ', 'fdsfsd', '93232', 'cxvcx', 480000, '2023-12-23 15:50:49', 'cxfds', 5),
-('RNQT0948', 'quang anh', '33', 'ds', 480000, '2023-12-23 15:50:49', 'a', 1),
-('SDDFGSEW', 'quang anh', '932', '4dvsdsf', 480000, '2023-12-23 15:50:49', 'hello\r\nx', 2),
-('VCXBDSGS', 'SF', '93232', '4fdsdvs', 480000, '2023-12-23 15:50:49', 'dsf', 1),
-('YHJFSFAS', 'Qvxa', '21932', '4cddvs', 480000, '2023-12-23 15:50:49', '', 1),
-('YHVJLZWX', 'fsd', '34543', 'df', 480000, '2023-12-23 15:50:49', '', 1);
+INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `created_at`, `note`, `invoice_status`) VALUES
+('5N7P9LFG', 'nguyễn quang anh', '3453', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2023-12-24 08:17:49', '          dsfsd              ', 1),
+('LJ15RWML', 'quang anh', '0365151822', 'dsf', '2023-12-24 08:17:49', 'sdfds', 1),
+('PB8NR0T5', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2023-12-24 08:17:49', '                        ', 2),
+('QHSU5DIX', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2023-12-24 08:17:49', '                        dsv', 1),
+('QWEASVXZ', 'fdsfsd', '93232', 'cxvcx', '2023-12-24 08:17:49', 'cxfds', 5),
+('RNQT0948', 'quang anh', '33', 'ds', '2023-12-24 08:17:49', 'a', 1),
+('SDDFGSEW', 'quang anh', '932', '4dvsdsf', '2023-12-24 08:17:49', 'hello\r\nx', 2),
+('VCXBDSGS', 'SF', '93232', '4fdsdvs', '2023-12-24 08:17:49', 'dsf', 1),
+('YHJFSFAS', 'Qvxa', '21932', '4cddvs', '2023-12-24 08:17:49', '', 1),
+('YHVJLZWX', 'fsd', '34543', 'df', '2023-12-24 08:17:57', '', 1);
 
 --
 -- Bẫy `invoices`
@@ -1015,7 +1034,6 @@ CREATE TABLE `invoices_detail` (
 --
 
 INSERT INTO `invoices_detail` (`detail_id`, `invoice_id`, `product_detail_id`, `price`, `quantity`, `total_price`) VALUES
-(3, 'YHJFSFAS', 87, 490000, 1, 490000),
 (4, 'YHJFSFAS', 195, 390000, 4, 1560000),
 (7, 'QWEASVXZ', 190, 490000, 1, 490000),
 (8, 'QWEASVXZ', 246, 390000, 4, 1560000),
@@ -1024,11 +1042,12 @@ INSERT INTO `invoices_detail` (`detail_id`, `invoice_id`, `product_detail_id`, `
 (30, 'VCXBDSGS', 47, 333333, 2, 666666),
 (31, 'YHJFSFAS', 234, 500000, 1, 500000),
 (52, 'PB8NR0T5', 191, 290000, 2, 580000),
-(145, 'QHSU5DIX', 612, 380000, 1, 380000),
-(146, 'QHSU5DIX', 612, 380000, 1, 380000),
-(198, 'LJ15RWML', 442, 480000, 1, 480000),
-(199, 'LJ15RWML', 442, 480000, 1, 480000),
-(201, '5N7P9LFG', 443, 480000, 1, 480000);
+(145, 'QHSU5DIX', 612, 380000, 2, 760000),
+(198, 'LJ15RWML', 442, 480000, 2, 960000),
+(208, 'LJ15RWML', 443, 480000, 1, 480000),
+(209, 'LJ15RWML', 612, 380000, 1, 380000),
+(210, '5N7P9LFG', 442, 480000, 5, 2400000),
+(211, '5N7P9LFG', 443, 480000, 2, 960000);
 
 --
 -- Bẫy `invoices_detail`
@@ -1071,57 +1090,10 @@ CREATE TRIGGER `after_invoiceDetail_update` BEFORE UPDATE ON `invoices_detail` F
     SET product_code = (SELECT products_detail.code FROM products_detail WHERE product_detail_id = NEW.product_detail_id);
     
 	IF NEW.quantity != OLD.quantity THEN
-        SET content = CONCAT(@current_user , ' đã thay đổi Số lượng (', product_code,') :' , OLD.quantity, ' -> ', NEW.quantity);
-        INSERT INTO history (invoice_id,content) VALUES (invoice_id,content);
+    SET content = CONCAT( ' đã thay đổi Số lượng (', product_code,') :' , OLD.quantity, ' -> ', NEW.quantity);
+    
+    INSERT INTO history (invoice_id,content) VALUES (invoice_id,content);
     END IF;
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `calculate_delete` AFTER DELETE ON `invoices_detail` FOR EACH ROW BEGIN
-    DECLARE total int;
-
-    -- Tính tổng tiền cho invoice có id tương ứng với dòng mới xóa
-    SELECT SUM(total_price) INTO total
-    FROM invoices_detail
-    WHERE invoice_id = OLD.invoice_id;
-
-    -- Cập nhật tổng tiền vào bảng invoice
-    UPDATE invoices
-    SET total_amount = total
-    WHERE invoice_id = invoice_id;
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `calculate_invoice_total` AFTER INSERT ON `invoices_detail` FOR EACH ROW BEGIN
-    DECLARE total int;
-
-    -- Tính tổng tiền cho invoice có id tương ứng với dòng mới chèn vào invoice_detail
-    SELECT SUM(total_price) INTO total
-    FROM invoices_detail
-    WHERE invoice_id = NEW.invoice_id;
-
-    -- Cập nhật tổng tiền vào bảng invoice
-    UPDATE invoices
-    SET total_amount = total
-    WHERE invoice_id = NEW.invoice_id;
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `calculate_invoice_total_update` AFTER UPDATE ON `invoices_detail` FOR EACH ROW BEGIN
-    DECLARE total int;
-
-    -- Tính tổng tiền cho invoice có id tương ứng với dòng mới chèn vào invoice_detail
-    SELECT SUM(total_price) INTO total
-    FROM invoices_detail
-    WHERE invoice_id = NEW.invoice_id;
-
-    -- Cập nhật tổng tiền vào bảng invoice
-    UPDATE invoices
-    SET total_amount = total
-    WHERE invoice_id = NEW.invoice_id;
 END
 $$
 DELIMITER ;
@@ -2228,7 +2200,7 @@ ALTER TABLE `accounts`
 -- AUTO_INCREMENT cho bảng `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=426;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=446;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_product`
@@ -2246,7 +2218,7 @@ ALTER TABLE `imgs_size`
 -- AUTO_INCREMENT cho bảng `invoices_detail`
 --
 ALTER TABLE `invoices_detail`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=206;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=212;
 
 --
 -- AUTO_INCREMENT cho bảng `invoices_status`

@@ -26,6 +26,7 @@ public class HistoryService {
     @Autowired
     private HistoryRepo historyRepo;
 
+
     @Transactional
     public void setTriggerVariableForHistory() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

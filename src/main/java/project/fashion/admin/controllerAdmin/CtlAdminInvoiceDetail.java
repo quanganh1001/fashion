@@ -43,11 +43,14 @@ public class CtlAdminInvoiceDetail {
 
         List<History> histories = historyService.findByInvoiceId(invoiceId);
 
+        var totalAmount = invoiceDetailService.totalAdmount(invoiceDetails);
+
         model.addAttribute("invoiceDetails", invoiceDetails);
         model.addAttribute("invoice", invoice);
         model.addAttribute("status", status);
         model.addAttribute("searchResult", productDetails);
         model.addAttribute("histories",histories);
+        model.addAttribute("totalAmount",totalAmount);
         model.addAttribute("select","invoice");
 
         return "admin/InvoiceDetail";
