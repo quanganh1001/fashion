@@ -9,7 +9,7 @@
 
     <div class="container p-4">
         <h2>SỬA CHI TIẾT SẢN PHẨM</h2>
-        <form id="form" th:action="@{/admin/productDetail/update-detail/__${pd.productDetailId}__}" method="POST"
+        <form id="form" th:action="@{/admin/productDetail/update-detail}" method="POST"
               th:object="${pd}">
             <input type="hidden" name="_method" value="put"/>
             <input type="hidden" th:field="${pd.product.productId}">
@@ -17,7 +17,7 @@
                 <div class="mb-3">
                     <label for="productDetailId" class="form-label">Mã chi tiết sản
                         phẩm<span style="color:red">*</span></label>
-                    <input disabled type="text" class="form-control" id="productDetailId"
+                    <input readonly type="text" class="readonly form-control" id="productDetailId"
                            th:field="${pd.productDetailId}"/>
                 </div>
 

@@ -24,8 +24,8 @@ $(document).ready(() => {
                     window.location.href="/admin/category?parent=" + data;
                     // Có thể thực hiện các hành động khác sau khi cập nhật thành công
                 },
-                error:  (error) => {
-                    alert('Có lỗi xảy ra khi cập nhật đơn hàng!');
+                error: (jqXHR) => {
+                    alert(jqXHR.responseText)
                 }
             });
         }
@@ -44,8 +44,8 @@ function confirmDelete(productId) {
                 alert("Đã xóa sản phẩm")
                 window.location.reload()
             },
-            error: function (error) {
-                alert(error);
+            error: (jqXHR) => {
+                alert(jqXHR.responseText)
             }
         });
     }

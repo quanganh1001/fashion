@@ -21,8 +21,8 @@ $(document).ready(() => {
                     window.location.href="/admin/invoiceDetail?invoiceId="+data;
 
                 },
-                error: function (error) {
-                    alert('Có lỗi xảy ra khi tạo đơn hàng!' + error);
+                error: (jqXHR) => {
+                    alert(jqXHR.responseText)
                 }
             });
         }

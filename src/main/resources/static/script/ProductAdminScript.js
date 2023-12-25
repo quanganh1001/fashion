@@ -15,12 +15,8 @@ function confirmDelete(productId) {
                 alert("Đã xóa sản phẩm")
                 window.location.href="/admin/product";
             },
-            error: (jqXHR, textStatus, errorThrown) => {
-                if (jqXHR.status === 400){
-                    alert(errorThrown);
-                }else {
-                    alert('Có lỗi xảy ra! ' + textStatus + ': ' + errorThrown);
-                }
+            error: (jqXHR) => {
+                alert(jqXHR.responseText)
             }
         });
     }

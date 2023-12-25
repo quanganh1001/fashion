@@ -21,16 +21,8 @@ $(document).ready(() => {
                     alert('Đã tạo thành công! Mật khẩu mặc định là: 123456');
                     window.location.href="/admin/account";
                 },
-                error: (jqXHR, textStatus, errorThrown) => {
-                    if (jqXHR.status === 409) {
-                        alert('Lỗi xảy ra: Đã có tài khoản này rồi');
-                    }else if(jqXHR.status === 409) {
-                        alert('Lỗi xảy ra: Không thể set quyền ADMIN');
-                    }
-                    else
-                    {
-                        alert('Có lỗi xảy ra! ' + textStatus + ': ' + errorThrown);
-                    }
+                error: (jqXHR) => {
+                    alert(jqXHR.responseText)
                 }
             });
         }

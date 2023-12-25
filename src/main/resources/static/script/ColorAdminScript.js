@@ -16,12 +16,8 @@ function confirmDelete(colorId) {
                 alert("Đã xóa mã màu")
                 window.location.href="/admin/color";
             },
-            error: (jqXHR, textStatus, errorThrown) => {
-                if (jqXHR.status === 404) {
-                    alert('Không thể xóa');
-                } else {
-                    alert('Có lỗi xảy ra! ' + textStatus + ': ' + errorThrown);
-                }
+            error: (jqXHR) => {
+                alert(jqXHR.responseText)
             }
         });
     }

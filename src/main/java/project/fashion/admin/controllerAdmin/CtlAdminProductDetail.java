@@ -56,7 +56,7 @@ public class CtlAdminProductDetail {
         List<Size> size = sizeService.findAll();
         List<Product> product =  productService.findAll();
         ProductDetail pd = productDetailService.getById(prDetailId);
-
+        System.out.println(pd);
         model.addAttribute("color", color);
         model.addAttribute("size", size);
         model.addAttribute("product", product);
@@ -65,10 +65,9 @@ public class CtlAdminProductDetail {
         return "/admin/UpdatePrDetail";
     }
 
-    @PutMapping("update-detail/{prDetailId}")
-    public ResponseEntity<String> updateProductDetail(@PathVariable("prDetailId") Integer prDetailId,
-                                       @ModelAttribute ProductDetail pd) {
-        return productDetailService.updatePrDetail(prDetailId,pd);
+    @PutMapping("update-detail")
+    public ResponseEntity<String> updateProductDetail(@ModelAttribute ProductDetail pd) {
+        return productDetailService.updatePrDetail(pd);
 
     }
 

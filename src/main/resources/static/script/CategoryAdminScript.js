@@ -17,10 +17,8 @@ function confirmDelete(button) {
                 alert('Đã xóa thành công!');
                 window.location.href="/admin/category?parent="+data;
             },
-            error: function(xhr) {
-
-                var errorMessage = xhr;
-                alert("Đã xảy ra lỗi: " + errorMessage);
+            error: (jqXHR) => {
+                alert(jqXHR.responseText)
             }
         });
     }

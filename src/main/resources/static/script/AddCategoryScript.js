@@ -25,12 +25,8 @@ $(document).ready(() => {
                     window.location.href = "/admin/category?parent=" + data;
                     // Có thể thực hiện các hành động khác sau khi cập nhật thành công
                 },
-                error: (jqXHR, textStatus, errorThrown) => {
-                    if (jqXHR.status === 409) {
-                        alert('Lỗi xảy ra: Đã có danh mục này rồi');
-                    } else {
-                        alert('Có lỗi! ' + textStatus + ': ' + errorThrown);
-                    }
+                error: (jqXHR) => {
+                    alert(jqXHR.responseText)
                 }
             })
         }

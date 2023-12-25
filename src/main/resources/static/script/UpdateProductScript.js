@@ -19,8 +19,8 @@ function confirmDelete(button) {
                 window.location.href="/admin/product/update-product/" + productId;
 
             },
-            error:  (error) => {
-                alert('Có lỗi!');
+            error: (jqXHR) => {
+                alert(jqXHR.responseText)
             }
         });
     }
@@ -54,8 +54,8 @@ $(document).ready(() => {
                     window.location.reload();
                     // Có thể thực hiện các hành động khác sau khi cập nhật thành công
                 },
-                error:  (error) => {
-                    alert('Có lỗi xảy ra khi cập nhật!');
+                error: (jqXHR) => {
+                    alert(jqXHR.responseText)
                 }
             });
         }

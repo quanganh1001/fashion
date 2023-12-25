@@ -11,8 +11,8 @@ $(document).ready(() =>{
             success:  ()=> {
                 window.location.href="/admin/invoice/filter/" + filterStatus + "?key=";
             },
-            error:  () =>{
-                alert('Failed.');
+            error: (jqXHR) => {
+                alert(jqXHR.responseText)
             }
         });
     });

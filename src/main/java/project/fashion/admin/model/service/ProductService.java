@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import project.fashion.admin.model.entity.Account;
 import project.fashion.admin.model.entity.ImgProduct;
 import project.fashion.admin.model.entity.Product;
 import project.fashion.admin.model.repository.ImgProductRepo;
@@ -32,8 +33,6 @@ public class ProductService{
     @Autowired
     private ImgProductService imgProductService;
 
-    @Autowired
-    private ImgProductRepo imgProductRepo;
 
     public void setProductActive(String cat_id, Boolean boo) {
         List<Product> product = productRepo.findByCategoryCatId(cat_id);
@@ -54,6 +53,7 @@ public class ProductService{
 
     @Transactional
     public ResponseEntity<String> saveProduct(Product product){
+
         if(Objects.equals(product.getProductId(), "")|| product.getProductId() == null||
                 Objects.equals(product.getProductName(), "")|| product.getProductName() == null||
                 Objects.equals(product.getPrice(), "")|| product.getPrice() == null|| !isNumeric(product.getPrice().toString())||
@@ -61,7 +61,8 @@ public class ProductService{
                 Objects.equals(product.getCategory(), "")|| product.getCategory() == null
                 ) {
             return new ResponseEntity<>("Lỗi validate", HttpStatus.BAD_REQUEST);
-        }else if(product.getDiscountPrice() != null && !isNumeric(product.getDiscountPrice().toString())){
+        }
+        else if(product.getDiscountPrice() != null && !isNumeric(product.getDiscountPrice().toString())){
                 return new ResponseEntity<>("Lỗi validate", HttpStatus.BAD_REQUEST);
         }
         else {
@@ -85,7 +86,6 @@ public class ProductService{
         }else if(productRepo.existsById(product.getProductId())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Sản phẩm đã tồn tại");
         }
-
         else {
             productDetailRepo.setProductDetailActive(product.getProductId(),product.getIsProductActive());
             productRepo.save(product);

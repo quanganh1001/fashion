@@ -18,12 +18,8 @@ function deleteAccount(button) {
                 alert("Đã xóa tài khoản");
                 window.location.href = "/admin/account";
             },
-            error: (jqXHR, textStatus, errorThrown) => {
-                if (jqXHR.status === 400) {
-                    alert('Không thể xóa');
-                } else {
-                    alert('Có lỗi xảy ra! ' + textStatus + ': ' + errorThrown);
-                }
+            error: (jqXHR) => {
+                alert(jqXHR.responseText)
             }
         });
     }

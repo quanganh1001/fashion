@@ -22,12 +22,8 @@ $(document).ready(() => {
                     window.location.href = "/admin/account";
                     // Có thể thực hiện các hành động khác sau khi cập nhật thành công
                 },
-                error: (jqXHR, textStatus, errorThrown) => {
-                    if (jqXHR.status === 409){
-                        alert(errorThrown);
-                    }else {
-                        alert('Có lỗi xảy ra! ' + textStatus + ': ' + errorThrown);
-                    }
+                error: (jqXHR) => {
+                    alert(jqXHR.responseText)
                 }
             });
         }
@@ -50,12 +46,8 @@ $(document).ready(() => {
                 success: () => {
                     alert("Đã reset mật khẩu tài khoản. Mật khẩu mặc định là: 123456")
                 },
-                error: (jqXHR, textStatus, errorThrown) => {
-                    if (jqXHR.status === 404) {
-                        alert('Không thể đặt lại mật khẩu');
-                    } else {
-                        alert('Có lỗi xảy ra! ' + textStatus + ': ' + errorThrown);
-                    }
+                error: (jqXHR) => {
+                    alert(jqXHR.responseText)
                 }
             });
         }
@@ -91,14 +83,8 @@ $(document).ready(() => {
                     alert("Đã thay đổi mật khẩu")
                     window.location.reload();
                 },
-                error: (jqXHR, textStatus, errorThrown) => {
-                    if (jqXHR.status === 400) {
-                        alert(errorThrown);
-                    }else if (jqXHR.status === 409){
-                        alert(errorThrown);
-                    }else {
-                        alert('Có lỗi xảy ra! ' + textStatus + ': ' + errorThrown);
-                    }
+                error: (jqXHR) => {
+                    alert(jqXHR.responseText)
                 }
             });
         }

@@ -20,12 +20,8 @@ $(document).ready(() => {
                     alert('Đã tạo thành công!');
                     window.location.href="/admin/color";
                 },
-                error: (jqXHR, textStatus, errorThrown) => {
-                    if (jqXHR.status === 409) {
-                        alert('Lỗi xảy ra: Đã có màu này rồi');
-                    } else {
-                        alert('Có lỗi xảy ra! ' + textStatus + ': ' + errorThrown);
-                    }
+                error: (jqXHR) => {
+                    alert(jqXHR.responseText)
                 }
             });
         }

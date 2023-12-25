@@ -15,7 +15,7 @@
                 <input id="productId" type="hidden" th:value="${productId}">
                 <div class="mb-3 col-6">
                     <label for="fileImg" class="form-label">File ảnh<span>*</span></label>
-                    <input type="file" id="fileImg" name="file" accept="image/*" multiple required>
+                    <input type="file" id="fileImg" name="file" accept="video/*, image/*" multiple required>
                 </div>
 
                 <button style="text-align: center" type="submit" class="col-2 btn btn-primary">Lưu ảnh</button>
@@ -31,7 +31,24 @@
                             th:text="${i.fileImg}">
                     </option>
                 </select>
-                <img width="50px" id="imgbg1" th:src="@{'/admin/imgProduct/'+${imgbg1Name}}">
+                <div th:if="${imgbg1Name.endsWith('.jpg')}">
+                    <img width="50px" th:id="imgbg1"
+                         th:src="@{'/admin/imgProduct/'+${imgbg1Name}}" alt="">
+
+                    <video class="hidden" width="50px" th:id="vdbg1" controls
+                           th:src="@{'/admin/imgProduct/'+${imgbg1Name}}">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div th:if="${imgbg1Name.endsWith('.mp4')}">
+                    <img class="hidden" width="50px" th:id="imgbg1"
+                         th:src="@{'/admin/imgProduct/'+${imgbg1Name}}" alt="">
+
+                    <video width="50px" th:id="vdbg1" controls
+                           th:src="@{'/admin/imgProduct/'+${imgbg1Name}}">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
 
                 <h4>Chọn nền 2</h4>
                 <select id="bg2">
@@ -41,23 +58,45 @@
                             th:text="${i.fileImg}">
                     </option>
                 </select>
-                <img width="50px" id="imgbg2" th:src="@{'/admin/imgProduct/'+${imgbg2Name}}">
+                <div th:if="${imgbg2Name.endsWith('.jpg')}">
+                    <img width="50px" th:id="imgbg2"
+                         th:src="@{'/admin/imgProduct/'+${imgbg2Name}}" alt="">
+
+                    <video class="hidden" width="50px" th:id="vdbg2" controls
+                           th:src="@{'/admin/imgProduct/'+${imgbg2Name}}">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div th:if="${imgbg2Name.endsWith('.mp4')}">
+                    <img class="hidden" width="50px" th:id="imgbg2"
+                         th:src="@{'/admin/imgProduct/'+${imgbg2Name}}" alt="">
+
+                    <video width="50px" th:id="vdbg2" controls
+                           th:src="@{'/admin/imgProduct/'+${imgbg2Name}}">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
             </div>
         </div>
         <h2>Danh sách hình ảnh</h2>
         <div class="d-flex flex-wrap justify-content-start">
             <ul class="d-flex" th:each="i : ${imgProducts}">
-                <img width="250px"
-                     th:src="@{'/admin/imgProduct/'+${i.fileImg}}"
-                     alt="Image">
-                <td class="button">
-                    <button class="btn btn-danger btn-sm"
-                            th:data-image-name="${i.fileImg}"
-                            th:data-product-id="${productId}"
-                            onclick="confirmDelete(this)">
-                        <i class="fas fa-trash-alt"></i>Xóa
-                    </button>
-                </td>
+                <li th:if="${i.fileImg.endsWith('.jpg')}">
+                    <!-- Nếu là hình ảnh -->
+                    <img width="250px" th:src="@{'/admin/imgProduct/'+${i.fileImg}}" alt="Image">
+                </li>
+                <li th:if="${i.fileImg.endsWith('.mp4')}">
+                    <!-- Nếu là video -->
+                    <video width="250px" controls th:src="@{'/admin/imgProduct/'+${i.fileImg}}">
+                        Your browser does not support the video tag.
+                    </video>
+                </li>
+                <button class="btn btn-danger btn-sm"
+                        th:data-image-name="${i.fileImg}"
+                        th:data-product-id="${productId}"
+                        onclick="confirmDelete(this)">
+                    <i class="fas fa-trash-alt"></i>Xóa
+                </button>
             </ul>
         </div>
     </div>

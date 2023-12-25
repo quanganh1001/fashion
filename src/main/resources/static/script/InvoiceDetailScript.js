@@ -35,8 +35,8 @@ function saveQuantity(button) {
             toggleEditMode(button);
             window.location.reload();
         },
-        error: function () {
-            alert('fail');
+        error: (jqXHR) => {
+            alert(jqXHR.responseText)
         }
     });
 }
@@ -58,9 +58,8 @@ function confirmDelete(detailId) {
                 alert("Xóa thành công!")
                 location.reload();
             },
-            error: function (err) {
-                // Xử lý lỗi nếu có
-                console.error(err);
+            error: (jqXHR) => {
+                alert(jqXHR.responseText)
             }
         });
     }
@@ -103,8 +102,8 @@ function submitForm() {
             window.location.reload();
             // Có thể thực hiện các hành động khác sau khi cập nhật thành công
         },
-        error:  (error) => {
-            alert('Có lỗi xảy ra khi cập nhật đơn hàng!');
+        error: (jqXHR) => {
+            alert(jqXHR.responseText)
         }
     });
 }
@@ -140,8 +139,8 @@ $(document).ready(() => {
                 success: function (data) {
                     $("#list-result").html(data)
                 },
-                error: function (error) {
-                    console.log(error)
+                error: (jqXHR) => {
+                    alert(jqXHR.responseText)
                 }
             });
         }else

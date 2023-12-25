@@ -25,8 +25,9 @@ $(document).ready(() => {
                     window.location.href="/admin/product/update-product/" + data;
                     // Có thể thực hiện các hành động khác sau khi cập nhật thành công
                 },
-                error:  (error) => {
-                    alert('Có lỗi xảy ra khi cập nhật!');
+                error: (jqXHR) => {
+                    console.log(jqXHR)
+                    alert(jqXHR.responseText)
                 }
             });
         }
