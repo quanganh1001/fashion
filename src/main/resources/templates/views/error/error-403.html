@@ -10,5 +10,8 @@
 <body>
 <h1>Error 403 - Forbidden</h1>
 <p style="color:red">Bạn không có quyền truy cập</p>
+<form th:action="@{/logout}" method="post">
+    <input class="btn btn-primary" type="submit" value="Đăng xuất">
+</form>
 </body>
 </html>

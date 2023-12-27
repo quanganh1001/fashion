@@ -1,5 +1,5 @@
 package project.fashion.admin.model.entity;
 
 public enum RoleEnum {
-    EMPLOYEE,MANAGER
+    ROLE_EMPLOYEE,ROLE_MANAGER
 }

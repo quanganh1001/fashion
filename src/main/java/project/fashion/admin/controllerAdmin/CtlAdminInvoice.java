@@ -3,6 +3,7 @@ package project.fashion.admin.controllerAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import project.fashion.admin.model.entity.Invoice;
 import project.fashion.admin.model.service.InvoiceService;
 @Controller
 @RequestMapping("/admin/invoice")
+@PreAuthorize("hasAnyAuthority('EMPLOYEE')")
 public class CtlAdminInvoice {
     @Autowired
     private InvoiceService invoiceService;
