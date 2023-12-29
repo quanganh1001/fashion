@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin/category")
-@PreAuthorize("hasAnyAuthority('MANAGER')")
+@PreAuthorize("hasAnyRole('MANAGER')")
 public class CtlAdminCategory {
     @Autowired
     private CategoryService categoryService;

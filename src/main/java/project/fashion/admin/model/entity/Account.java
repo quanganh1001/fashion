@@ -13,5 +13,6 @@ public class Account {
     private String userName;
     private String password;
     private Boolean enabled;
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private RoleEnum role;
 }

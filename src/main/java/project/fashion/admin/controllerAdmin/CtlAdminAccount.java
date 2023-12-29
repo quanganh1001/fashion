@@ -3,11 +3,15 @@ package project.fashion.admin.controllerAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.fashion.admin.model.entity.Account;
 import project.fashion.admin.model.entity.Color;
+import project.fashion.admin.model.entity.CustomUserDetail;
 import project.fashion.admin.model.entity.RoleEnum;
 import project.fashion.admin.model.service.AccountService;
 import project.fashion.admin.model.service.ColorService;
@@ -50,9 +54,9 @@ public class CtlAdminAccount {
         return accountService.addAccount(ac);
     }
 
-    @PreAuthorize("isAuthenticated() and (#accountId == authentication.principal.id or hasAuthority('MANAGER'))")
+    @PreAuthorize("isAuthenticated() and (#accountId == (authentication.principal.user.accountId)) or hasAnyRole('MANAGER')")
     @GetMapping("/update-account")
-    public String updateAccount(Model model,@RequestParam("accountId") Integer accountId) {
+    public String updateAccount(Model model,@RequestParam("accountId") Integer accountId) throws Exception {
         Account account = accountService.getAccount(accountId);
         Account ac = new Account();
         List<RoleEnum> roles = Arrays.asList(RoleEnum.values());
@@ -64,21 +68,25 @@ public class CtlAdminAccount {
         return "admin/UpdateAccount";
     }
 
+    @PreAuthorize("isAuthenticated() and (#accountId == (authentication.principal.user.accountId)) or hasAnyRole('MANAGER')")
     @PutMapping("/update-account")
     public ResponseEntity<String> updateAccount(@ModelAttribute Account ac) {
         return accountService.updateAccount(ac);
     }
 
+    @PreAuthorize("isAuthenticated() and (#accountId == (authentication.principal.user.accountId)) or hasAnyRole('MANAGER')")
     @PutMapping("/reset-password")
     public ResponseEntity<String> updateAccount(@RequestParam("accountId") Integer accountId) {
         return accountService.reset(accountId);
     }
+
     @PreAuthorize("hasAnyRole('MANAGER')")
     @DeleteMapping("/delete-account")
     public ResponseEntity<String> deleteAccount(@RequestParam("accountId") Integer accountId) {
         return accountService.deleteAccount(accountId);
     }
 
+    @PreAuthorize("isAuthenticated() and (#accountId == (authentication.principal.user.accountId))")
     @PutMapping("/change-password")
     public ResponseEntity<String> changePassword(@RequestParam("accountId") Integer accountId,
                                                  @RequestParam("newPassword") String newPassword,

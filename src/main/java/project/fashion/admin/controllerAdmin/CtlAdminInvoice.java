@@ -11,7 +11,7 @@ import project.fashion.admin.model.entity.Invoice;
 import project.fashion.admin.model.service.InvoiceService;
 @Controller
 @RequestMapping("/admin/invoice")
-@PreAuthorize("hasAnyAuthority('EMPLOYEE')")
+@PreAuthorize("hasAnyRole('EMPLOYEE','MANAGER')")
 public class CtlAdminInvoice {
     @Autowired
     private InvoiceService invoiceService;

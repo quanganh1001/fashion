@@ -62,8 +62,11 @@ public class AccountService {
         }
     }
 
-    public Account getAccount(Integer accountId){
-        Optional<Account> accountOptional = accountRepo.findById(accountId);
+    public Account getAccount(Integer accountId) throws Exception {
+        Optional<Account> accountOptional = Optional.of(accountRepo.findById(accountId).orElse(new Account()));
+        if (accountOptional == null){
+            throw new Exception("Not found");
+        }
         return accountOptional.get();
     }
 

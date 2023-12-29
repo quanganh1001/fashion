@@ -1,6 +1,6 @@
 
 <div th:fragment="menu"
-     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security" class="col-4">
     <ul class="list-group">
         <li class="list-group-item" id="home" >Trang chủ</li>
         <li class=" list-group-item" id="product">Quản lý Sản phẩm</li>
@@ -10,7 +10,7 @@
         <li  class=" list-group-item" id="account">Quản lý tài khoản</li>
         <div>
             <div sec:authorize="isAuthenticated()">
-                Welcome, <span sec:authentication="principal.username"></span>!
+                Welcome, <span sec:authentication="principal.username"></span>! <a href=""><i class="fa-regular fa-eye"></i></a>
             </div>
             <form th:action="@{/logout}" method="post">
                 <input class="btn btn-primary" type="submit" value="Đăng xuất">

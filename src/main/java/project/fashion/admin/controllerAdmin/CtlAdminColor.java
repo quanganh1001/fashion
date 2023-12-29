@@ -13,7 +13,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin/color")
-@PreAuthorize("hasAnyAuthority('MANAGER')")
+@PreAuthorize("hasAnyRole('MANAGER')")
 public class CtlAdminColor {
     @Autowired
     private ColorService colorService;

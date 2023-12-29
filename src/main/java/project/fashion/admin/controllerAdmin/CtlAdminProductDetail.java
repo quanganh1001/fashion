@@ -2,6 +2,7 @@ package project.fashion.admin.controllerAdmin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import project.fashion.admin.model.service.SizeService;
 import java.util.List;
 
 @Controller
+@PreAuthorize("hasAnyRole('MANAGER')")
 @RequestMapping("/admin/productDetail")
 public class CtlAdminProductDetail {
     @Autowired

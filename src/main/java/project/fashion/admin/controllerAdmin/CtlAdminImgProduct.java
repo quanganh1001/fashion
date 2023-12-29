@@ -16,7 +16,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin/imgProduct")
-@PreAuthorize("hasAnyAuthority('MANAGER')")
+@PreAuthorize("hasAnyRole('MANAGER')")
 public class CtlAdminImgProduct {
 
     @Autowired
