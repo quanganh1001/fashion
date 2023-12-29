@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.fashion.admin.model.entity.Color;
+import project.fashion.admin.model.service.AccountService;
 import project.fashion.admin.model.service.ColorService;
 
 import java.util.List;
@@ -17,9 +18,13 @@ import java.util.List;
 public class CtlAdminColor {
     @Autowired
     private ColorService colorService;
+    @Autowired
+    private AccountService accountService;
     @GetMapping()
     public String getAllColor(Model model){
         List<Color> color = colorService.findAll();
+
+        accountService.getAccountResponse(model);
 
         model.addAttribute("color",color);
         model.addAttribute("select","color");
@@ -29,6 +34,8 @@ public class CtlAdminColor {
     @GetMapping("/add-color")
     public String addColor(Model model) {
         Color color = new Color();
+
+        accountService.getAccountResponse(model);
 
         model.addAttribute("color",color);
         model.addAttribute("select","color");

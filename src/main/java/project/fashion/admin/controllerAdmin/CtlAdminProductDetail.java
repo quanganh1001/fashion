@@ -10,10 +10,7 @@ import project.fashion.admin.model.entity.Color;
 import project.fashion.admin.model.entity.Product;
 import project.fashion.admin.model.entity.ProductDetail;
 import project.fashion.admin.model.entity.Size;
-import project.fashion.admin.model.service.ColorService;
-import project.fashion.admin.model.service.ProductDetailService;
-import project.fashion.admin.model.service.ProductService;
-import project.fashion.admin.model.service.SizeService;
+import project.fashion.admin.model.service.*;
 
 import java.util.List;
 
@@ -33,11 +30,16 @@ public class CtlAdminProductDetail {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private AccountService accountService;
+
     @GetMapping("/add-prDetail")
     public String addProductDetail(Model model,@RequestParam("productId") String productId) {
         List<Size> s = sizeService.findAll();
         List<Color> cl = colorService.findAll();
         ProductDetail pd = new ProductDetail();
+        accountService.getAccountResponse(model);
+
         model.addAttribute("productId", productId);
         model.addAttribute("s", s);
         model.addAttribute("cl", cl);
@@ -58,7 +60,9 @@ public class CtlAdminProductDetail {
         List<Size> size = sizeService.findAll();
         List<Product> product =  productService.findAll();
         ProductDetail pd = productDetailService.getById(prDetailId);
-        System.out.println(pd);
+
+        accountService.getAccountResponse(model);
+
         model.addAttribute("color", color);
         model.addAttribute("size", size);
         model.addAttribute("product", product);

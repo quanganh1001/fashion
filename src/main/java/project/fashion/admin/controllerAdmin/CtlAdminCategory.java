@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.fashion.admin.model.entity.Category;
 import project.fashion.admin.model.entity.Product;
+import project.fashion.admin.model.service.AccountService;
 import project.fashion.admin.model.service.CategoryService;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,8 @@ public class CtlAdminCategory {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    AccountService accountService;
     @GetMapping()
     public String getCat(Model model, @RequestParam(name = "parent", defaultValue = "") String parent ){
         Optional<Category> category = Optional.of(categoryService.findById(parent).orElse(new Category()));
@@ -26,15 +29,20 @@ public class CtlAdminCategory {
         System.out.println(cat);
         List<Category> categories = categoryService.getCategoriesByCatParentCatId(parent);
 
+        accountService.getAccountResponse(model);
+
         model.addAttribute("categories",categories);
         model.addAttribute("cat",cat);
         model.addAttribute("select","category");
+
         return  "admin/CategoryAdmin";
     }
 
     @GetMapping("/add-category")
     public String addCategory(Model model,@RequestParam(value = "catParentId",defaultValue = "") String catParentId) {
         categoryService.addCategory(model,catParentId);
+
+        accountService.getAccountResponse(model);
 
         model.addAttribute("select","category");
         return "/admin/AddCategory";
@@ -58,6 +66,8 @@ public class CtlAdminCategory {
         Category cat = OptionalCat.get();
 
         List<Product> products = categoryService.searchProductByCatId(catId);
+
+        accountService.getAccountResponse(model);
 
         model.addAttribute("c", c);
         model.addAttribute("cat", cat);

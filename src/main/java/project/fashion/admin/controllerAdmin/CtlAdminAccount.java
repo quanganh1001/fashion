@@ -3,18 +3,13 @@ package project.fashion.admin.controllerAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import project.fashion.admin.Response.AccountResponse;
 import project.fashion.admin.model.entity.Account;
-import project.fashion.admin.model.entity.Color;
-import project.fashion.admin.model.entity.CustomUserDetail;
 import project.fashion.admin.model.entity.RoleEnum;
 import project.fashion.admin.model.service.AccountService;
-import project.fashion.admin.model.service.ColorService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,8 +24,11 @@ public class CtlAdminAccount {
     @PreAuthorize("hasAnyRole('MANAGER')")
     @GetMapping()
     public String getAllAccount(Model model) {
-        List<Account> accounts = accountService.findAll();
-        model.addAttribute("account", accounts);
+        List<AccountResponse> accounts = accountService.findAll();
+
+        accountService.getAccountResponse(model);
+
+        model.addAttribute("accounts", accounts);
         model.addAttribute("select", "account");
         return "admin/AccountAdmin";
     }
@@ -38,10 +36,11 @@ public class CtlAdminAccount {
     @PreAuthorize("hasAnyRole('MANAGER')")
     @GetMapping("/add-account")
     public String addAccount(Model model) {
-        Account account = new Account();
+        AccountResponse accountResponse = new AccountResponse();
         List<RoleEnum> roles = Arrays.asList(RoleEnum.values());
+        accountService.getAccountResponse(model);
 
-        model.addAttribute("account",account);
+        model.addAttribute("account",accountResponse);
         model.addAttribute("roles",roles);
         model.addAttribute("select","account");
         return "/admin/AddAccount";
@@ -50,16 +49,17 @@ public class CtlAdminAccount {
     @PreAuthorize("hasAnyRole('MANAGER')")
     @PostMapping("/add-account")
     public ResponseEntity<String> addAccount(@ModelAttribute Account ac) {
-        System.out.println(ac);
         return accountService.addAccount(ac);
     }
 
     @PreAuthorize("isAuthenticated() and (#accountId == (authentication.principal.user.accountId)) or hasAnyRole('MANAGER')")
     @GetMapping("/update-account")
-    public String updateAccount(Model model,@RequestParam("accountId") Integer accountId) throws Exception {
-        Account account = accountService.getAccount(accountId);
-        Account ac = new Account();
+    public String updateAccount(Model model,@RequestParam("accountId") Integer accountId) {
+        AccountResponse account = accountService.getAccount(accountId);
+        AccountResponse ac = new AccountResponse();
         List<RoleEnum> roles = Arrays.asList(RoleEnum.values());
+
+        accountService.getAccountResponse(model);
 
         model.addAttribute("roles",roles);
         model.addAttribute("ac",ac);

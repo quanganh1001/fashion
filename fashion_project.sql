@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 27, 2023 lúc 05:47 PM
+-- Thời gian đã tạo: Th12 29, 2023 lúc 05:49 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.0.28
 
@@ -40,10 +40,11 @@ CREATE TABLE `accounts` (
 --
 
 INSERT INTO `accounts` (`account_id`, `password`, `user_name`, `role`, `enabled`) VALUES
-(1, '$2a$10$ifLsngtFn4bz/L8N0tZRXuPEbGdaj5naeJWMJHW2gzD/yj1PwMGUW', 'quanly', 'ROLE_MANAGER', b'1'),
+(1, '$2a$10$2ZYXkyXJ504frJtNhx55CuJJ.uIOfbMMBflCr7Y.R2de7xCMBrO3y', 'quanly', 'ROLE_MANAGER', b'1'),
 (2, '$2a$10$k88BBPZXAy6v6yyO8uLssez7YexG4C6aV3NErigPFhtOfanAzI9kC', 'nhanvien1', 'ROLE_EMPLOYEE', b'1'),
 (4, '$2a$10$tpaoi/izGUSiZJlapt.s7uPSHbw4eUB0JlPFnqlb7yHXaVJsj0FHG', 'nhanvien2', 'ROLE_EMPLOYEE', b'1'),
-(8, '$2a$10$o1Jl1nTZq7O0CuynH5KPEu10MA46VbD/J5fsAsukT35H9KyJow7lu', 'nhanvien3', 'ROLE_EMPLOYEE', b'1');
+(8, '$2a$10$o1Jl1nTZq7O0CuynH5KPEu10MA46VbD/J5fsAsukT35H9KyJow7lu', 'nhanvien3', 'ROLE_EMPLOYEE', b'1'),
+(9, '$2a$10$NZIJw6mfUKeVr6ZifOUqZ.6krv0OVuYiHwTEdEoNyy7xHeQa.Ubh.', 'admin', 'ROLE_MANAGER', b'1');
 
 -- --------------------------------------------------------
 
@@ -457,7 +458,8 @@ INSERT INTO `history` (`id`, `invoice_id`, `content`, `time`, `time_ago`) VALUES
 (451, 'ASJNSHOV', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-39) :2 -> 1', '2023-12-24 12:08:47', NULL),
 (452, 'ASJNSHOV', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2023-12-24 12:08:54', NULL),
 (453, 'ASJNSHOV', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Hủy', '2023-12-24 12:08:59', NULL),
-(454, '5N7P9LFG', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2023-12-25 12:33:54', NULL);
+(454, '5N7P9LFG', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2023-12-25 12:33:54', NULL),
+(455, 'ASJNSHOV', 'quanly đã thay đổi Trạng thái đơn hàng: Hủy -> Đơn mới', '2023-12-29 16:47:54', NULL);
 
 -- --------------------------------------------------------
 
@@ -952,6 +954,7 @@ CREATE TABLE `invoices` (
   `address` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   `note` varchar(255) NOT NULL,
+  `account_id` int(11) DEFAULT NULL,
   `invoice_status` int(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -959,18 +962,18 @@ CREATE TABLE `invoices` (
 -- Đang đổ dữ liệu cho bảng `invoices`
 --
 
-INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `created_at`, `note`, `invoice_status`) VALUES
-('5N7P9LFG', 'nguyễn quang anh', '3453', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2023-12-24 08:17:49', '          dsfsd              ', 1),
-('ASJNSHOV', 'quang anh', '0365151822333', '4dvsdsf', '2023-12-24 12:07:10', 'dsdgd', 0),
-('LJ15RWML', 'quang anh', '0365151822', 'dsf', '2023-12-24 08:17:49', 'sdfds', 1),
-('PB8NR0T5', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2023-12-24 08:17:49', '                        ', 2),
-('QHSU5DIX', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2023-12-24 08:17:49', '                        dsv', 1),
-('QWEASVXZ', 'fdsfsd', '93232', 'cxvcx', '2023-12-24 08:17:49', 'cxfds', 5),
-('RNQT0948', 'quang anh', '33', 'ds', '2023-12-24 08:17:49', 'a', 1),
-('SDDFGSEW', 'quang anh', '932', '4dvsdsf', '2023-12-24 08:17:49', 'hello\r\nx', 2),
-('VCXBDSGS', 'SF', '93232', '4fdsdvs', '2023-12-24 08:17:49', 'dsf', 1),
-('YHJFSFAS', 'Qvxa', '21932', '4cddvs', '2023-12-24 08:17:49', '', 1),
-('YHVJLZWX', 'fsd', '34543', 'df', '2023-12-24 08:17:57', '', 1);
+INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `created_at`, `note`, `account_id`, `invoice_status`) VALUES
+('5N7P9LFG', 'nguyễn quang anh', '3453', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2023-12-24 08:17:49', '          dsfsd              ', NULL, 1),
+('ASJNSHOV', 'quang anh', '0365151822333', '4dvsdsf', '2023-12-24 12:07:10', 'dsdgd', NULL, 1),
+('LJ15RWML', 'quang anh', '0365151822', 'dsf', '2023-12-24 08:17:49', 'sdfds', NULL, 1),
+('PB8NR0T5', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2023-12-24 08:17:49', '                        ', NULL, 2),
+('QHSU5DIX', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2023-12-24 08:17:49', '                        dsv', NULL, 1),
+('QWEASVXZ', 'fdsfsd', '93232', 'cxvcx', '2023-12-24 08:17:49', 'cxfds', NULL, 5),
+('RNQT0948', 'quang anh', '33', 'ds', '2023-12-24 08:17:49', 'a', NULL, 1),
+('SDDFGSEW', 'quang anh', '932', '4dvsdsf', '2023-12-24 08:17:49', 'hello\r\nx', NULL, 2),
+('VCXBDSGS', 'SF', '93232', '4fdsdvs', '2023-12-24 08:17:49', 'dsf', NULL, 1),
+('YHJFSFAS', 'Qvxa', '21932', '4cddvs', '2023-12-24 08:17:49', '', NULL, 1),
+('YHVJLZWX', 'fsd', '34543', 'df', '2023-12-24 08:17:57', '', NULL, 1);
 
 --
 -- Bẫy `invoices`
@@ -2148,7 +2151,8 @@ ALTER TABLE `imgs_size`
 --
 ALTER TABLE `invoices`
   ADD PRIMARY KEY (`invoice_id`),
-  ADD KEY `invoice_status` (`invoice_status`);
+  ADD KEY `invoice_status` (`invoice_status`),
+  ADD KEY `invoices_ibfk_1` (`account_id`);
 
 --
 -- Chỉ mục cho bảng `invoices_detail`
@@ -2203,13 +2207,13 @@ ALTER TABLE `stores`
 -- AUTO_INCREMENT cho bảng `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT cho bảng `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=455;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=456;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_product`
@@ -2261,7 +2265,8 @@ ALTER TABLE `imgs_product`
 -- Các ràng buộc cho bảng `invoices`
 --
 ALTER TABLE `invoices`
-  ADD CONSTRAINT `invoices_ibfk_1` FOREIGN KEY (`invoice_status`) REFERENCES `invoices_status` (`status_id`);
+  ADD CONSTRAINT `invoices_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`account_id`),
+  ADD CONSTRAINT `invoices_ibfk_2` FOREIGN KEY (`invoice_status`) REFERENCES `invoices_status` (`status_id`);
 
 --
 -- Các ràng buộc cho bảng `invoices_detail`

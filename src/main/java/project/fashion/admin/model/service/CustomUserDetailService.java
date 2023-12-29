@@ -28,8 +28,6 @@ public class CustomUserDetailService implements UserDetailsService {
             throw new UsernameNotFoundException("Sai");
         }
 
-        var accountResponse = AccountResponse.fromAccount(account);
-
         Collection<GrantedAuthority> grantedAuthoritySet = new HashSet<>();
         String role = account.getRole().name();
 

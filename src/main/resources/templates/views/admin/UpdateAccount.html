@@ -12,17 +12,20 @@
         <form id="form" th:action="@{/admin/account/update-account}"
               th:object="${ac}">
             <input type="hidden" th:field="${account.accountId}">
-            <input type="hidden" th:field="${account.password}">
-            <input th:if="${account.role == 'MANAGER'}" type="hidden" th:field="${account.role}">
-            <input th:if="${account.role == 'MANAGER'}" type="hidden" th:field="${account.enabled}">
             <div class="row">
-                <div class="mb-3">
+                <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3">
                     <label for="userName" class="form-label">Tài khoản<span style="color:red">*</span></label>
                     <input type="text" class="form-control" id="userName"
                            th:field="${account.userName}">
                 </div>
 
-                <div th:if="${account.role != 'MANAGER'}" class="mb-3">
+                <div th:unless="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3">
+                    <label class="form-label">Tài khoản<span style="color:red">*</span></label>
+                    <input readonly type="text" class="readonly form-control"
+                           th:field="${account.userName}">
+                </div>
+
+                <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3">
                     <label for="role" class="form-label">Quyền<span
                             style="color:red">*</span></label>
                     <select class="form-control" id="role" th:field="${account.role}">
@@ -31,7 +34,7 @@
                     </select>
                 </div>
 
-                <div class="mb-3" th:if="${account.role != 'MANAGER'}">
+                <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}">
                     <label for="enabled" class="form-label">Trạng thái<span style="color:red">*</span></label>
                     <input id="enabled" type="checkbox"
                            th:field="${account.enabled}">Hoạt động/Không kích hoạt
@@ -40,7 +43,7 @@
 
         </form>
         <div class="col-6 d-flex justify-content-between">
-            <button style="text-align: center" type="button" id="button" class="col-2 btn btn-primary">Lưu</button>
+            <button th:if="${account.role == 'ROLE_MANAGER'}" style="text-align: center" type="button" id="button" class="col-2 btn btn-primary">Lưu</button>
             <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
                     class=" btn btn-warning">Đổi mật khẩu
             </button>

@@ -24,7 +24,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="ac:${account}">
+            <tr th:each="ac:${accounts}">
                 <td th:text="${ac.userName}"></td>
                 <td th:text="${ac.role}"></td>
                 <td th:text="${ac.enabled}==true ? 'Hoạt động' :'Không kích hoạt'"></td>

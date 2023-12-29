@@ -13,8 +13,10 @@ import project.fashion.admin.model.entity.Category;
 import project.fashion.admin.model.entity.ImgSize;
 import project.fashion.admin.model.entity.Product;
 import project.fashion.admin.model.entity.ProductDetail;
+import project.fashion.admin.model.repository.AccountRepo;
 import project.fashion.admin.model.repository.CategoryRepo;
 import project.fashion.admin.model.repository.ImgSizeRepo;
+import project.fashion.admin.model.service.AccountService;
 import project.fashion.admin.model.service.ProductDetailService;
 import project.fashion.admin.model.service.ProductService;
 
@@ -37,11 +39,15 @@ public class CtlAdminProduct {
     @Autowired
     private ImgSizeRepo imgSizeRepo;
 
+    @Autowired
+    private AccountService accountService;
     @GetMapping()
     public String searchProduct(Model model,@RequestParam(defaultValue = "0") int page,@RequestParam(name = "key",
             required = false) String key){
         Page<Product> searchResults =
                 productService.searchProduct(key,PageRequest.of(page, 10));
+
+        accountService.getAccountResponse(model);
 
         model.addAttribute("key",key);
         model.addAttribute("currentPage", page);
@@ -57,6 +63,8 @@ public class CtlAdminProduct {
         List<Category> cat = categoryRepo.findAll();
         List<ImgSize> img = imgSizeRepo.findAll();
         Product product = new Product();
+        accountService.getAccountResponse(model);
+
         model.addAttribute("product", product);
         model.addAttribute("cat", cat);
         model.addAttribute("img", img);
@@ -85,6 +93,7 @@ public class CtlAdminProduct {
         List<ImgSize> img = imgSizeRepo.findAll();
         List<ProductDetail> prDetail =  productDetailService.findAllByProductProductId(productId);
         Product p = productService.findById(productId);
+        accountService.getAccountResponse(model);
 
         model.addAttribute("cat", cat);
         model.addAttribute("img", img);

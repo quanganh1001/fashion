@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
-@PreAuthorize("hasAnyRole('MANAGER')")
+@PreAuthorize("hasAnyRole('EMPLOYEE','MANAGER')")
 @RequestMapping("/admin/invoiceDetail")
 public class CtlAdminInvoiceDetail {
     @Autowired
@@ -32,6 +32,9 @@ public class CtlAdminInvoiceDetail {
     @Autowired
     private HistoryService historyService;
 
+    @Autowired
+    private AccountService accountService;
+
     @GetMapping()
     public String getInvoiceDetail(Model model,
                                    @RequestParam("invoiceId") String invoiceId) {
@@ -47,13 +50,14 @@ public class CtlAdminInvoiceDetail {
 
         var totalAmount = invoiceDetailService.totalAdmount(invoiceDetails);
 
+        accountService.getAccountResponse(model);
         model.addAttribute("invoiceDetails", invoiceDetails);
         model.addAttribute("invoice", invoice);
         model.addAttribute("status", status);
         model.addAttribute("searchResult", productDetails);
-        model.addAttribute("histories",histories);
-        model.addAttribute("totalAmount",totalAmount);
-        model.addAttribute("select","invoice");
+        model.addAttribute("histories", histories);
+        model.addAttribute("totalAmount", totalAmount);
+        model.addAttribute("select", "invoice");
 
         return "admin/InvoiceDetail";
     }
@@ -72,32 +76,34 @@ public class CtlAdminInvoiceDetail {
     }
 
     @GetMapping("/searchProduct")
-    public String searchProduct(Model model, @RequestParam("key") String key,@RequestParam("invoiceId") String invoiceId) {
+    public String searchProduct(Model model, @RequestParam("key") String key, @RequestParam("invoiceId") String invoiceId) {
         List<ProductDetail> search =
                 productDetailService.searchProductDetailByProductProductNameContainingIgnoreCase(key);
-            model.addAttribute("search", search);
-            model.addAttribute("invoiceId",invoiceId);
+
+        accountService.getAccountResponse(model);
+
+        model.addAttribute("search", search);
+        model.addAttribute("invoiceId", invoiceId);
         return "admin/fragment/SearchProduct";
     }
 
     @PostMapping("/addProductInvoiceDetail")
     public ResponseEntity<String> addProduct(@RequestParam("productDetailId") Integer productDetailId,
-                                             @RequestParam("invoiceId") String invoiceId){
-        System.out.println(productDetailId + invoiceId);
-        return invoiceDetailService.addProductInvoiceDetail(productDetailId,invoiceId);
+                                             @RequestParam("invoiceId") String invoiceId) {
+        return invoiceDetailService.addProductInvoiceDetail(productDetailId, invoiceId);
 
     }
 
     @PutMapping("/update-quantity")
     public ResponseEntity<String> updateQuantityInvoiceDetail(@RequestParam("newQuantity") Integer newQuantity,
-                                                              @RequestParam("invoiceDetailId") Integer invoiceDetailId){
-        return invoiceDetailService.updateQuantityInvoiceDetail(newQuantity,invoiceDetailId);
+                                                              @RequestParam("invoiceDetailId") Integer invoiceDetailId) {
+        return invoiceDetailService.updateQuantityInvoiceDetail(newQuantity, invoiceDetailId);
     }
 
     @PutMapping("/update-invoice/{invoiceId}")
     public ResponseEntity<String> updateInvoice(@PathVariable("invoiceId") String invoiceId,
                                                 @ModelAttribute Invoice i) {
-        return invoiceService.updateInvoice(invoiceId,i);
+        return invoiceService.updateInvoice(invoiceId, i);
     }
 
 }

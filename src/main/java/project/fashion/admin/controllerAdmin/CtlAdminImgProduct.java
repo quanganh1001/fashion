@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import project.fashion.admin.model.entity.ImgProduct;
+import project.fashion.admin.model.service.AccountService;
 import project.fashion.admin.model.service.ImgProductService;
 
 import java.io.*;
@@ -21,6 +22,8 @@ public class CtlAdminImgProduct {
 
     @Autowired
     private ImgProductService imgProductService;
+    @Autowired
+    private AccountService accountService;
 
     @GetMapping("/{imageName}")
     public ResponseEntity<Resource> serveImage(@PathVariable String imageName) throws IOException {
@@ -31,11 +34,11 @@ public class CtlAdminImgProduct {
     public String addImg(Model model, @RequestParam("productId") String productId) {
         List<ImgProduct> imgProducts = imgProductService.findAllByProductProductId(productId);
 
-        ImgProduct img1 = imgProductService.getImgBg(1,productId);
+        ImgProduct img1 = imgProductService.getImgBg(1, productId);
         var imgbg1 = img1.getImgId();
         var imgbg1Name = img1.getFileImg();
 
-        ImgProduct img2 = imgProductService.getImgBg(2,productId);
+        ImgProduct img2 = imgProductService.getImgBg(2, productId);
         var imgbg2 = img2.getImgId();
         var imgbg2Name = img2.getFileImg();
 
@@ -44,7 +47,8 @@ public class CtlAdminImgProduct {
 
         var path = pathRoot + "/src/main/uploads/images/";
 
-        System.out.println(imgProducts);
+        accountService.getAccountResponse(model);
+
         model.addAttribute("productId", productId);
         model.addAttribute("img", img);
         model.addAttribute("imgProducts", imgProducts);
@@ -53,7 +57,7 @@ public class CtlAdminImgProduct {
         model.addAttribute("imgbg2", imgbg2);
         model.addAttribute("imgbg1Name", imgbg1Name);
         model.addAttribute("imgbg2Name", imgbg2Name);
-        model.addAttribute("select","product");
+        model.addAttribute("select", "product");
 
         return "/admin/ImgProduct";
     }
@@ -61,7 +65,7 @@ public class CtlAdminImgProduct {
     @PostMapping("/add-img")
     public String addImgPr(@ModelAttribute("img") ImgProduct img, @RequestParam("productId") String productId,
                            @RequestParam(value = "file", required = false) MultipartFile[] files) {
-        imgProductService.addImg(files,img,productId);
+        imgProductService.addImg(files, img, productId);
 
         return "redirect:/admin/imgProduct/add-img?productId=" + productId;
     }
@@ -69,8 +73,8 @@ public class CtlAdminImgProduct {
     @GetMapping("/imgbg/{imageName}")
     public ResponseEntity<Resource> changeImg(@PathVariable String imageName, @RequestParam("imbg") int imbg,
                                               @RequestParam("productId") String productId)
-                                               throws IOException {
-        return imgProductService.setBackground(productId,imageName,imbg);
+            throws IOException {
+        return imgProductService.setBackground(productId, imageName, imbg);
 
     }
 
