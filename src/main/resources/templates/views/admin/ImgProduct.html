@@ -31,7 +31,7 @@
                             th:text="${i.fileImg}">
                     </option>
                 </select>
-                <div th:if="${imgbg1Name.endsWith('.jpg')}">
+                <div th:if="${imgbg1Name.endsWith('.jpg') and imgbg1Name != null}  ">
                     <img width="50px" th:id="imgbg1"
                          th:src="@{'/admin/imgProduct/'+${imgbg1Name}}" alt="">
 
@@ -40,7 +40,7 @@
                         Your browser does not support the video tag.
                     </video>
                 </div>
-                <div th:if="${imgbg1Name.endsWith('.mp4')}">
+                <div th:if="${imgbg1Name.endsWith('.mp4') and imgbg1Name != null}">
                     <img class="hidden" width="50px" th:id="imgbg1"
                          th:src="@{'/admin/imgProduct/'+${imgbg1Name}}" alt="">
 
@@ -58,7 +58,7 @@
                             th:text="${i.fileImg}">
                     </option>
                 </select>
-                <div th:if="${imgbg2Name.endsWith('.jpg')}">
+                <div th:if="${imgbg2Name.endsWith('.jpg') and imgbg2Name !=null}">
                     <img width="50px" th:id="imgbg2"
                          th:src="@{'/admin/imgProduct/'+${imgbg2Name}}" alt="">
 
@@ -67,7 +67,7 @@
                         Your browser does not support the video tag.
                     </video>
                 </div>
-                <div th:if="${imgbg2Name.endsWith('.mp4')}">
+                <div th:if="${imgbg2Name.endsWith('.mp4') and imgbg2Name !=null}">
                     <img class="hidden" width="50px" th:id="imgbg2"
                          th:src="@{'/admin/imgProduct/'+${imgbg2Name}}" alt="">
 

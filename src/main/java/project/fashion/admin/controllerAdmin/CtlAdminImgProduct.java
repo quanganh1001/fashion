@@ -34,17 +34,11 @@ public class CtlAdminImgProduct {
     public String addImg(Model model, @RequestParam("productId") String productId) {
         List<ImgProduct> imgProducts = imgProductService.findAllByProductProductId(productId);
 
-        ImgProduct img1 = imgProductService.getImgBg(1, productId);
-        var imgbg1 = img1.getImgId();
-        var imgbg1Name = img1.getFileImg();
-
-        ImgProduct img2 = imgProductService.getImgBg(2, productId);
-        var imgbg2 = img2.getImgId();
-        var imgbg2Name = img2.getFileImg();
+        imgProductService.getImgBg(model,1, productId);
+        imgProductService.getImgBg(model,2, productId);
 
         ImgProduct img = new ImgProduct();
         var pathRoot = System.getProperty("user.dir");
-
         var path = pathRoot + "/src/main/uploads/images/";
 
         accountService.getAccountResponse(model);
@@ -53,13 +47,9 @@ public class CtlAdminImgProduct {
         model.addAttribute("img", img);
         model.addAttribute("imgProducts", imgProducts);
         model.addAttribute("path", path);
-        model.addAttribute("imgbg1", imgbg1);
-        model.addAttribute("imgbg2", imgbg2);
-        model.addAttribute("imgbg1Name", imgbg1Name);
-        model.addAttribute("imgbg2Name", imgbg2Name);
         model.addAttribute("select", "product");
 
-        return "/admin/ImgProduct";
+        return "admin/ImgProduct";
     }
 
     @PostMapping("/add-img")

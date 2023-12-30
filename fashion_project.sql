@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 29, 2023 lúc 05:49 PM
+-- Máy chủ: localhost
+-- Thời gian đã tạo: Th12 30, 2023 lúc 11:33 AM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.0.28
+-- Phiên bản PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -916,7 +916,12 @@ INSERT INTO `imgs_product` (`img_id`, `product_id`, `file_img`, `background_1`, 
 (601, 'DATB416', '1703435106872_52695476436_cfce895223_o_32bf8a7c12f04f34963103b2b30b3dd0_master.jpg', b'0', b'0'),
 (602, 'DATB416', '1703435106878_untitled_design__1__8e8dab846c1c444385812026eb549eb8_master.jpg', b'0', b'1'),
 (603, 'DATB416', '1703435106881_datb416_e53618f106c54b85a436bd3e7f3025db_master.jpg', b'0', b'0'),
-(604, 'DATB416', '1703435106886_52695741049_ab53170a62_o_d4d8d423351a4330b41d0fc19ade0513_master.jpg', b'1', b'0');
+(604, 'DATB416', '1703435106886_52695741049_ab53170a62_o_d4d8d423351a4330b41d0fc19ade0513_master.jpg', b'1', b'0'),
+(609, 'DWBS012', '1703928526192_bs012-7_52616063791_o_b73fd2ba1d004e6e9b6e00056a74a633_master.jpg', b'0', b'0'),
+(610, 'DWBS012', '1703928526208_bs012-4_52616554758_o_2d13878e693346e18cfb465e5e5d92aa_master.jpg', b'0', b'0'),
+(611, 'DWBS012', '1703928526215_bs012-3_52615554827_o_cdf36ab14e2948ab984bbfe0c18c72ed_master.jpg', b'0', b'0'),
+(612, 'DWBS012', '1703928526222_bs012-2_52616064151_o_3574494468a940998f25c86d6f815504_master.jpg', b'0', b'0'),
+(613, 'DWBS012', '1703928526228_bs012-1_52615553322_o_0d15a75065ed4bf59b9e03ecded5d334_master.jpg', b'0', b'0');
 
 -- --------------------------------------------------------
 
@@ -1198,6 +1203,7 @@ INSERT INTO `products` (`product_id`, `product_name`, `cat_id`, `price`, `discou
 ('DSTP611', 'Áo polo trơn bo kẻ DSTP611', 'PLBK', 333333, NULL, NULL, b'0', 'Torano', '', 1, 4, 1, b'1'),
 ('DSTP650', 'Áo Polo monogram TRN DSTP650', 'PLHT', 450000, NULL, NULL, b'0', 'TORANO', 'Áo Polo monogram TRN 1.DSTP650', 1, 4, 1, b'1'),
 ('DSTP903', 'Áo polo can phối Horizontal Color Scheme DSTP903', 'PLCP', 420000, 290000, 31, b'1', 'TORANO', '', 1, 4, 2, b'1'),
+('DWBS012', 'Quần nỉ trơn Basic 4.DWBS012', 'QN', 380000, 299000, 21, b'1', 'TORANO', '', 4, 4, 3, b'1'),
 ('EABT019', 'Quần âu slim-fit cạp trơn EABT019', 'QAPTC', 500000, NULL, NULL, b'0', 'TORANO', '', 3, 5, 4, b'1'),
 ('EABT021', 'Quần âu slim-fit điều chỉnh cạp trơn 1.EABT021', 'QAPTC', 480000, NULL, NULL, b'0', 'TORANO', '', 3, 5, 1, b'1'),
 ('EATB003', 'Sơ mi dài tay kẻ Checkerboard 3.EATB003', 'SMNTK', 520000, NULL, NULL, b'0', 'TORANO', '', 2, 5, 3, b'1'),
@@ -1954,7 +1960,19 @@ INSERT INTO `products_detail` (`product_detail_id`, `product_id`, `code`, `color
 (663, 'ESBI006', 'ESBI00602CA00SB_WH-30', 'WH', '30', 999, b'1', b'1'),
 (664, 'ESBI006', 'ESBI00602CA00SB_WH-31', 'WH', '31', 999, b'1', b'1'),
 (665, 'ESBI006', 'ESBI00602CA00SB_WH-32', 'WH', '32', 999, b'1', b'1'),
-(666, 'ESBI006', 'ESBI00602CA00SB_WH-33', 'WH', '33', 999, b'1', b'1');
+(666, 'ESBI006', 'ESBI00602CA00SB_WH-33', 'WH', '33', 999, b'1', b'1'),
+(667, 'DWBS012', 'DWBS01203CV00SB_CN-S', 'CN', 'S', 999, b'1', b'1'),
+(668, 'DWBS012', 'DWBS01203CV00SB_CN-M', 'CN', 'M', 999, b'1', b'1'),
+(669, 'DWBS012', 'DWBS01203CV00SB_CN-L', 'CN', 'L', 999, b'1', b'1'),
+(670, 'DWBS012', 'DWBS01203CV00SB_CN-XL', 'CN', 'XL', 999, b'1', b'1'),
+(671, 'DWBS012', 'DWBS01203CV00SB_DGR-S-S', 'DGN', 'S', 999, b'1', b'1'),
+(672, 'DWBS012', 'DWBS01203CV00SB_DGR-M', 'DGN', 'M', 999, b'1', b'1'),
+(673, 'DWBS012', 'DWBS01203CV00SB_DGR-L', 'DGN', 'L', 999, b'1', b'1'),
+(674, 'DWBS012', 'DWBS01203CV00SB_DGR-XL', 'DGN', 'XL', 999, b'1', b'1'),
+(675, 'DWBS012', 'DWBS01203CV00SB_NV-S', NULL, 'S', 999, b'1', b'1'),
+(676, 'DWBS012', 'DWBS01203CV00SB_NV-M', 'NV', 'M', 999, b'1', b'1'),
+(677, 'DWBS012', 'DWBS01203CV00SB_NV-L', 'NV', 'L', 999, b'1', b'1'),
+(678, 'DWBS012', 'DWBS01203CV00SB_NV-XL', 'NV', 'XL', 999, b'1', b'1');
 
 --
 -- Bẫy `products_detail`
@@ -2219,7 +2237,7 @@ ALTER TABLE `history`
 -- AUTO_INCREMENT cho bảng `imgs_product`
 --
 ALTER TABLE `imgs_product`
-  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=609;
+  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=614;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_size`
@@ -2243,7 +2261,7 @@ ALTER TABLE `invoices_status`
 -- AUTO_INCREMENT cho bảng `products_detail`
 --
 ALTER TABLE `products_detail`
-  MODIFY `product_detail_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=667;
+  MODIFY `product_detail_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=679;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
