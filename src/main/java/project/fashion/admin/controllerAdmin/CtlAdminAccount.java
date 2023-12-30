@@ -3,6 +3,8 @@ package project.fashion.admin.controllerAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -55,15 +57,14 @@ public class CtlAdminAccount {
     @PreAuthorize("isAuthenticated() and (#accountId == (authentication.principal.user.accountId)) or hasAnyRole('MANAGER')")
     @GetMapping("/update-account")
     public String updateAccount(Model model,@RequestParam("accountId") Integer accountId) {
-        AccountResponse account = accountService.getAccount(accountId);
+        AccountResponse accountResponse = accountService.getAccount(accountId);
         AccountResponse ac = new AccountResponse();
         List<RoleEnum> roles = Arrays.asList(RoleEnum.values());
-
         accountService.getAccountResponse(model);
 
         model.addAttribute("roles",roles);
         model.addAttribute("ac",ac);
-        model.addAttribute("account",account);
+        model.addAttribute("accountResponse",accountResponse);
         model.addAttribute("select","account");
         return "admin/UpdateAccount";
     }

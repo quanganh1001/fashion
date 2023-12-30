@@ -5,7 +5,7 @@
         <li class="list-group-item" id="home" >Trang chủ</li>
         <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class=" list-group-item" id="product">Quản lý Sản phẩm</li>
         <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class=" list-group-item" id="category">Quản lý danh mục Sản phẩm</li>
-        <li  class=" list-group-item" id="invoice">Quản lý đơn hàng</li>
+        <li  class=" list-group-item" id="invoice" th:data-accountId="${account.accountId}">Quản lý đơn hàng</li>
         <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class=" list-group-item" id="color">Quản lý mã màu</li>
         <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}"  class=" list-group-item" id="account">Quản lý tài khoản</li>
         <div class="mt-3" th:if="${account != null}">
@@ -20,6 +20,7 @@
 
     <script th:inline="javascript">
         $(document).ready(()=>{
+
             $("#home").click(() => {
                 window.location.href= "/admin"
             })
@@ -30,7 +31,7 @@
                 window.location.href= "/admin/category?parent="
             })
             $("#invoice").click(() => {
-                window.location.href= "/admin/invoice/filter/-1?key="
+                window.location.href= "/admin/invoice/filter/-1?key=&accountId="+ [[${account.accountId}]];
             })
             $("#color").click(() => {
                 window.location.href= "/admin/color"

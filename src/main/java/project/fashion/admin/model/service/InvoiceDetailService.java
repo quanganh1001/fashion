@@ -100,12 +100,10 @@ public class InvoiceDetailService{
                 var quantity = result.getQuantity();
                 var newQuantity = quantity + 1;
                 result.setQuantity(newQuantity);
-                System.out.println(result);
+
                 // create history
                 historyService.setTriggerVariableForHistory();
-                System.out.println(result);
                 invoiceDetailRepo.save(result);
-                System.out.println(result);
                 return ResponseEntity.ok("done");
             }
     }

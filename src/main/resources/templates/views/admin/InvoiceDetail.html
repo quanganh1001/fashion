@@ -36,7 +36,8 @@
         <div class="mt-3 mb-5 col-12">
             <form id="form" th:action="@{/admin/invoiceDetail/update-invoice/__${invoice.invoiceId}__}" method="POST">
                 <input type="hidden" name="_method" value="put"/>
-                <input type="hidden" name="createdAt" th:value="${invoice.createdAt}"/>
+                <div th:if="${invoice.account != null}">Người tạo đơn: <span th:text="${invoice.account.userName}"></span></div>
+                <div th:unless="${invoice.account != null}">Người tạo đơn: Hệ thống</div>
                 <div>Ngày đặt hàng: <span th:text="${invoice.createdAt}"></span></div>
                 <div class="row">
                     <div class="mb-3 col-6">

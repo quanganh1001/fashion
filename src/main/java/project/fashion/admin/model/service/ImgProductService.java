@@ -37,32 +37,36 @@ public class ImgProductService {
             Optional<ImgProduct> OptionalImg1 =
                     Optional.of(imgProductRepo.findByBackground1TrueAndProductProductId(productId).orElse(c));
             ImgProduct img1 = OptionalImg1.get();
-            if (img1 != null) {
+
+            if(img1.getFileImg() != null){
                 var imgbg1 = img1.getImgId();
                 var imgbg1Name = img1.getFileImg();
                 model.addAttribute("imgbg1", imgbg1);
                 model.addAttribute("imgbg1Name", imgbg1Name);
-            } else {
+            }else {
                 var imgbg1 = img1.getImgId();
                 var imgbg1Name = "no-image.jpg";
                 model.addAttribute("imgbg1", imgbg1);
                 model.addAttribute("imgbg1Name", imgbg1Name);
             }
 
+
         } else {
             Optional<ImgProduct> OptionalImg2 = Optional.of(imgProductRepo.findByBackground2TrueAndProductProductId(productId).orElse(c));
             ImgProduct img2 = OptionalImg2.get();
-            if (img2 != null) {
+
+            if(img2.getFileImg() != null){
                 var imgbg2 = img2.getImgId();
                 var imgbg2Name = img2.getFileImg();
                 model.addAttribute("imgbg2", imgbg2);
                 model.addAttribute("imgbg2Name", imgbg2Name);
-            } else {
+            }else {
                 var imgbg2 = img2.getImgId();
                 var imgbg2Name = "no-image.jpg";
                 model.addAttribute("imgbg2", imgbg2);
                 model.addAttribute("imgbg2Name", imgbg2Name);
             }
+
         }
     }
 

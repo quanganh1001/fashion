@@ -19,25 +19,22 @@ import java.util.List;
 public class CtlAdminInvoiceDetail {
     @Autowired
     private InvoiceDetailService invoiceDetailService;
-
     @Autowired
     private InvoiceStatusService invoiceStatusService;
-
     @Autowired
     private ProductDetailService productDetailService;
-
     @Autowired
     private InvoiceService invoiceService;
-
     @Autowired
     private HistoryService historyService;
-
     @Autowired
     private AccountService accountService;
 
     @GetMapping()
+    @PreAuthorize("isAuthenticated() and (#accountId == (authentication.principal.user.accountId)) or hasAnyRole('MANAGER')")
     public String getInvoiceDetail(Model model,
-                                   @RequestParam("invoiceId") String invoiceId) {
+                                   @RequestParam("invoiceId") String invoiceId,
+                                   @RequestParam("accountId") String accountId) {
         List<InvoiceDetail> invoiceDetails = invoiceDetailService.findAllByInvoice_InvoiceId(invoiceId);
 
         Invoice invoice = invoiceService.findById(invoiceId);

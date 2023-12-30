@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: localhost
--- Thời gian đã tạo: Th12 30, 2023 lúc 11:33 AM
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th12 30, 2023 lúc 06:49 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.2.4
+-- Phiên bản PHP: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,10 +41,9 @@ CREATE TABLE `accounts` (
 
 INSERT INTO `accounts` (`account_id`, `password`, `user_name`, `role`, `enabled`) VALUES
 (1, '$2a$10$2ZYXkyXJ504frJtNhx55CuJJ.uIOfbMMBflCr7Y.R2de7xCMBrO3y', 'quanly', 'ROLE_MANAGER', b'1'),
-(2, '$2a$10$k88BBPZXAy6v6yyO8uLssez7YexG4C6aV3NErigPFhtOfanAzI9kC', 'nhanvien1', 'ROLE_EMPLOYEE', b'1'),
+(2, '$2a$10$ghYBZtTkVUweDOIyd8XD.uDEC30KF54.GG4/yt9ydXQcUhUzHxUt.', 'nhanvien1', 'ROLE_EMPLOYEE', b'1'),
 (4, '$2a$10$tpaoi/izGUSiZJlapt.s7uPSHbw4eUB0JlPFnqlb7yHXaVJsj0FHG', 'nhanvien2', 'ROLE_EMPLOYEE', b'1'),
-(8, '$2a$10$o1Jl1nTZq7O0CuynH5KPEu10MA46VbD/J5fsAsukT35H9KyJow7lu', 'nhanvien3', 'ROLE_EMPLOYEE', b'1'),
-(9, '$2a$10$NZIJw6mfUKeVr6ZifOUqZ.6krv0OVuYiHwTEdEoNyy7xHeQa.Ubh.', 'admin', 'ROLE_MANAGER', b'1');
+(8, '$2a$10$o1Jl1nTZq7O0CuynH5KPEu10MA46VbD/J5fsAsukT35H9KyJow7lu', 'nhanvien3', 'ROLE_EMPLOYEE', b'1');
 
 -- --------------------------------------------------------
 
@@ -459,7 +458,11 @@ INSERT INTO `history` (`id`, `invoice_id`, `content`, `time`, `time_ago`) VALUES
 (452, 'ASJNSHOV', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2023-12-24 12:08:54', NULL),
 (453, 'ASJNSHOV', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Hủy', '2023-12-24 12:08:59', NULL),
 (454, '5N7P9LFG', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2023-12-25 12:33:54', NULL),
-(455, 'ASJNSHOV', 'quanly đã thay đổi Trạng thái đơn hàng: Hủy -> Đơn mới', '2023-12-29 16:47:54', NULL);
+(455, 'ASJNSHOV', 'quanly đã thay đổi Trạng thái đơn hàng: Hủy -> Đơn mới', '2023-12-29 16:47:54', NULL),
+(456, 'H7SMY3IX', 'quanly đã tạo đơn hàng: <br>Mã đơn: H7SMY3IX,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 45645645,<br>Địa chỉ: 4dvsdsf,<br>Ghi chú:                         gh', '2023-12-30 13:56:36', NULL),
+(457, 'YS28NEXU', 'quanly đã tạo đơn hàng: <br>Mã đơn: YS28NEXU,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 0365151822,<br>Địa chỉ: dfgdf,<br>Ghi chú:                         ds', '2023-12-30 14:26:44', NULL),
+(458, '58TMCIA2', 'quanly đã tạo đơn hàng: <br>Mã đơn: 58TMCIA2,<br>Tên khách hàng: quanly,<br>Số điện thoại: 453245,<br>Địa chỉ: 4dvsdsf,<br>Ghi chú:             fd            ', '2023-12-30 14:54:26', NULL),
+(459, 'QD57D21V', 'nhanvien1 đã tạo đơn hàng: <br>Mã đơn: QD57D21V,<br>Tên khách hàng: nhanvien1,<br>Số điện thoại: 0365151822,<br>Địa chỉ: sdfsd,<br>Ghi chú:                         vsd', '2023-12-30 14:57:48', NULL);
 
 -- --------------------------------------------------------
 
@@ -968,17 +971,21 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `created_at`, `note`, `account_id`, `invoice_status`) VALUES
+('58TMCIA2', 'quanly', '453245', '4dvsdsf', '2023-12-30 14:54:26', '            fd            ', 1, 1),
 ('5N7P9LFG', 'nguyễn quang anh', '3453', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2023-12-24 08:17:49', '          dsfsd              ', NULL, 1),
 ('ASJNSHOV', 'quang anh', '0365151822333', '4dvsdsf', '2023-12-24 12:07:10', 'dsdgd', NULL, 1),
+('H7SMY3IX', 'quang anh', '45645645', '4dvsdsf', '2023-12-30 13:56:36', '                        gh', 1, 1),
 ('LJ15RWML', 'quang anh', '0365151822', 'dsf', '2023-12-24 08:17:49', 'sdfds', NULL, 1),
 ('PB8NR0T5', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2023-12-24 08:17:49', '                        ', NULL, 2),
+('QD57D21V', 'nhanvien1', '0365151822', 'sdfsd', '2023-12-30 14:57:48', '                        vsd', 2, 1),
 ('QHSU5DIX', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2023-12-24 08:17:49', '                        dsv', NULL, 1),
 ('QWEASVXZ', 'fdsfsd', '93232', 'cxvcx', '2023-12-24 08:17:49', 'cxfds', NULL, 5),
 ('RNQT0948', 'quang anh', '33', 'ds', '2023-12-24 08:17:49', 'a', NULL, 1),
 ('SDDFGSEW', 'quang anh', '932', '4dvsdsf', '2023-12-24 08:17:49', 'hello\r\nx', NULL, 2),
 ('VCXBDSGS', 'SF', '93232', '4fdsdvs', '2023-12-24 08:17:49', 'dsf', NULL, 1),
 ('YHJFSFAS', 'Qvxa', '21932', '4cddvs', '2023-12-24 08:17:49', '', NULL, 1),
-('YHVJLZWX', 'fsd', '34543', 'df', '2023-12-24 08:17:57', '', NULL, 1);
+('YHVJLZWX', 'fsd', '34543', 'df', '2023-12-24 08:17:57', '', NULL, 1),
+('YS28NEXU', 'quang anh', '0365151822', 'dfgdf', '2023-12-30 14:26:44', '                        ds', 1, 1);
 
 --
 -- Bẫy `invoices`
@@ -2231,13 +2238,13 @@ ALTER TABLE `accounts`
 -- AUTO_INCREMENT cho bảng `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=456;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=460;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_product`
 --
 ALTER TABLE `imgs_product`
-  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=614;
+  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=615;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_size`

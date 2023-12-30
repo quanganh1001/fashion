@@ -2,6 +2,7 @@ package project.fashion.admin.controllerAdmin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -24,10 +25,10 @@ public class CtlAdminInvoice {
     public String filterStatus(Model model,
                                @PathVariable("filterStatus") Integer filterStatus,
                                @RequestParam(name = "page", defaultValue = "0") int page,
-                               @RequestParam(name = "key", required = false) String key) {
+                               @RequestParam(name = "key", defaultValue = "") String key,
+                               @RequestParam(name = "accountId") Integer accountId) {
 
-        Page<Invoice> searchInvoice = invoiceService.findInvoiceByKeyAndStatus(key, filterStatus, page);
-
+        Page<Invoice> searchInvoice = invoiceService.findInvoiceByKeyAndStatus(key, filterStatus,accountId, page);
         accountService.getAccountResponse(model);
 
         model.addAttribute("currentPage", page);
@@ -50,8 +51,8 @@ public class CtlAdminInvoice {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addInvoice(@ModelAttribute Invoice invoice) {
-        return invoiceService.addInvoice(invoice);
+    public ResponseEntity<String> addInvoice(@ModelAttribute Invoice invoice, @RequestParam("accountId") Integer accountId) {
+        return invoiceService.addInvoice(invoice,accountId);
     }
 
 }

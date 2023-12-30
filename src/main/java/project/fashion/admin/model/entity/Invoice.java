@@ -2,6 +2,7 @@ package project.fashion.admin.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import project.fashion.admin.Response.AccountResponse;
 
 import java.time.LocalDateTime;
 
@@ -23,4 +24,7 @@ public class Invoice {
     @JoinColumn(name = "invoice_status")
     private InvoiceStatus invoiceStatus;
 
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account account;
 }

@@ -6,12 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import project.fashion.admin.Response.AccountResponse;
 import project.fashion.admin.model.entity.Account;
 import project.fashion.admin.model.entity.CustomUserDetail;
@@ -40,7 +37,7 @@ public class AccountService {
     public ResponseEntity<String> addAccount(Account ac){
         if (accountRepo.existsByUserName(ac.getUserName())){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Tài khoản đã tồn tại");
-        } else if (Objects.equals(ac.getRole(), "ADMIN")) {
+        } else if (Objects.equals(ac.getRole(), "ROLE_MANAGER")) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Không thể set quyền ADMIN");
         } else
             ac.setPassword(passwordEncoder.encode("123456"));
@@ -102,6 +99,5 @@ public class AccountService {
     public void getAccountResponse(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("account",AccountResponse.accountResponse(accountRepo.findByUserName(authentication.getName())));
-
     }
 }

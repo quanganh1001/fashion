@@ -14,17 +14,10 @@ public interface InvoiceRepo extends JpaRepository<Invoice,String> {
                                                                                  String key2,
                                                                                  Pageable pageable);
 
-    @Transactional
     @Modifying
-    @Query(value = "UPDATE invoices SET note = :newNote WHERE invoice_id = :invoiceId",
+    @Query(value = "UPDATE invoices SET account_id = :accountId WHERE invoice_id = :invoiceId",
             nativeQuery = true)
-    void setNote(@Param("newNote") String newNote, @Param("invoiceId") String invoiceId);
-
-    @Transactional
-    @Modifying
-    @Query(value = "UPDATE invoices SET invoice_status = :status WHERE invoice_id = :invoiceId",
-            nativeQuery = true)
-    void setStatus(@Param("status") Integer status, @Param("invoiceId") String invoiceId);
+    void setInvoiceAccountId(@Param("accountId") Integer accountId, @Param("invoiceId") String invoiceId);
 
     // tìm theo id hoặc sdt where status_id
     @Query(value = "SELECT *\n" +
@@ -35,5 +28,24 @@ public interface InvoiceRepo extends JpaRepository<Invoice,String> {
             @Param("filterStatus") Integer filterStatus,
             Pageable pageable
     );
+    @Query(value = "SELECT *\n" +
+            "FROM invoices\n" +
+            "WHERE (invoice_id LIKE %:key% OR phone LIKE %:key%) AND invoice_status = :filterStatus AND account_id = :accountId",nativeQuery = true)
+    Page<Invoice> findInvoiceByKeyAndStatusAndAccount_AccountId(
+            @Param("key") String key,
+            @Param("filterStatus") Integer filterStatus,
+            @Param("accountId") Integer accountId,
+            Pageable pageable
+    );
+
+    @Query(value = "SELECT *\n" +
+            "FROM invoices\n" +
+            "WHERE (invoice_id LIKE %:key% OR phone LIKE %:key%) AND account_id = :accountId",nativeQuery = true)
+    Page<Invoice> findInvoiceByKeyAndAccount_AccountId(
+            @Param("key") String key,
+            @Param("accountId") Integer accountId,
+            Pageable pageable
+    );
+
 
 }

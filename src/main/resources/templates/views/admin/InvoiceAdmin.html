@@ -11,8 +11,8 @@
         <h2>DANH SÁCH ĐƠN HÀNG</h2>
 
         <div class=" d-flex flex-wrap justify-content-start">
-            <button th:data-filter="-1" id="-1"
-                    class="filter m-3 p-2 btn-secondary btn col-2">
+            <a th:href="@{/admin/invoice/filter/-1?accountId=__${account.accountId}__}" id="-1"
+                    class=" m-3 p-2 btn-secondary btn col-2">
                 <div class="info-box d-flex p-2">
                     <span class="info-box-icon"><i class="fa-2xl fa-solid fa-file-invoice-dollar"
                                                    style="color: #000000;"></i></span>
@@ -20,18 +20,18 @@
                         <div class="info-box-text" >Tất cả đơn hàng</div>
                     </div>
                 </div>
-            </button>
+            </a>
 
-            <button th:data-filter="0" id="0" class="filter col-2 m-3 p-2 btn-secondary btn">
+            <a th:href="@{/admin/invoice/filter/0?accountId=__${account.accountId}__}" id="0" class="filter col-2 m-3 p-2 btn-secondary btn">
                 <div class="info-box d-flex ">
                     <span class="info-box-icon"><i class="fa-2xl fa-solid fa-xmark" style="color: #ff0000;"></i></span>
                     <div class="info-box-content">
                         <div class="info-box-text" >Đơn đã hủy</div>
                     </div>
                 </div>
-            </button>
+            </a>
 
-            <button th:data-filter="1" id="1" class="filter col-2 m-3 p-2 btn-secondary btn">
+            <a th:href="@{/admin/invoice/filter/1?accountId=__${account.accountId}__}" id="1" class="filter col-2 m-3 p-2 btn-secondary btn">
                 <div class="info-box d-flex ">
                     <span
                             class="info-box-icon"><i class="fa-2xl fa-solid fa-cart-plus"
@@ -40,9 +40,9 @@
                         <div class="info-box-text" >Đơn mới</div>
                     </div>
                 </div>
-            </button>
+            </a>
 
-            <button th:data-filter="2" id="2" class="filter col-2 m-3 p-2 btn-secondary btn">
+            <a th:href="@{/admin/invoice/filter/2?accountId=__${account.accountId}__}" id="2" class="filter col-2 m-3 p-2 btn-secondary btn">
                 <div class="info-box d-flex">
                     <span class="info-box-icon"><i class="fa-2xl fa-solid fa-check"
                                                    style="color: #00800f;"></i></span>
@@ -50,9 +50,9 @@
                         <div class="info-box-text" >Đơn đã lên</div>
                     </div>
                 </div>
-            </button>
+            </a>
 
-            <button th:data-filter="3" id="3" class="filter col-2 m-3 p-2 btn-secondary btn">
+            <a th:href="@{/admin/invoice/filter/3?accountId=__${account.accountId}__}" id="3" class="filter col-2 m-3 p-2 btn-secondary btn">
                 <div class="info-box d-flex ">
                     <span
                             class="info-box-icon"><i class="fa-2xl fa-solid fa-truck-fast" style="color: #ffc800;"></i></span>
@@ -60,9 +60,9 @@
                         <div class="info-box-text" >Đơn đang giao</div>
                     </div>
                 </div>
-            </button>
+            </a>
 
-            <button th:data-filter="4" id="4" class="filter col-2 m-3 p-2 btn-secondary btn">
+            <a th:href="@{/admin/invoice/filter/4?accountId=__${account.accountId}__}" id="4" class="filter col-2 m-3 p-2 btn-secondary btn">
                 <div class="info-box d-flex">
                     <span class="info-box-icon"><i class="fa-2xl fa-solid fa-circle-check"
                                                    style="color: #0045bd;"></i></span>
@@ -70,9 +70,9 @@
                         <div class="info-box-text" >Đơn thành công</div>
                     </div>
                 </div>
-            </button>
+            </a>
 
-            <button th:data-filter="5" id="5" class="filter col-2 m-3 p-2 btn-secondary btn">
+            <a th:href="@{/admin/invoice/filter/5?accountId=__${account.accountId}__}" id="5" class="filter col-2 m-3 p-2 btn-secondary btn">
                 <div class="info-box d-flex">
                     <span
                             class="info-box-icon"><i class="fa-2xl fa-solid fa-ban"
@@ -81,13 +81,14 @@
                         <div class="info-box-text">Đơn hoàn</div>
                     </div>
                 </div>
-            </button>
+            </a>
         </div>
 
         <div class="col-12 d-flex justify-content-between align-items-center">
             <button class="btn btn-primary" id="btnAddInvoice">Tạo đơn hàng</button>
             <form th:action="@{/admin/invoice/filter/__${filterStatus}__}" method="get">
                 <label for="key">Tìm kiếm:</label>
+                <input type="hidden" name="accountId" th:value="${account.accountId}">
                 <input type="text" id="key" name="key" th:value="${#strings.isEmpty(searchKey) ? '' : searchKey}"
                        placeholder="Nhập SĐT hoặc mã đơn hàng...">
                 <button type="submit" class="btn btn-primary">Tìm kiếm</button>
@@ -134,15 +135,22 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="invoice:${invoice}">
+            <tr th:each="invoice:${invoice}" >
                 <td th:text="${invoice.invoiceId}"></td>
                 <td th:text="${invoice.name}"></td>
                 <td th:text="${invoice.phone}"></td>
                 <td th:text="${invoice.invoiceStatus.status}"></td>
                 <td th:text="${#temporals.format(invoice.createdAt, 'HH:mm:ss dd/MM/yyyy')}"></td>
-                <td><a
-                        th:href="@{/admin/invoiceDetail?invoiceId=__${invoice.invoiceId}__}"><i
-                        class="fa-regular fa-eye"></i></a></td>
+                <td th:if="${invoice.account != null}"><a
+                        th:href="@{/admin/invoiceDetail?invoiceId=__${invoice.invoiceId}__&accountId=__${invoice.account.accountId}__}"><i
+                        class="fa-regular fa-eye"></i>
+                    </a>
+                </td>
+                <td th:unless="${invoice.account != null}"><a
+                        th:href="@{/admin/invoiceDetail?invoiceId=__${invoice.invoiceId}__&accountId=1}"><i
+                        class="fa-regular fa-eye"></i>
+                </a>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -182,9 +190,9 @@
         $("#btnAddInvoice").click(() =>{
             window.location.href="/admin/invoice/add";
         })
+
     })
 </script>
-<script th:src="@{/script/InvoiceAdminScript.js}"></script>
 
 </body>
 </html>
