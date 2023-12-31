@@ -2,6 +2,7 @@ package project.fashion.admin.Response;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import lombok.Builder;
 import lombok.Data;
 import project.fashion.admin.model.entity.Account;
 import project.fashion.admin.model.entity.RoleEnum;

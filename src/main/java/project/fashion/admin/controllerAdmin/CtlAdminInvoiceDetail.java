@@ -4,13 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import project.fashion.admin.Response.AccountResponse;
 import project.fashion.admin.model.entity.*;
 import project.fashion.admin.model.service.*;
 
 import java.io.IOException;
+import java.net.Authenticator;
 import java.util.List;
 
 @Controller
@@ -31,10 +35,11 @@ public class CtlAdminInvoiceDetail {
     private AccountService accountService;
 
     @GetMapping()
-    @PreAuthorize("isAuthenticated() and (#accountId == (authentication.principal.user.accountId)) or hasAnyRole('MANAGER')")
+    @PreAuthorize("isAuthenticated() and ((#accountId == (authentication.principal.user.accountId)) or hasAnyRole('MANAGER'))")
     public String getInvoiceDetail(Model model,
                                    @RequestParam("invoiceId") String invoiceId,
-                                   @RequestParam("accountId") String accountId) {
+                                   @RequestParam("accountId") Integer accountId) {
+
         List<InvoiceDetail> invoiceDetails = invoiceDetailService.findAllByInvoice_InvoiceId(invoiceId);
 
         Invoice invoice = invoiceService.findById(invoiceId);
@@ -48,6 +53,9 @@ public class CtlAdminInvoiceDetail {
         var totalAmount = invoiceDetailService.totalAdmount(invoiceDetails);
 
         accountService.getAccountResponse(model);
+        List<AccountResponse> accountResponses = accountService.findAll();
+
+        model.addAttribute("accountResponses",accountResponses);
         model.addAttribute("invoiceDetails", invoiceDetails);
         model.addAttribute("invoice", invoice);
         model.addAttribute("status", status);

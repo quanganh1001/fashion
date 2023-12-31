@@ -8,9 +8,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import project.fashion.admin.Response.AccountResponse;
 import project.fashion.admin.model.entity.Invoice;
 import project.fashion.admin.model.service.AccountService;
 import project.fashion.admin.model.service.InvoiceService;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin/invoice")
@@ -26,11 +29,17 @@ public class CtlAdminInvoice {
                                @PathVariable("filterStatus") Integer filterStatus,
                                @RequestParam(name = "page", defaultValue = "0") int page,
                                @RequestParam(name = "key", defaultValue = "") String key,
-                               @RequestParam(name = "accountId") Integer accountId) {
+                               @RequestParam(name = "accountId") Integer accountId,
+                               @RequestParam(name = "selectAccount", defaultValue = "-1") Integer selectAccount) {
 
-        Page<Invoice> searchInvoice = invoiceService.findInvoiceByKeyAndStatus(key, filterStatus,accountId, page);
+        Page<Invoice> searchInvoice = invoiceService.findInvoiceByKeyAndStatus(selectAccount,key, filterStatus,accountId, page);
         accountService.getAccountResponse(model);
 
+        List<AccountResponse> accountResponses = accountService.findAll();
+
+        System.out.println(selectAccount);
+        model.addAttribute("accountResponses",accountResponses);
+        model.addAttribute("selectAccount",selectAccount);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", searchInvoice.getTotalPages());
         model.addAttribute("totalItems", searchInvoice.getTotalElements());

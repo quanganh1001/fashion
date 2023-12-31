@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 30, 2023 lúc 06:49 PM
+-- Thời gian đã tạo: Th12 31, 2023 lúc 06:23 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.0.28
 
@@ -462,7 +462,33 @@ INSERT INTO `history` (`id`, `invoice_id`, `content`, `time`, `time_ago`) VALUES
 (456, 'H7SMY3IX', 'quanly đã tạo đơn hàng: <br>Mã đơn: H7SMY3IX,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 45645645,<br>Địa chỉ: 4dvsdsf,<br>Ghi chú:                         gh', '2023-12-30 13:56:36', NULL),
 (457, 'YS28NEXU', 'quanly đã tạo đơn hàng: <br>Mã đơn: YS28NEXU,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 0365151822,<br>Địa chỉ: dfgdf,<br>Ghi chú:                         ds', '2023-12-30 14:26:44', NULL),
 (458, '58TMCIA2', 'quanly đã tạo đơn hàng: <br>Mã đơn: 58TMCIA2,<br>Tên khách hàng: quanly,<br>Số điện thoại: 453245,<br>Địa chỉ: 4dvsdsf,<br>Ghi chú:             fd            ', '2023-12-30 14:54:26', NULL),
-(459, 'QD57D21V', 'nhanvien1 đã tạo đơn hàng: <br>Mã đơn: QD57D21V,<br>Tên khách hàng: nhanvien1,<br>Số điện thoại: 0365151822,<br>Địa chỉ: sdfsd,<br>Ghi chú:                         vsd', '2023-12-30 14:57:48', NULL);
+(459, 'QD57D21V', 'nhanvien1 đã tạo đơn hàng: <br>Mã đơn: QD57D21V,<br>Tên khách hàng: nhanvien1,<br>Số điện thoại: 0365151822,<br>Địa chỉ: sdfsd,<br>Ghi chú:                         vsd', '2023-12-30 14:57:48', NULL),
+(460, '58TMCIA2', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đã lên đơn', '2023-12-31 08:55:36', NULL),
+(461, '58TMCIA2', 'quanly đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Đơn mới', '2023-12-31 08:55:41', NULL),
+(462, '58TMCIA2', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đã lên đơn', '2023-12-31 08:55:49', NULL),
+(463, '58TMCIA2', 'quanly đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Hủy', '2023-12-31 08:56:15', NULL),
+(464, 'LJ15RWML', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đã lên đơn', '2023-12-31 09:00:09', NULL),
+(465, 'QD57D21V', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đã lên đơn', '2023-12-31 09:00:45', NULL),
+(466, 'QD57D21V', 'quanly đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Thành công', '2023-12-31 09:00:49', NULL),
+(467, 'RNQT0948', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đã lên đơn', '2023-12-31 09:01:00', NULL),
+(468, 'RNQT0948', 'quanly đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Thành công', '2023-12-31 09:01:04', NULL),
+(469, 'YHJFSFAS', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đã lên đơn', '2023-12-31 09:03:32', NULL),
+(470, 'YHJFSFAS', 'quanly đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Hoàn', '2023-12-31 09:03:35', NULL),
+(471, 'QHSU5DIX', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đã lên đơn', '2023-12-31 09:09:24', NULL),
+(472, 'QHSU5DIX', 'quanly đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Đang giao hàng', '2023-12-31 09:09:27', NULL),
+(473, 'H7SMY3IX', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2023-12-31 09:09:51', NULL),
+(474, 'H7SMY3IX', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-39) :1 -> 2', '2023-12-31 09:09:57', NULL),
+(475, 'LJ15RWML', 'quanly đã thay đổi Nguồn tạo đơn hàng: 1 -> 2', '2023-12-31 13:04:34', NULL),
+(476, 'LJ15RWML', 'quanly đã thay đổi Nguồn tạo đơn hàng: nhanvien1 -> nhanvien1', '2023-12-31 13:11:46', NULL),
+(477, 'LJ15RWML', 'quanly đã thay đổi Nguồn tạo đơn hàng: quanly -> nhanvien1', '2023-12-31 13:12:06', NULL),
+(478, 'H7SMY3IX', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đã lên đơn', '2023-12-31 15:05:14', NULL),
+(479, 'H7SMY3IX', 'quanly đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Đơn mới', '2023-12-31 15:07:06', NULL),
+(480, 'H7SMY3IX', 'quanly đã thay đổi Tên khách hàng: quang anh -> ', '2023-12-31 15:11:07', NULL),
+(481, 'H7SMY3IX', 'quanly đã thay đổi Tên khách hàng:  -> quang anh', '2023-12-31 15:21:43', NULL),
+(482, 'H7SMY3IX', 'quanly đã thay đổi Số điện thoại: 45645645 -> 4234', '2023-12-31 15:21:50', NULL),
+(483, 'H7SMY3IX', 'quanly đã thay đổi Nguồn tạo đơn hàng: quanly -> nhanvien1', '2023-12-31 15:24:24', NULL),
+(484, 'H7SMY3IX', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đã lên đơn', '2023-12-31 15:27:52', NULL),
+(485, '5N7P9LFG', 'quanly đã thay đổi Nguồn tạo đơn hàng: nhanvien1 -> quanly', '2023-12-31 17:22:45', NULL);
 
 -- --------------------------------------------------------
 
@@ -971,19 +997,19 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `created_at`, `note`, `account_id`, `invoice_status`) VALUES
-('58TMCIA2', 'quanly', '453245', '4dvsdsf', '2023-12-30 14:54:26', '            fd            ', 1, 1),
-('5N7P9LFG', 'nguyễn quang anh', '3453', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2023-12-24 08:17:49', '          dsfsd              ', NULL, 1),
-('ASJNSHOV', 'quang anh', '0365151822333', '4dvsdsf', '2023-12-24 12:07:10', 'dsdgd', NULL, 1),
-('H7SMY3IX', 'quang anh', '45645645', '4dvsdsf', '2023-12-30 13:56:36', '                        gh', 1, 1),
-('LJ15RWML', 'quang anh', '0365151822', 'dsf', '2023-12-24 08:17:49', 'sdfds', NULL, 1),
-('PB8NR0T5', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2023-12-24 08:17:49', '                        ', NULL, 2),
-('QD57D21V', 'nhanvien1', '0365151822', 'sdfsd', '2023-12-30 14:57:48', '                        vsd', 2, 1),
-('QHSU5DIX', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2023-12-24 08:17:49', '                        dsv', NULL, 1),
-('QWEASVXZ', 'fdsfsd', '93232', 'cxvcx', '2023-12-24 08:17:49', 'cxfds', NULL, 5),
-('RNQT0948', 'quang anh', '33', 'ds', '2023-12-24 08:17:49', 'a', NULL, 1),
-('SDDFGSEW', 'quang anh', '932', '4dvsdsf', '2023-12-24 08:17:49', 'hello\r\nx', NULL, 2),
-('VCXBDSGS', 'SF', '93232', '4fdsdvs', '2023-12-24 08:17:49', 'dsf', NULL, 1),
-('YHJFSFAS', 'Qvxa', '21932', '4cddvs', '2023-12-24 08:17:49', '', NULL, 1),
+('58TMCIA2', 'quanly', '453245', '4dvsdsf', NULL, '            fd            ', NULL, 0),
+('5N7P9LFG', 'nguyễn quang anh', '3453', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2023-12-31 11:34:00', '          dsfsd              ', 1, 1),
+('ASJNSHOV', 'quang anh', '0365151822333', '4dvsdsf', NULL, 'dsdgd', 1, 1),
+('H7SMY3IX', 'quang anh', '4234', '4dvsdsf', '2023-12-31 11:34:00', '                        gh', 2, 3),
+('LJ15RWML', 'quang anh', '0365151822', 'dsf', '2023-12-31 11:34:00', 'sdfds', 2, 3),
+('PB8NR0T5', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2023-12-31 11:34:20', '                        ', 1, 2),
+('QD57D21V', 'nhanvien1', '0365151822', 'sdfsd', '2023-12-31 11:34:00', '                        vsd', 2, 5),
+('QHSU5DIX', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2023-12-31 11:34:20', '                        dsv', 1, 4),
+('QWEASVXZ', 'fdsfsd', '93232', 'cxvcx', '2023-12-31 11:34:20', 'cxfds', 1, 5),
+('RNQT0948', 'quang anh', '33', 'ds', '2023-12-31 11:34:20', 'a', 2, 5),
+('SDDFGSEW', 'quang anh', '932', '4dvsdsf', '2023-12-31 11:34:20', 'hello\r\nx', 2, 2),
+('VCXBDSGS', 'SF', '93232', '4fdsdvs', '2023-12-31 11:34:20', 'dsf', 2, 1),
+('YHJFSFAS', 'Qvxa', '21932', '4cddvs', '2023-12-31 11:34:20', '', 1, 6),
 ('YHVJLZWX', 'fsd', '34543', 'df', '2023-12-24 08:17:57', '', NULL, 1),
 ('YS28NEXU', 'quang anh', '0365151822', 'dfgdf', '2023-12-30 14:26:44', '                        ds', 1, 1);
 
@@ -1007,6 +1033,10 @@ CREATE TRIGGER `after_invoice_update` BEFORE UPDATE ON `invoices` FOR EACH ROW B
     DECLARE invoice_id VARCHAR(25);
     DECLARE old_status VARCHAR(25);
     DECLARE new_status VARCHAR(25);
+    DECLARE old_account VARCHAR(25);
+    DECLARE new_account VARCHAR(25);
+    SET old_account = (SELECT accounts.user_name FROM accounts WHERE account_id = OLD.account_id);
+    SET new_account = (SELECT accounts.user_name FROM accounts WHERE account_id = NEW.account_id);
     SET invoice_id = NEW.invoice_id;
      SET old_status = (SELECT invoices_status.status FROM invoices_status WHERE status_id = OLD.invoice_status);
     SET new_status = (SELECT invoices_status.status FROM invoices_status WHERE status_id = NEW.invoice_status);
@@ -1033,6 +1063,11 @@ CREATE TRIGGER `after_invoice_update` BEFORE UPDATE ON `invoices` FOR EACH ROW B
     
     IF NEW.invoice_status != OLD.invoice_status THEN
         SET content = CONCAT(@current_user , ' đã thay đổi Trạng thái đơn hàng: ', old_status , ' -> ', new_status);
+        INSERT INTO history (invoice_id,content) VALUES (invoice_id,content);
+    END IF;
+    
+    IF NEW.account_id != OLD.account_id THEN
+        SET content = CONCAT(@current_user , ' đã thay đổi Nguồn tạo đơn hàng: ', old_account , ' -> ', new_account);
         INSERT INTO history (invoice_id,content) VALUES (invoice_id,content);
     END IF;
 END
@@ -1071,7 +1106,8 @@ INSERT INTO `invoices_detail` (`detail_id`, `invoice_id`, `product_detail_id`, `
 (198, 'LJ15RWML', 442, 480000, 2, 960000),
 (208, 'LJ15RWML', 443, 480000, 1, 480000),
 (209, 'LJ15RWML', 612, 380000, 1, 380000),
-(210, '5N7P9LFG', 442, 480000, 5, 2400000);
+(210, '5N7P9LFG', 442, 480000, 5, 2400000),
+(213, 'H7SMY3IX', 443, 480000, 2, 960000);
 
 --
 -- Bẫy `invoices_detail`
@@ -1531,7 +1567,7 @@ INSERT INTO `products_detail` (`product_detail_id`, `product_id`, `code`, `color
 (192, 'DSTP903', 'DSTP90372CT32RB_WCB-L', 'WCB', 'L', 999, b'1', b'1'),
 (193, 'DSTP903', 'DSTP90372CT32RB_WCB-XL', 'WCB', 'XL', 999, b'1', b'1'),
 (194, 'DSTP903', 'DSTP90372CT32RB_HCR-S', 'HCR', 'S', 999, b'1', b'1'),
-(195, 'DSTP903', 'DSTP90372CT32RB_HCR-M', 'HCR', 'M', 999, b'1', b'1'),
+(195, 'DSTP903', 'DSTP90372CT32RB_HCR-M', 'HCR', 'M', 995, b'1', b'1'),
 (196, 'DSTP903', 'DSTP90372CT32RB_HCR-L', 'HCR', 'L', 999, b'1', b'1'),
 (197, 'DSTP903', 'DSTP90372CT32RB_HCR-XL', 'HCR', 'XL', 999, b'1', b'1'),
 (198, 'ESTP017', 'ESTP01772CV32SB_BLE-S', 'BLE', 'S', 999, b'1', b'1'),
@@ -1558,7 +1594,7 @@ INSERT INTO `products_detail` (`product_detail_id`, `product_id`, `code`, `color
 (227, 'ESTP021', 'ESTP02172CT32SB_NWH-XL', 'WH', 'XL', 999, b'1', b'1'),
 (232, 'ESTP014', 'ESTP01472CV08SB_BCR-S', 'BCR', 'S', 999, b'1', b'1'),
 (233, 'ESTP014', 'ESTP01472CV08SB_BCR-M', 'BCR', 'M', 999, b'1', b'1'),
-(234, 'ESTP014', 'ESTP01472CV08SB_BCR-L', 'BCR', 'L', 999, b'1', b'1'),
+(234, 'ESTP014', 'ESTP01472CV08SB_BCR-L', 'BCR', 'L', 998, b'1', b'1'),
 (235, 'ESTP014', 'ESTP01472CV08SB_BCR-XL', 'BCR', 'XL', 999, b'1', b'1'),
 (240, 'ESTP012', 'ESTP01272CT08SB_VCB-S', 'VCB', 'S', 999, b'1', b'1'),
 (241, 'ESTP012', 'ESTP01272CT08SB_VCB-M', 'VCB', 'M', 999, b'1', b'1'),
@@ -1743,8 +1779,8 @@ INSERT INTO `products_detail` (`product_detail_id`, `product_id`, `code`, `color
 (439, 'EATB006', 'EATB00671LI13RB_LB-40', 'LB', '40', 999, b'1', b'1'),
 (440, 'EATB006', 'EATB00671LI13RB_LB-41', 'LB', '41', 999, b'1', b'1'),
 (441, 'EATB006', 'EATB00671LI13RB_LB-42', 'LB', '42', 999, b'1', b'1'),
-(442, 'DATB416', 'DATB41671CA11RB_NBX-38', 'NBX', '38', 999, b'1', b'1'),
-(443, 'DATB416', 'DATB41671CA11RB_NBX-39', 'NBX', '39', 999, b'1', b'1'),
+(442, 'DATB416', 'DATB41671CA11RB_NBX-38', 'NBX', '38', 992, b'1', b'1'),
+(443, 'DATB416', 'DATB41671CA11RB_NBX-39', 'NBX', '39', 996, b'1', b'1'),
 (444, 'DATB416', 'DATB41671CA11RB_NBX-40', 'NBX', '40', 999, b'1', b'1'),
 (445, 'DATB416', 'DATB41671CA11RB_NBX-41', 'NBX', '41', 999, b'1', b'1'),
 (446, 'DATB416', 'DATB41671CA11RB_NBX-42', 'NBX', '42', 999, b'1', b'1'),
@@ -1913,7 +1949,7 @@ INSERT INTO `products_detail` (`product_detail_id`, `product_id`, `code`, `color
 (609, 'ESBK002', 'ESBK00202CT00RB_BE-31', 'BE', '31', 999, b'1', b'1'),
 (610, 'ESBK002', 'ESBK00202CT00RB_BE-32', 'BE', '32', 999, b'1', b'1'),
 (611, 'ESBK002', 'ESBK00202CT00RB_BE-33', 'BE', '33', 999, b'1', b'1'),
-(612, 'BI013', 'DSBI01302LI00SB_BE-29', 'BE', '29', 999, b'1', b'1'),
+(612, 'BI013', 'DSBI01302LI00SB_BE-29', 'BE', '29', 996, b'1', b'1'),
 (613, 'BI013', 'DSBI01302LI00SB_BE-30', 'BE', '30', 999, b'1', b'1'),
 (614, 'BI013', 'DSBI01302LI00SB_BE-31', 'BE', '31', 999, b'1', b'1'),
 (615, 'BI013', 'DSBI01302LI00SB_BE-32', 'BE', '32', 999, b'1', b'1'),
@@ -2232,13 +2268,13 @@ ALTER TABLE `stores`
 -- AUTO_INCREMENT cho bảng `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT cho bảng `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=460;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=486;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_product`
@@ -2256,7 +2292,7 @@ ALTER TABLE `imgs_size`
 -- AUTO_INCREMENT cho bảng `invoices_detail`
 --
 ALTER TABLE `invoices_detail`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=213;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=214;
 
 --
 -- AUTO_INCREMENT cho bảng `invoices_status`

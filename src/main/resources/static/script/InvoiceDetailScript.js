@@ -89,23 +89,36 @@ function submitForm() {
     var url = $('#form').attr('action'); // Lấy URL của form
     var csrfToken = $("meta[name='_csrf']").attr("content");
     var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-    $.ajax({
-        type: 'PUT',
-        url: url,
-        data: formData,
-        beforeSend: function (xhr) {
-            // Sử dụng tên HTTP header chuẩn và giá trị token
-            xhr.setRequestHeader(csrfHeader, csrfToken);
-        },
-        success:  (data) => {
-            alert('Đã cập nhật đơn hàng thành công!');
-            window.location.reload();
-            // Có thể thực hiện các hành động khác sau khi cập nhật thành công
-        },
-        error: (jqXHR) => {
-            alert(jqXHR.responseText)
-        }
-    });
+
+    var account = $("#account").val();
+    var name = $("#name").val();
+    var phone = $("#phone").val();
+    console.log(account)
+    console.log(name)
+    console.log(phone)
+    if (account ==="" || name === "" || phone === "" ||  isNaN(phone)){
+        alert("Nhập thiếu hoặc sai thông tin")
+    }
+    else {
+        $.ajax({
+            type: 'PUT',
+            url: url,
+            data: formData,
+            beforeSend: function (xhr) {
+                // Sử dụng tên HTTP header chuẩn và giá trị token
+                xhr.setRequestHeader(csrfHeader, csrfToken);
+            },
+            success:  (data) => {
+                alert('Đã cập nhật đơn hàng thành công!');
+                window.location.reload();
+                // Có thể thực hiện các hành động khác sau khi cập nhật thành công
+            },
+            error: (jqXHR) => {
+                alert(jqXHR.responseText)
+            }
+        });
+    }
+
 }
 
 $(document).ready(() => {
@@ -120,7 +133,6 @@ $(document).ready(() => {
         $("#input-plus").addClass("hidden")
         $("#list-result").addClass("hidden")
     })
-
 
     var invoiceId = $("#input-plus").attr("data-invoice-id");
     var inputValue = ""

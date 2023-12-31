@@ -11,16 +11,16 @@
     <div class="container p-4">
 
         <h2>THÊM MỚI TÀI KHOẢN</h2>
-        <form id="form" th:action="@{/admin/account/add-account?accountId=__${account.accountId}__}" method="post" th:object="${ac}">
+        <form id="form" th:action="@{/admin/account/add-account}" method="post" th:object="${ac}">
             <div class="row">
                 <div class="mb-3">
                     <label for="userName" class="form-label">Tên tài khoản<span style="color:red">*</span></label>
-                    <input type="text" class="form-control" id="userName" th:field="${account.userName}">
+                    <input type="text" class="form-control" id="userName" th:field="${newAccount.userName}">
                 </div>
 
                 <div class="mb-3">
                     <label th:for="role" class="form-label">Phân quyền<span style="color:red">*</span></label>
-                    <select class="form-control" th:id="role" th:field="${account.role}">
+                    <select class="form-control" th:id="role" th:field="${newAccount.role}">
                         <option value="">Không có</option>
                         <option th:each="role : ${roles}" th:value="${role}"
                                 th:text="${role}" ></option>

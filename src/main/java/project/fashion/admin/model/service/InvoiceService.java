@@ -51,80 +51,128 @@ public class InvoiceService {
         return OptionalInvoice.get();
     }
 
-    public Page<Invoice> findInvoiceByKeyAndStatus(String key, Integer filterStatus,Integer accountId, Integer page) {
+    public Page<Invoice> findInvoiceByKeyAndStatus(Integer selectAccount, String key, Integer filterStatus, Integer accountId, Integer page) {
         if (page < 0)
             page = 0;
         var accountLogging = accountService.getAccount(accountId);
-
+        // quyền manager
         if (Objects.equals(accountLogging.getRole().toString(), "ROLE_MANAGER")) {
+            //lọc theo trạng thái + quyền manager
             if (filterStatus != -1) {
-
-                return invoiceRepo.findInvoiceByKeyAndStatus(key, filterStatus, PageRequest.of(page, 10));
+                //tất cả account + lọc theo trạng thái + quyền manager
+                if (selectAccount == -1) {
+                    return invoiceRepo.findInvoiceByKeyAndInvoiceStatus(key, filterStatus, PageRequest.of(page, 10));
+                    // hệ thống + lọc theo trạng thái + quyền manager
+                } else if (selectAccount == 0) {
+                    return invoiceRepo.findInvoiceByKeyAndInvoiceStatusAndAccount_AccountIdNull(key, filterStatus, PageRequest.of(page, 10));
+                }
+                // lọc theo account + lọc theo trạng thái + quyền manager
+                else {
+                    return invoiceRepo.findInvoiceByKeyAndInvoiceStatusAndAccount_AccountId(key, filterStatus, selectAccount, PageRequest.of(page, 10));
+                }
+                // tất cả trạng thái + quyền manager
             } else
-                //trả về tất cả kết quả
-                System.out.println(accountLogging.getRole());
-                return invoiceRepo.searchInvoicesByInvoiceIdContainingOrPhoneContainingIgnoreCase(
-                        key,key, PageRequest.of(page, 10));
-
-        } else {
-            Page<Invoice> pageInvoice;
-            if (filterStatus != -1) {
-                return invoiceRepo.findInvoiceByKeyAndStatusAndAccount_AccountId(key,filterStatus,accountId, PageRequest.of(page, 10));
-            } else
-                //trả về tất cả kết quả
-                return invoiceRepo.findInvoiceByKeyAndAccount_AccountId(key,accountId, PageRequest.of(page, 10));
-
+                // tất cả account + tất cả trạng thái + quyền manager
+                if (selectAccount == -1){
+                    return invoiceRepo.searchInvoicesByInvoiceIdContainingIgnoreCaseOrPhoneContainingIgnoreCase(
+                            key, key, PageRequest.of(page, 10));
+                // hệ thống + tất cả trạng thái + quyền manager
+                } else if(selectAccount == 0) {
+                    return invoiceRepo.findInvoiceByKeyAndAccount_AccountIdNull(key, PageRequest.of(page, 10));
+                // lọc theo account +  tất cả trạng thái + quyền manager
+                }else{
+                return invoiceRepo.findInvoiceByKeyAndAccount_AccountId(key, accountId, PageRequest.of(page, 10));
         }
+        // quyền nhân viên
+    } else
+
+    {
+        // lọc theo trạng thái + quyền nhân viên
+        if (filterStatus != -1) {
+            return invoiceRepo.findInvoiceByKeyAndStatusAndAccount_AccountId(key, filterStatus, accountId, PageRequest.of(page, 10));
+            // tất cả trạng thái + quyền nhân viên
+        } else
+            return invoiceRepo.findInvoiceByKeyAndAccount_AccountId(key, accountId, PageRequest.of(page, 10));
 
     }
+
+}
 
     @Transactional
     public ResponseEntity<String> updateInvoice(String invoiceId, Invoice i) {
-        Optional<Invoice> optionalInvoice = invoiceRepo.findById(invoiceId);
+
+        Optional<Invoice> optionalInvoice = Optional.of(invoiceRepo.findById(invoiceId).orElse(new Invoice()));
         var status = optionalInvoice.get().getInvoiceStatus().getStatusId();
         var newStatus = i.getInvoiceStatus().getStatusId();
+        var newName = i.getName();
+        var oldName = optionalInvoice.get().getName();
+        var newPhone = i.getPhone();
+        var oldPhone = optionalInvoice.get().getPhone();
+        var newAddress = i.getAddress();
+        var oldAddress = optionalInvoice.get().getAddress();
+        var newId = i.getInvoiceId();
+        var oldId = optionalInvoice.get().getInvoiceId();
 
-        List<InvoiceDetail> invoiceDetails = invoiceDetailRepo.findAllByInvoice_InvoiceId(invoiceId);
-
-        // chưa lên đơn -> đã lên đơn => giảm số lượng
-        if (status != 3 && newStatus == 3) {
-            for (InvoiceDetail id : invoiceDetails) {
-                var oldQuantity = id.getProductDetail().getQuantity();
-                var quantity = id.getQuantity();
-                var productDetaiId = id.getProductDetail().getProductDetailId();
-                var newQuantity = oldQuantity - quantity;
-
-                productDetailRepo.updateQuantityProductRepo(newQuantity, productDetaiId);
-            }
-
-            // đã lên đơn -> chưa lên đơn => tăng số lượng
-        } else if (status == 3 && newStatus <= 2) {
-            for (InvoiceDetail id : invoiceDetails) {
-                var oldQuantity = id.getProductDetail().getQuantity();
-                var quantity = id.getQuantity();
-                var productDetaiId = id.getProductDetail().getProductDetailId();
-                var newQuantity = oldQuantity + quantity;
-
-                productDetailRepo.updateQuantityProductRepo(newQuantity, productDetaiId);
-            }
+        if (Objects.equals(newPhone, "") || !isNumeric(newPhone) ||
+                Objects.equals(newName, "") || !isNumeric(newStatus.toString())||
+                Objects.equals(newStatus.toString(), "")|| newStatus < 0 || newStatus > 6) {
+            return new ResponseEntity<>("Nhập thông tin thiếu hoặc không đúng"
+                    , HttpStatus.BAD_REQUEST);
         } else if (status >= 4 && newStatus <= 2)
             return new ResponseEntity<>("Đơn đã gửi thì không thể đổi trạng thái về lúc chưa gửi", HttpStatus.BAD_REQUEST);
-
         else if (status <= 2 && newStatus >= 4) {
             return new ResponseEntity<>("Đơn chưa gửi không thể cập nhập trạng thái đang chuyển, thành công hoặc hoàn"
                     , HttpStatus.BAD_REQUEST);
-        } else {
+        } else if ((status >= 5) && !newStatus.equals(status)) {
+            return new ResponseEntity<>(" Đơn đã thành công hoặc hoàn thì không thể thay đổi thay đổi thông tin"
+                    , HttpStatus.BAD_REQUEST);
+        }else if ((status >= 3) && (!Objects.equals(oldName, newName))) {
+            return new ResponseEntity<>("Đơn đã xác nhận hoặc gửi đi thì không thể thay đổi thông tin"
+                    , HttpStatus.BAD_REQUEST);
+        }else if ((status >= 3) && (!Objects.equals(oldPhone, newPhone))) {
+            return new ResponseEntity<>("Đơn đã xác nhận hoặc gửi đi thì không thể thay đổi thông tin"
+                    , HttpStatus.BAD_REQUEST);
+        }else if ((status >= 3) && (!Objects.equals(oldAddress, newAddress))) {
+            return new ResponseEntity<>("Đơn đã xác nhận hoặc gửi đi thì không thể thay đổi thông tin"
+                    , HttpStatus.BAD_REQUEST);
+        }else if (!Objects.equals(newId, oldId)) {
+            return new ResponseEntity<>("Không thể thay đổi invoiceId"
+                    , HttpStatus.BAD_REQUEST);
+        }else {
+            List<InvoiceDetail> invoiceDetails = invoiceDetailRepo.findAllByInvoice_InvoiceId(invoiceId);
+            // chưa lên đơn -> đã lên đơn => giảm số lượng
+            if (status != 3 && newStatus == 3) {
+                for (InvoiceDetail id : invoiceDetails) {
+                    var oldQuantity = id.getProductDetail().getQuantity();
+                    var quantity = id.getQuantity();
+                    var productDetaiId = id.getProductDetail().getProductDetailId();
+                    var newQuantity = oldQuantity - quantity;
+
+                    productDetailRepo.updateQuantityProductRepo(newQuantity, productDetaiId);
+                }
+
+                // đã lên đơn -> chưa lên đơn => tăng số lượng
+            } else if (status == 3 && newStatus <= 2) {
+                for (InvoiceDetail id : invoiceDetails) {
+                    var oldQuantity = id.getProductDetail().getQuantity();
+                    var quantity = id.getQuantity();
+                    var productDetaiId = id.getProductDetail().getProductDetailId();
+                    var newQuantity = oldQuantity + quantity;
+
+                    productDetailRepo.updateQuantityProductRepo(newQuantity, productDetaiId);
+                }
+            }
+
             // create history
             historyService.setTriggerVariableForHistory();
             invoiceRepo.save(i);
-
-
+            return ResponseEntity.ok().build();
         }
-        return ResponseEntity.ok().build();
+
     }
 
     @Transactional
-    public ResponseEntity<String> addInvoice(Invoice invoice,Integer accountId) {
+    public ResponseEntity<String> addInvoice(Invoice invoice, Integer accountId) {
         if (invoice.getNote() == null) {
             invoice.setNote("");
         }
@@ -145,7 +193,7 @@ public class InvoiceService {
             // create history
             historyService.setTriggerVariableForHistory();
             invoiceRepo.save(invoice);
-            invoiceRepo.setInvoiceAccountId(accountId,invoice.getInvoiceId());
+            invoiceRepo.setInvoiceAccountId(accountId, invoice.getInvoiceId());
             return ResponseEntity.ok(randomId);
         }
     }

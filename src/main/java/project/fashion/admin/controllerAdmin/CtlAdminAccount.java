@@ -42,7 +42,7 @@ public class CtlAdminAccount {
         List<RoleEnum> roles = Arrays.asList(RoleEnum.values());
         accountService.getAccountResponse(model);
 
-        model.addAttribute("account",accountResponse);
+        model.addAttribute("newAccount",accountResponse);
         model.addAttribute("roles",roles);
         model.addAttribute("select","account");
         return "/admin/AddAccount";

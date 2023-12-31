@@ -1,5 +1,6 @@
 package project.fashion.admin.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,4 +16,5 @@ public class Account {
     private Boolean enabled;
     @Enumerated(EnumType.STRING)
     private RoleEnum role;
+
 }

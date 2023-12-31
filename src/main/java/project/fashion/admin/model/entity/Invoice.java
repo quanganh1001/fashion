@@ -2,6 +2,7 @@ package project.fashion.admin.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import project.fashion.admin.Response.AccountResponse;
 
 import java.time.LocalDateTime;
@@ -11,7 +12,6 @@ import java.time.LocalDateTime;
 @Table(name = "invoices")
 public class Invoice {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String invoiceId;
     private String name;
     private String phone;

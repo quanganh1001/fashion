@@ -43,7 +43,7 @@
 
         </form>
         <div class="col-6 d-flex justify-content-between">
-            <button th:if="${account.role == 'ROLE_MANAGER'}" style="text-align: center" type="button" id="button" class="col-2 btn btn-primary">Lưu</button>
+            <button th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" style="text-align: center" type="button" id="button" class="col-2 btn btn-primary">Lưu</button>
             <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
                     class=" btn btn-warning">Đổi mật khẩu
             </button>
