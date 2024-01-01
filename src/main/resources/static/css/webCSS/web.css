@@ -1,0 +1,39 @@
+
+.ui-menu-item-wrapper{
+    display: flex;
+}
+
+.active{
+    background-color: #5b5bd4;
+    color: white;
+}
+table{
+    border-collapse: collapse;
+    width: 100%;
+}
+th,td{
+    text-align: center;
+    width: auto;
+    border: 1px solid black;
+}
+
+h2{
+    width: 100%;
+    text-align: center;
+    color: darkmagenta;
+}
+
+.hidden{
+    display: none;
+}
+
+.readonly{
+    background-color: #c4c4c4;
+}
+
+li:hover{
+    cursor: pointer;
+}
+li{
+    list-style-type: none;
+}
