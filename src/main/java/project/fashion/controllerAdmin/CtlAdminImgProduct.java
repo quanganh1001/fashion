@@ -17,9 +17,8 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin/imgProduct")
-@PreAuthorize("hasAnyRole('MANAGER') and authentication.principal.user.isAccountNonExpired()")
+@PreAuthorize("hasAnyRole('MANAGER')")
 public class CtlAdminImgProduct {
-
     @Autowired
     private ImgProductService imgProductService;
     @Autowired

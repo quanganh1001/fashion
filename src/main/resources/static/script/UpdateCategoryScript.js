@@ -34,15 +34,20 @@ $(document).ready(() => {
 });
 
 function confirmDelete(productId) {
-    console.log(productId)
     var result = confirm("Bạn có muốn xóa sản phẩm này?");
     if (result) {
+        var csrfToken = $("meta[name='_csrf']").attr("content");
+        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
         $.ajax({
             type: 'DELETE',
             url: '/admin/product/delete-product/' + productId,
+            beforeSend: function (xhr) {
+                // Sử dụng tên HTTP header chuẩn và giá trị token
+                xhr.setRequestHeader(csrfHeader, csrfToken);
+            },
             success: function () {
                 alert("Đã xóa sản phẩm")
-                window.location.reload()
+                window.location.reload();
             },
             error: (jqXHR) => {
                 alert(jqXHR.responseText)

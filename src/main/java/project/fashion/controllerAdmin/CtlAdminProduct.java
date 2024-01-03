@@ -58,12 +58,13 @@ public class CtlAdminProduct {
     }
 
     @GetMapping("/add-product")
-    public String addProduct(Model model) {
+    public String addProduct(Model model,@RequestParam(value = "catId",defaultValue = "") String catId) {
         List<Category> cat = categoryRepo.findAll();
         List<ImgSize> img = imgSizeRepo.findAll();
         Product product = new Product();
         accountService.getAccountResponse(model);
 
+        model.addAttribute("catId",catId);
         model.addAttribute("product", product);
         model.addAttribute("cat", cat);
         model.addAttribute("img", img);

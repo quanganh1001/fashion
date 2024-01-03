@@ -31,7 +31,9 @@
             <tr>
                 <th>ID</th>
                 <th>Tên danh mục</th>
+                <th>Nằm trong danh mục</th>
                 <th>Trạng thái</th>
+
             </tr>
             </thead>
             <tbody>
@@ -41,6 +43,7 @@
                 </td>
                 <td th:text="${c.catName}"></td>
                 <td th:if="${c.catParent != null}" th:text="${c.catParent.catName}"></td>
+                <td th:unless="${c.catParent != null}" th:text="Không"></td>
                 <td th:text="${c.isCatActive}?'Hoạt động':'Ẩn'"></td>
                 <td>
                     <div class="d-flex justify-content-center">

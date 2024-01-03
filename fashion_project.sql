@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 31, 2023 lúc 06:23 PM
+-- Máy chủ: localhost
+-- Thời gian đã tạo: Th1 03, 2024 lúc 01:06 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.0.28
+-- Phiên bản PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,7 +41,7 @@ CREATE TABLE `accounts` (
 
 INSERT INTO `accounts` (`account_id`, `password`, `user_name`, `role`, `enabled`) VALUES
 (1, '$2a$10$2ZYXkyXJ504frJtNhx55CuJJ.uIOfbMMBflCr7Y.R2de7xCMBrO3y', 'quanly', 'ROLE_MANAGER', b'1'),
-(2, '$2a$10$ghYBZtTkVUweDOIyd8XD.uDEC30KF54.GG4/yt9ydXQcUhUzHxUt.', 'nhanvien1', 'ROLE_EMPLOYEE', b'1'),
+(2, '$2a$10$ghYBZtTkVUweDOIyd8XD.uDEC30KF54.GG4/yt9ydXQcUhUzHxUt.', 'nhanvien1', 'ROLE_EMPLOYEE', b'0'),
 (4, '$2a$10$tpaoi/izGUSiZJlapt.s7uPSHbw4eUB0JlPFnqlb7yHXaVJsj0FHG', 'nhanvien2', 'ROLE_EMPLOYEE', b'1'),
 (8, '$2a$10$o1Jl1nTZq7O0CuynH5KPEu10MA46VbD/J5fsAsukT35H9KyJow7lu', 'nhanvien3', 'ROLE_EMPLOYEE', b'1');
 
@@ -92,19 +92,12 @@ INSERT INTO `categories` (`cat_id`, `cat_name`, `parent_id`, `is_cat_active`) VA
 ('SET', 'Set', NULL, b'1'),
 ('SG', 'Short gió', 'QS', b'1'),
 ('SKK', 'Short kaki', 'QS', b'1'),
-('SMD', 'Sơ mi dài tay', 'AO', b'1'),
-('SMDTD', 'Sơ mi dài tay dạ', 'SMD', b'1'),
-('SMDTDemin', 'Sơ mi dài tay denim', 'SMD', b'1'),
-('SMDTDui', 'Sơ mi dài tay đũi', 'SMD', b'1'),
-('SMDTHT', 'Sơ mi dài tay họa tiết', 'SMD', b'1'),
-('SMDTK', 'Sơ mi dài tay kẻ', 'SMD', b'1'),
-('SMDTT', 'Sơ mi dài tay trơn', 'SMD', b'1'),
-('SMN', 'Sơ mi ngắn tay', 'AO', b'1'),
-('SMNTD', 'Sơ mi ngắn tay đũi', 'SMN', b'1'),
-('SMNTDenim', 'Sơ mi ngắn tay denim', 'SMN', b'1'),
-('SMNTHT', 'Sơ mi ngắn tay họa tiết', 'SMN', b'1'),
-('SMNTK', 'Sơ mi ngắn tay kẻ', 'SMN', b'1'),
-('SMNTT', 'Sơ mi ngắn tay trơn', 'SMN', b'1'),
+('SM', 'Sơ mi', 'AO', b'1'),
+('SMD', 'Sơ mi đũi', 'SM', b'1'),
+('SMDM', 'Sơ mi Demin', 'SM', b'1'),
+('SMHT', 'Sơ mi họa tiết', 'SMD', b'1'),
+('SMK', 'Sơ mi kẻ', 'SM', b'1'),
+('SMT', 'Sơ mi trơn', 'SM', b'1'),
 ('THUN', 'Áo thun', 'AO', b'1'),
 ('TIH', 'Thun in hình', 'THUN', b'1'),
 ('TT', 'Tank top', 'THUN', b'1');
@@ -138,19 +131,23 @@ INSERT INTO `colors` (`color_id`, `name`) VALUES
 ('DCB', 'Xanh đã đậm'),
 ('DCR', 'Trắng - kem đậm'),
 ('DGN', 'Xanh lá cây đậm'),
+('DGR', 'Xám đậm'),
 ('DNV', 'Dark Navy'),
 ('DTU', 'Xanh ngọc đậm'),
+('ENV', 'Phối Be - Navy'),
 ('GN', 'Xanh lá cây'),
 ('GR', 'Xám'),
 ('HBR', 'Phối nâu trắng'),
 ('HCR', 'Phối kem đậm - trắng'),
 ('LB', 'Xanh da trời nhạt'),
+('LBE', 'Be nhạt'),
 ('LBL', 'Đen nhạt'),
 ('LCB', 'Xanh đá nhạt'),
 ('LCR', 'Trắng kem nhạt'),
 ('LG', 'Xám Nhạt'),
 ('LI', 'Tím phớt'),
 ('LLB', 'Xanh da trời phai'),
+('LLG', 'Phối đen - xám nhạt'),
 ('LYL', 'Vàng nhạt'),
 ('NBX', 'Phối navy - Đỏ đô'),
 ('NV', 'Xanh navy'),
@@ -950,7 +947,45 @@ INSERT INTO `imgs_product` (`img_id`, `product_id`, `file_img`, `background_1`, 
 (610, 'DWBS012', '1703928526208_bs012-4_52616554758_o_2d13878e693346e18cfb465e5e5d92aa_master.jpg', b'0', b'0'),
 (611, 'DWBS012', '1703928526215_bs012-3_52615554827_o_cdf36ab14e2948ab984bbfe0c18c72ed_master.jpg', b'0', b'0'),
 (612, 'DWBS012', '1703928526222_bs012-2_52616064151_o_3574494468a940998f25c86d6f815504_master.jpg', b'0', b'0'),
-(613, 'DWBS012', '1703928526228_bs012-1_52615553322_o_0d15a75065ed4bf59b9e03ecded5d334_master.jpg', b'0', b'0');
+(613, 'DWBS012', '1703928526228_bs012-1_52615553322_o_0d15a75065ed4bf59b9e03ecded5d334_master.jpg', b'0', b'0'),
+(615, 'EWCW007', '1704189991759_ewcw007-5_53a856c3e86b422d975b1323eb87e578_master.jpg', b'1', b'0'),
+(616, 'EWCW007', '1704189991824_ewcw007-4_73d717aacbbb49539e8941f53860fb81_master.jpg', b'0', b'0'),
+(617, 'EWCW007', '1704189991831_ewcw007-3_309fb3d06ea84910af0060f7178ba85c_master.jpg', b'0', b'0'),
+(618, 'EWCW007', '1704189991836_ewcw007-2_91d0cfce3d134bb4b72cc3086067df2f_master.jpg', b'0', b'0'),
+(619, 'EWCW007', '1704189991841_ewcw007-1_c8b1f230ddb2408daa72728d0ecee531_master.jpg', b'0', b'0'),
+(620, 'DWCT001', '1704190979892_ct001_51763349788_o_786e5178773a4a1fb56f1bfee2157e9b_master.jpg', b'0', b'0'),
+(621, 'DWCT001', '1704190979915_ct001_51763349443_o_c46a7b646c5741ca865598fe0249b69b_master.jpg', b'0', b'0'),
+(622, 'DWCT001', '1704190979920_ct001_51762271912_o_1e27b353ce35445b98aa64a0c024c655_master.jpg', b'0', b'0'),
+(623, 'DWCT001', '1704190979924_ct001_51762269147_o_09bc5494840e48feb5ad0b9b16c3d37b_master.jpg', b'0', b'0'),
+(624, 'DWCT001', '1704190979928_ct001_51762266972_o_9bee17ad6de44acca391c7ad9847bf08_master.jpg', b'1', b'0'),
+(625, 'DWCT004', '1704191300141_ct004-5_52410247588_o_e018274348ee4e508c3bcd3e45191163_master.jpg', b'0', b'0'),
+(626, 'DWCT004', '1704191300155_ct004-4_52409234072_o_c1cc144681a64b2da46f4a881600383c_master.jpg', b'0', b'0'),
+(627, 'DWCT004', '1704191300165_ct004-3_52409738056_o_03e4212ea4ec4b85a89193a2233e3f29_master.jpg', b'0', b'0'),
+(628, 'DWCT004', '1704191300171_ct004-13_52409234777_o_e7c882ac09994daaa3ef8a4b92a5614b_master.jpg', b'1', b'0'),
+(629, 'DWCT004', '1704191300176_ct004-2_52410023919_o_fe0e3f9c03f642cf9309596415dc2278_master.jpg', b'0', b'0'),
+(630, 'DWCU007', '1704191606458_20220929_3dshbpb0pecj63dcrkmah5yc_85f0fa938a844dc2a433bc82c3147ad4_master.jpg', b'0', b'0'),
+(631, 'DWCU007', '1704191606465_20220929_eflqusorg4g4ku3umeps5z9r_389f739d70b645d8a1d6a49d9b745c7b_compact.jpg', b'1', b'0'),
+(632, 'EWCL003', '1704250844847_ewcl003-3_53375595102_o_0f63b002aa3c4f57bc06d9ac92da343d_master.jpg', b'0', b'0'),
+(633, 'EWCL003', '1704250844861_ewcl003-2_53376963630_o_d253bb8cf4404fd18f7fb241c31b57eb_master.jpg', b'0', b'0'),
+(634, 'EWCL003', '1704250844866_ewcl003-1_53375595057_o_fbf3267675b14c9780e1db57c53ea93c_master.jpg', b'0', b'0'),
+(635, 'EWCL003', '1704250844871_ewcl003-4_53376696493_o_f4e0d55389724e0cbab7cc411b7e7c0c_master.jpg', b'0', b'0'),
+(636, 'EWCL003', '1704250844877_ewcl003-7_53376839244_o_be698d6fa9ab4f78bf2132679fc67647_master.jpg', b'1', b'0'),
+(637, 'EWCP002', '1704251255788_ewcp002-23_53376842769_o_b7a0db0f11ca48088531456f72fdf5d1_master.jpg', b'0', b'0'),
+(638, 'EWCP002', '1704251255810_ewcp002-21_53376967225_o_c150908e08e04b278de0f946bbe0e0ef_master.jpg', b'0', b'0'),
+(639, 'EWCP002', '1704251255816_ewcp002-20_53376521336_o_8acdf223364e4793aaf2a88c807b1838_master.jpg', b'0', b'0'),
+(640, 'EWCP002', '1704251255819_ewcp002-19_53376967265_o_01a8b7e951684afe9a01377cf739adba_master.jpg', b'0', b'0'),
+(641, 'EWCP002', '1704251255823_ewcp002-22_53376699893_o_cd07acb23daf4c36a173731d6b33d8d3_master.jpg', b'0', b'0'),
+(642, 'EWCP002', '1704251255826_ewcp002-11_53376521661_o_7b2fbf44c1f142a3ba2bc974def12378_master.jpg', b'0', b'0'),
+(643, 'EWCP002', '1704251255829_ewcp002-3_53376520886_o_84a65b23bbfb4c54952d7d289b6e1ea8_master.jpg', b'0', b'0'),
+(644, 'EWCP002', '1704251255834_ewcp002_53375619402_o_d0011756fdc646f79c7a39698e026fb8_master.jpg', b'1', b'0'),
+(645, 'EWCP002', '1704251255837_ewcp002-30_53376967025_o_d452a9fe67ca4f9b9803a72fa15b64fd_master.jpg', b'0', b'0'),
+(646, 'EWBS001', '1704251897974_fds.jpg', b'0', b'0'),
+(647, 'EWBS001', '1704251897979_tw003-bs001-16_53290120977_o_cb4dfe2b55f74902ac3f0f64b38f6938_master.jpg', b'0', b'0'),
+(648, 'EWBS001', '1704251897983_tw003-bs001-15_53291378099_o_66f09820de5a4e4f831b38eea4352fd5_master.jpg', b'0', b'0'),
+(649, 'EWBS001', '1704251897988_tw003-bs001-11_53290121042_o_3786274e4f1c4ab88f1f015c551df7db_master.jpg', b'0', b'0'),
+(650, 'EWBS001', '1704251897992_tw003-bs001-1_53291249648_o_e56244e6c0dc497e81cf8ca94a772493_master.jpg', b'0', b'0'),
+(651, 'EWBS001', '1704251897996_tw003-bs001-2_53291377864_o_a93a2eb880cc4107a3a360378ed056fb_master.jpg', b'0', b'0'),
+(652, 'EWBS001', '1704251898000_tw003-bs001-3_53291377849_o_110158d740fc40de9fceb818bda1132b_master.jpg', b'1', b'0');
 
 -- --------------------------------------------------------
 
@@ -1240,17 +1275,20 @@ INSERT INTO `products` (`product_id`, `product_name`, `cat_id`, `price`, `discou
 ('DABJ908', 'Quần Jeans rách Slim 1.DABJ908', 'QJR', 550000, NULL, NULL, b'0', 'TORANO', '', 4, 5, 1, b'1'),
 ('DABK906', 'Quần kaki dài basic cạp tender túi lé DABK906', 'QKB', 500000, NULL, NULL, b'0', 'TORANO', '', 3, 5, 4, b'1'),
 ('DABK908', 'Quần kaki dài basic DABK908', 'QKB', 500000, NULL, NULL, b'0', 'TORANO', '', 3, 5, 4, b'1'),
-('DATB416', 'Sơ mi dài tay kẻ Checkerboard 2.DATB416', 'SMDTK', 480000, NULL, NULL, b'0', 'TORANO', '', 2, 5, 1, b'1'),
-('DATB614', 'Áo sơ mi dài tay trơn Bamboo 4.DATB614', 'SMDTT', 450000, NULL, NULL, b'0', 'TORANO', '', 2, 5, 4, b'1'),
-('DATB920', 'Áo sơ mi dài tay trơn Bamboo 4.DATB920', 'SMDTT', 42000, NULL, NULL, b'0', 'TORANO', '', 2, 5, 4, b'1'),
+('DATB416', 'Sơ mi dài tay kẻ Checkerboard 2.DATB416', 'SMK', 480000, NULL, NULL, b'0', 'TORANO', '', 2, 5, 1, b'1'),
+('DATB614', 'Áo sơ mi dài tay trơn Bamboo 4.DATB614', 'SMT', 450000, NULL, NULL, b'0', 'TORANO', '', 2, 5, 4, b'1'),
+('DATB920', 'Áo sơ mi dài tay trơn Bamboo 4.DATB920', 'SMT', 42000, NULL, NULL, b'0', 'TORANO', '', 2, 5, 4, b'1'),
 ('DSTP611', 'Áo polo trơn bo kẻ DSTP611', 'PLBK', 333333, NULL, NULL, b'0', 'Torano', '', 1, 4, 1, b'1'),
 ('DSTP650', 'Áo Polo monogram TRN DSTP650', 'PLHT', 450000, NULL, NULL, b'0', 'TORANO', 'Áo Polo monogram TRN 1.DSTP650', 1, 4, 1, b'1'),
 ('DSTP903', 'Áo polo can phối Horizontal Color Scheme DSTP903', 'PLCP', 420000, 290000, 31, b'1', 'TORANO', '', 1, 4, 2, b'1'),
 ('DWBS012', 'Quần nỉ trơn Basic 4.DWBS012', 'QN', 380000, 299000, 21, b'1', 'TORANO', '', 4, 4, 3, b'1'),
+('DWCT001', 'Áo khoác 2 lớp dạ cổ bomber 3.DWCT001', 'AK', 990000, NULL, NULL, b'0', 'TORANO', '', 5, 4, 2, b'1'),
+('DWCT004', 'Áo khoác 2 lớp dạ cổ cao 2.DWCT004', 'AK', 750000, NULL, NULL, b'0', 'TORANO', '', 5, 4, 2, b'1'),
+('DWCU007', 'Áo khoác 2 lớp lót lông cổ bomber 2.DWCU007', 'AK', 750000, NULL, NULL, b'0', 'TORANO', '', 5, 4, 2, b'1'),
 ('EABT019', 'Quần âu slim-fit cạp trơn EABT019', 'QAPTC', 500000, NULL, NULL, b'0', 'TORANO', '', 3, 5, 4, b'1'),
 ('EABT021', 'Quần âu slim-fit điều chỉnh cạp trơn 1.EABT021', 'QAPTC', 480000, NULL, NULL, b'0', 'TORANO', '', 3, 5, 1, b'1'),
-('EATB003', 'Sơ mi dài tay kẻ Checkerboard 3.EATB003', 'SMNTK', 520000, NULL, NULL, b'0', 'TORANO', '', 2, 5, 3, b'1'),
-('EATB006', 'Sơ mi dài tay đũi 5.EATB006', 'SMDTDui', 480000, NULL, NULL, b'0', 'TORANO', 'Sơ mi dài tay nam vải đũi cao cấp thấm hút mồ hôi và thoáng mát\r\n', 2, 5, 4, b'1'),
+('EATB003', 'Sơ mi dài tay kẻ Checkerboard 3.EATB003', 'SMK', 520000, NULL, NULL, b'0', 'TORANO', '', 2, 5, 3, b'1'),
+('EATB006', 'Sơ mi dài tay đũi 5.EATB006', 'SMD', 480000, NULL, NULL, b'0', 'TORANO', 'Sơ mi dài tay nam vải đũi cao cấp thấm hút mồ hôi và thoáng mát\r\n', 2, 5, 4, b'1'),
 ('ESBI006', 'Quần short đũi basic phối dây dệt gấu quần ESBI006', 'SD', 380000, NULL, NULL, b'0', 'TORANO', 'Quần short đũi nam basic phối dây dệt gấu quần. Chất đũi cao cấp mềm mịn, không bai xù và hạn chế nhăn nhàu. Vải thoáng mát thấm hút mồ hôi tốt và nhanh khô.\r\n', 4, 5, 5, b'1'),
 ('ESBK002', 'Quần short kaki basic, gấp LV bọc viền dây dệt sườn ESBK002', 'SKK', 380000, NULL, NULL, b'0', 'TORANO', '', 4, 5, 4, b'1'),
 ('ESBK007', 'Quần short kaki phối chun cạp 3.ESBK007', 'SKK', 400000, NULL, NULL, b'0', 'TORANO', '', 4, 5, 3, b'1'),
@@ -1260,8 +1298,8 @@ INSERT INTO `products` (`product_id`, `product_name`, `cat_id`, `price`, `discou
 ('ESTA005', 'Áo Tanktop họa tiết in Wild Sool 1.ESTA005', 'TT', 250000, NULL, NULL, b'0', 'TORANO', '', 1, 4, 1, b'1'),
 ('ESTA006', 'Áo tanktop họa tiết in Shoes ESTA006', 'TT', 250000, NULL, NULL, b'0', 'TORANO', '', 1, 4, 1, b'1'),
 ('ESTA010', 'Áo Tanktop họa tiết Defeat ESTA010', 'TT', 250000, NULL, NULL, b'0', 'TORANO', 'Áo tanktop nam cá tính, năng động mặc cực thoải mái. Mẫu áo ba lỗ nam trẻ trung với 2 màu dễ mặc.\r\n', 1, 4, 1, b'1'),
-('ESTB026', 'Sơ mi ngắn tay đũi ESTB026', 'SMNTD', 450000, NULL, NULL, b'0', 'TORANO', '', 2, 6, 5, b'1'),
-('ESTB030', 'Sơ mi ngắn tay trơn Bamboo ESTB030', 'SMNTT', 400000, NULL, NULL, b'0', 'TORANO', '', 2, 5, 2, b'1'),
+('ESTB026', 'Sơ mi ngắn tay đũi ESTB026', 'SMD', 450000, NULL, NULL, b'0', 'TORANO', '', 2, 6, 5, b'1'),
+('ESTB030', 'Sơ mi ngắn tay trơn Bamboo ESTB030', 'SMT', 400000, NULL, NULL, b'0', 'TORANO', '', 2, 5, 2, b'1'),
 ('ESTP001', 'Áo polo họa tiết in tràn ESTP001', 'PLHT', 420000, NULL, NULL, b'0', 'TORANO', '', 1, 4, 1, b'1'),
 ('ESTP005', 'Áo polo trơn bo kẻ, logo cánh tay ESTP005', 'PLBK', 420000, NULL, NULL, b'0', 'TORANO', 'Áo polo trơn bo kẻ, logo cánh tay ESTP005', 1, 4, 1, b'1'),
 ('ESTP007', 'Áo Polo can phối 3 màu ESTP007', 'PLCP', 420000, NULL, NULL, b'0', 'TORANO', 'Áo polo nam cao cấp đẹp, tôn dáng. Chất vải dệt mềm, dày dặn không bai xù nhăn nhàu', 1, 4, 2, b'1'),
@@ -1292,7 +1330,10 @@ INSERT INTO `products` (`product_id`, `product_name`, `cat_id`, `price`, `discou
 ('ESTS040', 'Áo T shirt họa tiết in Smithereens 2.ESTS040', 'TIH', 300000, NULL, NULL, b'0', 'TORANO', '', 1, 4, 2, b'1'),
 ('ESTS044', 'Áo T shirt họa tiết in monogram TRN 1.ESTS044', 'TIH', 300000, NULL, NULL, b'0', 'TORANO', '', 1, 4, 1, b'1'),
 ('ESTS046', 'Áo T shirt họa tiết in hình Intense ESTS046', 'TIH', 300000, NULL, NULL, b'0', 'TORANO', '', 1, 4, 1, b'1'),
-('gdfgdf', 'gdfg', 'ANL', 432, NULL, NULL, b'0', 'TORANO', '', 2, 0, 0, b'1'),
+('EWBS001', 'Quần nỉ trơn basic vải hiệu ứng 3.EWBS001', 'AK', 400000, NULL, NULL, b'0', 'TORANO', '', 5, 4, 3, b'1'),
+('EWCL003', 'Áo khoác 2 lớp da lộn basic 1.EWCL003', 'AK', 890000, NULL, NULL, b'0', 'TORANO', '', 5, 4, 1, b'1'),
+('EWCP002', 'Áo khoác Hooded Puffer 4.EWCP002', 'AK', 1200000, NULL, NULL, b'0', 'TORANO', '', 5, 4, 3, b'1'),
+('EWCW007', 'Áo khoác gió 1 lớp mũ liền EWCW007', 'AK', 50000, NULL, NULL, b'0', 'TORANO', 'Áo khoác gió 1 lớp mũ liền chống nước giá siêu tốt của nhà Torano đã cập bến.\r\n', 5, 4, 3, b'1'),
 ('TP004', 'Áo polo phối màu color-block 1.TP004', 'PLHT', 450000, NULL, NULL, b'0', 'TORANO', 'Áo polo phối màu color-block TP004', 1, 4, 1, b'1');
 
 --
@@ -2015,7 +2056,69 @@ INSERT INTO `products_detail` (`product_detail_id`, `product_id`, `code`, `color
 (675, 'DWBS012', 'DWBS01203CV00SB_NV-S', NULL, 'S', 999, b'1', b'1'),
 (676, 'DWBS012', 'DWBS01203CV00SB_NV-M', 'NV', 'M', 999, b'1', b'1'),
 (677, 'DWBS012', 'DWBS01203CV00SB_NV-L', 'NV', 'L', 999, b'1', b'1'),
-(678, 'DWBS012', 'DWBS01203CV00SB_NV-XL', 'NV', 'XL', 999, b'1', b'1');
+(678, 'DWBS012', 'DWBS01203CV00SB_NV-XL', 'NV', 'XL', 999, b'1', b'1'),
+(679, 'EWCW007', 'EWCW00751PE00SB_LG-S', 'LG', 'S', 999, b'1', b'1'),
+(680, 'EWCW007', 'EWCW00751PE00SB_LG-M', 'LG', 'M', 999, b'1', b'1'),
+(681, 'EWCW007', 'EWCW00751PE00SB_LG-L', 'LG', 'L', 999, b'1', b'1'),
+(682, 'EWCW007', 'EWCW00751PE00SB_LG-XL', 'LG', 'XL', 999, b'1', b'1'),
+(683, 'EWCW007', 'EWCW00751PE00SB_NV-S', 'NV', 'S', 0, b'0', b'1'),
+(684, 'EWCW007', 'EWCW00751PE00SB_NV-M', 'NV', 'M', 0, b'0', b'1'),
+(685, 'EWCW007', 'EWCW00751PE00SB_NV-L', 'NV', 'L', 0, b'0', b'1'),
+(686, 'EWCW007', 'EWCW00751PE00SB_NV-XL', 'NV', 'XL', 0, b'0', b'1'),
+(687, 'EWCW007', 'EWCW00751PE00SB_BL-S', 'BL', 'S', 999, b'1', b'1'),
+(688, 'EWCW007', 'EWCW00751PE00SB_BL-M', 'BL', 'M', 0, b'0', b'1'),
+(689, 'EWCW007', 'EWCW00751PE00SB_BL-L', 'BL', 'L', 0, b'0', b'1'),
+(690, 'EWCW007', 'EWCW00751PE00SB_BL-XL', 'BL', 'XL', 0, b'0', b'1'),
+(691, 'DWCT001', 'DWCT00161PE00RB_NV-S ', 'NV', 'S', 999, b'1', b'1'),
+(692, 'DWCT001', 'DWCT00161PE00RB_NV-M', 'NV', 'M', 999, b'1', b'1'),
+(693, 'DWCT001', 'DWCT00161PE00RB_NV-L', 'NV', 'L', 0, b'0', b'1'),
+(694, 'DWCT001', 'DWCT00161PE00RB_NV-XL', 'NV', 'XL', 0, b'0', b'1'),
+(695, 'DWCT001', 'DWCT00161PE00RB_DGR-M', 'DGR', 'M', 999, b'1', b'1'),
+(696, 'DWCT001', 'DWCT00161PE00RB_DGR-S', 'DGR', 'S', 999, b'1', b'1'),
+(697, 'DWCT004', 'DWCT00431PE32SB_BL-S', 'BL', 'S', 999, b'1', b'1'),
+(698, 'DWCT004', 'DWCT00431PE32SB_BL-M', 'BL', 'M', 0, b'0', b'1'),
+(699, 'DWCT004', 'DWCT00431PE32SB_BL-L', 'BL', 'L', 999, b'1', b'1'),
+(700, 'DWCT004', 'DWCT00431PE32SB_BL-XL', 'BL', 'XL', 999, b'1', b'1'),
+(701, 'DWCT004', 'DWCT00431PE32SB_WH-S', 'WH', 'S', 999, b'1', b'1'),
+(702, 'DWCT004', 'DWCT00431PE32SB_WH-M', 'WH', 'M', 999, b'1', b'1'),
+(703, 'DWCT004', 'DWCT00431PE32SB_WH-L', 'WH', 'L', 999, b'1', b'1'),
+(704, 'DWCT004', 'DWCT00431PE32SB_WH-XL', 'WH', 'XL', 999, b'1', b'1'),
+(705, 'DWCU007', 'DWCU00761PE32SB_ENV-M', 'ENV', 'M', 999, b'1', b'1'),
+(706, 'DWCU007', 'DWCU00761PE32SB_ENV-S', 'ENV', 'S', 999, b'1', b'1'),
+(707, 'DWCU007', 'DWCU00761PE32SB_ENV-L', 'ENV', 'L', 999, b'1', b'1'),
+(708, 'DWCU007', 'DWCU00761PE32SB_ENV-XL', 'ENV', 'XL', 999, b'1', b'1'),
+(709, 'DWCU007', 'DWCU00761PE32SB_LLG-S', 'LLG', 'S', 999, b'1', b'1'),
+(710, 'DWCU007', 'DWCU00761PE32SB_LLG-M', 'LLG', 'M', 999, b'1', b'1'),
+(711, 'DWCU007', 'DWCU00761PE32SB_LLG-L', 'LLG', 'L', 999, b'1', b'1'),
+(712, 'DWCU007', 'DWCU00761PE32SB_LLG-XXL', 'LLG', 'XL', 999, b'1', b'1'),
+(713, 'EWCL003', 'EWCL00361PE00RB_CR-S', 'CR', 'S', 999, b'1', b'1'),
+(714, 'EWCL003', 'EWCL00361PE00RB_CR-M', 'CR', 'M', 0, b'0', b'1'),
+(715, 'EWCL003', 'EWCL00361PE00RB_CR-L', 'CR', 'L', 999, b'1', b'1'),
+(716, 'EWCL003', 'EWCL00361PE00RB_CR-XL', 'CR', 'XL', 999, b'1', b'1'),
+(717, 'EWCP002', 'EWCP00251PE00SB_LG-S', 'LG', 'S', 999, b'1', b'1'),
+(718, 'EWCP002', 'EWCP00251PE00SB_LG-M', 'LG', 'M', 999, b'1', b'1'),
+(719, 'EWCP002', 'EWCP00251PE00SB_LG-L', 'LG', 'L', 999, b'1', b'1'),
+(720, 'EWCP002', 'EWCP00251PE00SB_LG-XL', 'LG', 'XL', 999, b'1', b'1'),
+(721, 'EWCP002', 'EWCP00251PE00SB_DNV-S', 'DNV', 'S', 999, b'1', b'1'),
+(722, 'EWCP002', 'EWCP00251PE00SB_DNV-M', 'DNV', 'M', 999, b'1', b'1'),
+(723, 'EWCP002', 'EWCP00251PE00SB_DNV-L', 'DNV', 'L', 999, b'1', b'1'),
+(724, 'EWCP002', 'EWCP00251PE00SB_DNV-XL', 'DNV', 'XL', 999, b'1', b'1'),
+(725, 'EWCP002', 'EWCP00251PE00SB_LBE-S', 'LBE', 'S', 999, b'1', b'1'),
+(726, 'EWCP002', 'EWCP00251PE00SB_LBE-M', 'LBE', 'M', 999, b'1', b'1'),
+(727, 'EWCP002', 'EWCP00251PE00SB_LBE-L', 'LBE', 'L', 999, b'1', b'1'),
+(728, 'EWCP002', 'EWCP00251PE00SB_LBE-XL', 'LBE', 'XL', 999, b'1', b'1'),
+(729, 'EWBS001', 'EWBS00103TC00RB_BL-S', 'BL', 'S', 999, b'1', b'1'),
+(730, 'EWBS001', 'EWBS00103TC00RB_BL-M', 'BL', 'M', 999, b'1', b'1'),
+(731, 'EWBS001', 'EWBS00103TC00RB_BL-L', 'BL', 'L', 999, b'1', b'1'),
+(732, 'EWBS001', 'EWBS00103TC00RB_BL-XL', 'BL', 'XL', 999, b'1', b'1'),
+(733, 'EWBS001', 'EWBS00103TC00RB_BE-S', 'BE', 'S', 999, b'1', b'1'),
+(734, 'EWBS001', 'EWBS00103TC00RB_BE-M', 'BE', 'M', 999, b'1', b'1'),
+(735, 'EWBS001', 'EWBS00103TC00RB_BE-L', 'BE', 'L', 999, b'1', b'1'),
+(736, 'EWBS001', 'EWBS00103TC00RB_BE-XL', 'BE', 'XL', 999, b'1', b'1'),
+(737, 'EWBS001', 'EWBS00103TC00RB_LG-S', 'LG', 'S', 999, b'1', b'1'),
+(738, 'EWBS001', 'EWBS00103TC00RB_LG-M', 'LG', 'M', 999, b'1', b'1'),
+(739, 'EWBS001', 'EWBS00103TC00RB_LG-L', 'LG', 'L', 999, b'1', b'1'),
+(740, 'EWBS001', 'EWBS00103TC00RB_LG-XL', 'LG', 'XL', 999, b'1', b'1');
 
 --
 -- Bẫy `products_detail`
@@ -2280,7 +2383,7 @@ ALTER TABLE `history`
 -- AUTO_INCREMENT cho bảng `imgs_product`
 --
 ALTER TABLE `imgs_product`
-  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=615;
+  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=653;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_size`
@@ -2304,7 +2407,7 @@ ALTER TABLE `invoices_status`
 -- AUTO_INCREMENT cho bảng `products_detail`
 --
 ALTER TABLE `products_detail`
-  MODIFY `product_detail_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=679;
+  MODIFY `product_detail_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=741;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

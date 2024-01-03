@@ -27,11 +27,22 @@
                 </div>
 
                 <div class="mb-3 col-6">
-                    <label for="category" class="form-label">Danh mục sản phẩm<span style="color:red">*</span></label>
-                    <select class="form-control" id="category" th:field="${product.category}">
+                    <label th:for="category" class="form-label">Danh mục sản
+                        phẩm<span style="color:red">*</span></label>
+                    <select th:if="${catId != null}" class="form-control" th:id="category"
+                            th:field="${product.category}">
                         <option value="">--Chọn danh mục--</option>
                         <option th:each="cat : ${cat}" th:value="${cat.catId}"
-                                th:text="${cat.catName}"></option>
+                                th:text="${cat.catName}"
+                                th:selected="${cat.catId == catId}">
+                        </option>
+                    </select>
+                    <select th:unless="${catId != null}" class="form-control" th:id="category"
+                            th:field="${product.category}">
+                        <option value="">--Chọn danh mục--</option>
+                        <option th:each="cat : ${cat}" th:value="${cat.catId}"
+                                th:text="${cat.catName}">
+                        </option>
                     </select>
                 </div>
 

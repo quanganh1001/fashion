@@ -26,7 +26,6 @@ public class CtlAdminCategory {
     public String getCat(Model model, @RequestParam(name = "parent", defaultValue = "") String parent ){
         Optional<Category> category = Optional.of(categoryService.findById(parent).orElse(new Category()));
         var cat = category.get();
-        System.out.println(cat);
         List<Category> categories = categoryService.getCategoriesByCatParentCatId(parent);
 
         accountService.getAccountResponse(model);
@@ -43,6 +42,7 @@ public class CtlAdminCategory {
 
         accountService.getAccountResponse(model);
 
+        model.addAttribute("catParentId",catParentId);
         model.addAttribute("title","Category");
         return "/admin/AddCategory";
     }
