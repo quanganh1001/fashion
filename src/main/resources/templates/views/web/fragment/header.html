@@ -1,37 +1,38 @@
 <header th:fragment="header">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/"><img src="/image/logo.png" style="width: 200px"></a>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary d-flex">
+        <div class="container-fluid ">
+            <a class="navbar-brand" href="/"><img src="/image/logo.png" style="width: 200px" alt=""></a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!--                <ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
-                <!--                    <li class="nav-item">-->
-                <!--                        <a class="nav-item" aria-current="page" th:href="@{/category/sale}" th:text="Sale"></a>-->
-                <!--                    </li>-->
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0"
-                    th:each="c1:${categoriesF1}">
-                    <li class="nav-item">
-                        <a class="nav-item" aria-current="page" th:href="@{/category/__${c1.catId}__}"
-                           th:text="${c1.catName}"></a>
-                        <ul th:if="${categoriesF2 != null}" th:each="c2:${categoriesF2}" >
-                            <li th:if="${c2.catParent.catId == c1.catId}">
-                                <a th:href="@{/category/__${c2.catId}__}" th:text="${c2.catName}"
-                                   class="dropdown-item"></a>
-                                <ul th:if="${categoriesF3 != null}" th:each="c3:${categoriesF3}">
-                                    <li th:if="${c3.catParent.catId == c2.catId}">
-                                        <a th:href="@{/category/__${c3.catId}__}" th:text="${c3.catName}"
-                                           class="dropdown-item"></a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                    <ul class="list-group list-group-horizontal">
+                        <li class="nav-item f1">
+                            <a class="nav-link fw-bold" aria-current="page" th:href="@{/category/sale}"
+                               th:text="Sale"></a>
+                        </li>
+
+                        <li th:each="c1:${categoriesF1}" class="f1 nav-item justify-content-around">
+                            <a class="nav-link fw-bold" aria-current="page" th:href="@{/category/__${c1.catId}__}"
+                               th:text="${c1.catName}"></a>
+                            <div class="hidden f2">
+                                <div th:if="${categoriesF2 != null} and ${c2.catParent.catId == c1.catId}"
+                                     th:each="c2:${categoriesF2}">
+                                    <a th:href="@{/category/__${c2.catId}__}" th:text="${c2.catName}"
+                                       class="nav-link fw-bold"></a>
+                                    <div th:each="c3:${categoriesF3}" th:if="${categoriesF3 != null} and ${c3.catParent.catId == c2.catId}">
+                                            <a th:href="@{/category/__${c3.catId}__}" th:text="${c3.catName}"
+                                               class="nav-link"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </ul>
-                <!--                </ul>-->
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
             </div>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
         </div>
     </nav>
 </header>
+

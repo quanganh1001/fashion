@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: localhost
--- Thời gian đã tạo: Th1 03, 2024 lúc 01:06 PM
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th1 03, 2024 lúc 04:51 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.2.4
+-- Phiên bản PHP: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -66,7 +66,6 @@ INSERT INTO `categories` (`cat_id`, `cat_name`, `parent_id`, `is_cat_active`) VA
 ('AK', 'Áo khoác', 'AO', b'1'),
 ('ANL', 'Áo nỉ - len', 'AO', b'1'),
 ('AO', 'Áo nam', NULL, b'1'),
-('BN', 'Bộ nỉ', 'SET', b'1'),
 ('PLBK', 'Polo Bo Kẻ', 'POLO', b'1'),
 ('PLCP', 'Polo can phối', 'POLO', b'1'),
 ('PLHT', 'Polo họa tiết', 'POLO', b'1'),
