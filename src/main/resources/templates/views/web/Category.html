@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head th:include="~{web/fragment/head::head}"></head>
+
+<body>
+
+<header th:include="~{web/fragment/header::header}"></header>
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item active" aria-current="page" th:text="${cat.catName}"></li>
+    </ol>
+</nav>
+
+<div class="container">
+    <div class="section-collection d-flex ">
+        <div class="container col-3" style="background-color: olivedrab">
+            <h2>Bộ lọc</h2>
+            <div>
+                <h4>Danh mục sản phẩm</h4>
+                <ul class="list-group">
+                    <li class="list-group-item" data-toggle="collapse" data-target="#category1">
+                        Danh mục 1
+                        <div class="collapse" id="category1">
+                            <ul class="list-group">
+                                <li class="list-group-item">Danh mục con 1.1</li>
+                                <li class="list-group-item">Danh mục con 1.2</li>
+                                <li class="list-group-item">Danh mục con 1.3</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container col-10" style="background-color: cadetblue">
+            <h3 style="font-family: sans-serif">Bộ lọc</h3>
+        </div>
+    </div>
+</div>
+<p class="d-inline-flex gap-1">
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        Link with href
+    </a>
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Button with data-bs-target
+    </button>
+</p>
+<div class="collapse" id="collapseExample">
+    <div class="card card-body">
+        Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+    </div>
+</div>
+</body>
+</html>

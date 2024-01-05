@@ -139,12 +139,17 @@ public class CategoryService {
                 categoriesF3.addAll(categoryRepo.findCategoriesByCatParentCatId(catF2.getCatId()));
             }
         }
-        System.out.println("~~~ F1: " +categoriesF1);
-        System.out.println("~~~ F2: " +categoriesF2);
-        System.out.println("~~~ F3: " +categoriesF3);
         model.addAttribute("categoriesF1",categoriesF1);
         model.addAttribute("categoriesF2",categoriesF2);
         model.addAttribute("categoriesF3",categoriesF3);
     }
 
+    public List<Product> findProductByCategory(String catId){
+        if(Objects.equals(catId, "sale")){
+            return productRepo.findAllByIsDiscountIsTrue();
+        }
+        else {
+            return productRepo.findByCategoryCatId(catId);
+        }
+    }
 }

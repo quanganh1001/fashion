@@ -17,12 +17,6 @@ th,td{
     border: 1px solid black;
 }
 
-h2{
-    width: 100%;
-    text-align: center;
-    color: darkmagenta;
-}
-
 .hidden{
     display: none;
 }
@@ -36,4 +30,8 @@ li:hover{
 }
 li{
     list-style-type: none;
+}
+
+a{
+    text-decoration-line: none;
 }

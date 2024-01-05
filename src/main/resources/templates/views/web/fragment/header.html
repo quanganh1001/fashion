@@ -9,7 +9,6 @@
                             <a class="nav-link fw-bold" aria-current="page" th:href="@{/category/sale}"
                                th:text="Sale"></a>
                         </li>
-
                         <li th:each="c1:${categoriesF1}" class="f1 nav-item justify-content-around">
                             <a class="nav-link fw-bold" aria-current="page" th:href="@{/category/__${c1.catId}__}"
                                th:text="${c1.catName}"></a>
@@ -25,6 +24,10 @@
                                 </div>
                             </div>
                         </li>
+                        <li class="nav-item f1">
+                            <a class="nav-link fw-bold" aria-current="page" th:href="@{/address}">Hệ thống cửa hàng</a>
+                        </li>
+
                     </ul>
                 </ul>
             </div>

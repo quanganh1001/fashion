@@ -22,4 +22,6 @@ public interface ProductRepo extends JpaRepository<Product, String> {
                                                                                        String key2,
                                                                                        Pageable pageable);
 
+    List<Product> findAllByIsDiscountIsTrue();
+
 }
