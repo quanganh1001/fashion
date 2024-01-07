@@ -7,10 +7,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import project.fashion.model.entity.Category;
 import project.fashion.model.entity.Product;
 import project.fashion.model.repository.ProductDetailRepo;
 import project.fashion.model.repository.ProductRepo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -28,7 +30,6 @@ public class ProductService{
 
     @Autowired
     private ImgProductService imgProductService;
-
 
     public void setProductActive(String cat_id, Boolean boo) {
         List<Product> product = productRepo.findByCategoryCatId(cat_id);

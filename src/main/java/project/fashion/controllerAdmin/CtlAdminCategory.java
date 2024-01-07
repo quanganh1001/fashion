@@ -10,6 +10,8 @@ import project.fashion.model.entity.Category;
 import project.fashion.model.entity.Product;
 import project.fashion.model.service.AccountService;
 import project.fashion.model.service.CategoryService;
+import project.fashion.model.service.ProductService;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +21,7 @@ import java.util.Optional;
 public class CtlAdminCategory {
     @Autowired
     private CategoryService categoryService;
+
 
     @Autowired
     AccountService accountService;

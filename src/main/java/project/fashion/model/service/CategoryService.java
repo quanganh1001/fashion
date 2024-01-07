@@ -2,15 +2,22 @@ package project.fashion.model.service;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import project.fashion.model.entity.Category;
+import project.fashion.model.entity.ImgProduct;
 import project.fashion.model.entity.Product;
 import project.fashion.model.repository.CategoryRepo;
+import project.fashion.model.repository.ImgProductRepo;
 import project.fashion.model.repository.ProductRepo;
 
+import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -22,10 +29,11 @@ public class CategoryService {
     private CategoryRepo categoryRepo;
 
     @Autowired
-    private ProductService productService;
+    private ProductRepo productRepo;
 
     @Autowired
-    private ProductRepo productRepo;
+    private ProductService productService;
+
 
 
     @Transactional
@@ -65,6 +73,29 @@ public class CategoryService {
         return categories;
     }
 
+    public List<Product> searchProductByCatId(String catId) {
+        if(Objects.equals(catId, "sale")){
+            return productRepo.findAllByIsDiscountIsTrue();
+        }else {
+            List<Product> products = new ArrayList<>(productRepo.findByCategoryCatId(catId));
+            List<Category> allCategory = new ArrayList<>();
+            CatDescendants(catId,allCategory);
+
+            for (Category c: allCategory){
+                products.addAll(productRepo.findByCategoryCatId(c.getCatId()));
+            }
+
+            return products;
+        }
+    }
+    public void CatDescendants(String catId, List<Category> allCategory){
+        List<Category> categories = getCategoriesByCatParentCatId(catId);
+        for (Category child : categories) {
+            allCategory.add(child);
+            CatDescendants(child.getCatId(), allCategory);
+        }
+    }
+
     public void addCategory(Model model, String catParentId) {
         List<Category> cat = categoryRepo.findAll();
         Category category = new Category();
@@ -86,26 +117,6 @@ public class CategoryService {
             }
         }
         categoryRepo.setCatActive(cat_id, boo);
-    }
-
-    public List<Product> searchProductByCatId(String catId) {
-        List<Product> products = new ArrayList<>(productRepo.findByCategoryCatId(catId));
-        List<Category> allCategory = new ArrayList<>();
-        CatDescendants(catId,allCategory);
-
-        for (Category c: allCategory){
-            products.addAll(productRepo.findByCategoryCatId(c.getCatId()));
-        }
-
-        return products;
-    }
-
-    public void CatDescendants(String catId, List<Category> allCategory){
-        List<Category> categories = getCategoriesByCatParentCatId(catId);
-        for (Category child : categories) {
-            allCategory.add(child);
-            CatDescendants(child.getCatId(), allCategory);
-        }
     }
 
     public ResponseEntity<String> deleteById(String catId) {
@@ -142,14 +153,5 @@ public class CategoryService {
         model.addAttribute("categoriesF1",categoriesF1);
         model.addAttribute("categoriesF2",categoriesF2);
         model.addAttribute("categoriesF3",categoriesF3);
-    }
-
-    public List<Product> findProductByCategory(String catId){
-        if(Objects.equals(catId, "sale")){
-            return productRepo.findAllByIsDiscountIsTrue();
-        }
-        else {
-            return productRepo.findByCategoryCatId(catId);
-        }
     }
 }

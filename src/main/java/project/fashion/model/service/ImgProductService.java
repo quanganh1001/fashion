@@ -30,6 +30,15 @@ public class ImgProductService {
     @Autowired
     private ProductRepo productRepo;
 
+    public ResponseEntity<Resource> getBackground(String productId) throws MalformedURLException {
+        Optional<ImgProduct> OptimalImgProduct = imgProductRepo.findByBackground1TrueAndProductProductId(productId);
+        var fileName = OptimalImgProduct.get().getFileImg();
+        Path imagePath = Paths.get("src/main/uploads/images").resolve(fileName);
+        Resource imageResource = new UrlResource(imagePath.toUri());
+        // Trả về phản hồi với hình ảnh
+        return ResponseEntity.ok().body(imageResource);
+    }
+
     public void getImgBg(Model model, Integer imgbg, String productId) {
         ImgProduct c = new ImgProduct();
         if (imgbg == 1) {

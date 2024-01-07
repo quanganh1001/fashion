@@ -30,7 +30,8 @@ public class CtlAdminInvoiceDetail {
     private HistoryService historyService;
     @Autowired
     private AccountService accountService;
-
+    @Autowired
+    private ImgProductService imgProductService;
     @GetMapping()
     @PreAuthorize("isAuthenticated() and ((#accountId == (authentication.principal.user.accountId)) or hasAnyRole('MANAGER'))")
     public String getInvoiceDetail(Model model,
@@ -74,7 +75,7 @@ public class CtlAdminInvoiceDetail {
 
     @GetMapping("/img/{productId}")
     public ResponseEntity<Resource> serveImage(@PathVariable String productId) throws IOException {
-        return invoiceDetailService.getImgBg(productId);
+        return imgProductService.getBackground(productId);
     }
 
     @GetMapping("/searchProduct")

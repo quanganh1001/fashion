@@ -121,14 +121,6 @@ public class InvoiceDetailService{
             return new ResponseEntity<>("Số lượng không hợp lệ", HttpStatus.BAD_REQUEST);
     }
 
-    public ResponseEntity<Resource> getImgBg(String productId) throws MalformedURLException {
-        Optional<ImgProduct> OptimalImgProduct = imgProductRepo.findByBackground1TrueAndProductProductId(productId);
-        var fileName = OptimalImgProduct.get().getFileImg();
-        Path imagePath = Paths.get("src/main/uploads/images").resolve(fileName);
-        Resource imageResource = new UrlResource(imagePath.toUri());
-        // Trả về phản hồi với hình ảnh
-        return ResponseEntity.ok().body(imageResource);
-    }
 
     public Integer totalAdmount(List<InvoiceDetail> invoiceDetails){
         var totalAmount = 0;
