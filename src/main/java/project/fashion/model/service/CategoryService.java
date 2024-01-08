@@ -146,10 +146,11 @@ public class CategoryService {
         List<Category> categoriesF3 = new ArrayList<>();
         for (Category catF1:categoriesF1){
             categoriesF2.addAll(categoryRepo.findCategoriesByCatParentCatId(catF1.getCatId()));
-            for(Category catF2:categoriesF2){
-                categoriesF3.addAll(categoryRepo.findCategoriesByCatParentCatId(catF2.getCatId()));
-            }
         }
+        for (Category catF2 : categoriesF2) {
+            categoriesF3.addAll(categoryRepo.findCategoriesByCatParentCatId(catF2.getCatId()));
+        }
+
         model.addAttribute("categoriesF1",categoriesF1);
         model.addAttribute("categoriesF2",categoriesF2);
         model.addAttribute("categoriesF3",categoriesF3);

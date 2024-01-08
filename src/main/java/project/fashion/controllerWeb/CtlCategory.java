@@ -36,7 +36,7 @@ public class CtlCategory {
         categoryService.listCategory(model);
         List<Product> products = categoryService.searchProductByCatId(catId);
         Optional<Category> cat = Optional.of(categoryService.findById(catId).orElse(new Category()));
-        System.out.println(products);
+
         model.addAttribute("products",products);
         model.addAttribute("cat",cat.get());
         model.addAttribute("title","Category");
@@ -44,7 +44,7 @@ public class CtlCategory {
     }
 
     @GetMapping("/img")
-    public ResponseEntity<Resource> getImg(@RequestParam("productId") String productId) throws MalformedURLException{
-        return imgProductService.getBackground(productId);
+    public ResponseEntity<Resource> getImg(@RequestParam("productId") String productId,@RequestParam("bg") int bg) throws MalformedURLException{
+        return imgProductService.getBackground(productId,bg);
     }
 }

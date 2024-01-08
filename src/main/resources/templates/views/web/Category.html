@@ -2,7 +2,21 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head th:include="~{web/fragment/head::head}"></head>
+<style>
+    .add-to-cart-btn {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 100%;
+        left: 50%;
+        transition: all 0.3s ease-in-out;
+    }
 
+    .card:hover .add-to-cart-btn {
+        transition: all 0.3s ease-in-out;
+        top: 80%;
+    }
+
+</style>
 <body>
 
 <header th:include="~{web/fragment/header::header}"></header>
@@ -27,12 +41,17 @@
                 </div>
                 <div class="col-lg-9 col-md-12 col-12 collection main-container d-flex justify-content-start flex-wrap"
                      style="border: 1px solid">
-                    <div th:each="pr : ${products}" class="card col-3 m-4">
-                        <img th:src="@{'/category/img?productId='+${pr.productId}}" alt="...">
+                    <div th:each="pr : ${products}" class="card hover col-3 m-4">
+                        <div class="card  position-relative" style="border: 1px solid">
+                            <img th:src="@{'/category/img?productId='+${pr.productId}+'&bg=1'}" alt="..." class="product-image"
+                                 th:data-default-src="@{'/category/img?productId='+${pr.productId}+'&bg=1'}"
+                                 th:data-hover-src="@{'/category/img?productId='+${pr.productId}+'&bg=2'}">
+                            <a th:href="@{/product/__${pr.productId}__}" ><button class="btn btn-primary add-to-cart-btn hidden">Thêm vào giỏ hàng</button></a>
+                        </div>
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <span th:text="'+'+ ${pr.totalColor}+' Màu sắc'" class="fw-light"
-                                  style="font-size:14px"></span>
+                                      style="font-size:14px"></span>
                                 <span th:text="'+' +${pr.totalSize}+ ' Kích thước'" class="fw-light"
                                       style="font-size:14px"></span>
                             </div>
@@ -53,5 +72,22 @@
         </div>
     </div>
 </div>
+<script>
+
+    $(document).ready(function () {
+        $('.hover').hover(
+            function () {
+                var hoverSrc = $(this).find('.product-image').data('hover-src');
+                $(this).find('.product-image').attr('src', hoverSrc);
+                $(this).find('.add-to-cart-btn').removeClass("hidden");
+            },
+            function () {
+                var defaultSrc = $(this).find('.product-image').data('default-src');
+                $(this).find('.product-image').attr('src', defaultSrc);
+                $(this).find('.add-to-cart-btn').addClass("hidden");
+            }
+        );
+    });
+</script>
 </body>
 </html>

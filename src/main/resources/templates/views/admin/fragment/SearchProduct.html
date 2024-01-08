@@ -5,7 +5,7 @@
             th:id="${result.productDetailId}"
             class="item list-group-item" style="display: flex">
             <img class="img-thumbnail" width="50px"
-                 th:src="@{'/admin/invoiceDetail/img/'+${result.product.productId}}">
+                 th:src="@{'/admin/invoiceDetail/img/'+${result.product.productId}}" alt="">
             <div>
                 <span th:if="${result.outOfStock == true}"
                         th:text="${result.product.productName} + ' | ' +  ${result.size.name} + ' | ' +  ${result.color.name}"></span>

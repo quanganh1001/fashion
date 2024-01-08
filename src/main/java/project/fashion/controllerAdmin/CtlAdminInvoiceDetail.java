@@ -75,7 +75,7 @@ public class CtlAdminInvoiceDetail {
 
     @GetMapping("/img/{productId}")
     public ResponseEntity<Resource> serveImage(@PathVariable String productId) throws IOException {
-        return imgProductService.getBackground(productId);
+        return imgProductService.getBackground(productId,1);
     }
 
     @GetMapping("/searchProduct")
@@ -85,6 +85,7 @@ public class CtlAdminInvoiceDetail {
 
         accountService.getAccountResponse(model);
 
+        System.out.println(search);
         model.addAttribute("search", search);
         model.addAttribute("invoiceId", invoiceId);
         return "admin/fragment/SearchProduct";

@@ -30,13 +30,59 @@ public class ImgProductService {
     @Autowired
     private ProductRepo productRepo;
 
-    public ResponseEntity<Resource> getBackground(String productId) throws MalformedURLException {
-        Optional<ImgProduct> OptimalImgProduct = imgProductRepo.findByBackground1TrueAndProductProductId(productId);
-        var fileName = OptimalImgProduct.get().getFileImg();
-        Path imagePath = Paths.get("src/main/uploads/images").resolve(fileName);
-        Resource imageResource = new UrlResource(imagePath.toUri());
-        // Trả về phản hồi với hình ảnh
-        return ResponseEntity.ok().body(imageResource);
+    public ResponseEntity<Resource> getBackground(String productId,Integer bg) throws MalformedURLException {
+        Optional<ImgProduct> OptimalImgProduct1 = imgProductRepo.findByBackground1TrueAndProductProductId(productId);
+        Optional<ImgProduct> OptimalImgProduct2 = imgProductRepo.findByBackground2TrueAndProductProductId(productId);
+
+        if(bg==1){
+            if(OptimalImgProduct1.isEmpty()){
+                if(OptimalImgProduct2.isEmpty()){
+                    var fileName = "no_image.jpg";
+                    Path imagePath = Paths.get("src/main/resources/static/image").resolve(fileName);
+                    Resource imageResource = new UrlResource(imagePath.toUri());
+                    // Trả về phản hồi với hình ảnh
+                    return ResponseEntity.ok().body(imageResource);
+                }else {
+                    var fileName = OptimalImgProduct2.get().getFileImg();
+                    Path imagePath = Paths.get("src/main/uploads/images").resolve(fileName);
+                    Resource imageResource = new UrlResource(imagePath.toUri());
+
+                    // Trả về phản hồi với hình ảnh
+                    return ResponseEntity.ok().body(imageResource);
+                }
+            } else {
+                var fileName = OptimalImgProduct1.get().getFileImg();
+                Path imagePath = Paths.get("src/main/uploads/images").resolve(fileName);
+                Resource imageResource = new UrlResource(imagePath.toUri());
+                // Trả về phản hồi với hình ảnh
+                return ResponseEntity.ok().body(imageResource);
+            }
+
+        } else if(bg==2) {
+            if(OptimalImgProduct2.isEmpty()){
+                if(OptimalImgProduct1.isEmpty()){
+                    var fileName = "no_image.jpg";
+                    Path imagePath = Paths.get("src/main/resources/static/image").resolve(fileName);
+                    Resource imageResource = new UrlResource(imagePath.toUri());
+                    // Trả về phản hồi với hình ảnh
+                    return ResponseEntity.ok().body(imageResource);
+                }else {
+                    var fileName = OptimalImgProduct1.get().getFileImg();
+                    Path imagePath = Paths.get("src/main/uploads/images").resolve(fileName);
+                    Resource imageResource = new UrlResource(imagePath.toUri());
+                    // Trả về phản hồi với hình ảnh
+                    return ResponseEntity.ok().body(imageResource);
+                }
+            }else {
+                var fileName = OptimalImgProduct2.get().getFileImg();
+                Path imagePath = Paths.get("src/main/uploads/images").resolve(fileName);
+                Resource imageResource = new UrlResource(imagePath.toUri());
+                // Trả về phản hồi với hình ảnh
+                return ResponseEntity.ok().body(imageResource);
+            }
+
+        }else
+            return ResponseEntity.ok().body(null);
     }
 
     public void getImgBg(Model model, Integer imgbg, String productId) {

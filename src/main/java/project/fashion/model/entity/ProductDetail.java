@@ -32,5 +32,4 @@ public class ProductDetail {
         if (productDetailActive == null)
             productDetailActive = true;
     }
-
 }
