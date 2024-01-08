@@ -11,6 +11,8 @@ import java.util.List;
 
 public interface CategoryRepo extends JpaRepository<Category,String> {
 
+    List<Category> findCategoriesByCatParentCatIdAndIsCatActiveTrue(String catId);
+
     List<Category> findCategoriesByCatParentCatId(String catId);
 
     @Modifying

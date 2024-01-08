@@ -67,9 +67,9 @@ public class CategoryService {
     public List<Category> getCategoriesByCatParentCatId(String parent) {
         List<Category> categories;
         if (parent.isEmpty()) {
-            categories = categoryRepo.findCategoriesByCatParentCatId(null);
+            categories = categoryRepo.findCategoriesByCatParentCatIdAndIsCatActiveTrue(null);
         } else
-            categories = categoryRepo.findCategoriesByCatParentCatId(parent);
+            categories = categoryRepo.findCategoriesByCatParentCatIdAndIsCatActiveTrue(parent);
         return categories;
     }
 

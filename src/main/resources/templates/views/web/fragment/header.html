@@ -9,6 +9,7 @@
                             <a class="nav-link fw-bold" aria-current="page" th:href="@{/category/sale}"
                                th:text="Sale"></a>
                         </li>
+                        <th:block th:with="f3Displayed=false"></th:block>
                         <li th:each="c1:${categoriesF1}" class="f1 nav-item justify-content-around">
                             <a class="nav-link fw-bold" aria-current="page" th:href="@{/category/__${c1.catId}__}"
                                th:text="${c1.catName}"></a>
@@ -17,17 +18,22 @@
                                      th:each="c2:${categoriesF2}">
                                     <a th:href="@{/category/__${c2.catId}__}" th:text="${c2.catName}"
                                        class="nav-link fw-bold"></a>
-                                    <div th:each="c3:${categoriesF3}" th:if="${categoriesF3 != null} and ${c3.catParent.catId == c2.catId}">
+
+                                    <div th:each="c3:${categoriesF3}"
+                                         th:if="${c3.catParent.catId == c2.catId} ">
+                                        <th:block th:unless="${f3Displayed}">
                                             <a th:href="@{/category/__${c3.catId}__}" th:text="${c3.catName}"
                                                class="nav-link"></a>
+                                            <th:block th:with="f3Displayed=true"></th:block>
+                                        </th:block>
                                     </div>
                                 </div>
                             </div>
                         </li>
+
                         <li class="nav-item f1">
                             <a class="nav-link fw-bold" aria-current="page" th:href="@{/address}">Hệ thống cửa hàng</a>
                         </li>
-
                     </ul>
                 </ul>
             </div>
