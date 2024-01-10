@@ -1,4 +1,4 @@
-<header th:fragment="header" xmlns:th="http://www.w3.org/1999/html">
+<header th:fragment="header">
     <nav class="navbar navbar-expand-lg bg-body-tertiary d-flex">
         <div class="container-fluid ">
             <a class="navbar-brand" href="/"><img src="/image/logo.png" style="width: 200px" alt=""></a>
@@ -6,30 +6,35 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
                     <ul class="list-group list-group-horizontal">
                         <li class="nav-item f1">
-                            <a class="nav-link fw-bold" aria-current="page" th:href="@{/category/sale}"
+                            <a class="text-dark nav-link fw-bold" aria-current="page" th:href="@{/category/sale}"
                                th:text="Sale"></a>
                         </li>
-
-                        <li th:each="c1 : ${categoriesF1}" class="f1 nav-item justify-content-around">
-                            <a class="nav-link fw-bold" aria-current="page" th:href="@{/category/__${c1.catId}__}"
+                        <th:block th:with="f3Displayed=false"></th:block>
+                        <li th:each="c1:${categoriesF1}" class="f1 nav-item justify-content-around">
+                            <a class="text-dark nav-link fw-bold" aria-current="page"
+                               th:href="@{/category/__${c1.catId}__}"
                                th:text="${c1.catName}"></a>
                             <div class="hidden f2">
                                 <div th:if="${categoriesF2 != null} and ${c2.catParent.catId == c1.catId}"
                                      th:each="c2:${categoriesF2}">
                                     <a th:href="@{/category/__${c2.catId}__}" th:text="${c2.catName}"
-                                       class="nav-link fw-bold"></a>
+                                       class="text-dark nav-link fw-bold"></a>
 
                                     <div th:each="c3:${categoriesF3}"
                                          th:if="${c3.catParent.catId == c2.catId} ">
-                                        <a th:href="@{/category/__${c3.catId}__}" th:text="${c3.catName}"
-                                           class="nav-link"></a>
+                                        <th:block th:unless="${f3Displayed}">
+                                            <a th:href="@{/category/__${c3.catId}__}" th:text="${c3.catName}"
+                                               class="text-dark nav-link"></a>
+                                            <th:block th:with="f3Displayed=true"></th:block>
+                                        </th:block>
                                     </div>
                                 </div>
                             </div>
                         </li>
 
                         <li class="nav-item f1">
-                            <a class="nav-link fw-bold" aria-current="page" th:href="@{/address}">Hệ thống cửa hàng</a>
+                            <a class="text-dark nav-link fw-bold" aria-current="page" th:href="@{/address}">Hệ thống
+                                cửa hàng</a>
                         </li>
                     </ul>
                 </ul>
@@ -41,4 +46,3 @@
         </div>
     </nav>
 </header>
-

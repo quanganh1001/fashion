@@ -46,7 +46,8 @@
                             <img th:src="@{'/category/img?productId='+${pr.productId}+'&bg=1'}" alt="..." class="product-image"
                                  th:data-default-src="@{'/category/img?productId='+${pr.productId}+'&bg=1'}"
                                  th:data-hover-src="@{'/category/img?productId='+${pr.productId}+'&bg=2'}">
-                            <a th:href="@{/product/__${pr.productId}__}" ><button class="btn btn-primary add-to-cart-btn hidden">Thêm vào giỏ hàng</button></a>
+                            <a th:href="@{/products/__${pr.productId}__}" ><button
+                                    class="btn btn-primary add-to-cart-btn hidden">Chi tiết sản phẩm</button></a>
                         </div>
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
