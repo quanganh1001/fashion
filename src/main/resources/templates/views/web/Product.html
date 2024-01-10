@@ -28,9 +28,9 @@
 
         <div class="container d-flex">
             <!-- slide -->
-            <div class="a-product-slider col-3 justify-content-center" style="border: 1px solid">
+            <div class="a-product-slider col-3 justify-content-center">
                 <div class="a-item" th:each="img : ${imgProducts}">
-                    <img th:src="@{/product/img?fileImg=__${img.fileImg}__}" class="d-block"
+                    <img th:src="@{/products/img?fileImg=__${img.fileImg}__}" class="d-block"
                          style="max-height: 50vh;border: 1px solid"
                          alt="...">
                 </div>

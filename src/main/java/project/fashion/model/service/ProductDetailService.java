@@ -31,11 +31,11 @@ public class ProductDetailService {
         if (productDetailRepo.existsByCode(pd.getCode()) && !Objects.equals(productDetailIdOther, pd.getProductDetailId())) {
             return new ResponseEntity<>("sản phẩm đã tồn tại", HttpStatus.CONFLICT);
 
-        }else if(Objects.equals(pd.getCode(), "") || pd.getCode() == null ||
+        } else if (Objects.equals(pd.getCode(), "") || pd.getCode() == null ||
                 !isNumeric(pd.getQuantity().toString()) || pd.getQuantity() == null || isEmpty(pd.getQuantity().toString()) ||
                 Objects.equals(pd.getColor(), "") || pd.getColor() == null ||
                 Objects.equals(pd.getSize(), "") || pd.getSize() == null ||
-                Objects.equals(pd.getProductDetailActive(), "") || pd.getProductDetailActive() == null){
+                Objects.equals(pd.getProductDetailActive(), "") || pd.getProductDetailActive() == null) {
             return new ResponseEntity<>("Lỗi nhập sai hoặc thiếu thông tin", HttpStatus.CONFLICT);
         } else {
 
@@ -44,6 +44,7 @@ public class ProductDetailService {
         }
 
     }
+
     public void deleteById(Integer prDetailId) {
         productDetailRepo.deleteById(prDetailId);
     }
@@ -74,5 +75,10 @@ public class ProductDetailService {
 
     public List<ProductDetail> findAllByProductProductId(String productId) {
         return productDetailRepo.findAllByProductProductId(productId);
+    }
+
+    public ProductDetail findProductDetail(String productId,String color, String size) {
+        System.out.println(color+size);
+        return productDetailRepo.findProductDetails(productId,color, size);
     }
 }

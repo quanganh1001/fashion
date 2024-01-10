@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import project.fashion.model.entity.ProductDetail;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductDetailRepo extends JpaRepository<ProductDetail,Integer> {
 
@@ -32,4 +33,8 @@ public interface ProductDetailRepo extends JpaRepository<ProductDetail,Integer> 
     Boolean existsByCode(String code);
 
     ProductDetail findByCode(String code);
+
+    @Query(value = "SELECT * FROM products_detail WHERE product_id = :productId AND color_id = :color AND size_id = :size",
+            nativeQuery = true)
+    ProductDetail findProductDetails(@Param("productId") String productId,@Param("color") String color,@Param("size") String size);
 }

@@ -1,7 +1,21 @@
 <div th:fragment="productDetail">
     <h4 th:text="${product.productName}"></h4>
-    <div>
-        <span th:text="'Mã sản phẩm: '"></span>
+    <div th:if="${productDetail != null}">
+        <span class="fw-light">Mã sản phẩm:
+            <span th:text="${productDetail.code}" class="fw-bold"></span>
+        </span>
+        |
+        <span class="fw-light">Tình trạng:
+            <span th:if="${productDetail.outOfStock}" class="fw-bold"> Còn hàng</span>
+            <span th:unless="${productDetail.outOfStock}"> Hết hàng</span>
+        </span>
+        |
+        <span class="fw-light">Thương hiệu:
+            <span th:text="${product.brand}" class="fw-bold"></span>
+        </span>
     </div>
+
+    <div style="background-color: #d9d7d7" class="p-3"><span>Giá:  <span th:text="${product.price}" class="text-danger fw-bold"></span></span></div>
+    <div class="p-3"><span>Màu sắc: </span><div></div></div>
 
 </div>

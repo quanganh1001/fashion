@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import project.fashion.model.entity.Category;
 import project.fashion.model.entity.ImgProduct;
 import project.fashion.model.entity.Product;
-import project.fashion.model.service.CategoryService;
-import project.fashion.model.service.ImgProductService;
-import project.fashion.model.service.ImgSizeService;
-import project.fashion.model.service.ProductService;
+import project.fashion.model.entity.ProductDetail;
+import project.fashion.model.service.*;
 
 import java.net.MalformedURLException;
 import java.util.List;
@@ -29,19 +27,25 @@ public class CtlProduct {
     @Autowired
     public ProductService productService;
     @Autowired
+    public ProductDetailService productDetailService;
+    @Autowired
     public ImgSizeService imgSizeService;
     @Autowired
     public ImgProductService imgProductService;
 
     @GetMapping("/{productId}")
-    public String product(Model model, @PathVariable String productId){
+    public String product(Model model, @PathVariable String productId,@RequestParam(value = "color",defaultValue = "") String color,@RequestParam(value = "size",defaultValue = "") String size) throws Exception {
         Product product = productService.findById(productId);
         categoryService.listCategory(model);
         List<ImgProduct> imgProducts = imgProductService.findAllImgByProduct(productId);
+        List<ProductDetail> productDetails = productDetailService.findAllByProductProductId(productId);
+        ProductDetail productDetail = productDetailService.findProductDetail(productId,"NV","S");
 
         model.addAttribute("title","Home");
+        model.addAttribute("productDetail",productDetail);
         model.addAttribute("product",product);
         model.addAttribute("imgProducts",imgProducts);
+        model.addAttribute("productDetails",productDetails);
         return "web/Product";
     }
 
