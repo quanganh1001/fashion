@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import project.fashion.model.entity.Category;
-import project.fashion.model.entity.ImgProduct;
-import project.fashion.model.entity.Product;
-import project.fashion.model.entity.ProductDetail;
+import project.fashion.model.entity.*;
 import project.fashion.model.service.*;
 
 import java.net.MalformedURLException;
@@ -32,20 +29,27 @@ public class CtlProduct {
     public ImgSizeService imgSizeService;
     @Autowired
     public ImgProductService imgProductService;
+    @Autowired
+    public ColorService colorService;
 
     @GetMapping("/{productId}")
-    public String product(Model model, @PathVariable String productId,@RequestParam(value = "color",defaultValue = "") String color,@RequestParam(value = "size",defaultValue = "") String size) throws Exception {
+    public String product(Model model, 
+                          @PathVariable String productId,
+                          @RequestParam(value = "color",defaultValue = "") String color,
+                          @RequestParam(value = "size",defaultValue = "") String size
+                          ) throws Exception {
         Product product = productService.findById(productId);
         categoryService.listCategory(model);
         List<ImgProduct> imgProducts = imgProductService.findAllImgByProduct(productId);
-        List<ProductDetail> productDetails = productDetailService.findAllByProductProductId(productId);
+        List<Color> colors = colorService.findColor(productId);
+        System.out.println(colors);
         ProductDetail productDetail = productDetailService.findProductDetail(productId,"NV","S");
 
         model.addAttribute("title","Home");
         model.addAttribute("productDetail",productDetail);
         model.addAttribute("product",product);
         model.addAttribute("imgProducts",imgProducts);
-        model.addAttribute("productDetails",productDetails);
+        model.addAttribute("colors",colors);
         return "web/Product";
     }
 

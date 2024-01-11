@@ -5,14 +5,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import project.fashion.model.entity.Color;
+import project.fashion.model.entity.ProductDetail;
 import project.fashion.model.repository.ColorRepo;
+import project.fashion.model.repository.ProductDetailRepo;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ColorService{
     @Autowired
     private ColorRepo colorRepo;
+    @Autowired
+    private ProductDetailRepo productDetailRepo;
 
     public List<Color> findAll(){
         return colorRepo.findAll();
@@ -35,5 +39,15 @@ public class ColorService{
         }
     }
 
+
+    public List<Color> findColor(String productId){
+        List<Color> colorList = new ArrayList<>();
+
+        List<ProductDetail> productDetails = productDetailRepo.findAllByProductProductId(productId);
+        for(ProductDetail pd:productDetails){
+            colorList.add(pd.getColor());
+        }
+        return new ArrayList<>(new HashSet<>(colorList));
+    }
 
 }

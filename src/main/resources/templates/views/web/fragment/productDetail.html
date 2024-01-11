@@ -1,4 +1,4 @@
-<div th:fragment="productDetail">
+<div th:fragment="productDetail" >
     <h4 th:text="${product.productName}"></h4>
     <div th:if="${productDetail != null}">
         <span class="fw-light">Mã sản phẩm:
@@ -15,7 +15,29 @@
         </span>
     </div>
 
-    <div style="background-color: #d9d7d7" class="p-3"><span>Giá:  <span th:text="${product.price}" class="text-danger fw-bold"></span></span></div>
-    <div class="p-3"><span>Màu sắc: </span><div></div></div>
+    <div style="background-color: #d9d7d7" class="p-3"><span>Giá:  <span th:text="${product.price}"
+                                                                         class="text-danger fw-bold"></span></span>
+    </div>
+    <div class="p-3">
+        <form action="">
+            <div id="variant-swatch-0" class="d-flex" data-option="option1" data-option-index="0">
+                <div class="pro-title">Màu sắc: </div>
+                <div class=" select-swap" th:each="color : ${colors}">
+                    <div th:data-value="${color.name}">
+                        <label>
+                            <input th:id="'swatch-0-' +${color.name}"
+                                   type="radio" name="option1"
+                                   th:value="${color.colorId[0]}"
+                                   th:data-vhandle="${color.colorId}">
+                        </label>
+                        <label class="trang-kem-dam"
+                               th:for="'swatch-0-' +${color.name}">
+                            <span th:text="${color.name}"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 
 </div>
