@@ -36,11 +36,50 @@
                 </div>
             </div>
 
-            <div th:include="~{web/fragment/productDetail::productDetail}" style="border: 1px solid" class="col-9 p-3"></div>
+            <div style="border: 1px solid" class="col-9 p-3">
+                <h4 th:text="${product.productName}"></h4>
+                <div th:include="~{web/fragment/productDetail::productDetail}"></div>
+                <div style="background-color: #d9d7d7" class="p-3"><span>Giá:  <span th:text="${product.price}"
+                                                                                     class="text-danger fw-bold"></span></span>
+                </div>
+                <div class="p-3">
+                    <form action="" id="form">
+                        <div class="d-flex align-items-center">
+                            <div>Màu sắc:</div>
+                            <div th:each="color, status : ${colors}">
+                                <label th:text="${color.name}"
+                                       th:data-color-id="${color.colorId}"
+                                       class="color m-2 border p-2"
+                                       th:classappend="${status.index == 0} ? 'bg-success' : ''">
+                                    <input type="radio" name="color"
+                                           th:value="${color.colorId}"
+                                           th:id="${color.colorId}"
+                                           th:checked="${status.index == 0}"
+                                           class="hidden"/>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div>Size:</div>
+                            <div th:each="size, status : ${sizes}">
+                                <label th:text="${size.name}"
+                                       th:data-color-id="${size.sizeId}"
+                                       class="size m-2 border p-2"
+                                       th:classappend="${status.index == 0} ? 'bg-success' : ''">
+                                    <input type="radio" name="size"
+                                           th:value="${size.sizeId}"
+                                           th:id="${size.sizeId}"
+                                           th:checked="${status.index == 0}"
+                                           class="hidden"/>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
 
 <script>
     $(document).ready(function () {
@@ -65,6 +104,30 @@
                     }
                 }
             ]
+        });
+
+        $('.color').click(function () {
+            // Loại bỏ lớp 'bg-success' từ tất cả các label
+            $('.color').removeClass('bg-success');
+
+            // Thêm lớp 'bg-success' cho label được bấm vào
+            $(this).addClass('bg-success');
+
+            // Tìm input con và thay đổi trạng thái checked
+            var input = $(this).find('input[name="color"]');
+            input.prop('checked', true);
+        });
+
+        $('.size').click(function () {
+            // Loại bỏ lớp 'bg-success' từ tất cả các label
+            $('.size').removeClass('bg-success');
+
+            // Thêm lớp 'bg-success' cho label được bấm vào
+            $(this).addClass('bg-success');
+
+            // Tìm input con và thay đổi trạng thái checked
+            var input = $(this).find('input[name="size"]');
+            input.prop('checked', true);
         });
     });
 </script>

@@ -31,6 +31,8 @@ public class CtlProduct {
     public ImgProductService imgProductService;
     @Autowired
     public ColorService colorService;
+    @Autowired
+    public SizeService sizeService;
 
     @GetMapping("/{productId}")
     public String product(Model model, 
@@ -42,7 +44,7 @@ public class CtlProduct {
         categoryService.listCategory(model);
         List<ImgProduct> imgProducts = imgProductService.findAllImgByProduct(productId);
         List<Color> colors = colorService.findColor(productId);
-        System.out.println(colors);
+        List<Size> sizes = sizeService.findSize(productId);
         ProductDetail productDetail = productDetailService.findProductDetail(productId,"NV","S");
 
         model.addAttribute("title","Home");
@@ -50,6 +52,7 @@ public class CtlProduct {
         model.addAttribute("product",product);
         model.addAttribute("imgProducts",imgProducts);
         model.addAttribute("colors",colors);
+        model.addAttribute("sizes",sizes );
         return "web/Product";
     }
 

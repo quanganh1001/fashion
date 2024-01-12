@@ -36,7 +36,6 @@ public class CtlAdminInvoice {
 
         List<AccountResponse> accountResponses = accountService.findAll();
 
-        System.out.println(selectAccount);
         model.addAttribute("accountResponses",accountResponses);
         model.addAttribute("selectAccount",selectAccount);
         model.addAttribute("currentPage", page);
