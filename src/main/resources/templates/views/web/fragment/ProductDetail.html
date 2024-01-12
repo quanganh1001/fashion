@@ -1,0 +1,21 @@
+<div th:fragment="ProductDetail" class="d-flex align-items-center">
+    <div th:if="${productDetail != null}">
+
+            <span class="fw-light">Mã sản phẩm:
+                <span class="fw-bold" th:text="${productDetail.code}"></span>
+            </span>
+            |
+            <span class="fw-light">Tình trạng:
+                <span th:if="${productDetail.outOfStock == true}" class="fw-bold">Còn hàng</span>
+                <span th:unless="${productDetail.outOfStock == true}" class="fw-bold">Hết hàng</span>
+            </span>
+            |
+            <span class="fw-light">Thương hiệu:
+                <span class="fw-bold" th:text="${product.brand}"></span>
+            </span>
+
+<!--        <div th:unless="${productDetail.quantity >0}">Hãy chọn size</div>-->
+    </div>
+
+    <div th:unless="${productDetail != null}">Hãy chọn size</div>
+</div>

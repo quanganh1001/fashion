@@ -19,6 +19,8 @@ public interface ProductDetailRepo extends JpaRepository<ProductDetail,Integer> 
 
     List<ProductDetail> findAllByProductProductId(String productId);
 
+    List<ProductDetail> findAllByProductProductIdAndColor_ColorId(String productId,String colorId);
+
     List<ProductDetail> searchProductDetailByProductProductNameContainingIgnoreCase(String key);
 
     @Modifying
@@ -34,7 +36,7 @@ public interface ProductDetailRepo extends JpaRepository<ProductDetail,Integer> 
 
     ProductDetail findByCode(String code);
 
-    @Query(value = "SELECT * FROM products_detail WHERE product_id = :productId AND color_id = :color AND size_id = :size",
+    @Query(value = "SELECT * FROM products_detail WHERE product_id = :productId AND color_id = :colorId AND size_id = :sizeId",
             nativeQuery = true)
-    ProductDetail findProductDetails(@Param("productId") String productId,@Param("color") String color,@Param("size") String size);
+    ProductDetail findProductDetails(@Param("productId") String productId,@Param("colorId") String colorId,@Param("sizeId") String sizeId);
 }

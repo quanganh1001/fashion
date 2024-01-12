@@ -77,8 +77,12 @@ public class ProductDetailService {
         return productDetailRepo.findAllByProductProductId(productId);
     }
 
-    public ProductDetail findProductDetail(String productId,String color, String size) {
-        System.out.println(color+size);
-        return productDetailRepo.findProductDetails(productId,color, size);
+    public List<ProductDetail> findAllByProductAndColor(String productId,String colorId) {
+        return productDetailRepo.findAllByProductProductIdAndColor_ColorId(productId,colorId);
+    }
+
+    public ProductDetail findProductDetail(String productId,String colorId, String sizeId) {
+        System.out.println(colorId + sizeId);
+        return productDetailRepo.findProductDetails(productId,colorId, sizeId);
     }
 }

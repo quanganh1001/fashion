@@ -137,13 +137,11 @@ $(document).ready(() => {
     var invoiceId = $("#input-plus").attr("data-invoice-id");
     var inputValue = ""
     $("#input-plus").keyup(()=>{
-
         inputValue = $("#input-plus").val();
         console.log(inputValue)
         console.log(invoiceId)
         if (inputValue != null && inputValue !== ""){
             $("#list-result").removeClass("hidden")
-
             $.ajax({
                 type: 'GET',
                 url: "/admin/invoiceDetail/searchProduct",

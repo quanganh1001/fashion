@@ -36,28 +36,52 @@ public class CtlProduct {
 
     @GetMapping("/{productId}")
     public String product(Model model, 
-                          @PathVariable String productId,
-                          @RequestParam(value = "color",defaultValue = "") String color,
-                          @RequestParam(value = "size",defaultValue = "") String size
+                          @PathVariable String productId
                           ) throws Exception {
         Product product = productService.findById(productId);
         categoryService.listCategory(model);
         List<ImgProduct> imgProducts = imgProductService.findAllImgByProduct(productId);
         List<Color> colors = colorService.findColor(productId);
         List<Size> sizes = sizeService.findSize(productId);
-        ProductDetail productDetail = productDetailService.findProductDetail(productId,"NV","S");
+        ProductDetail productDetail = productDetailService.findProductDetail(productId, colors.get(0).getColorId(),sizes.get(0).getSizeId());
+        List<ProductDetail> productDetails = productDetailService.findAllByProductAndColor(productId,colors.get(0).getColorId());
 
         model.addAttribute("title","Home");
-        model.addAttribute("productDetail",productDetail);
         model.addAttribute("product",product);
         model.addAttribute("imgProducts",imgProducts);
         model.addAttribute("colors",colors);
         model.addAttribute("sizes",sizes );
+        model.addAttribute("productDetail",productDetail );
+        model.addAttribute("productDetails",productDetails );
         return "web/Product";
     }
 
     @GetMapping("/img")
     public ResponseEntity<Resource> getImg(@RequestParam("fileImg") String fileImg) throws MalformedURLException {
         return imgProductService.getImg(fileImg);
+    }
+
+    @GetMapping("/detail")
+    public String getDetail(Model model,
+                            @RequestParam(value = "productId") String productId,
+                            @RequestParam(value = "colorId") String colorId,
+                            @RequestParam(value = "sizeId",defaultValue = "") String sizeId){
+        Product product = productService.findById(productId);
+        ProductDetail productDetail = productDetailService.findProductDetail(productId,colorId,sizeId);
+
+        model.addAttribute("productDetail",productDetail);
+        model.addAttribute("product",product);
+        return "web/fragment/ProductDetail";
+    }
+
+    @GetMapping("/size")
+    public String getSize(Model model,
+                            @RequestParam(value = "productId") String productId,
+                            @RequestParam(value = "colorId") String colorId){
+        List<ProductDetail> productDetails = productDetailService.findAllByProductAndColor(productId,colorId);
+
+        model.addAttribute("productDetails",productDetails);
+        model.addAttribute("productId",productId);
+        return "web/fragment/SelectSize";
     }
 }
