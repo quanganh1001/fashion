@@ -88,7 +88,7 @@ public class CtlAdminInvoiceDetail {
         System.out.println(search);
         model.addAttribute("search", search);
         model.addAttribute("invoiceId", invoiceId);
-        return "admin/fragment/SearchProduct";
+        return "admin/component/SearchProduct";
     }
 
     @PostMapping("/addProductInvoiceDetail")

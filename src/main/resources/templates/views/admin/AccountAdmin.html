@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 
-<head th:include="~{admin/fragment/head::head}"></head>
+<head th:include="~{admin/component/head::head}"></head>
 
 <body>
 <div class="ui-menu-item-wrapper">
-    <div th:include="~{admin/fragment/Menu::menu}"></div>
+    <div th:include="~{admin/component/Menu::menu}"></div>
 
     <div class="container p-4 ">
         <h2>Danh sách tài khoản</h2>
@@ -50,7 +50,7 @@
         </table>
     </div>
 </div>
-<script th:src="@{/script/AccountAdminScript.js}">
+<script th:src="@{/admin/script/AccountAdminScript.js}">
 </script>
 </body>
 </html>

@@ -34,17 +34,19 @@ public class ImgProductService {
         Optional<ImgProduct> OptimalImgProduct1 = imgProductRepo.findByBackground1TrueAndProductProductId(productId);
         Optional<ImgProduct> OptimalImgProduct2 = imgProductRepo.findByBackground2TrueAndProductProductId(productId);
 
+        Path path1 = Paths.get("src/main/uploads/images");
+        Path path2 = Paths.get("src/main/resources/static/web/image");
         if(bg==1){
             if(OptimalImgProduct1.isEmpty()){
                 if(OptimalImgProduct2.isEmpty()){
                     var fileName = "no_image.jpg";
-                    Path imagePath = Paths.get("src/main/resources/static/image").resolve(fileName);
+                    Path imagePath = path2.resolve(fileName);
                     Resource imageResource = new UrlResource(imagePath.toUri());
                     // Trả về phản hồi với hình ảnh
                     return ResponseEntity.ok().body(imageResource);
                 }else {
                     var fileName = OptimalImgProduct2.get().getFileImg();
-                    Path imagePath = Paths.get("src/main/uploads/images").resolve(fileName);
+                    Path imagePath = path1.resolve(fileName);
                     Resource imageResource = new UrlResource(imagePath.toUri());
 
                     // Trả về phản hồi với hình ảnh
@@ -52,7 +54,7 @@ public class ImgProductService {
                 }
             } else {
                 var fileName = OptimalImgProduct1.get().getFileImg();
-                Path imagePath = Paths.get("src/main/uploads/images").resolve(fileName);
+                Path imagePath = path1.resolve(fileName);
                 Resource imageResource = new UrlResource(imagePath.toUri());
                 // Trả về phản hồi với hình ảnh
                 return ResponseEntity.ok().body(imageResource);
@@ -62,20 +64,20 @@ public class ImgProductService {
             if(OptimalImgProduct2.isEmpty()){
                 if(OptimalImgProduct1.isEmpty()){
                     var fileName = "no_image.jpg";
-                    Path imagePath = Paths.get("src/main/resources/static/image").resolve(fileName);
+                    Path imagePath = path2.resolve(fileName);
                     Resource imageResource = new UrlResource(imagePath.toUri());
                     // Trả về phản hồi với hình ảnh
                     return ResponseEntity.ok().body(imageResource);
                 }else {
                     var fileName = OptimalImgProduct1.get().getFileImg();
-                    Path imagePath = Paths.get("src/main/uploads/images").resolve(fileName);
+                    Path imagePath = path1.resolve(fileName);
                     Resource imageResource = new UrlResource(imagePath.toUri());
                     // Trả về phản hồi với hình ảnh
                     return ResponseEntity.ok().body(imageResource);
                 }
             }else {
                 var fileName = OptimalImgProduct2.get().getFileImg();
-                Path imagePath = Paths.get("src/main/uploads/images").resolve(fileName);
+                Path imagePath = path1.resolve(fileName);
                 Resource imageResource = new UrlResource(imagePath.toUri());
                 // Trả về phản hồi với hình ảnh
                 return ResponseEntity.ok().body(imageResource);

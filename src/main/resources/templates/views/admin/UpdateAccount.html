@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en">
 
-<head th:include="~{admin/fragment/head::head}"></head>
+<head th:include="~{admin/component/head::head}"></head>
 
 <body>
 <div class="ui-menu-item-wrapper">
-    <div th:include="~{admin/fragment/Menu::menu}"></div>
+    <div th:include="~{admin/component/Menu::menu}"></div>
 
     <div class="container p-4">
         <h2>Cập nhập tài khoản</h2>
@@ -91,6 +91,6 @@
     </div>
 
 </div>
-<script th:src="@{/script/UpdateAccountScript.js}"></script>
+<script th:src="@{/admin/script/UpdateAccountScript.js}"></script>
 </body>
 </html>

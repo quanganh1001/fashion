@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 
-<head th:include="~{admin/fragment/head::head}"></head>
+<head th:include="~{admin/component/head::head}"></head>
 
 <body>
 <div class="ui-menu-item-wrapper">
-    <div th:include="~{admin/fragment/Menu::menu}"></div>
+    <div th:include="~{admin/component/Menu::menu}"></div>
 
     <div class="container p-4">
         <h2>DANH MỤC SẢN PHẨM</h2>
@@ -68,6 +68,6 @@
         </table>
     </div>
 </div>
-<script th:src="@{/script/CategoryAdminScript.js}"></script>
+<script th:src="@{/admin/script/CategoryAdminScript.js}"></script>
 </body>
 </html>

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <head th:include="~{admin/fragment/head::head}"></head>
+    <head th:include="~{admin/component/head::head}"></head>
 </head>
 <body>
 <div class="ui-menu-item-wrapper">
-    <div th:include="~{admin/fragment/Menu::menu}"></div>
+    <div th:include="~{admin/component/Menu::menu}"></div>
 
     <div class="container p-4">
         <h2>CHI TIẾT ĐƠN HÀNG</h2>
@@ -47,7 +47,7 @@
         </div>
     </div>
 </div>
-<script th:src="@{/script/AddInvoiceScripts.js}">
+<script th:src="@{/admin/script/AddInvoiceScripts.js}">
 </script>
 </body>
 </html>

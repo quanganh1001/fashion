@@ -1,0 +1,54 @@
+<div th:fragment="SelectSize">
+    <div class="d-flex align-items-center" id="selectSize">
+        <div th:each="pd, status : ${productDetails}">
+            <label th:if="${pd.quantity > 0}"
+                   th:text="${pd.size.name}"
+                   th:data-size-id="${pd.size.sizeId}"
+                   th:data-product-id="${productId}"
+                   class="size m-2 border p-2">
+            </label>
+            <label th:unless="${pd.quantity > 0}"
+                   th:text="${pd.size.name}"
+                   th:data-size-id="${pd.size.sizeId}"
+                   th:data-product-id="${productId}"
+                   class="m-2 border p-2 disable">
+            </label>
+        </div>
+    </div>
+    <script>
+        $('.size').click(function (event) {
+            if (quantity > 0 && checked != null){
+                $("#submit").removeClass("hidden")
+                $("#no-submit").addClass("hidden")
+            }else {
+                $("#no-submit").removeClass("hidden")
+                $("#submit").addClass("hidden")
+            }
+            // Loại bỏ lớp 'bg-success' từ tất cả các label
+            $('.size').removeClass('bg-success text-light checkedSize');
+
+            // Thêm lớp 'bg-success' cho label được bấm vào
+            $(this).addClass('bg-success text-light checkedSize');
+
+            // Tìm input con và thay đổi trạng thái checked
+            var input = $(this).find('input[name="size"]');
+            input.prop('checked', true);
+
+            var colorId = $(".checkedColor").data("color-id");
+            var sizeId = event.currentTarget.getAttribute("data-size-id");
+            var productId = event.currentTarget.getAttribute("data-product-id");
+
+            $.ajax({
+                type: 'GET',
+                url: "/products/detail",
+                data: {colorId: colorId, sizeId: sizeId, productId: productId},
+                success: function (data) {
+                    $("#detail").html(data)
+                },
+                error: (jqXHR) => {
+                    alert(jqXHR.responseText)
+                }
+            });
+        });
+    </script>
+</div>

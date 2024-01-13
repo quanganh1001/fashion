@@ -1,12 +1,12 @@
 <!doctype html>
 <html lang="en">
 
-<head th:include="~{admin/fragment/head::head}"></head>
+<head th:include="~{admin/component/head::head}"></head>
 
 <body>
 <div class="ui-menu-item-wrapper">
 
-    <div th:include="~{admin/fragment/Menu::menu}"></div>
+    <div th:include="~{admin/component/Menu::menu}"></div>
 
     <div class="container p-4">
 
@@ -39,7 +39,7 @@
         </form>
     </div>
 </div>
-<script th:src="@{/script/AddCategoryScript.js}"></script>
+<script th:src="@{/admin/script/AddCategoryScript.js}"></script>
 </body>
 </html>
 

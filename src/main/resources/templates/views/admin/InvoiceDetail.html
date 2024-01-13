@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 
-<head th:include="~{admin/fragment/head::head}"></head>
+<head th:include="~{admin/component/head::head}"></head>
 <style>
     .hidden {
         display: none;
@@ -33,7 +33,7 @@
 </style>
 <body>
 <div class="ui-menu-item-wrapper">
-    <div th:include="~{admin/fragment/Menu::menu}"></div>
+    <div th:include="~{admin/component/Menu::menu}"></div>
 
     <div class="container p-4">
         <h2>CHI TIẾT ĐƠN HÀNG</h2>
@@ -223,7 +223,7 @@
                        placeholder="Nhập mã sản phẩm hoặc tên sản phẩm..." id="input-plus"
                        class="col-6 hidden form-control">
                 <div id="list-result" class="col-12 hidden"
-                     th:include="~{admin/fragment/SearchProduct::SearchProduct}">
+                     th:include="~{admin/component/SearchProduct::SearchProduct}">
                 </div>
             </div>
 
@@ -260,6 +260,6 @@
         </div>
     </div>
 </div>
-<script th:src="@{/script/InvoiceDetailScript.js}"></script>
+<script th:src="@{/admin/script/InvoiceDetailScript.js}"></script>
 </body>
 </html>

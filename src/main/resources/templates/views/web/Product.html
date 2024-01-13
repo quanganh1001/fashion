@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
-<head th:include="~{web/fragment/head::head}"></head>
+<head th:include="~{web/component/head::head}"></head>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
@@ -11,7 +11,7 @@
 </style>
 <body>
 
-<header th:include="~{web/fragment/header::header}"></header>
+<header th:include="~{web/component/header::header}"></header>
 
 <div class="mainWrapper--content">
     <div class="layout-collections">
@@ -40,18 +40,19 @@
                 </div>
             </div>
 
-            <div style="border: 1px solid" class="col-9 p-3">
+            <div class="col-9 p-3">
                 <h4 th:text="${product.productName}"></h4>
-                <div id="detail" th:include="~{web/fragment/ProductDetail::ProductDetail}"></div>
+                <div id="detail" th:include="~{web/component/ProductDetail::ProductDetail}"></div>
                 <div style="background-color: #d9d7d7" class="p-3">
                     <span>Giá:
-                        <span th:text="${product.price}" class="text-danger fw-bold"></span>
+                        <span th:if="${!product.isDiscount}" th:text="${product.price}"
+                              class="text-danger fw-bold"></span>
                     </span>
                 </div>
                 <div class="p-3">
                     <form action="" id="form">
                         <div class="d-flex align-items-center">
-                            <div>Màu sắc:</div>
+                            <div class="col-1">Màu sắc:</div>
                             <div th:each="color, status : ${colors}">
                                 <label th:text="${color.name}"
                                        th:data-color-id="${color.colorId}"
@@ -67,17 +68,30 @@
                             </div>
                         </div>
 
-                        <div th:replace="web/fragment/SelectSize::SelectSize"></div>
+                        <div class="d-flex align-items-center">
+                            <div class="col-1">Size:</div>
+                            <div th:include="web/component/SelectSize::SelectSize"></div>
+                        </div>
 
+                        <div class="mt-3">
+                            <label class="col-1">Số lượng: </label>
+                            <input id="quantity" class="col-1 m-1 p-1" type="number" value="1" min="1" max="99">
+                        </div>
+
+                        <div class="mt-5">
+                            <span class="btn p-3 disable border hidden" id="no-submit">Thêm vào giỏ hàng</span>
+                            <button class="btn btn-primary p-3" id="submit">Thêm vào giỏ hàng</button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <script>
     $(document).ready(function () {
+
+
         $('.a-product-slider').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
@@ -102,6 +116,13 @@
         });
 
         $('.color').click(function (event) {
+            if (quantity > 0 && checked != null){
+                $("#submit").removeClass("hidden")
+                $("#no-submit").addClass("hidden")
+            }else {
+                $("#no-submit").removeClass("hidden")
+                $("#submit").addClass("hidden")
+            }
             // Loại bỏ lớp 'bg-success' từ tất cả các label
             $('.color').removeClass('bg-success text-light checkedColor');
 
@@ -115,8 +136,6 @@
             var colorId = event.currentTarget.getAttribute("data-color-id");
             // var sizeId = $(".checkedSize").data("size-id");
             var productId = event.currentTarget.getAttribute("data-product-id");
-            console.log(colorId)
-            console.log(productId)
 
             $.ajax({
                 type: 'GET',
@@ -145,6 +164,17 @@
         });
 
 
+        $("#quantity").keyup(()=>{
+            const checked = $("#productDetail-code")
+            const quantity = $("#quantity").val();
+            if (quantity > 0 && checked != null){
+                $("#submit").removeClass("hidden")
+                $("#no-submit").addClass("hidden")
+            }else {
+                $("#no-submit").removeClass("hidden")
+                $("#submit").addClass("hidden")
+            }
+        })
 
     });
 </script>

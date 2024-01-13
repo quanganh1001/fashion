@@ -1,8 +1,8 @@
 <div th:fragment="ProductDetail" class="d-flex align-items-center">
     <div th:if="${productDetail != null}">
-
+        <div th:if="${productDetail.outOfStock}">
             <span class="fw-light">Mã sản phẩm:
-                <span class="fw-bold" th:text="${productDetail.code}"></span>
+                <span id="productDetail-code" class="fw-bold" th:text="${productDetail.code}"></span>
             </span>
             |
             <span class="fw-light">Tình trạng:
@@ -13,8 +13,8 @@
             <span class="fw-light">Thương hiệu:
                 <span class="fw-bold" th:text="${product.brand}"></span>
             </span>
-
-<!--        <div th:unless="${productDetail.quantity >0}">Hãy chọn size</div>-->
+        </div>
+        <div th:unless="${productDetail.outOfStock}">Hãy chọn size</div>
     </div>
 
     <div th:unless="${productDetail != null}">Hãy chọn size</div>

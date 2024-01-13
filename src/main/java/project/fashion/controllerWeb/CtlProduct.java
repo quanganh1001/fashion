@@ -71,7 +71,7 @@ public class CtlProduct {
 
         model.addAttribute("productDetail",productDetail);
         model.addAttribute("product",product);
-        return "web/fragment/ProductDetail";
+        return "web/component/ProductDetail";
     }
 
     @GetMapping("/size")
@@ -82,6 +82,6 @@ public class CtlProduct {
 
         model.addAttribute("productDetails",productDetails);
         model.addAttribute("productId",productId);
-        return "web/fragment/SelectSize";
+        return "web/component/SelectSize";
     }
 }
