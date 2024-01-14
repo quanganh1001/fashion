@@ -38,10 +38,24 @@
                         <textarea class="form-control" id="note" rows="4" cols="50" name="note">
                         </textarea>
                     </div>
+
+                    <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-12">
+                        <label class="form-label">Nguồn: <span style="color:red">*</span></label>
+                        <label>
+                            <select class="form-control" name="account.accountId">
+                                <option th:each="acc : ${accountResponses}"
+                                        th:value="${acc.accountId}"
+                                        th:text="${acc.userName}"
+                                        th:selected="${acc.accountId == account.accountId}">
+                                </option>
+                            </select>
+                        </label>
+                    </div>
                 </div>
 
-                <button style="text-align: center" type="button" id="btn-submit" class="col-2 btn btn-primary">
-                    Thêm sản phẩm
+
+                <button th:data-account-id="${account.accountId}" style="text-align: center" type="button" id="btn-submit" class="col-2 btn btn-primary">
+                    Tạo đơn hàng
                 </button>
             </form>
         </div>

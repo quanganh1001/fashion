@@ -41,12 +41,16 @@
             </div>
 
             <div class="col-9 p-3">
-                <h4 th:text="${product.productName}"></h4>
+                <h4 id="productName" th:text="${product.productName}"></h4>
                 <div id="detail" th:include="~{web/component/ProductDetail::ProductDetail}"></div>
                 <div style="background-color: #d9d7d7" class="p-3">
                     <span>Giá:
-                        <span th:if="${!product.isDiscount}" th:text="${product.price}"
+                        <span id="price" th:if="${!product.isDiscount}" th:text="${product.price}"
                               class="text-danger fw-bold"></span>
+                        <div th:unless="${!product.isDiscount}">
+                            <span th:text="${product.price} + 'đ'" style="text-decoration: line-through;"></span>
+                            <span id="discountPrice" th:text="${product.discountPrice}" class="text-danger fw-bold"></span>
+                        </div>
                     </span>
                 </div>
                 <div class="p-3">
@@ -79,8 +83,8 @@
                         </div>
 
                         <div class="mt-5">
-                            <span class="btn p-3 disable border hidden" id="no-submit">Thêm vào giỏ hàng</span>
-                            <button class="btn btn-primary p-3" id="submit">Thêm vào giỏ hàng</button>
+                            <span class="btn p-3 disable border " id="no-submit">Thêm vào giỏ hàng</span>
+                            <button type="button" class="btn btn-primary p-3 hidden" id="submit" >Thêm vào giỏ hàng</button>
                         </div>
                     </form>
                 </div>
@@ -90,8 +94,6 @@
 </div>
 <script>
     $(document).ready(function () {
-
-
         $('.a-product-slider').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
@@ -116,13 +118,18 @@
         });
 
         $('.color').click(function (event) {
-            if (quantity > 0 && checked != null){
+            $("#quantity").val(1)
+            const productDetail = $("#productDetail-code").val()
+            const quantity = $("#quantity").val();
+
+            if (quantity > 0 && productDetail != null){
                 $("#submit").removeClass("hidden")
                 $("#no-submit").addClass("hidden")
             }else {
                 $("#no-submit").removeClass("hidden")
                 $("#submit").addClass("hidden")
             }
+
             // Loại bỏ lớp 'bg-success' từ tất cả các label
             $('.color').removeClass('bg-success text-light checkedColor');
 
@@ -134,7 +141,6 @@
             input.prop('checked', true);
 
             var colorId = event.currentTarget.getAttribute("data-color-id");
-            // var sizeId = $(".checkedSize").data("size-id");
             var productId = event.currentTarget.getAttribute("data-product-id");
 
             $.ajax({
@@ -164,18 +170,34 @@
         });
 
 
-        $("#quantity").keyup(()=>{
-            const checked = $("#productDetail-code")
+        $("#quantity").keyup(() => {
+            const productDetail = $("#productDetail-code").val();
             const quantity = $("#quantity").val();
-            if (quantity > 0 && checked != null){
+            if (quantity > 0 && productDetail != null) {
                 $("#submit").removeClass("hidden")
                 $("#no-submit").addClass("hidden")
-            }else {
+            } else {
                 $("#no-submit").removeClass("hidden")
                 $("#submit").addClass("hidden")
             }
         })
 
+        $("#submit").click(()=>{
+            const quantity = $("#quantity").val();
+            const prDetailId = $("#productDetail-id").text()
+
+            $.ajax({
+                type: 'POST',
+                url: "/carts",
+                data: {prDetailId:prDetailId,quantity:quantity},
+                success:  (()=> {
+                    alert("Đã thêm vào giỏ hàng")
+                }),
+                error: (jqXHR) => {
+                    alert(jqXHR.responseText)
+                }
+            });
+        })
     });
 </script>
 </body>

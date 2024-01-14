@@ -27,8 +27,7 @@ public class AccountService {
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public List<AccountResponse> findAll(){
-        List<Account> accounts = accountRepo.findAll();
-        return accounts.stream()
+        return  accountRepo.findAll().stream()
                  .map(AccountResponse::accountResponse)
                  .collect(Collectors.toList());
     }

@@ -11,21 +11,12 @@ import java.util.List;
 @RequestMapping("/carts")
 public class CtlCart {
 
-//    @PostMapping("/addToCart")
-//    public String addToCart(@ModelAttribute item, HttpSession session) {
-//        // Lấy giỏ hàng từ Session
-//        List<String> cart = (List<String>) session.getAttribute("cart");
-//
-//        // Nếu giỏ hàng chưa được tạo, tạo mới
-//        if (cart == null) {
-//            cart = new ArrayList<>();
-//            session.setAttribute("cart", cart);
-//        }
-//
-//        // Thêm sản phẩm vào giỏ hàng
-//        cart.add(item);
-//
-//        return "Product added to cart";
-//    }
+    @PostMapping("/")
+    public String addToCart(HttpSession session,
+                            @RequestParam("prDetailId") String prDetailId,
+                            @RequestParam("quantity") int quantity) {
+
+        return "Product added to cart";
+    }
 
 }

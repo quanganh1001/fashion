@@ -3,6 +3,7 @@
         <div th:if="${productDetail.outOfStock}">
             <span class="fw-light">Mã sản phẩm:
                 <span id="productDetail-code" class="fw-bold" th:text="${productDetail.code}"></span>
+                <span id="productDetail-id" class="hidden" th:text="${productDetail.productDetailId}"></span>
             </span>
             |
             <span class="fw-light">Tình trạng:

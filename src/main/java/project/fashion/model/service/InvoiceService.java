@@ -99,8 +99,6 @@ public class InvoiceService {
         Optional<Invoice> optionalInvoice = Optional.of(invoiceRepo.findById(invoiceId).orElse(new Invoice()));
         var status = optionalInvoice.get().getInvoiceStatus().getStatusId();
         var newStatus = i.getInvoiceStatus().getStatusId();
-        var newAccountId = i.getAccount().getAccountId();
-        var oldAccountId = optionalInvoice.get().getAccount().getAccountId();
         var newName = i.getName();
         var oldName = optionalInvoice.get().getName();
         var newPhone = i.getPhone();
@@ -109,7 +107,11 @@ public class InvoiceService {
         var oldAddress = optionalInvoice.get().getAddress();
         var newId = i.getInvoiceId();
         var oldId = optionalInvoice.get().getInvoiceId();
-
+        var newAccountId = i.getAccount().getAccountId();
+        var oldAccountId = 999;
+        if(optionalInvoice.get().getAccount() != null){
+            oldAccountId = optionalInvoice.get().getAccount().getAccountId();
+        }
         if (Objects.equals(newPhone, "") || !isNumeric(newPhone) ||
                 Objects.equals(newName, "") || !isNumeric(newStatus.toString())||
                 Objects.equals(newStatus.toString(), "")|| newStatus < 0 || newStatus > 6) {
@@ -165,14 +167,15 @@ public class InvoiceService {
 
             // create history
             historyService.setTriggerVariableForHistory();
-            invoiceRepo.save(i);
+            System.out.println(i.getAccount().getAccountId());
+            invoiceRepo.updateInvoice(invoiceId,i.getAccount().getAccountId(),newName,newPhone,newAddress,i.getNote(),newStatus);
             return ResponseEntity.ok().build();
         }
 
     }
 
     @Transactional
-    public ResponseEntity<String> addInvoice(Invoice invoice, Integer accountId) {
+    public ResponseEntity<String> addInvoice(Invoice invoice) {
         if (invoice.getNote() == null) {
             invoice.setNote("");
         }
@@ -192,8 +195,8 @@ public class InvoiceService {
 
             // create history
             historyService.setTriggerVariableForHistory();
+
             invoiceRepo.save(invoice);
-            invoiceRepo.setInvoiceAccountId(accountId, invoice.getInvoiceId());
             return ResponseEntity.ok(randomId);
         }
     }

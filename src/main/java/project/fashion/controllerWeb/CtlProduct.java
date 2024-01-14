@@ -43,7 +43,6 @@ public class CtlProduct {
         List<ImgProduct> imgProducts = imgProductService.findAllImgByProduct(productId);
         List<Color> colors = colorService.findColor(productId);
         List<Size> sizes = sizeService.findSize(productId);
-        ProductDetail productDetail = productDetailService.findProductDetail(productId, colors.get(0).getColorId(),sizes.get(0).getSizeId());
         List<ProductDetail> productDetails = productDetailService.findAllByProductAndColor(productId,colors.get(0).getColorId());
 
         model.addAttribute("title","Home");
@@ -51,7 +50,6 @@ public class CtlProduct {
         model.addAttribute("imgProducts",imgProducts);
         model.addAttribute("colors",colors);
         model.addAttribute("sizes",sizes );
-        model.addAttribute("productDetail",productDetail );
         model.addAttribute("productDetails",productDetails );
         return "web/Product";
     }
@@ -68,7 +66,9 @@ public class CtlProduct {
                             @RequestParam(value = "sizeId",defaultValue = "") String sizeId){
         Product product = productService.findById(productId);
         ProductDetail productDetail = productDetailService.findProductDetail(productId,colorId,sizeId);
-
+        System.out.println(colorId);
+        System.out.println(sizeId);
+        System.out.println(productDetail);
         model.addAttribute("productDetail",productDetail);
         model.addAttribute("product",product);
         return "web/component/ProductDetail";

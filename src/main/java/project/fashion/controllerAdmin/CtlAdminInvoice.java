@@ -52,13 +52,15 @@ public class CtlAdminInvoice {
     @GetMapping("/add")
     public String addInvoice(Model model) {
         accountService.getAccountResponse(model);
+        List<AccountResponse> accountResponses = accountService.findAll();
         model.addAttribute("title","Invoice");
+        model.addAttribute("accountResponses",accountResponses);
         return "admin/AddInvoice";
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addInvoice(@ModelAttribute Invoice invoice, @RequestParam("accountId") Integer accountId) {
-        return invoiceService.addInvoice(invoice,accountId);
+    public ResponseEntity<String> addInvoice(@ModelAttribute Invoice invoice) {
+        return invoiceService.addInvoice(invoice);
     }
 
 }

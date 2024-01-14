@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 import project.fashion.model.entity.Invoice;
 
 public interface InvoiceRepo extends JpaRepository<Invoice,String> {
@@ -13,9 +14,16 @@ public interface InvoiceRepo extends JpaRepository<Invoice,String> {
                                                                                  String key2,
                                                                                  Pageable pageable);
     @Modifying
-    @Query(value = "UPDATE invoices SET account_id = :accountId WHERE invoice_id = :invoiceId",
+    @Query(value = "UPDATE invoices SET account_id = :accountId,name = :name,phone = :phone,address = :address,note = :note, invoice_status = :invoiceStatus  WHERE invoice_id = :invoiceId",
             nativeQuery = true)
-    void setInvoiceAccountId(@Param("accountId") Integer accountId, @Param("invoiceId") String invoiceId);
+    void updateInvoice(@Param("invoiceId") String invoiceId,
+                @Param("accountId") Integer accountId,
+                @Param("name") String name,
+                @Param("phone") String phone,
+                @Param("address") String address,
+                @Param("note") String note,
+                @Param("invoiceStatus") int invoiceStatus
+    );
 
     @Query(value = "SELECT *\n" +
             "FROM invoices\n" +

@@ -17,7 +17,10 @@
     </div>
     <script>
         $('.size').click(function (event) {
-            if (quantity > 0 && checked != null){
+            const productDetail = $("#productDetail-code").text()
+            const quantity = $("#quantity").val();
+
+            if (quantity > 0 && productDetail != null){
                 $("#submit").removeClass("hidden")
                 $("#no-submit").addClass("hidden")
             }else {

@@ -41,7 +41,6 @@
         <div class="mt-3 mb-5 col-12">
             <form id="form" th:action="@{/admin/invoiceDetail/update-invoice/__${invoice.invoiceId}__}" method="POST">
                 <input type="hidden" name="_method" value="put"/>
-                <input type="hidden" th:field="${invoice.createdAt}"/>
                 <div>Ngày đặt hàng: <span th:text="${invoice.createdAt}"></span></div>
                 <div class="row">
                     <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-12">
@@ -131,6 +130,11 @@
                                     th:selected="${s.statusId == invoice.invoiceStatus.statusId}">
                             </option>
                         </select>
+                    </div>
+                    <div th:if="${invoice.customerNote} != null" class="mb-3 col-6">
+                        <span>Ghi chú của khách: </span>
+                        <span class="bg-warning" th:text="${invoice.customerNote}">
+                        </span>
                     </div>
                 </div>
 
