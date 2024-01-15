@@ -7,22 +7,55 @@
 
 <header th:include="~{web/component/header::header}"></header>
 
-<div class="container col-12 m-3 d-flex justify-content-between">
-    <div th:if="${cartItem} == null" class="col-6">
+<div class="col-12 p-5 d-flex flex-wrap justify-content-between">
+    <div th:if="${#lists.size(CARTS) > 0}" class="col-7">
         <h4 style="color:red">Giỏ hàng của bạn</h4>
-        <p>Bạn chưa có sản phẩm nào trong giỏ hàng</p>
-    </div>
-    <div th:unless="${cartItem} == null" class="col-6">
-        <h4 style="color:red">Giỏ hàng của bạn</h4>
-        <p>Bạn chưa có sản phẩm nào trong giỏ hàng</p>
-    </div>
-    <div class="col-4 border p-2">
-        <h4 class="border-bottom p-2">Thông tin đơn hàng</h4>
-        <div class="d-flex justify-content-between p-2">
-            <span>Tổng tiền:</span>
-            <h4 style="color: red" class="fw-bold">0đ</h4>
+        <div th:each="cart : ${CARTS}" class="">
+            <div class="border border-light-subtle p-2 d-flex">
+                <img th:src="@{'/img?productId='+${cart.productId}+'&bg=1'}" alt="..." class="img-thumbnail" style="width: 100px;" >
+                <div class="m-2">
+                <div>Tên sản phẩm: <span th:text="${cart.productName}"></span></div>
+                <div>Mã sản phẩm: <span th:text="${cart.code}"></span></div>
+                <div>Số lượng: <span th:text="${cart.quantity}"></span></div>
+                <div>Màu sắc: <span th:text="${cart.color}"></span></div>
+                <div>Size: <span th:text="${cart.size}"></span></div>
+                <div th:if="${cart.discountPrice != null}">Giá tiền:
+                    <span th:text="${cart.price}" style="text-decoration-line: line-through"></span>
+                    <span th:text="${cart.discountPrice}" style="color: red"></span>
+                </div>
+                <div th:unless="${cart.discountPrice != null}">Giá tiền:
+                    <span th:text="${cart.price}" style="color: red"></span>
+                </div>
+                </div>
+            </div>
         </div>
     </div>
+    <div th:unless="${#lists.size(CARTS) > 0}" class="col-6">
+        <h4 style="color:red">Giỏ hàng của bạn</h4>
+        <p>Bạn chưa có sản phẩm nào trong giỏ hàng</p>
+    </div>
+
+    <div class="col-4 border p-2">
+        <h4 class="border-bottom p-2">Thông tin đơn hàng</h4>
+        <div>
+            <div class="d-flex justify-content-between p-2">
+                <span>Tổng tiền:</span>
+                <h4 class="fw-bold" th:text="${totalPrice}"></h4>
+            </div>
+            <div class="d-flex justify-content-between p-2">
+                <span>Phí ship:</span>
+                <span class="fw-bold" th:text="${shippingFee}"></span>
+            </div>
+            <div class="d-flex justify-content-between p-2">
+                <span>Tổng đơn:</span>
+                <h4 style="color: red" class="fw-bold" th:text="${totalPrice + shippingFee}"></h4>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="col-12 border p-2 d-flex flex-wrap justify-content-center">
+    <h4 class="border-bottom p-2">Thông tin người nhận</h4>
 </div>
 </body>
 </html>

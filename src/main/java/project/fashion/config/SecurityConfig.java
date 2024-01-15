@@ -45,9 +45,7 @@ public class SecurityConfig {
 
                 // Chuyển hướng khi không có quyền
                 .exceptionHandling(exceptionHandling -> exceptionHandling
-                        .accessDeniedPage("/error/403"))
-                .rememberMe(remember -> remember
-                            .disable()
+                        .accessDeniedPage("/error/403")
                 )
                 ;
         return http.build();

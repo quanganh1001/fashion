@@ -54,11 +54,6 @@ public class CtlProduct {
         return "web/Product";
     }
 
-    @GetMapping("/img")
-    public ResponseEntity<Resource> getImg(@RequestParam("fileImg") String fileImg) throws MalformedURLException {
-        return imgProductService.getImg(fileImg);
-    }
-
     @GetMapping("/detail")
     public String getDetail(Model model,
                             @RequestParam(value = "productId") String productId,

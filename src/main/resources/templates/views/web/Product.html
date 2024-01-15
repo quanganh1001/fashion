@@ -34,7 +34,7 @@
             <!-- slide -->
             <div class="a-product-slider col-3 justify-content-center">
                 <div class="a-item" th:each="img : ${imgProducts}">
-                    <img th:src="@{/products/img?fileImg=__${img.fileImg}__}" class="d-block"
+                    <img th:src="@{/img/list?fileImg=__${img.fileImg}__}" class="d-block"
                          style="max-height: 50vh;border: 1px solid"
                          alt="...">
                 </div>
@@ -187,11 +187,12 @@
             const prDetailId = $("#productDetail-id").text()
 
             $.ajax({
-                type: 'POST',
+                type: 'GET',
                 url: "/carts/addToCart",
                 data: {prDetailId:prDetailId,quantity:quantity},
                 success:  (()=> {
-                    alert("Đã thêm vào giỏ hàng")
+                    alert("Đã thêm vào giỏ hàng");
+                    // window.location.href="/carts"
                 }),
                 error: (jqXHR) => {
                     alert(jqXHR.responseText)

@@ -43,8 +43,4 @@ public class CtlCategory {
         return "web/Category";
     }
 
-    @GetMapping("/img")
-    public ResponseEntity<Resource> getImg(@RequestParam("productId") String productId,@RequestParam("bg") int bg) throws MalformedURLException{
-        return imgProductService.getBackground(productId,bg);
-    }
 }

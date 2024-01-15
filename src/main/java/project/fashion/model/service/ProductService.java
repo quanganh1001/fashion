@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import project.fashion.model.entity.Category;
 import project.fashion.model.entity.Product;
+import project.fashion.model.entity.ProductDetail;
 import project.fashion.model.repository.ProductDetailRepo;
 import project.fashion.model.repository.ProductRepo;
 
@@ -24,10 +25,8 @@ import static org.apache.commons.lang3.StringUtils.isNumeric;
 public class ProductService{
     @Autowired
     private ProductRepo productRepo;
-
     @Autowired
     private ProductDetailRepo productDetailRepo;
-
     @Autowired
     private ImgProductService imgProductService;
 

@@ -16,6 +16,8 @@ public class Invoice {
     private String address;
     private String note;
     private String customerNote;
+    private int shippingFee;
+    private int totalBill;
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt;
 

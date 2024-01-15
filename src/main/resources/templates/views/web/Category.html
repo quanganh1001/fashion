@@ -43,9 +43,9 @@
                      style="border: 1px solid">
                     <div th:each="pr : ${products}" class="card hover col-3 m-4">
                         <div class="card  position-relative" style="border: 1px solid">
-                            <img th:src="@{'/category/img?productId='+${pr.productId}+'&bg=1'}" alt="..." class="product-image"
-                                 th:data-default-src="@{'/category/img?productId='+${pr.productId}+'&bg=1'}"
-                                 th:data-hover-src="@{'/category/img?productId='+${pr.productId}+'&bg=2'}">
+                            <img th:src="@{'/img?productId='+${pr.productId}+'&bg=1'}" alt="..." class="product-image"
+                                 th:data-default-src="@{'/img?productId='+${pr.productId}+'&bg=1'}"
+                                 th:data-hover-src="@{'/img?productId='+${pr.productId}+'&bg=2'}">
                             <a th:href="@{/products/__${pr.productId}__}" ><button
                                     class="btn btn-primary add-to-cart-btn hidden">Chi tiết sản phẩm</button></a>
                         </div>

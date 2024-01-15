@@ -1,20 +1,31 @@
 package project.fashion.model.service;
 
+import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import project.fashion.model.entity.CartItem;
 
-import java.util.Collection;
+import java.util.List;
 
-public interface CartService {
+@Service
+public class CartService {
+    public int getTotalPrice(List<CartItem> cartItemList){
+        var price = 0;
+        for (CartItem cartItem: cartItemList){
+            int itemPrice;
+            if (cartItem.getDiscountPrice() == null){
+                itemPrice = cartItem.getPrice() * cartItem.getQuantity();
+            }else
+                itemPrice = cartItem.getDiscountPrice() * cartItem.getQuantity();
 
-    void addCartItem(CartItem item);
+            price += itemPrice;
+        }
+        return price;
+    }
 
-    void remove(int id);
-
-    CartItem update(int prDetailId, int quantity);
-
-    void clear();
-
-    Collection<CartItem> getAllItem();
-
-    int getCount();
+    public void getShippingFee(Model model,int totalPrice){
+        if (totalPrice < 500000 && totalPrice > 0){
+            model.addAttribute("shippingFee",30000);
+        }else
+            model.addAttribute("shippingFee",0);
+    }
 }
