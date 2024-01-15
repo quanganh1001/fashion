@@ -188,7 +188,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "/carts",
+                url: "/carts/addToCart",
                 data: {prDetailId:prDetailId,quantity:quantity},
                 success:  (()=> {
                     alert("Đã thêm vào giỏ hàng")

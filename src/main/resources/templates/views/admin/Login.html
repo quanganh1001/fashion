@@ -22,19 +22,13 @@
             <form th:action="@{/login}" method="post">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="user name" name="username">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
-                        </div>
-                    </div>
                 </div>
                 <div class="input-group mb-3">
                     <input type="password" class="form-control" placeholder="Password" name="password">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
-                        </div>
-                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="checkbox" key="remember-me" name="remember-me">
+                    <label>Nhớ thông tin đăng nhập</label>
                 </div>
                 <div class="row">
                     <div class="col-4">
