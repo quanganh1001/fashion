@@ -47,8 +47,7 @@ public class CtlCart {
     }
 
     @GetMapping("/addToCart")
-    public String addToCart(Model model,
-                            @RequestParam("prDetailId") Integer prDetailId,
+    public String addToCart(@RequestParam("prDetailId") Integer prDetailId,
                             @RequestParam("quantity") int quantity,
                             @ModelAttribute("CARTS") List<CartItem> cartItemList) {
         ProductDetail productDetail = productDetailService.getById(prDetailId);
@@ -88,15 +87,25 @@ public class CtlCart {
     }
 
     @GetMapping("/update")
-    public void update(@RequestParam("prDetailCode") String prDetailCode,
+    public String update(@RequestParam("prDetailCode") String prDetailCode,
                          @RequestParam("quantity") int quantity,
                          @ModelAttribute("CARTS") List<CartItem> cartItemList
                          ){
         for (CartItem cartItem: cartItemList){
-            if(cartItem.getCode() == prDetailCode){
+            if(Objects.equals(cartItem.getCode(), prDetailCode)){
                 cartItem.setQuantity(quantity);
             }
         }
+        return "redirect:/carts";
+    }
+
+    @GetMapping("/totalInvoice")
+    public String Info(Model model,@ModelAttribute("CARTS") List<CartItem> cartItemList) {
+        var totalPrice = cartService.getTotalPrice(cartItemList);
+        cartService.getShippingFee(model,totalPrice);
+
+        model.addAttribute("totalPrice",totalPrice);
+        return "web/component/InfoCart";
     }
 
 }
