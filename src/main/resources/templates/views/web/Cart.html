@@ -10,22 +10,39 @@
 <div class="col-12 p-5 d-flex flex-wrap justify-content-between">
     <div th:if="${#lists.size(CARTS) > 0}" class="col-7">
         <h4 style="color:red">Giỏ hàng của bạn</h4>
-        <div th:each="cart : ${CARTS}" class="">
-            <div class="border border-light-subtle p-2 d-flex">
-                <img th:src="@{'/img?productId='+${cart.productId}+'&bg=1'}" alt="..." class="img-thumbnail" style="width: 100px;" >
-                <div class="m-2">
-                <div>Tên sản phẩm: <span th:text="${cart.productName}"></span></div>
-                <div>Mã sản phẩm: <span th:text="${cart.code}"></span></div>
-                <div>Số lượng: <span th:text="${cart.quantity}"></span></div>
-                <div>Màu sắc: <span th:text="${cart.color}"></span></div>
-                <div>Size: <span th:text="${cart.size}"></span></div>
-                <div th:if="${cart.discountPrice != null}">Giá tiền:
-                    <span th:text="${cart.price}" style="text-decoration-line: line-through"></span>
-                    <span th:text="${cart.discountPrice}" style="color: red"></span>
+        <div th:each="cart : ${CARTS}" class="d-flex">
+            <a th:href="@{/delete?prDetailCode=__${cart.code}__&quantity=__${cart.quantity}__}">
+                <i class="fa-solid fa-x" style="color: red;"></i>
+            </a>
+            <div class="border border-light-subtle p-2 d-flex flex-wrap">
+                <div class="col-2">
+                    <img th:src="@{'/img?productId='+${cart.productId}+'&bg=1'}" alt="..." class="img-thumbnail"
+                         style="width: 100px;">
                 </div>
-                <div th:unless="${cart.discountPrice != null}">Giá tiền:
-                    <span th:text="${cart.price}" style="color: red"></span>
+                <div class="d-flex m-2 col-6">
+                    <div>Tên sản phẩm: <span th:text="${cart.productName}"></span></div>
+                    <span th:text="${cart.color} + ' - ' "></span>
+                    <span th:text="${cart.size}"></span>
                 </div>
+                <div class="m-2 col-2">
+                    <span th:if="${!product.isDiscount}"
+                          th:text="${product.price}"
+                          class="text-danger fw-bold"
+                          th:id="${cart.code} + 'Id'"></span>
+                    <div th:unless="${!product.isDiscount}" th:id="${cart.code} + 'Id'">
+                        <span th:text="${product.price} + 'đ'" style="text-decoration: line-through;"></span>
+                        <span id="discountPrice" th:text="${product.discountPrice}" class="text-danger fw-bold"></span>
+                    </div>
+                </div>
+                <div class="col-2">Số lượng:
+                    <input class="quantity col-1"
+                           type="number"
+                           th:data-prDetail="${cart.code}"
+                           th:value="${cart.quantity}">
+                </div>
+                <div class="col-2">Tổng:
+                    <span th:if="${cart.discountPrice==null}" th:text="${cart.quantity * cart.price}"></span>
+                    <span th:unless="${cart.discountPrice==null}" th:text="${cart.quantity * cart.discountPrice}"></span>
                 </div>
             </div>
         </div>
@@ -57,5 +74,25 @@
 <div class="col-12 border p-2 d-flex flex-wrap justify-content-center">
     <h4 class="border-bottom p-2">Thông tin người nhận</h4>
 </div>
+<script>
+    $(document).ready(() => {
+        $(".quantity").change((input) => {
+            var prDetailCode = input.attr("data-prDetail");
+            var quantity = input.text();
+
+            $.ajax({
+                type: 'GET',
+                data: { prDetailCode: prDetailCode, quantity:quantity },
+                url: '/carts/update',
+                success: () => {
+                    window.location.href = "/carts";
+                },
+                error: (jqXHR) => {
+                    alert(jqXHR.responseText)
+                }
+            });
+        })
+    })
+</script>
 </body>
 </html>
