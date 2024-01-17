@@ -70,15 +70,15 @@
         <div id="info">
             <div class="d-flex justify-content-between p-2">
                 <span>Tổng tiền:</span>
-                <h4 class="fw-bold" th:text="${totalPrice}"></h4>
+                <h4 id="total" class="fw-bold" th:text="${totalPrice}"></h4>
             </div>
             <div class="d-flex justify-content-between p-2">
                 <span>Phí ship:</span>
-                <span class="fw-bold" th:text="${shippingFee}"></span>
+                <span id="shippingFee" class="fw-bold" th:text="${shippingFee}"></span>
             </div>
             <div class="d-flex justify-content-between p-2">
                 <span>Tổng đơn:</span>
-                <h4 style="color: red" class="fw-bold" th:text="${totalPrice + shippingFee}"></h4>
+                <h4 id="totalBill" style="color: red" class="fw-bold" th:text="${totalPrice + shippingFee}"></h4>
             </div>
 
         </div>
@@ -88,6 +88,32 @@
 </div>
 <div class="col-12 border p-2 d-flex flex-wrap justify-content-center">
     <h4 class="border-bottom p-2">Thông tin người nhận</h4>
+    <form id="form" th:action="@{/checkout}" method="post">
+        <div class="row">
+            <div class="mb-3">
+                <label for="name" class="form-label">Họ Tên<span style="color:red">*</span></label>
+                <input type="text" class="form-control" id="name" name="name">
+            </div>
+
+            <div class="mb-3">
+                <label th:for="phone" class="form-label">Số điện thoại<span style="color:red">*</span></label>
+                <input type="text" class="form-control" id="phone" name="phone">
+            </div>
+
+            <div class="mb-3">
+                <label th:for="address" class="form-label">address<span style="color:red">*</span></label>
+                <input type="text" class="form-control" id="address" name="address">
+            </div>
+
+            <div class="mb-3">
+                <label th:for="customerNote" class="form-label">Lời nhắn của bạn<span style="color:red">*</span></label>
+                <textarea class="form-control" id="customerNote" name="customerNote"></textarea>
+            </div>
+
+            <button style="text-align: center" type="button" id="btn-submit" class="col-2 btn btn-primary">Đặt
+                hàng</button>
+        </div>
+    </form>
 </div>
 <script>
     $(document).ready(() => {
@@ -109,6 +135,40 @@
                     alert(jqXHR.responseText)
                 }
             });
+        })
+
+        $("#btn-submit").click(()=>{
+            const result = confirm("Bạn chắc chắn muốn đặt hàng chứ?");
+            if (result){
+                const totalPrice = $("#total").text();
+                const shippingFee = $("#shippingFee").text();
+                const totalBill = $("#totalBill").text();
+                const formData = $('#form').serializeArray(); // Lấy dữ liệu form
+                formData.push({ name: 'totalPrice', value: totalPrice });
+                formData.push({ name: 'shippingFee', value: shippingFee });
+                formData.push({ name: 'totalBill', value: totalBill });
+
+                const url = $('#form').attr('action'); // Lấy URL của form
+                const csrfToken = $("meta[name='_csrf']").attr("content");
+                const csrfHeader = $("meta[name='_csrf_header']").attr("content");
+                console.log(formData)
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    data: formData,
+                    beforeSend: function (xhr) {
+                        // Sử dụng tên HTTP header chuẩn và giá trị token
+                        xhr.setRequestHeader(csrfHeader, csrfToken);
+                    },
+                    success:  () => {
+                        window.location.href="/checkout";
+                    },
+                    error: (jqXHR) => {
+                        alert(jqXHR.responseText)
+                    }
+                });
+            }
+
         })
     })
 </script>
