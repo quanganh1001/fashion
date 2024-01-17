@@ -23,7 +23,6 @@ public class CartService {
     }
 
     public void getShippingFee(Model model,int totalPrice){
-        var shippingFee = 0;
         if (totalPrice < 500000 && totalPrice > 0){
             model.addAttribute("shippingFee",30000);
         }else

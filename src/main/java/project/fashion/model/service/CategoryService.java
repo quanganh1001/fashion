@@ -40,7 +40,6 @@ public class CategoryService {
     public ResponseEntity<String> saveCategory(Category category) {
         if (Objects.equals(category.getCatId(), "") || category.getCatId() == null ||
                 Objects.equals(category.getCatName(), "") || category.getCatName() == null) {
-            System.out.println(category);
             return new ResponseEntity<>("Lỗi validate", HttpStatus.BAD_REQUEST);
         } else {
             setCatActive(category.getCatId(), category.getIsCatActive());
@@ -53,7 +52,6 @@ public class CategoryService {
     public ResponseEntity<String> addCat(Category category) {
         if (Objects.equals(category.getCatId(), "") || category.getCatId() == null ||
                 Objects.equals(category.getCatName(), "") || category.getCatName() == null) {
-            System.out.println(category);
             return new ResponseEntity<>("Lỗi validate", HttpStatus.BAD_REQUEST);
         } else if(categoryRepo.existsById(category.getCatId())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Danh mục đã tồn tại");

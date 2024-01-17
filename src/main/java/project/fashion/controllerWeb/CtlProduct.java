@@ -61,9 +61,7 @@ public class CtlProduct {
                             @RequestParam(value = "sizeId",defaultValue = "") String sizeId){
         Product product = productService.findById(productId);
         ProductDetail productDetail = productDetailService.findProductDetail(productId,colorId,sizeId);
-        System.out.println(colorId);
-        System.out.println(sizeId);
-        System.out.println(productDetail);
+
         model.addAttribute("productDetail",productDetail);
         model.addAttribute("product",product);
         return "web/component/ProductDetail";

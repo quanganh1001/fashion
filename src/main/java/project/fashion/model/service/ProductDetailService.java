@@ -82,7 +82,6 @@ public class ProductDetailService {
     }
 
     public ProductDetail findProductDetail(String productId,String colorId, String sizeId) {
-        System.out.println(colorId + sizeId);
         return productDetailRepo.findProductDetails(productId,colorId, sizeId);
     }
 }

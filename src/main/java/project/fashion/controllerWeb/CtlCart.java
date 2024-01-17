@@ -2,6 +2,7 @@ package project.fashion.controllerWeb;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -87,26 +88,25 @@ public class CtlCart {
     }
 
     @GetMapping("/update")
-    public String update(@RequestParam("prDetailCode") String prDetailCode,
+    public String update(Model model,
+                         @RequestParam("prDetailCode") String prDetailCode,
                          @RequestParam("quantity") int quantity,
                          @ModelAttribute("CARTS") List<CartItem> cartItemList
                          ){
         for (CartItem cartItem: cartItemList){
             if(Objects.equals(cartItem.getCode(), prDetailCode)){
                 cartItem.setQuantity(quantity);
+                break;
             }
         }
-        return "redirect:/carts";
-    }
 
-    @GetMapping("/totalInvoice")
-    public String Info(Model model,@ModelAttribute("CARTS") List<CartItem> cartItemList) {
         var totalPrice = cartService.getTotalPrice(cartItemList);
         cartService.getShippingFee(model,totalPrice);
 
         model.addAttribute("totalPrice",totalPrice);
         return "web/component/InfoCart";
     }
+
 
 }
 
