@@ -129,4 +129,8 @@ public class InvoiceDetailService{
         }
         return totalAmount;
     }
+
+    public void save(InvoiceDetail invoiceDetail){
+        invoiceDetailRepo.save(invoiceDetail);
+    }
 }

@@ -17,11 +17,11 @@ import java.util.HashSet;
 @Service
 public class CustomUserDetailService implements UserDetailsService {
     @Autowired
-    private AccountRepo accountRepo;
+    private AccountService accountService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account account = accountRepo.findByUserName(username);
+        Account account = accountService.findByUserName(username);
         if(account == null){
             throw new UsernameNotFoundException("Sai");
         }

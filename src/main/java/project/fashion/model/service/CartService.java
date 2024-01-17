@@ -1,13 +1,21 @@
 package project.fashion.model.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import project.fashion.model.entity.CartItem;
+import project.fashion.model.entity.Product;
+import project.fashion.model.entity.ProductDetail;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class CartService {
+    @Autowired
+    private ProductService productService;
+    @Autowired
+    private ProductDetailService productDetailService;
     public int getTotalPrice(List<CartItem> cartItemList){
         var price = 0;
         for (CartItem cartItem: cartItemList){
@@ -27,5 +35,42 @@ public class CartService {
             model.addAttribute("shippingFee",30000);
         }else
             model.addAttribute("shippingFee",0);
+    }
+
+    public void addCart(int prDetailId,List<CartItem> cartItemList,int quantity){
+        ProductDetail productDetail = productDetailService.getById(prDetailId);
+        Product product = productService.findById(productDetail.getProduct().getProductId());
+
+        boolean itemExists = false;
+        for (CartItem cartItem : cartItemList) {
+            if (cartItem.getCode().equals(productDetail.getCode())) {
+                cartItem.setQuantity(cartItem.getQuantity() + quantity);
+                itemExists = true;
+                break;
+            }
+        }
+
+        if (!itemExists) {
+            CartItem cartItem = new CartItem(
+                    productDetail.getCode(),
+                    product.getProductId(),
+                    quantity,
+                    product.getPrice(),
+                    product.getDiscountPrice(),
+                    product.getProductName(),
+                    productDetail.getColor().getName(),
+                    productDetail.getSize().getName()
+            );
+            cartItemList.add(cartItem);
+        }
+    }
+
+    public void setQuantity(int quantity,List<CartItem> cartItemList,String prDetailCode){
+        for (CartItem cartItem: cartItemList){
+            if(Objects.equals(cartItem.getCode(), prDetailCode)){
+                cartItem.setQuantity(quantity);
+                break;
+            }
+        }
     }
 }

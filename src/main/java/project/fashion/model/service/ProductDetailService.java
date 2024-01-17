@@ -24,7 +24,7 @@ public class ProductDetailService {
     private ProductService productService;
 
     public ResponseEntity<String> updatePrDetail(ProductDetail pd) {
-        Optional<ProductDetail> productDetail = Optional.ofNullable(productDetailRepo.findByCode(pd.getCode()));
+        Optional<ProductDetail> productDetail = Optional.ofNullable(findByCode(pd.getCode()));
         var productDetailIdOther = productDetail.get().getProductDetailId();
 
         //nếu code sp đã tồn tại và id không khớp với code sp trong database thì nghĩa là đã tồn tại
@@ -83,5 +83,9 @@ public class ProductDetailService {
 
     public ProductDetail findProductDetail(String productId,String colorId, String sizeId) {
         return productDetailRepo.findProductDetails(productId,colorId, sizeId);
+    }
+
+    public ProductDetail findByCode(String productDetailCode){
+        return productDetailRepo.findByCode(productDetailCode);
     }
 }

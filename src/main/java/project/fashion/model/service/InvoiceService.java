@@ -7,7 +7,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import project.fashion.model.entity.Account;
 import project.fashion.model.entity.Invoice;
 import project.fashion.model.entity.InvoiceDetail;
 import project.fashion.model.entity.InvoiceStatus;
@@ -167,7 +170,7 @@ public class InvoiceService {
 
             // create history
             historyService.setTriggerVariableForHistory();
-            System.out.println(i.getAccount().getAccountId());
+
             invoiceRepo.updateInvoice(invoiceId,i.getAccount().getAccountId(),newName,newPhone,newAddress,i.getNote(),newStatus);
             return ResponseEntity.ok().build();
         }
@@ -180,9 +183,14 @@ public class InvoiceService {
             invoice.setNote("");
         }
 
-        if (Objects.equals(invoice.getName(), "") || Objects.equals(invoice.getPhone(), "") || !isNumeric(invoice.getPhone())) {
+        if (Objects.equals(invoice.getName(), "") ||
+            Objects.equals(invoice.getPhone(), "") || !isNumeric(invoice.getPhone()) ||
+                (!isNumeric(String.valueOf(invoice.getShippingFee())) && invoice.getShippingFee() !=null)||
+                (!isNumeric(String.valueOf(invoice.getTotalPrice())) && invoice.getTotalPrice() !=null) ||
+                (!isNumeric(String.valueOf(invoice.getTotalBill())) && invoice.getTotalBill() !=null)
+        ) {
             System.out.println("Lỗi");
-            return new ResponseEntity<>("Lỗi thiếu dữ liệu", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Lỗi sai hoặc thiếu dữ liệu", HttpStatus.BAD_REQUEST);
         } else {
             String randomId = RandomStringUtils.randomAlphanumeric(8).toUpperCase();
             invoice.setInvoiceId(randomId);
@@ -190,12 +198,16 @@ public class InvoiceService {
             InvoiceStatus status = new InvoiceStatus();
             status.setStatusId(1);
 
+            if(invoice.getAccount() == null){
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                Account account = accountService.findByUserName(authentication.getName());
+                invoice.setAccount(account);
+            }
+
             invoice.setInvoiceStatus(status);
             invoice.setCreatedAt(LocalDateTime.now());
-
             // create history
             historyService.setTriggerVariableForHistory();
-
             invoiceRepo.save(invoice);
             return ResponseEntity.ok(randomId);
         }

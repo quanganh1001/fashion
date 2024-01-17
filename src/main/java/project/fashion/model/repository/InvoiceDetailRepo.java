@@ -16,4 +16,5 @@ public interface InvoiceDetailRepo extends JpaRepository<InvoiceDetail,Integer> 
             nativeQuery = true)
     void updateQuantityInvoiceDetail(@Param("newQuantity") Integer newQuantity, @Param("invoiceDetailId")Integer invoiceDetailId);
 
+
 }

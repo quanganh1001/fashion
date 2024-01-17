@@ -46,7 +46,7 @@ public class AccountService {
 
     @Transactional
     public ResponseEntity<String> updateAccount(Account ac){
-        AccountResponse accountResponse = AccountResponse.accountResponse(accountRepo.findByUserName(ac.getUserName()));
+        AccountResponse accountResponse = AccountResponse.accountResponse(findByUserName(ac.getUserName()));
         var accountIdOther = accountResponse.getAccountId();
         if (Objects.equals(ac.getRole(), "ADMIN")){
             return new ResponseEntity<>("Không thể cập nhập thành ADMIN",HttpStatus.BAD_REQUEST);
@@ -96,6 +96,10 @@ public class AccountService {
 
     public void getAccountResponse(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("account",AccountResponse.accountResponse(accountRepo.findByUserName(authentication.getName())));
+        model.addAttribute("account",AccountResponse.accountResponse(findByUserName(authentication.getName())));
+    }
+
+    public Account findByUserName(String username){
+        return accountRepo.findByUserName(username);
     }
 }

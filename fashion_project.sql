@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: localhost
--- Thời gian đã tạo: Th1 17, 2024 lúc 12:46 PM
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th1 17, 2024 lúc 06:13 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.2.4
+-- Phiên bản PHP: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -496,7 +496,50 @@ INSERT INTO `history` (`id`, `invoice_id`, `content`, `time`, `time_ago`) VALUES
 (498, '60ALPBZ7', 'quanly đã thay đổi Nguồn tạo đơn hàng: nhanvien2 -> quanly', '2024-01-14 13:40:27', NULL),
 (499, '60ALPBZ7', 'quanly đã thay đổi Nguồn tạo đơn hàng: quanly -> nhanvien1', '2024-01-14 13:40:31', NULL),
 (500, '60ALPBZ7', 'quanly đã thay đổi Nguồn tạo đơn hàng: nhanvien1 -> nhanvien2', '2024-01-14 13:40:33', NULL),
-(501, '58TMCIA2', 'quanly đã thay đổi Nguồn tạo đơn hàng: nhanvien2 -> quanly', '2024-01-14 13:55:25', NULL);
+(501, '58TMCIA2', 'quanly đã thay đổi Nguồn tạo đơn hàng: nhanvien2 -> quanly', '2024-01-14 13:55:25', NULL),
+(502, '0FMHHMNY', 'quanly đã tạo đơn hàng: <br>Mã đơn: 0FMHHMNY,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 3432432,<br>Địa chỉ: gdfg,<br>Ghi chú:                         dfgfd,<br>Nguồn:  quanly', '2024-01-17 14:00:26', NULL),
+(503, 'DVO5DOGS', 'HeThong đã tạo đơn hàng: <br>Mã đơn: DVO5DOGS,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 312312,<br>Địa chỉ: cád,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 14:50:21', NULL),
+(504, 'ZY421FII', 'HeThong đã tạo đơn hàng: <br>Mã đơn: ZY421FII,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 312312,<br>Địa chỉ: cád,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 14:50:21', NULL),
+(505, 'JRZKCJ43', 'HeThong đã tạo đơn hàng: <br>Mã đơn: JRZKCJ43,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 543543,<br>Địa chỉ: gdf,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 15:27:42', NULL),
+(506, 'HDHAMPHU', 'HeThong đã tạo đơn hàng: <br>Mã đơn: HDHAMPHU,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 543543,<br>Địa chỉ: gdf,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 15:27:42', NULL),
+(507, 'QXQDF5LW', 'HeThong đã tạo đơn hàng: <br>Mã đơn: QXQDF5LW,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 3432,<br>Địa chỉ: fds,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 15:30:30', NULL),
+(508, 'TBLAZ6MC', 'HeThong đã tạo đơn hàng: <br>Mã đơn: TBLAZ6MC,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 3432,<br>Địa chỉ: fds,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 15:30:30', NULL),
+(509, 'DIBOV5DS', 'HeThong đã tạo đơn hàng: <br>Mã đơn: DIBOV5DS,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 432,<br>Địa chỉ: 43,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 15:32:17', NULL),
+(510, 'XQZVRRIM', 'HeThong đã tạo đơn hàng: <br>Mã đơn: XQZVRRIM,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 432,<br>Địa chỉ: 43,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 15:32:17', NULL),
+(511, 'V4OZODG3', 'HeThong đã tạo đơn hàng: <br>Mã đơn: V4OZODG3,<br>Tên khách hàng: test,<br>Số điện thoại: 099999,<br>Địa chỉ: bcv,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 16:11:33', NULL),
+(512, '7WHBAEPR', 'HeThong đã tạo đơn hàng: <br>Mã đơn: 7WHBAEPR,<br>Tên khách hàng: test,<br>Số điện thoại: 099999,<br>Địa chỉ: bcv,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 16:11:33', NULL),
+(513, 'OBKEJQTG', 'HeThong đã tạo đơn hàng: <br>Mã đơn: OBKEJQTG,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 432432,<br>Địa chỉ: fsd,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 16:38:09', NULL),
+(514, 'PH6KVSMJ', 'HeThong đã tạo đơn hàng: <br>Mã đơn: PH6KVSMJ,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 432432,<br>Địa chỉ: fsd,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 16:38:09', NULL),
+(515, '5SG9VQRK', 'HeThong đã tạo đơn hàng: <br>Mã đơn: 5SG9VQRK,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 432432,<br>Địa chỉ: fsd,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 16:41:02', NULL),
+(516, 'C95MU7HJ', 'HeThong đã tạo đơn hàng: <br>Mã đơn: C95MU7HJ,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 432432,<br>Địa chỉ: fsd,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 16:41:02', NULL),
+(517, 'AV7TPKDI', 'HeThong đã tạo đơn hàng: <br>Mã đơn: AV7TPKDI,<br>Tên khách hàng: test,<br>Số điện thoại: 432432,<br>Địa chỉ: fds,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 16:42:32', NULL),
+(518, 'DH3KQNXN', 'HeThong đã tạo đơn hàng: <br>Mã đơn: DH3KQNXN,<br>Tên khách hàng: test,<br>Số điện thoại: 432432,<br>Địa chỉ: fds,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 16:42:32', NULL),
+(519, 'NOVGGQZI', 'HeThong đã tạo đơn hàng: <br>Mã đơn: NOVGGQZI,<br>Tên khách hàng: test,<br>Số điện thoại: 432432,<br>Địa chỉ: fds,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 16:43:57', NULL),
+(520, 'PTAL1WMZ', 'HeThong đã tạo đơn hàng: <br>Mã đơn: PTAL1WMZ,<br>Tên khách hàng: test,<br>Số điện thoại: 432432,<br>Địa chỉ: fds,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 16:43:57', NULL),
+(521, 'DQJMGDPB', 'HeThong đã tạo đơn hàng: <br>Mã đơn: DQJMGDPB,<br>Tên khách hàng: es,<br>Số điện thoại: 33333,<br>Địa chỉ: fd,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 16:45:08', NULL),
+(522, 'UX3Z2QRB', 'HeThong đã tạo đơn hàng: <br>Mã đơn: UX3Z2QRB,<br>Tên khách hàng: es,<br>Số điện thoại: 33333,<br>Địa chỉ: fd,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 16:45:08', NULL),
+(523, 'UX3Z2QRB', 'HeThong đã thêm sản phẩm: DWCT00161PE00RB_NV-S (giá = 2)', '2024-01-17 16:45:08', NULL),
+(524, 'UX3Z2QRB', 'HeThong đã thêm sản phẩm: DWCT00431PE32SB_BL-S (giá = 1)', '2024-01-17 16:45:08', NULL),
+(525, '0D8KVSS6', 'HeThong đã tạo đơn hàng: <br>Mã đơn: 0D8KVSS6,<br>Tên khách hàng: sđ,<br>Số điện thoại: 34243,<br>Địa chỉ: 32,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 16:47:00', NULL),
+(526, 'YXS2DUXM', 'HeThong đã tạo đơn hàng: <br>Mã đơn: YXS2DUXM,<br>Tên khách hàng: sđ,<br>Số điện thoại: 34243,<br>Địa chỉ: 32,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 16:47:00', NULL),
+(527, 'YXS2DUXM', 'HeThong đã thêm sản phẩm: DWCT00161PE00RB_NV-S (giá = 2)', '2024-01-17 16:47:00', NULL),
+(528, 'YXS2DUXM', 'HeThong đã thêm sản phẩm: DWCT00431PE32SB_BL-S (giá = 1)', '2024-01-17 16:47:00', NULL),
+(529, '0YZW7SGS', 'HeThong đã tạo đơn hàng: <br>Mã đơn: 0YZW7SGS,<br>Tên khách hàng: sđ,<br>Số điện thoại: 34243,<br>Địa chỉ: 32,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 16:47:50', NULL),
+(530, 'EO83LVLW', 'HeThong đã tạo đơn hàng: <br>Mã đơn: EO83LVLW,<br>Tên khách hàng: sđ,<br>Số điện thoại: 34243,<br>Địa chỉ: 32,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 16:47:50', NULL),
+(531, 'EO83LVLW', 'HeThong đã thêm sản phẩm: DWCT00161PE00RB_NV-S (giá = 2)', '2024-01-17 16:47:50', NULL),
+(532, 'EO83LVLW', 'HeThong đã thêm sản phẩm: DWCT00431PE32SB_BL-S (giá = 1)', '2024-01-17 16:47:50', NULL),
+(533, 'AVD5Y4EM', 'HeThong đã tạo đơn hàng: <br>Mã đơn: AVD5Y4EM,<br>Tên khách hàng: vsd,<br>Số điện thoại: 53253,<br>Địa chỉ: fds,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 16:48:54', NULL),
+(534, 'LSNIHPTR', 'HeThong đã tạo đơn hàng: <br>Mã đơn: LSNIHPTR,<br>Tên khách hàng: vsd,<br>Số điện thoại: 53253,<br>Địa chỉ: fds,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 16:48:54', NULL),
+(535, 'LSNIHPTR', 'HeThong đã thêm sản phẩm: DWCT00161PE00RB_NV-S (giá = 1)', '2024-01-17 16:48:54', NULL),
+(536, 'LSNIHPTR', 'HeThong đã thêm sản phẩm: DWCT00431PE32SB_BL-S (giá = 1)', '2024-01-17 16:48:54', NULL),
+(537, 'TKPGF00K', 'HeThong đã tạo đơn hàng: <br>Mã đơn: TKPGF00K,<br>Tên khách hàng: gdf,<br>Số điện thoại: 655654,<br>Địa chỉ: g,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 16:51:00', NULL),
+(538, 'MU7BVUH5', 'HeThong đã tạo đơn hàng: <br>Mã đơn: MU7BVUH5,<br>Tên khách hàng: gdf,<br>Số điện thoại: 655654,<br>Địa chỉ: g,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 16:51:00', NULL),
+(539, 'MU7BVUH5', 'HeThong đã thêm sản phẩm: EABT02101PE00SB_BL-29 (giá = 480000)', '2024-01-17 16:51:00', NULL),
+(540, 'MU7BVUH5', 'HeThong đã thêm sản phẩm: DWCT00161PE00RB_NV-S (giá = 990000)', '2024-01-17 16:51:01', NULL),
+(541, 'XEPE4XKN', 'HeThong đã tạo đơn hàng: <br>Mã đơn: XEPE4XKN,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 8888888,<br>Địa chỉ: gsd,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 17:11:40', NULL),
+(542, 'MMZKNG6S', 'HeThong đã tạo đơn hàng: <br>Mã đơn: MMZKNG6S,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 8888888,<br>Địa chỉ: gsd,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 17:11:40', NULL),
+(543, 'MMZKNG6S', 'HeThong đã thêm sản phẩm: DWCT00161PE00RB_NV-S (giá = 990000)', '2024-01-17 17:11:40', NULL),
+(544, 'MMZKNG6S', 'HeThong đã thêm sản phẩm: DWCT00431PE32SB_BL-S (giá = 750000)', '2024-01-17 17:11:40', NULL);
 
 -- --------------------------------------------------------
 
@@ -1055,28 +1098,59 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `created_at`, `note`, `customer_note`, `account_id`, `invoice_status`, `total_price`, `shipping_fee`, `total_bill`) VALUES
+('0D8KVSS6', 'sđ', '34243', '32', '2024-01-17 16:47:00', '', 'fs', NULL, 1, 2730000, 0, 2730000),
+('0FMHHMNY', 'quang anh', '3432432', 'gdfg', '2024-01-17 14:00:26', '                        dfgfd', NULL, 1, 1, NULL, NULL, NULL),
+('0YZW7SGS', 'sđ', '34243', '32', '2024-01-17 16:47:50', '', 'fs', NULL, 1, 2730000, 0, 2730000),
 ('58TMCIA2', 'quanly', '453245', '4dvsdsf', '2024-01-14 13:55:25', '            fd            ', NULL, 1, 0, NULL, NULL, NULL),
 ('5N7P9LFG', 'fg anh', '9999', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-14 13:35:54', '          dsfsd              ', NULL, 2, 1, NULL, NULL, NULL),
+('5SG9VQRK', 'quang anh', '432432', 'fsd', '2024-01-17 16:41:02', '', 'sd', NULL, 1, 0, 0, 0),
 ('60ALPBZ7', 'eee', '3242', 'gfdg', '2024-01-14 13:40:33', '              4523          ', NULL, 4, 1, NULL, NULL, NULL),
+('7WHBAEPR', 'test', '099999', 'bcv', '2024-01-17 16:11:33', '', '453', NULL, 1, 0, 0, 0),
 ('ASJNSHOV', 'quang anh', '0365151822333', '4dvsdsf', NULL, 'dsdgd', 'dd', 1, 1, NULL, NULL, NULL),
+('AV7TPKDI', 'test', '432432', 'fds', '2024-01-17 16:42:32', '', 'fsd', NULL, 1, 0, 0, 0),
+('AVD5Y4EM', 'vsd', '53253', 'fds', '2024-01-17 16:48:54', '', 'd', NULL, 1, 1740000, 0, 1740000),
+('C95MU7HJ', 'quang anh', '432432', 'fsd', '2024-01-17 16:41:02', '', 'sd', NULL, 1, 0, 0, 0),
 ('CUGSFZ6W', 'xcvcx', '324232', 'cs', '2024-01-14 12:42:15', '                  vsd      ', NULL, 1, 1, NULL, NULL, NULL),
+('DH3KQNXN', 'test', '432432', 'fds', '2024-01-17 16:42:32', '', 'fsd', NULL, 1, 0, 0, 0),
+('DIBOV5DS', 'quang anh', '432', '43', '2024-01-17 15:32:17', '', 'fsd', NULL, 1, 0, 0, 0),
+('DQJMGDPB', 'es', '33333', 'fd', '2024-01-17 16:45:08', '', 'fsd', NULL, 1, 2730000, 0, 2730000),
+('DVO5DOGS', 'quang anh', '312312', 'cád', '2024-01-17 14:50:21', '', 'sa', NULL, 1, 0, 0, 0),
+('EO83LVLW', 'sđ', '34243', '32', '2024-01-17 16:47:50', '', 'fs', NULL, 1, 2730000, 0, 2730000),
 ('GZ7NLAVD', 'gfdgfd', '45345343', 'vd', '2024-01-14 12:41:57', '                        bvd', NULL, 4, 1, NULL, NULL, NULL),
 ('H7SMY3IX', 'quang anh', '4234', '4dvsdsf', '2023-12-31 11:34:00', '                        gh', NULL, 2, 3, NULL, NULL, NULL),
+('HDHAMPHU', 'quang anh', '543543', 'gdf', '2024-01-17 15:27:42', '', 'gfd', NULL, 1, 0, 0, 0),
 ('HQ6FBRM7', 'fsd', '342344', 'đ', '2024-01-14 12:38:51', '                        fs', NULL, 1, 1, NULL, NULL, NULL),
+('JRZKCJ43', 'quang anh', '543543', 'gdf', '2024-01-17 15:27:42', '', 'gfd', NULL, 1, 0, 0, 0),
 ('LJ15RWML', 'quang anh', '0365151822', 'dsf', '2023-12-31 11:34:00', 'sdfds', NULL, 2, 3, NULL, NULL, NULL),
+('LSNIHPTR', 'vsd', '53253', 'fds', '2024-01-17 16:48:54', '', 'd', NULL, 1, 1740000, 0, 1740000),
+('MMZKNG6S', 'quang anh', '8888888', 'gsd', '2024-01-17 17:11:40', '', 'fds', NULL, 1, 2730000, 0, 2730000),
+('MU7BVUH5', 'gdf', '655654', 'g', '2024-01-17 16:51:00', '', 'f', NULL, 1, 1470000, 0, 1470000),
+('NOVGGQZI', 'test', '432432', 'fds', '2024-01-17 16:43:57', '', 'fsd', NULL, 1, 0, 0, 0),
+('OBKEJQTG', 'quang anh', '432432', 'fsd', '2024-01-17 16:38:09', '', 'sd', NULL, 1, 0, 0, 0),
 ('PB8NR0T5', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-14 12:17:43', '                        ', 'fds', 1, 2, NULL, NULL, NULL),
+('PH6KVSMJ', 'quang anh', '432432', 'fsd', '2024-01-17 16:38:09', '', 'sd', NULL, 1, 0, 0, 0),
+('PTAL1WMZ', 'test', '432432', 'fds', '2024-01-17 16:43:57', '', 'fsd', NULL, 1, 0, 0, 0),
 ('QD57D21V', 'nhanvien1', '0365151822', 'sdfsd', '2023-12-31 11:34:00', '                        vsd', NULL, 2, 5, NULL, NULL, NULL),
 ('QHSU5DIX', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-14 12:16:09', '                        dsv', 'fds', 1, 4, NULL, NULL, NULL),
 ('QWEASVXZ', 'fdsfsd', '93232', 'cxvcx', '2023-12-31 11:34:20', 'cxfds', NULL, 1, 5, NULL, NULL, NULL),
+('QXQDF5LW', 'quang anh', '3432', 'fds', '2024-01-17 15:30:30', '', 'fsd', NULL, 1, 0, 0, 0),
 ('RMMVUD46', 'gsdvc', '4532', 'bvc', '2024-01-14 12:37:18', '                    fdg    ', NULL, 1, 1, NULL, NULL, NULL),
 ('RNQT0948', 'quang anh', '33', 'ds', '2023-12-31 11:34:20', 'a', NULL, 2, 5, NULL, NULL, NULL),
 ('SDDFGSEW', 'quang anh', '932', '4dvsdsf', '2023-12-31 11:34:20', 'hello\r\nx', NULL, 2, 2, NULL, NULL, NULL),
 ('SM1LHYCD', 'vsd', '534', 'fgdf', '2024-01-14 13:16:30', '                        43', NULL, 1, 1, NULL, NULL, NULL),
+('TBLAZ6MC', 'quang anh', '3432', 'fds', '2024-01-17 15:30:30', '', 'fsd', NULL, 1, 0, 0, 0),
+('TKPGF00K', 'gdf', '655654', 'g', '2024-01-17 16:51:00', '', 'f', NULL, 1, 1470000, 0, 1470000),
+('UX3Z2QRB', 'es', '33333', 'fd', '2024-01-17 16:45:08', '', 'fsd', NULL, 1, 2730000, 0, 2730000),
+('V4OZODG3', 'test', '099999', 'bcv', '2024-01-17 16:11:33', '', '453', NULL, 1, 0, 0, 0),
 ('VCXBDSGS', 'SF', '93232', '4fdsdvs', '2023-12-31 11:34:20', 'dsf', NULL, 2, 1, NULL, NULL, NULL),
 ('VEGIVWS6', 'vsd', '988888', 'gf', '2024-01-14 13:37:13', '         vbcx               ', NULL, NULL, 1, NULL, NULL, NULL),
+('XEPE4XKN', 'quang anh', '8888888', 'gsd', '2024-01-17 17:11:40', '', 'fds', NULL, 1, 2730000, 0, 2730000),
+('XQZVRRIM', 'quang anh', '432', '43', '2024-01-17 15:32:17', '', 'fsd', NULL, 1, 0, 0, 0),
 ('YHJFSFAS', 'Qvxa', '21932', '4cddvs', '2023-12-31 11:34:20', '', NULL, 1, 6, NULL, NULL, NULL),
 ('YHVJLZWX', 'fsd', '34543', 'df', '2023-12-24 08:17:57', '', NULL, NULL, 1, NULL, NULL, NULL),
-('YS28NEXU', 'quang anh', '0365151822', 'dfgdf', '2023-12-30 14:26:44', '                        ds', NULL, 1, 1, NULL, NULL, NULL);
+('YS28NEXU', 'quang anh', '0365151822', 'dfgdf', '2023-12-30 14:26:44', '                        ds', NULL, 1, 1, NULL, NULL, NULL),
+('YXS2DUXM', 'sđ', '34243', '32', '2024-01-17 16:47:00', '', 'fs', NULL, 1, 2730000, 0, 2730000),
+('ZY421FII', 'quang anh', '312312', 'cád', '2024-01-17 14:50:21', '', 'sa', NULL, 1, 0, 0, 0);
 
 --
 -- Bẫy `invoices`
@@ -1086,7 +1160,7 @@ CREATE TRIGGER `after_invoice_insert` AFTER INSERT ON `invoices` FOR EACH ROW BE
 	DECLARE content VARCHAR(255);
     DECLARE invoice_id VARCHAR(25);
     DECLARE account_name VARCHAR(25);
-    SET account_name = (SELECT accounts.user_name FROM accounts WHERE account_id = NEW.account_id);
+    SET account_name = COALESCE((SELECT accounts.user_name FROM accounts WHERE account_id = NEW.account_id), 'Hệ thống');
     SET invoice_id = NEW.invoice_id;
     SET content = CONCAT(@current_user , ' đã tạo đơn hàng: <br>Mã đơn: ', NEW.invoice_id, ',<br>Tên khách hàng: ', NEW.name, ',<br>Số điện thoại: ', NEW.phone, ',<br>Địa chỉ: ', NEW.address,',<br>Ghi chú: ', NEW.note,',<br>Nguồn:  ',account_name);
 
@@ -1175,7 +1249,19 @@ INSERT INTO `invoices_detail` (`detail_id`, `invoice_id`, `product_detail_id`, `
 (209, 'LJ15RWML', 612, 380000, 1, 380000),
 (210, '5N7P9LFG', 442, 480000, 5, 2400000),
 (213, 'H7SMY3IX', 443, 480000, 2, 960000),
-(214, '5N7P9LFG', 612, 380000, 1, 380000);
+(214, '5N7P9LFG', 612, 380000, 1, 380000),
+(215, 'UX3Z2QRB', 691, 2, NULL, NULL),
+(216, 'UX3Z2QRB', 697, 1, NULL, NULL),
+(217, 'YXS2DUXM', 691, 2, NULL, NULL),
+(218, 'YXS2DUXM', 697, 1, NULL, NULL),
+(219, 'EO83LVLW', 691, 2, NULL, NULL),
+(220, 'EO83LVLW', 697, 1, NULL, NULL),
+(221, 'LSNIHPTR', 691, 1, NULL, NULL),
+(222, 'LSNIHPTR', 697, 1, NULL, NULL),
+(223, 'MU7BVUH5', 502, 480000, 1, 480000),
+(224, 'MU7BVUH5', 691, 990000, 1, 990000),
+(225, 'MMZKNG6S', 691, 990000, 2, 1980000),
+(226, 'MMZKNG6S', 697, 750000, 1, 750000);
 
 --
 -- Bẫy `invoices_detail`
@@ -2410,7 +2496,7 @@ ALTER TABLE `accounts`
 -- AUTO_INCREMENT cho bảng `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=502;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=545;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_product`
@@ -2428,7 +2514,7 @@ ALTER TABLE `imgs_size`
 -- AUTO_INCREMENT cho bảng `invoices_detail`
 --
 ALTER TABLE `invoices_detail`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=215;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=227;
 
 --
 -- AUTO_INCREMENT cho bảng `invoices_status`

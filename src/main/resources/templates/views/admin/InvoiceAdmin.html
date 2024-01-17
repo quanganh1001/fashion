@@ -160,6 +160,8 @@
                 <td th:text="${invoice.phone}"></td>
                 <td th:text="${invoice.invoiceStatus.status}"></td>
                 <td th:text="${#temporals.format(invoice.createdAt, 'HH:mm:ss dd/MM/yyyy')}"></td>
+                <td th:if="${invoice.account !=null}" th:text="${invoice.account.userName}"></td>
+                <td th:unless="${invoice.account !=null}">Chưa chia đơn</td>
                 <td th:if="${invoice.account != null}"><a
                         th:href="@{/admin/invoiceDetail?invoiceId=__${invoice.invoiceId}__&accountId=__${invoice.account.accountId}__}"><i
                         class="fa-regular fa-eye"></i>
@@ -170,7 +172,7 @@
                         class="fa-regular fa-eye"></i>
                 </a>
                 </td>
-                <td th:if="${invoice.account !=null}" th:text="${invoice.account.userName}"></td>
+
             </tr>
             </tbody>
         </table>

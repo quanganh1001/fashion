@@ -14,6 +14,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class HistoryService {
@@ -27,23 +28,26 @@ public class HistoryService {
     @Transactional
     public void setTriggerVariableForHistory() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
+        System.out.println(authentication);
         if (authentication != null && authentication.isAuthenticated()) {
             String currentUsername = authentication.getName();
             System.out.println(currentUsername);
             // Kiểm tra xem currentUsername có giá trị không
-            if (currentUsername != null && !currentUsername.isEmpty()) {
+            if (!Objects.equals(currentUsername, "anonymousUser")) {
                 entityManager.createNativeQuery("SET @current_user = :currentUsername")
                         .setParameter("currentUsername", currentUsername)
                         .executeUpdate();
             } else {
                 // Xử lý trường hợp currentUsername không có giá trị (null hoặc trống)
-                entityManager.createNativeQuery("SET @current_user = 'Hệ thống'")
+                entityManager.createNativeQuery("SET @current_user = :currentUsername")
+                        .setParameter("currentUsername", "HeThong")
                         .executeUpdate();
             }
         } else {
+            System.out.println("4432");
             // Xử lý trường hợp authentication là null hoặc không được xác thực
-            entityManager.createNativeQuery("SET @current_user = 'Hệ thống'")
+            entityManager.createNativeQuery("SET @current_user = :currentUsername")
+                    .setParameter("currentUsername", "HeThong")
                     .executeUpdate();
         }
     }

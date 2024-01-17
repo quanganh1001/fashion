@@ -27,11 +27,8 @@ public class CtlCart {
     @Autowired
     private CategoryService categoryService;
     @Autowired
-    private ProductService productService;
-    @Autowired
-    private ProductDetailService productDetailService;
-    @Autowired
     private CartService cartService;
+
     @ModelAttribute("CARTS")
     public List<CartItem> initializeCart() {
         return new ArrayList<>();
@@ -51,32 +48,7 @@ public class CtlCart {
     public String addToCart(@RequestParam("prDetailId") Integer prDetailId,
                             @RequestParam("quantity") int quantity,
                             @ModelAttribute("CARTS") List<CartItem> cartItemList) {
-        ProductDetail productDetail = productDetailService.getById(prDetailId);
-        Product product = productService.findById(productDetail.getProduct().getProductId());
-
-        boolean itemExists = false;
-        for (CartItem cartItem : cartItemList) {
-            if (cartItem.getCode().equals(productDetail.getCode())) {
-                cartItem.setQuantity(cartItem.getQuantity() + quantity);
-                itemExists = true;
-                break;
-            }
-        }
-
-        if (!itemExists) {
-            CartItem cartItem = new CartItem(
-                    productDetail.getCode(),
-                    product.getProductId(),
-                    quantity,
-                    product.getPrice(),
-                    product.getDiscountPrice(),
-                    product.getProductName(),
-                    productDetail.getColor().getName(),
-                    productDetail.getSize().getName()
-            );
-            cartItemList.add(cartItem);
-        }
-
+        cartService.addCart(prDetailId, cartItemList, quantity);
         return "redirect:/carts";
     }
 
@@ -93,12 +65,7 @@ public class CtlCart {
                          @RequestParam("quantity") int quantity,
                          @ModelAttribute("CARTS") List<CartItem> cartItemList
                          ){
-        for (CartItem cartItem: cartItemList){
-            if(Objects.equals(cartItem.getCode(), prDetailCode)){
-                cartItem.setQuantity(quantity);
-                break;
-            }
-        }
+        cartService.setQuantity(quantity,cartItemList,prDetailCode);
 
         var totalPrice = cartService.getTotalPrice(cartItemList);
         cartService.getShippingFee(model,totalPrice);
