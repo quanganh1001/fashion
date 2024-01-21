@@ -1,5 +1,6 @@
 package project.fashion.controllerWeb;
 
+import jakarta.servlet.http.HttpSession;
 import org.apache.catalina.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,30 +26,41 @@ public class CtlCheckout {
     private ProductDetailService productDetailService;
     @Autowired
     private InvoiceDetailService invoiceDetailService;
+    @Autowired
+    private CategoryService categoryService;
 
 
     @GetMapping("")
     public String getCheckout(Model model,
                               @RequestParam("invoiceId") String invoiceId,
                               @ModelAttribute("invoiceId") String SessioninvoiceId,
-                              SessionStatus sessionStatus) {
-        Invoice invoice = invoiceService.findById(invoiceId);
-        List<InvoiceDetail> invoiceDetails = invoiceDetailService.findAllByInvoice_InvoiceId(invoiceId);
-        model.addAttribute("invoice", invoice);
-        model.addAttribute("invoiceDetails", invoiceDetails);
+                              @ModelAttribute("CARTS") List<CartItem> cartItemList) {
+        if (Objects.equals(SessioninvoiceId, invoiceId)) {
+            System.out.println(SessioninvoiceId);
+            categoryService.listCategory(model);
+            Invoice invoice = invoiceService.findById(invoiceId);
+            List<InvoiceDetail> invoiceDetails = invoiceDetailService.findAllByInvoice_InvoiceId(invoiceId);
+            model.addAttribute("invoice", invoice);
+            model.addAttribute("invoiceDetails", invoiceDetails);
 
-        sessionStatus.setComplete();
-        return "web/Checkout";
+            cartItemList.clear();
+            return "web/Checkout";
+        } else {
+            return "redirect:/";
+        }
     }
+
 
     @PostMapping ("")
     public ResponseEntity<String> addInvoice( ModelMap model,
                                              @ModelAttribute Invoice invoice) {
         var invoiceId = "";
-        if (invoiceService.addInvoice(invoice).getStatusCode() == HttpStatus.OK) {
             invoiceId = invoiceService.addInvoice(invoice).getBody();
             Invoice newInvoice = invoiceService.findById(invoiceId);
             List<CartItem> cartItemList = (List<CartItem>) model.getAttribute("CARTS");
+            if (cartItemList == null || cartItemList.size() == 0){
+                return new ResponseEntity<>("Chưa có sản phẩm trong giỏ hàng",HttpStatus.BAD_REQUEST);
+            }
             for (CartItem cartItem : cartItemList) {
                 var quantity = cartItem.getQuantity();
                 var prDetail = productDetailService.findByCode(cartItem.getCode());
@@ -68,10 +80,6 @@ public class CtlCheckout {
             model.addAttribute("invoiceId", invoiceId);
             return ResponseEntity.ok(invoiceId);
 
-        }else {
-            return null;
         }
 
     }
-
-}

@@ -231,10 +231,16 @@
                 </div>
             </div>
 
-            <div>
-                <h4 style="color:red">Tổng đơn hàng: <span
-                        th:text="${#numbers.formatDecimal(totalAmount, 0, 'POINT', 0, 'POINT')}"></span>
-                </h4>
+            <div class="col-4 mt-3">
+                <div class="d-flex">
+                    <span class="col-5">Phí ship:</span>
+                    <span th:text="${#numbers.formatDecimal(invoice.shippingFee, 0, 'POINT', 0, 'POINT')} +'đ'"></span>
+                </div>
+                <div class="d-flex">
+                    <span class="col-5">Tổng đơn hàng:</span>
+                    <h4 style="color:red" th:text="${#numbers.formatDecimal(invoice.totalBill, 0, 'POINT', 0, 'POINT')} +'đ'"></h4>
+                </div>
+            </div>
             </div>
         </div>
     </div>
@@ -264,6 +270,6 @@
         </div>
     </div>
 </div>
-<script th:src="@{/admin/script/InvoiceDetailScript.js}"></script>
+<script th:src="@{/script/AdminScript/InvoiceDetailScript.js}"></script>
 </body>
 </html>

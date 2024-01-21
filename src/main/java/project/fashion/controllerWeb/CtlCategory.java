@@ -6,10 +6,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import project.fashion.model.entity.Category;
 import project.fashion.model.entity.ImgProduct;
 import project.fashion.model.entity.Product;
@@ -24,13 +21,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@SessionAttributes("CARTS")
 @RequestMapping("/category")
 public class CtlCategory {
 
     @Autowired
     private CategoryService categoryService;
-    @Autowired
-    private ImgProductService imgProductService;
+
     @GetMapping("/{catId}")
     public String getCategory(Model model, @PathVariable String catId){
         categoryService.listCategory(model);

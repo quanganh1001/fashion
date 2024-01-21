@@ -21,3 +21,17 @@ a{
     text-decoration-line: none;
     color: black;
 }
+
+#position{
+    position: relative;
+}
+#number{
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    color: white;
+    background-color: red;
+    padding: 3px 5px;
+    border-radius: 5px;
+    font-size: 0.6rem;
+}

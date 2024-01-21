@@ -1,5 +1,6 @@
 package project.fashion.model.service;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -8,6 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import project.fashion.model.entity.CartItem;
 import project.fashion.model.entity.Category;
 import project.fashion.model.entity.ImgProduct;
 import project.fashion.model.entity.Product;
@@ -24,6 +29,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@SessionAttributes("CARTS")
 public class CategoryService {
     @Autowired
     private CategoryRepo categoryRepo;
@@ -33,8 +39,6 @@ public class CategoryService {
 
     @Autowired
     private ProductService productService;
-
-
 
     @Transactional
     public ResponseEntity<String> saveCategory(Category category) {
@@ -138,6 +142,7 @@ public class CategoryService {
         return categoryRepo.findAll();
     }
 
+
     public void listCategory(Model model){
         List<Category> categoriesF1 = categoryRepo.findCategoriesByCatParentCatId(null);
         List<Category> categoriesF2 = new ArrayList<>();
@@ -149,8 +154,20 @@ public class CategoryService {
             categoriesF3.addAll(categoryRepo.findCategoriesByCatParentCatId(catF2.getCatId()));
         }
 
+        List<CartItem> numberCart = (List<CartItem>) model.getAttribute("CARTS");
+        System.out.println(numberCart);
+        // Tính tổng số lượng sản phẩm trong giỏ hàng
+        int number = 0;
+        if (numberCart != null) {
+            for (CartItem cartItem : numberCart) {
+                number += cartItem.getQuantity();
+            }
+        }
+
         model.addAttribute("categoriesF1",categoriesF1);
         model.addAttribute("categoriesF2",categoriesF2);
         model.addAttribute("categoriesF3",categoriesF3);
+        model.addAttribute("number", number);
+
     }
 }

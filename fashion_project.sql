@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 17, 2024 lúc 06:13 PM
+-- Máy chủ: localhost
+-- Thời gian đã tạo: Th1 21, 2024 lúc 08:17 AM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.0.28
+-- Phiên bản PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -539,7 +539,88 @@ INSERT INTO `history` (`id`, `invoice_id`, `content`, `time`, `time_ago`) VALUES
 (541, 'XEPE4XKN', 'HeThong đã tạo đơn hàng: <br>Mã đơn: XEPE4XKN,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 8888888,<br>Địa chỉ: gsd,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 17:11:40', NULL),
 (542, 'MMZKNG6S', 'HeThong đã tạo đơn hàng: <br>Mã đơn: MMZKNG6S,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 8888888,<br>Địa chỉ: gsd,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-17 17:11:40', NULL),
 (543, 'MMZKNG6S', 'HeThong đã thêm sản phẩm: DWCT00161PE00RB_NV-S (giá = 990000)', '2024-01-17 17:11:40', NULL),
-(544, 'MMZKNG6S', 'HeThong đã thêm sản phẩm: DWCT00431PE32SB_BL-S (giá = 750000)', '2024-01-17 17:11:40', NULL);
+(544, 'MMZKNG6S', 'HeThong đã thêm sản phẩm: DWCT00431PE32SB_BL-S (giá = 750000)', '2024-01-17 17:11:40', NULL),
+(545, 'CZ0MAUUS', 'HeThong đã tạo đơn hàng: <br>Mã đơn: CZ0MAUUS,<br>Tên khách hàng: tesrt,<br>Số điện thoại: 32432432,<br>Địa chỉ: s,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-20 03:35:01', NULL),
+(546, 'N2DYFCZI', 'HeThong đã tạo đơn hàng: <br>Mã đơn: N2DYFCZI,<br>Tên khách hàng: tesrt,<br>Số điện thoại: 32432432,<br>Địa chỉ: s,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-20 03:35:01', NULL),
+(547, 'N2DYFCZI', 'HeThong đã thêm sản phẩm: EABT01901PE00SB_BL-29 (giá = 500000)', '2024-01-20 03:35:01', NULL),
+(548, '0PBVHTEP', 'HeThong đã tạo đơn hàng: <br>Mã đơn: 0PBVHTEP,<br>Tên khách hàng: tesrt,<br>Số điện thoại: 32432432,<br>Địa chỉ: s,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-20 03:36:33', NULL),
+(549, 'AU7X3AQS', 'HeThong đã tạo đơn hàng: <br>Mã đơn: AU7X3AQS,<br>Tên khách hàng: tesrt,<br>Số điện thoại: 32432432,<br>Địa chỉ: s,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-20 03:36:33', NULL),
+(550, '0D8KVSS6', 'quanly đã thêm sản phẩm: ESTP04272CV00SB_BR-XL (giá = 349000)', '2024-01-20 04:58:54', NULL),
+(551, '0D8KVSS6', ' đã thay đổi Số lượng (ESTP04272CV00SB_BR-XL) :1 -> 2', '2024-01-20 05:00:07', NULL),
+(552, '0PBVHTEP', 'quanly đã thêm sản phẩm: DABJ00401CT00SB_NV-29 (giá = 550000)', '2024-01-20 05:01:35', NULL),
+(553, '0D8KVSS6', ' đã thay đổi Số lượng (ESTP04272CV00SB_BR-XL) :2 -> 1', '2024-01-20 06:52:06', NULL),
+(554, '0D8KVSS6', ' đã thay đổi Số lượng (ESTP04272CV00SB_BR-XL) :1 -> 2', '2024-01-20 07:00:17', NULL),
+(555, '0D8KVSS6', 'quanly đã xóa sản phẩm: ESTP04272CV00SB_BR-XL (giá = 349000)', '2024-01-20 07:03:23', NULL),
+(556, 'EYCDR8PC', 'quanly đã tạo đơn hàng: <br>Mã đơn: EYCDR8PC,<br>Tên khách hàng: nguyễn quang anh,<br>Số điện thoại: 365151822,<br>Địa chỉ: số 18 ngõ 222 tựu liệt,thanh trì, hà nội,<br>Ghi chú:                         fsd,<br>Nguồn:  quanly', '2024-01-20 07:09:22', NULL),
+(557, 'EYCDR8PC', 'quanly đã thêm sản phẩm: DSTP90372CT32RB_WCB-S (giá = 290000)', '2024-01-20 07:09:28', NULL),
+(558, 'EYCDR8PC', ' đã thay đổi Số lượng (DSTP90372CT32RB_WCB-S) :1 -> 2', '2024-01-20 07:11:51', NULL),
+(559, 'ZUI23NIT', 'quanly đã tạo đơn hàng: <br>Mã đơn: ZUI23NIT,<br>Tên khách hàng: nguyễn quang anh,<br>Số điện thoại: 36515182222,<br>Địa chỉ: số 18 ngõ 222 tựu liệt,thanh trì, hà nội,<br>Ghi chú:                         dsf,<br>Nguồn:  quanly', '2024-01-20 07:17:28', NULL),
+(560, 'ZUI23NIT', 'quanly đã thêm sản phẩm: DSTP90372CT32RB_WCB-S (giá = 290000)', '2024-01-20 07:27:36', NULL),
+(561, 'ZUI23NIT', ' đã thay đổi Số lượng (DSTP90372CT32RB_WCB-S) :1 -> 2', '2024-01-20 07:27:40', NULL),
+(562, 'ZUI23NIT', ' đã thay đổi Số lượng (DSTP90372CT32RB_WCB-S) :2 -> 3', '2024-01-20 07:28:05', NULL),
+(563, 'ZUI23NIT', ' đã thay đổi Số lượng (DSTP90372CT32RB_WCB-S) :3 -> 1', '2024-01-20 07:42:26', NULL),
+(564, 'JTSZI7MU', 'quanly đã tạo đơn hàng: <br>Mã đơn: JTSZI7MU,<br>Tên khách hàng: nguyễn quang anh,<br>Số điện thoại: 365151822,<br>Địa chỉ: số 18 ngõ 222 tựu liệt,thanh trì, hà nội,<br>Ghi chú: ,<br>Nguồn:  quanly', '2024-01-20 08:05:09', NULL),
+(565, 'MSFDUEXY', 'quanly đã tạo đơn hàng: <br>Mã đơn: MSFDUEXY,<br>Tên khách hàng: nguyễn quang anh,<br>Số điện thoại: 365151822,<br>Địa chỉ: số 18 ngõ 222 tựu liệt,thanh trì, hà nội,<br>Ghi chú: ,<br>Nguồn:  quanly', '2024-01-20 08:05:09', NULL),
+(566, 'MSFDUEXY', 'quanly đã thêm sản phẩm: ESTP01772CV32SB_BLE-S (giá = 420000)', '2024-01-20 08:05:09', NULL),
+(567, 'UADFJMKH', 'HeThong đã tạo đơn hàng: <br>Mã đơn: UADFJMKH,<br>Tên khách hàng: nguyễn quang anh,<br>Số điện thoại: 365151822,<br>Địa chỉ: số 18 ngõ 222 tựu liệt,thanh trì, hà nội,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-20 08:06:26', NULL),
+(568, 'I8XDEQJH', 'HeThong đã tạo đơn hàng: <br>Mã đơn: I8XDEQJH,<br>Tên khách hàng: nguyễn quang anh,<br>Số điện thoại: 365151822,<br>Địa chỉ: số 18 ngõ 222 tựu liệt,thanh trì, hà nội,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-20 08:06:26', NULL),
+(569, 'I8XDEQJH', 'HeThong đã thêm sản phẩm: DWBS01203CV00SB_DGR-S-S (giá = 299000)', '2024-01-20 08:06:26', NULL),
+(570, 'UAEZV8YX', 'quanly đã tạo đơn hàng: <br>Mã đơn: UAEZV8YX,<br>Tên khách hàng: gdfgfdg,<br>Số điện thoại: 3423,<br>Địa chỉ: số 18 ngõ 222 tựu liệt,thanh trì, hà nội,<br>Ghi chú: ,<br>Nguồn:  quanly', '2024-01-20 08:18:15', NULL),
+(571, 'A5K1TOQE', 'quanly đã tạo đơn hàng: <br>Mã đơn: A5K1TOQE,<br>Tên khách hàng: gdfgfdg,<br>Số điện thoại: 3423,<br>Địa chỉ: số 18 ngõ 222 tựu liệt,thanh trì, hà nội,<br>Ghi chú: ,<br>Nguồn:  quanly', '2024-01-20 08:18:15', NULL),
+(572, 'A5K1TOQE', 'quanly đã thêm sản phẩm: ESTP06772TC00SB_BL-S (giá = 380000)', '2024-01-20 08:18:15', NULL),
+(573, 'EYCDR8PC', 'quanly đã thêm sản phẩm: DSTP90372CT32RB_WCB-M (giá = 290000)', '2024-01-20 08:24:33', NULL),
+(574, 'UAEZV8YX', 'quanly đã thêm sản phẩm: DABJ00401CT00SB_NV-29 (giá = 550000)', '2024-01-20 08:24:41', NULL),
+(575, 'A5K1TOQE', ' đã thay đổi Số lượng (ESTP06772TC00SB_BL-S) :1 -> 2', '2024-01-20 08:25:06', NULL),
+(576, 'OCFAOWMB', 'quanly đã tạo đơn hàng: <br>Mã đơn: OCFAOWMB,<br>Tên khách hàng: fsdfsd,<br>Số điện thoại: 333333,<br>Địa chỉ: vd,<br>Ghi chú: ,<br>Nguồn:  quanly', '2024-01-20 08:25:31', NULL),
+(577, 'OCFAOWMB', 'quanly đã thêm sản phẩm: ESTP02872CV00SB_WH-L (giá = 420000)', '2024-01-20 08:25:31', NULL);
+INSERT INTO `history` (`id`, `invoice_id`, `content`, `time`, `time_ago`) VALUES
+(578, 'UZZHM3TR', 'HeThong đã tạo đơn hàng: <br>Mã đơn: UZZHM3TR,<br>Tên khách hàng: nguyễn quang anh,<br>Số điện thoại: 333322323,<br>Địa chỉ: số 18 ngõ 222 tựu liệt,thanh trì, hà nội,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-20 08:28:41', NULL),
+(579, 'UZZHM3TR', 'HeThong đã thêm sản phẩm: EABT02101PE00SB_BL-30 (giá = 480000)', '2024-01-20 08:28:41', NULL),
+(580, 'TLSY7TFT', 'HeThong đã tạo đơn hàng: <br>Mã đơn: TLSY7TFT,<br>Tên khách hàng: dfgdf,<br>Số điện thoại: 323233232,<br>Địa chỉ: fds,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-20 08:38:59', NULL),
+(581, 'TLSY7TFT', 'HeThong đã thêm sản phẩm: DWCT00431PE32SB_BL-S (giá = 750000)', '2024-01-20 08:38:59', NULL),
+(582, 'SMMKHRU1', 'HeThong đã tạo đơn hàng: <br>Mã đơn: SMMKHRU1,<br>Tên khách hàng: dfsd,<br>Số điện thoại: 222222,<br>Địa chỉ: sdf,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-20 08:42:50', NULL),
+(583, 'SMMKHRU1', 'HeThong đã thêm sản phẩm: ESTP01072TC00SB_WH-S (giá = 400000)', '2024-01-20 08:42:50', NULL),
+(584, 'YHNB0POU', 'HeThong đã tạo đơn hàng: <br>Mã đơn: YHNB0POU,<br>Tên khách hàng: dsfds,<br>Số điện thoại: 2312312,<br>Địa chỉ: f,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-20 08:48:58', NULL),
+(585, 'YHNB0POU', 'HeThong đã thêm sản phẩm: ESTP00572CT00SB_DNV-M (giá = 420000)', '2024-01-20 08:48:59', NULL),
+(586, 'GB4ENHC1', 'HeThong đã tạo đơn hàng: <br>Mã đơn: GB4ENHC1,<br>Tên khách hàng: nguyễn quang anh,<br>Số điện thoại: 365151822,<br>Địa chỉ: số 18 ngõ 222 tựu liệt,thanh trì, hà nội,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-20 09:01:53', NULL),
+(587, 'GB4ENHC1', 'HeThong đã thêm sản phẩm: DWCT00161PE00RB_NV-S (giá = 990000)', '2024-01-20 09:01:53', NULL),
+(588, '7MOJYIGO', 'HeThong đã tạo đơn hàng: <br>Mã đơn: 7MOJYIGO,<br>Tên khách hàng: vcxvx,<br>Số điện thoại: 33333,<br>Địa chỉ: fsd,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-20 09:03:07', NULL),
+(589, '7MOJYIGO', 'HeThong đã thêm sản phẩm: DWCU00761PE32SB_LLG-S (giá = 750000)', '2024-01-20 09:03:07', NULL),
+(590, 'KT9P9ZMY', 'HeThong đã tạo đơn hàng: <br>Mã đơn: KT9P9ZMY,<br>Tên khách hàng: nguyễn quang anh,<br>Số điện thoại: 365151822,<br>Địa chỉ: số 18 ngõ 222 tựu liệt,thanh trì, hà nội,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-20 09:28:32', NULL),
+(591, 'KT9P9ZMY', 'HeThong đã thêm sản phẩm: DWCT00431PE32SB_BL-S (giá = 750000)', '2024-01-20 09:28:32', NULL),
+(592, '5FTZ8G2K', 'HeThong đã tạo đơn hàng: <br>Mã đơn: 5FTZ8G2K,<br>Tên khách hàng: nguyễn quang anh,<br>Số điện thoại: 365151822,<br>Địa chỉ: số 18 ngõ 222 tựu liệt,thanh trì, hà nội,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-20 09:30:31', NULL),
+(593, '5FTZ8G2K', 'HeThong đã thêm sản phẩm: ESTP00572CT00SB_DNV-S (giá = 420000)', '2024-01-20 09:30:31', NULL),
+(594, '7MOJYIGO', ' đã thay đổi Số lượng (DWCU00761PE32SB_LLG-S) :1 -> 2', '2024-01-20 09:39:09', NULL),
+(595, '7MOJYIGO', ' đã thay đổi Số lượng (DWCU00761PE32SB_LLG-S) :2 -> 1', '2024-01-20 09:39:14', NULL),
+(596, '7MOJYIGO', 'quanly đã thêm sản phẩm: DSTP90372CT32RB_WCB-M (giá = 290000)', '2024-01-20 09:39:22', NULL),
+(597, '7MOJYIGO', ' đã thay đổi Số lượng (DSTP90372CT32RB_WCB-M) :1 -> 2', '2024-01-20 09:42:31', NULL),
+(598, '7MOJYIGO', 'quanly đã thêm sản phẩm: DSTP90372CT32RB_WCB-L (giá = 290000)', '2024-01-20 09:42:41', NULL),
+(599, '7MOJYIGO', 'quanly đã xóa sản phẩm: DWCU00761PE32SB_LLG-S (giá = 750000)', '2024-01-20 09:42:53', NULL),
+(600, '7MOJYIGO', 'quanly đã thêm sản phẩm: DSBI01302LI00SB_BE-31 (giá = 380000)', '2024-01-20 09:43:19', NULL),
+(601, '7MOJYIGO', 'quanly đã thêm sản phẩm: DABJ01001CT00SB_BU-30 (giá = 550000)', '2024-01-20 09:46:06', NULL),
+(602, 'EYCDR8PC', ' đã thay đổi Số lượng (DSTP90372CT32RB_WCB-M) :1 -> 2', '2024-01-20 10:00:54', NULL),
+(603, 'EYCDR8PC', ' đã thay đổi Số lượng (DSTP90372CT32RB_WCB-M) :2 -> 1', '2024-01-20 10:03:44', NULL),
+(604, 'EYCDR8PC', ' đã thay đổi Số lượng (DSTP90372CT32RB_WCB-S) :2 -> 1', '2024-01-20 10:05:32', NULL),
+(605, 'EYCDR8PC', ' đã thay đổi Số lượng (DSTP90372CT32RB_WCB-M) :1 -> 2', '2024-01-20 10:08:12', NULL),
+(606, 'EYCDR8PC', ' đã thay đổi Số lượng (DSTP90372CT32RB_WCB-M) :2 -> 1', '2024-01-20 10:08:58', NULL),
+(607, 'EYCDR8PC', ' đã thay đổi Số lượng (DSTP90372CT32RB_WCB-M) :1 -> 2', '2024-01-20 10:09:07', NULL),
+(608, 'EYCDR8PC', ' đã thay đổi Số lượng (DSTP90372CT32RB_WCB-M) :2 -> 3', '2024-01-20 10:09:17', NULL),
+(609, '5FTZ8G2K', ' đã thay đổi Số lượng (ESTP00572CT00SB_DNV-S) :1 -> 2', '2024-01-20 10:09:56', NULL),
+(612, '5FTZ8G2K', ' đã thay đổi Số lượng (ESTP00572CT00SB_DNV-S) :2 -> 1', '2024-01-20 10:12:10', NULL),
+(613, '5FTZ8G2K', ' đã thay đổi Số lượng (ESTP00572CT00SB_DNV-S) :1 -> 2', '2024-01-20 10:12:20', NULL),
+(614, '5FTZ8G2K', ' đã thay đổi Số lượng (ESTP00572CT00SB_DNV-S) :2 -> 1', '2024-01-20 10:12:24', NULL),
+(615, '5FTZ8G2K', ' đã thay đổi Số lượng (ESTP00572CT00SB_DNV-S) :1 -> 3', '2024-01-20 10:12:56', NULL),
+(616, '5FTZ8G2K', ' đã thay đổi Số lượng (ESTP00572CT00SB_DNV-S) :3 -> 1', '2024-01-20 10:12:59', NULL),
+(617, '5FTZ8G2K', ' đã thay đổi Số lượng (ESTP00572CT00SB_DNV-S) :1 -> 2', '2024-01-20 10:14:00', NULL),
+(618, '7MOJYIGO', ' đã thay đổi Số lượng (DABJ01001CT00SB_BU-30) :1 -> 2', '2024-01-20 10:16:25', NULL),
+(619, '7MOJYIGO', ' đã thay đổi Số lượng (DABJ01001CT00SB_BU-30) :2 -> 1', '2024-01-20 10:16:30', NULL),
+(620, '7MOJYIGO', ' đã thay đổi Số lượng (DABJ01001CT00SB_BU-30) :1 -> 2', '2024-01-20 10:18:39', NULL),
+(621, '7MOJYIGO', ' đã thay đổi Số lượng (DABJ01001CT00SB_BU-30) :2 -> 1', '2024-01-20 10:18:42', NULL),
+(624, 'GB4ENHC1', ' đã thay đổi Số lượng (DWCT00161PE00RB_NV-S) :2 -> 1', '2024-01-20 10:27:16', NULL),
+(625, 'GB4ENHC1', ' đã thay đổi Số lượng (DWCT00161PE00RB_NV-S) :1 -> 2', '2024-01-20 10:28:54', NULL),
+(626, 'GB4ENHC1', ' đã thay đổi Số lượng (DWCT00161PE00RB_NV-S) :2 -> 1', '2024-01-20 10:28:57', NULL),
+(627, 'GB4ENHC1', ' đã thay đổi Số lượng (DWCT00161PE00RB_NV-S) :1 -> 2', '2024-01-20 10:29:00', NULL),
+(628, 'I8XDEQJH', ' đã thay đổi Số lượng (DWBS01203CV00SB_DGR-S-S) :1 -> 2', '2024-01-20 10:31:14', NULL);
 
 -- --------------------------------------------------------
 
@@ -1088,9 +1169,9 @@ CREATE TABLE `invoices` (
   `customer_note` varchar(255) DEFAULT NULL,
   `account_id` int(11) DEFAULT NULL,
   `invoice_status` int(1) NOT NULL DEFAULT 1,
-  `total_price` int(11) DEFAULT NULL,
-  `shipping_fee` int(11) DEFAULT NULL,
-  `total_bill` int(11) DEFAULT NULL
+  `total_price` int(20) DEFAULT NULL,
+  `shipping_fee` int(11) DEFAULT 0,
+  `total_bill` int(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -1098,78 +1179,40 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `created_at`, `note`, `customer_note`, `account_id`, `invoice_status`, `total_price`, `shipping_fee`, `total_bill`) VALUES
-('0D8KVSS6', 'sđ', '34243', '32', '2024-01-17 16:47:00', '', 'fs', NULL, 1, 2730000, 0, 2730000),
-('0FMHHMNY', 'quang anh', '3432432', 'gdfg', '2024-01-17 14:00:26', '                        dfgfd', NULL, 1, 1, NULL, NULL, NULL),
-('0YZW7SGS', 'sđ', '34243', '32', '2024-01-17 16:47:50', '', 'fs', NULL, 1, 2730000, 0, 2730000),
-('58TMCIA2', 'quanly', '453245', '4dvsdsf', '2024-01-14 13:55:25', '            fd            ', NULL, 1, 0, NULL, NULL, NULL),
-('5N7P9LFG', 'fg anh', '9999', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-14 13:35:54', '          dsfsd              ', NULL, 2, 1, NULL, NULL, NULL),
-('5SG9VQRK', 'quang anh', '432432', 'fsd', '2024-01-17 16:41:02', '', 'sd', NULL, 1, 0, 0, 0),
-('60ALPBZ7', 'eee', '3242', 'gfdg', '2024-01-14 13:40:33', '              4523          ', NULL, 4, 1, NULL, NULL, NULL),
-('7WHBAEPR', 'test', '099999', 'bcv', '2024-01-17 16:11:33', '', '453', NULL, 1, 0, 0, 0),
-('ASJNSHOV', 'quang anh', '0365151822333', '4dvsdsf', NULL, 'dsdgd', 'dd', 1, 1, NULL, NULL, NULL),
-('AV7TPKDI', 'test', '432432', 'fds', '2024-01-17 16:42:32', '', 'fsd', NULL, 1, 0, 0, 0),
-('AVD5Y4EM', 'vsd', '53253', 'fds', '2024-01-17 16:48:54', '', 'd', NULL, 1, 1740000, 0, 1740000),
-('C95MU7HJ', 'quang anh', '432432', 'fsd', '2024-01-17 16:41:02', '', 'sd', NULL, 1, 0, 0, 0),
-('CUGSFZ6W', 'xcvcx', '324232', 'cs', '2024-01-14 12:42:15', '                  vsd      ', NULL, 1, 1, NULL, NULL, NULL),
-('DH3KQNXN', 'test', '432432', 'fds', '2024-01-17 16:42:32', '', 'fsd', NULL, 1, 0, 0, 0),
-('DIBOV5DS', 'quang anh', '432', '43', '2024-01-17 15:32:17', '', 'fsd', NULL, 1, 0, 0, 0),
-('DQJMGDPB', 'es', '33333', 'fd', '2024-01-17 16:45:08', '', 'fsd', NULL, 1, 2730000, 0, 2730000),
-('DVO5DOGS', 'quang anh', '312312', 'cád', '2024-01-17 14:50:21', '', 'sa', NULL, 1, 0, 0, 0),
-('EO83LVLW', 'sđ', '34243', '32', '2024-01-17 16:47:50', '', 'fs', NULL, 1, 2730000, 0, 2730000),
-('GZ7NLAVD', 'gfdgfd', '45345343', 'vd', '2024-01-14 12:41:57', '                        bvd', NULL, 4, 1, NULL, NULL, NULL),
-('H7SMY3IX', 'quang anh', '4234', '4dvsdsf', '2023-12-31 11:34:00', '                        gh', NULL, 2, 3, NULL, NULL, NULL),
-('HDHAMPHU', 'quang anh', '543543', 'gdf', '2024-01-17 15:27:42', '', 'gfd', NULL, 1, 0, 0, 0),
-('HQ6FBRM7', 'fsd', '342344', 'đ', '2024-01-14 12:38:51', '                        fs', NULL, 1, 1, NULL, NULL, NULL),
-('JRZKCJ43', 'quang anh', '543543', 'gdf', '2024-01-17 15:27:42', '', 'gfd', NULL, 1, 0, 0, 0),
-('LJ15RWML', 'quang anh', '0365151822', 'dsf', '2023-12-31 11:34:00', 'sdfds', NULL, 2, 3, NULL, NULL, NULL),
-('LSNIHPTR', 'vsd', '53253', 'fds', '2024-01-17 16:48:54', '', 'd', NULL, 1, 1740000, 0, 1740000),
-('MMZKNG6S', 'quang anh', '8888888', 'gsd', '2024-01-17 17:11:40', '', 'fds', NULL, 1, 2730000, 0, 2730000),
-('MU7BVUH5', 'gdf', '655654', 'g', '2024-01-17 16:51:00', '', 'f', NULL, 1, 1470000, 0, 1470000),
-('NOVGGQZI', 'test', '432432', 'fds', '2024-01-17 16:43:57', '', 'fsd', NULL, 1, 0, 0, 0),
-('OBKEJQTG', 'quang anh', '432432', 'fsd', '2024-01-17 16:38:09', '', 'sd', NULL, 1, 0, 0, 0),
-('PB8NR0T5', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-14 12:17:43', '                        ', 'fds', 1, 2, NULL, NULL, NULL),
-('PH6KVSMJ', 'quang anh', '432432', 'fsd', '2024-01-17 16:38:09', '', 'sd', NULL, 1, 0, 0, 0),
-('PTAL1WMZ', 'test', '432432', 'fds', '2024-01-17 16:43:57', '', 'fsd', NULL, 1, 0, 0, 0),
-('QD57D21V', 'nhanvien1', '0365151822', 'sdfsd', '2023-12-31 11:34:00', '                        vsd', NULL, 2, 5, NULL, NULL, NULL),
-('QHSU5DIX', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-14 12:16:09', '                        dsv', 'fds', 1, 4, NULL, NULL, NULL),
-('QWEASVXZ', 'fdsfsd', '93232', 'cxvcx', '2023-12-31 11:34:20', 'cxfds', NULL, 1, 5, NULL, NULL, NULL),
-('QXQDF5LW', 'quang anh', '3432', 'fds', '2024-01-17 15:30:30', '', 'fsd', NULL, 1, 0, 0, 0),
-('RMMVUD46', 'gsdvc', '4532', 'bvc', '2024-01-14 12:37:18', '                    fdg    ', NULL, 1, 1, NULL, NULL, NULL),
-('RNQT0948', 'quang anh', '33', 'ds', '2023-12-31 11:34:20', 'a', NULL, 2, 5, NULL, NULL, NULL),
-('SDDFGSEW', 'quang anh', '932', '4dvsdsf', '2023-12-31 11:34:20', 'hello\r\nx', NULL, 2, 2, NULL, NULL, NULL),
-('SM1LHYCD', 'vsd', '534', 'fgdf', '2024-01-14 13:16:30', '                        43', NULL, 1, 1, NULL, NULL, NULL),
-('TBLAZ6MC', 'quang anh', '3432', 'fds', '2024-01-17 15:30:30', '', 'fsd', NULL, 1, 0, 0, 0),
-('TKPGF00K', 'gdf', '655654', 'g', '2024-01-17 16:51:00', '', 'f', NULL, 1, 1470000, 0, 1470000),
-('UX3Z2QRB', 'es', '33333', 'fd', '2024-01-17 16:45:08', '', 'fsd', NULL, 1, 2730000, 0, 2730000),
-('V4OZODG3', 'test', '099999', 'bcv', '2024-01-17 16:11:33', '', '453', NULL, 1, 0, 0, 0),
-('VCXBDSGS', 'SF', '93232', '4fdsdvs', '2023-12-31 11:34:20', 'dsf', NULL, 2, 1, NULL, NULL, NULL),
-('VEGIVWS6', 'vsd', '988888', 'gf', '2024-01-14 13:37:13', '         vbcx               ', NULL, NULL, 1, NULL, NULL, NULL),
-('XEPE4XKN', 'quang anh', '8888888', 'gsd', '2024-01-17 17:11:40', '', 'fds', NULL, 1, 2730000, 0, 2730000),
-('XQZVRRIM', 'quang anh', '432', '43', '2024-01-17 15:32:17', '', 'fsd', NULL, 1, 0, 0, 0),
-('YHJFSFAS', 'Qvxa', '21932', '4cddvs', '2023-12-31 11:34:20', '', NULL, 1, 6, NULL, NULL, NULL),
-('YHVJLZWX', 'fsd', '34543', 'df', '2023-12-24 08:17:57', '', NULL, NULL, 1, NULL, NULL, NULL),
-('YS28NEXU', 'quang anh', '0365151822', 'dfgdf', '2023-12-30 14:26:44', '                        ds', NULL, 1, 1, NULL, NULL, NULL),
-('YXS2DUXM', 'sđ', '34243', '32', '2024-01-17 16:47:00', '', 'fs', NULL, 1, 2730000, 0, 2730000),
-('ZY421FII', 'quang anh', '312312', 'cád', '2024-01-17 14:50:21', '', 'sa', NULL, 1, 0, 0, 0);
+('5FTZ8G2K', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 10:14:00', '', 'fsd', NULL, 1, 420000, 30000, 450000),
+('7MOJYIGO', 'vcxvx', '33333', 'fsd', '2024-01-20 10:18:42', '', 'sd', 2, 1, 2350000, 0, 2350000),
+('A5K1TOQE', 'gdfgfdg', '3423', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 08:25:06', '', 'vsd', 1, 1, 760000, 30000, 410000),
+('EYCDR8PC', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 10:09:17', '                        fsd', NULL, 1, 1, 870000, 0, 870000),
+('GB4ENHC1', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 10:29:00', '', 'dfs', NULL, 1, 1980000, 0, 1980000),
+('I8XDEQJH', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 10:31:14', '', 'sd', NULL, 1, 598000, 0, 598000),
+('KT9P9ZMY', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 09:28:32', '', 'dsf', NULL, 1, 1500000, 0, 1500000),
+('MSFDUEXY', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 10:08:47', '', 'sd', 1, 1, 420000, 0, NULL),
+('OCFAOWMB', 'fsdfsd', '333333', 'vd', '2024-01-20 08:25:31', '', 'd', 1, 1, 420000, 30000, 450000),
+('SMMKHRU1', 'dfsd', '222222', 'sdf', '2024-01-20 08:42:50', '', 'fds', NULL, 1, 400000, 30000, 430000),
+('TLSY7TFT', 'dfgdf', '323233232', 'fds', '2024-01-20 08:38:59', '', 'f', NULL, 1, 750000, 0, 750000),
+('UAEZV8YX', 'gdfgfdg', '3423', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 08:24:41', '', 'vsd', 1, 1, 550000, 30000, 410000),
+('UZZHM3TR', 'nguyễn quang anh', '333322323', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 08:28:41', '', 'fs', NULL, 1, 480000, 30000, 510000),
+('YHNB0POU', 'dsfds', '2312312', 'f', '2024-01-20 08:48:58', '', 's', NULL, 1, 420000, 30000, 450000),
+('ZUI23NIT', 'nguyễn quang anh', '36515182222', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 07:42:26', '                        dsf', NULL, 1, 1, 290000, 20000, 890000);
 
 --
 -- Bẫy `invoices`
 --
 DELIMITER $$
-CREATE TRIGGER `after_invoice_insert` AFTER INSERT ON `invoices` FOR EACH ROW BEGIN
+CREATE TRIGGER `after_invoice_history_insert` BEFORE INSERT ON `invoices` FOR EACH ROW BEGIN
 	DECLARE content VARCHAR(255);
     DECLARE invoice_id VARCHAR(25);
     DECLARE account_name VARCHAR(25);
     SET account_name = COALESCE((SELECT accounts.user_name FROM accounts WHERE account_id = NEW.account_id), 'Hệ thống');
     SET invoice_id = NEW.invoice_id;
     SET content = CONCAT(@current_user , ' đã tạo đơn hàng: <br>Mã đơn: ', NEW.invoice_id, ',<br>Tên khách hàng: ', NEW.name, ',<br>Số điện thoại: ', NEW.phone, ',<br>Địa chỉ: ', NEW.address,',<br>Ghi chú: ', NEW.note,',<br>Nguồn:  ',account_name);
-
-    INSERT INTO History (invoice_id,content) VALUES (invoice_id,content);
+	INSERT INTO History (invoice_id,content) VALUES (invoice_id,content);
+   
 END
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `after_invoice_update` BEFORE UPDATE ON `invoices` FOR EACH ROW BEGIN
+CREATE TRIGGER `after_invoice_history_update` BEFORE UPDATE ON `invoices` FOR EACH ROW BEGIN
 	DECLARE content VARCHAR(255);
     DECLARE invoice_id VARCHAR(25);
     DECLARE old_status VARCHAR(25);
@@ -1214,6 +1257,13 @@ CREATE TRIGGER `after_invoice_update` BEFORE UPDATE ON `invoices` FOR EACH ROW B
 END
 $$
 DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_ship` BEFORE UPDATE ON `invoices` FOR EACH ROW IF NEW.shipping_fee != OLD.shipping_fee OR NEW.total_price != OLD.total_price
+THEN
+SET NEW.total_bill = NEW.total_price + NEW.shipping_fee;
+END IF
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -1227,7 +1277,7 @@ CREATE TABLE `invoices_detail` (
   `product_detail_id` int(11) DEFAULT NULL,
   `price` double DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
-  `total_price` double DEFAULT NULL
+  `total_price` int(20) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -1235,33 +1285,25 @@ CREATE TABLE `invoices_detail` (
 --
 
 INSERT INTO `invoices_detail` (`detail_id`, `invoice_id`, `product_detail_id`, `price`, `quantity`, `total_price`) VALUES
-(4, 'YHJFSFAS', 195, 390000, 4, 1560000),
-(7, 'QWEASVXZ', 190, 490000, 1, 490000),
-(8, 'QWEASVXZ', 246, 390000, 4, 1560000),
-(25, 'SDDFGSEW', 46, 333333, 1, 333333),
-(29, 'QWEASVXZ', 46, 333333, 1, 333333),
-(30, 'VCXBDSGS', 47, 333333, 2, 666666),
-(31, 'YHJFSFAS', 234, 500000, 1, 500000),
-(52, 'PB8NR0T5', 191, 290000, 2, 580000),
-(145, 'QHSU5DIX', 612, 380000, 2, 760000),
-(198, 'LJ15RWML', 442, 480000, 2, 960000),
-(208, 'LJ15RWML', 443, 480000, 1, 480000),
-(209, 'LJ15RWML', 612, 380000, 1, 380000),
-(210, '5N7P9LFG', 442, 480000, 5, 2400000),
-(213, 'H7SMY3IX', 443, 480000, 2, 960000),
-(214, '5N7P9LFG', 612, 380000, 1, 380000),
-(215, 'UX3Z2QRB', 691, 2, NULL, NULL),
-(216, 'UX3Z2QRB', 697, 1, NULL, NULL),
-(217, 'YXS2DUXM', 691, 2, NULL, NULL),
-(218, 'YXS2DUXM', 697, 1, NULL, NULL),
-(219, 'EO83LVLW', 691, 2, NULL, NULL),
-(220, 'EO83LVLW', 697, 1, NULL, NULL),
-(221, 'LSNIHPTR', 691, 1, NULL, NULL),
-(222, 'LSNIHPTR', 697, 1, NULL, NULL),
-(223, 'MU7BVUH5', 502, 480000, 1, 480000),
-(224, 'MU7BVUH5', 691, 990000, 1, 990000),
-(225, 'MMZKNG6S', 691, 990000, 2, 1980000),
-(226, 'MMZKNG6S', 697, 750000, 1, 750000);
+(230, 'EYCDR8PC', 190, 290000, 1, 290000),
+(231, 'ZUI23NIT', 190, 290000, 1, 290000),
+(232, 'MSFDUEXY', 198, 420000, 1, 420000),
+(233, 'I8XDEQJH', 671, 299000, 2, 598000),
+(234, 'A5K1TOQE', 16, 380000, 2, 760000),
+(235, 'EYCDR8PC', 191, 290000, 3, 870000),
+(236, 'UAEZV8YX', 527, 550000, 1, 550000),
+(237, 'OCFAOWMB', 33, 420000, 1, 420000),
+(238, 'UZZHM3TR', 503, 480000, 1, 480000),
+(239, 'TLSY7TFT', 697, 750000, 1, 750000),
+(240, 'SMMKHRU1', 60, 400000, 1, 400000),
+(241, 'YHNB0POU', 86, 420000, 1, 420000),
+(242, 'GB4ENHC1', 691, 990000, 2, 1980000),
+(244, 'KT9P9ZMY', 697, 750000, 2, 1500000),
+(245, '5FTZ8G2K', 85, 420000, 2, 840000),
+(246, '7MOJYIGO', 191, 290000, 2, 580000),
+(247, '7MOJYIGO', 192, 290000, 1, 290000),
+(248, '7MOJYIGO', 614, 380000, 1, 380000),
+(249, '7MOJYIGO', 533, 550000, 1, 550000);
 
 --
 -- Bẫy `invoices_detail`
@@ -1313,23 +1355,31 @@ $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `insert` BEFORE INSERT ON `invoices_detail` FOR EACH ROW BEGIN
-  
     IF NEW.price IS NOT NULL THEN
     SET NEW.`total_price` = NEW.price * NEW.quantity;
-
     END IF;
     
+    UPDATE invoices
+    SET invoices.total_price = (
+        SELECT SUM(invoices_detail.total_price)
+        FROM invoices_detail
+        WHERE invoices_detail.invoice_id = NEW.invoice_id
+    )
+    WHERE invoices.invoice_id = NEW.invoice_id;
 END
 $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `update` BEFORE UPDATE ON `invoices_detail` FOR EACH ROW BEGIN
-  
-    IF NEW.price IS NOT NULL THEN
-    SET NEW.`total_price` = NEW.price * NEW.quantity;
+    SET NEW.total_price = NEW.price * NEW.quantity;
 
-    END IF;
-    
+    UPDATE invoices
+    SET invoices.total_price = (
+        SELECT SUM(NEW.total_price)
+        FROM invoices_detail
+        WHERE invoices_detail.invoice_id = NEW.invoice_id
+    )
+    WHERE invoices.invoice_id = NEW.invoice_id;
 END
 $$
 DELIMITER ;
@@ -2496,7 +2546,7 @@ ALTER TABLE `accounts`
 -- AUTO_INCREMENT cho bảng `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=545;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=629;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_product`
@@ -2514,7 +2564,7 @@ ALTER TABLE `imgs_size`
 -- AUTO_INCREMENT cho bảng `invoices_detail`
 --
 ALTER TABLE `invoices_detail`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=227;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=250;
 
 --
 -- AUTO_INCREMENT cho bảng `invoices_status`

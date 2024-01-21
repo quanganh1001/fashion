@@ -11,6 +11,7 @@ import project.fashion.model.service.CategoryService;
 import java.util.List;
 
 @Controller
+@SessionAttributes("CARTS")
 @RequestMapping("")
 public class CtlHome {
     @Autowired
