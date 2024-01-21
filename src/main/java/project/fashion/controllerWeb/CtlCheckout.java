@@ -36,7 +36,6 @@ public class CtlCheckout {
                               @ModelAttribute("invoiceId") String SessioninvoiceId,
                               @ModelAttribute("CARTS") List<CartItem> cartItemList) {
         if (Objects.equals(SessioninvoiceId, invoiceId)) {
-            System.out.println(SessioninvoiceId);
             categoryService.listCategory(model);
             Invoice invoice = invoiceService.findById(invoiceId);
             List<InvoiceDetail> invoiceDetails = invoiceDetailService.findAllByInvoice_InvoiceId(invoiceId);
@@ -58,7 +57,7 @@ public class CtlCheckout {
             invoiceId = invoiceService.addInvoice(invoice).getBody();
             Invoice newInvoice = invoiceService.findById(invoiceId);
             List<CartItem> cartItemList = (List<CartItem>) model.getAttribute("CARTS");
-            if (cartItemList == null || cartItemList.size() == 0){
+            if (cartItemList == null || cartItemList.isEmpty()){
                 return new ResponseEntity<>("Chưa có sản phẩm trong giỏ hàng",HttpStatus.BAD_REQUEST);
             }
             for (CartItem cartItem : cartItemList) {

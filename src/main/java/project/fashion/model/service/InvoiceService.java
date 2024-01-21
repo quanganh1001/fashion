@@ -111,7 +111,7 @@ public class InvoiceService {
         var newId = i.getInvoiceId();
         var oldId = optionalInvoice.get().getInvoiceId();
         var newAccountId = i.getAccount().getAccountId();
-        var oldAccountId = 999;
+        Integer oldAccountId = null;
         if(optionalInvoice.get().getAccount() != null){
             oldAccountId = optionalInvoice.get().getAccount().getAccountId();
         }
@@ -120,7 +120,7 @@ public class InvoiceService {
                 Objects.equals(newStatus.toString(), "")|| newStatus < 0 || newStatus > 6) {
             return new ResponseEntity<>("Nhập thông tin thiếu hoặc không đúng"
                     , HttpStatus.BAD_REQUEST);
-        } else if (status >= 4 && newStatus <= 2)
+        } else if (status == 4 && newStatus <= 3)
             return new ResponseEntity<>("Đơn đã gửi thì không thể đổi trạng thái về lúc chưa gửi", HttpStatus.BAD_REQUEST);
         else if (status <= 2 && newStatus >= 4) {
             return new ResponseEntity<>("Đơn chưa gửi không thể cập nhập trạng thái đang chuyển, thành công hoặc hoàn"
@@ -128,17 +128,20 @@ public class InvoiceService {
         } else if ((status >= 5) && !newStatus.equals(status)) {
             return new ResponseEntity<>(" Đơn đã thành công hoặc hoàn thì không thể thay đổi thay đổi thông tin"
                     , HttpStatus.BAD_REQUEST);
+        }else if ((newStatus >= 3) && (newAccountId == null || oldAccountId == null)) {
+            return new ResponseEntity<>("Chưa chia nguồn thì không thể lên đơn"
+                    , HttpStatus.BAD_REQUEST);
         }else if ((status >= 3) && (!Objects.equals(newAccountId, oldAccountId))) {
-            return new ResponseEntity<>("Đơn đã xác nhận hoặc gửi đi thì không thể thay đổi thông tin"
+            return new ResponseEntity<>("Đơn đã xác nhận hoặc gửi đi thì không thể thay nguồn"
                     , HttpStatus.BAD_REQUEST);
         }else if ((status >= 3) && (!Objects.equals(oldName, newName))) {
-            return new ResponseEntity<>("Đơn đã xác nhận hoặc gửi đi thì không thể thay đổi thông tin"
+            return new ResponseEntity<>("Đơn đã xác nhận hoặc gửi đi thì không thể thay đổi tên"
                     , HttpStatus.BAD_REQUEST);
         }else if ((status >= 3) && (!Objects.equals(oldPhone, newPhone))) {
-            return new ResponseEntity<>("Đơn đã xác nhận hoặc gửi đi thì không thể thay đổi thông tin"
+            return new ResponseEntity<>("Đơn đã xác nhận hoặc gửi đi thì không thể thay đổi số điện thoại"
                     , HttpStatus.BAD_REQUEST);
         }else if ((status >= 3) && (!Objects.equals(oldAddress, newAddress))) {
-            return new ResponseEntity<>("Đơn đã xác nhận hoặc gửi đi thì không thể thay đổi thông tin"
+            return new ResponseEntity<>("Đơn đã xác nhận hoặc gửi đi thì không thể thay đổi địa chỉ"
                     , HttpStatus.BAD_REQUEST);
         }else if (!Objects.equals(newId, oldId)) {
             return new ResponseEntity<>("Không thể thay đổi invoiceId"
@@ -203,7 +206,6 @@ public class InvoiceService {
                 Account account = accountService.findByUserName(authentication.getName());
                 invoice.setAccount(account);
             }
-
             invoice.setInvoiceStatus(status);
             invoice.setCreatedAt(LocalDateTime.now());
             // create history

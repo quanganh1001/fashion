@@ -28,10 +28,8 @@ public class HistoryService {
     @Transactional
     public void setTriggerVariableForHistory() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(authentication);
         if (authentication != null && authentication.isAuthenticated()) {
             String currentUsername = authentication.getName();
-            System.out.println(currentUsername);
             // Kiểm tra xem currentUsername có giá trị không
             if (!Objects.equals(currentUsername, "anonymousUser")) {
                 entityManager.createNativeQuery("SET @current_user = :currentUsername")
@@ -40,14 +38,13 @@ public class HistoryService {
             } else {
                 // Xử lý trường hợp currentUsername không có giá trị (null hoặc trống)
                 entityManager.createNativeQuery("SET @current_user = :currentUsername")
-                        .setParameter("currentUsername", "HeThong")
+                        .setParameter("currentUsername", "Khách hàng")
                         .executeUpdate();
             }
         } else {
-            System.out.println("4432");
             // Xử lý trường hợp authentication là null hoặc không được xác thực
             entityManager.createNativeQuery("SET @current_user = :currentUsername")
-                    .setParameter("currentUsername", "HeThong")
+                    .setParameter("currentUsername", "Khách hàng")
                     .executeUpdate();
         }
     }

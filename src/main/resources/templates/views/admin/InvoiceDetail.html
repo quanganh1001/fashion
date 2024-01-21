@@ -3,10 +3,6 @@
 
 <head th:include="~{admin/component/head::head}"></head>
 <style>
-    .hidden {
-        display: none;
-    }
-
     #search {
         position: relative;
     }
@@ -26,7 +22,8 @@
         cursor: pointer;
         text-decoration: underline;
     }
-    .modal-body{
+
+    .modal-body {
         max-height: 500px;
         overflow-y: auto;
     }
@@ -48,7 +45,7 @@
                         <label>
                             <select class="form-control"
                                     th:if="${invoice.invoiceStatus.statusId < 3}"
-                                    th:id="account"
+                                    id="account-id"
                                     th:field="${invoice.account.accountId}">
                                 <option value="" th:selected="${invoice.account.accountId == null}">Chưa chọn</option>
                                 <option th:each="acc : ${accountResponses}"
@@ -58,16 +55,18 @@
                                 </option>
                             </select>
                             <input th:unless="${invoice.invoiceStatus.statusId < 3}"
-                                   readonly type="text" class="readonly form-control"
-                                   th:field="${invoice.account.userName}"/>
+                                   readonly type="text" class="hidden readonly form-control"
+                                   th:field="${invoice.account.accountId}"
+                                   th:text="${invoice.account.userName}"/>
                         </label>
                     </div>
 
                     <div th:unless="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-12">
-                        <div class="col-2 d-flex align-items-center">
-                            <label class="form-label d-flex">Nguồn<span style="color:red">*</span></label>
-                            <input readonly type="text" class="readonly form-control"
-                                   th:field="${invoice.account.userName}"/>
+                        <div class="col-2 d-flex">
+                            <label class="form-label">Nguồn: </label>
+                            <input type="text" class="hidden"
+                                   th:field="${invoice.account.accountId}"
+                                   th:text="${invoice.account.userName}"/>
                         </div>
                     </div>
 
@@ -123,7 +122,7 @@
                                 th:field="${invoice.invoiceStatus.statusId}"
                                 th:data-invoice-id="${invoice.invoiceId}"
                                 th:data-old-status="${invoice.invoiceStatus.statusId}"
-                                onchange="changeStatus(this)">
+                                id="changeStatus">
                             <option th:each="s : ${status}"
                                     th:value="${s.statusId}"
                                     th:text="${s.status}"
@@ -138,7 +137,7 @@
                     </div>
                 </div>
 
-                <button style="text-align: center" type="button" class="col-2 btn btn-primary" onclick="submitForm()">
+                <button style="text-align: center" type="button" id="btn-submit" class="col-2 btn btn-primary">
                     Cập nhập đơn hàng
                 </button>
             </form>
@@ -149,69 +148,9 @@
             </div>
         </div>
 
-        <table>
-            <thead>
-            <tr>
-                <th>Image</th>
-                <th>Mã sản phẩm</th>
-                <th>Tên sản phẩm</th>
-                <th>Màu sắc</th>
-                <th>Size</th>
-                <th>Giá</th>
-                <th>Số lượng</th>
-                <th>Tổng tiền</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            <tr th:each="id:${invoiceDetails}">
-                <td><img width="50px" th:src="@{'/admin/invoiceDetail/img/'+${id.productDetail.product.productId}}">
-                </td>
-                <td th:text="${id.productDetail.code}"></td>
-                <td th:text="${id.productDetail.product.productName}"></td>
-                <td th:text="${id.productDetail.color.name}"></td>
-                <td th:text="${id.productDetail.size.sizeId}"></td>
-                <td th:text="${#numbers.formatDecimal(id.price, 0, 'POINT', 0, 'POINT')}"></td>
-                <td>
-                    <div class="editable-note">
-                        <span th:id="'quantity' + ${id.detailId}" th:text="${id.quantity}"></span>
-                        <input class="hidden"
-                               th:id="'input' + ${id.detailId}"
-                               type="text"
-                               style="width:30px"
-                               th:value="${id.quantity}"/>
-                        <span th:if="${id.invoice.invoiceStatus.statusId} >= 0 and ${id.invoice.invoiceStatus.statusId} <=2"
-                              th:id="'edit' + ${id.detailId}"
-                              th:data-detail-id="${id.detailId}"
-                              onclick="toggleEditMode(this)">
-                            <i class="fa-regular fa-pen-to-square" style="color: #0033ff;"></i>
-                        </span>
-                        <span class="hidden"
-                              th:id="'done' + ${id.detailId}"
-                              th:data-detail-id="${id.detailId}"
-                              onclick="saveQuantity(this)">
-                            <i class="fa-solid fa-check" style="color: #00ff59;"></i>
-                        </span>
-                        <span class="hidden"
-                              th:id="'cancel' + ${id.detailId}"
-                              th:data-detail-id="${id.detailId}"
-                              onclick="toggleEditMode(this)">
-                            <i class="fa-solid fa-xmark" style="color: #ff0000;"></i>
-                        </span>
-                    </div>
-                </td>
-                <td th:text="${#numbers.formatDecimal(id.totalPrice, 0, 'POINT', 0, 'POINT')}"></td>
-                <td class="button"
-                    th:if="${id.invoice.invoiceStatus.statusId} >= 0 and ${id.invoice.invoiceStatus.statusId} <= 2">
-                    <button class="btn btn-danger btn-sm"
-                            th:id="${id.detailId}"
-                            onclick="confirmDelete(this.id)">
-                        <i class="fas fa-trash-alt"></i> Delete
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div id="table" >
+            <div th:replace="~{admin/component/ListProduct::ListProduct}"></div>
+        </div>
 
         <div id="add" class="mt-2 d-flex justify-content-between align-items-center col-12">
             <button th:if="${invoice.invoiceStatus.statusId} >= 0 and ${invoice.invoiceStatus.statusId} <=2"
@@ -221,14 +160,11 @@
 
             <button id="plus-cancel" class="col-1 btn-close hidden">
             </button>
-
             <div id="search" class="col-6">
                 <input th:data-invoice-id="${invoice.invoiceId}" type="text"
                        placeholder="Nhập mã sản phẩm hoặc tên sản phẩm..." id="input-plus"
                        class="col-6 hidden form-control">
-                <div id="list-result" class="col-12 hidden"
-                     th:include="~{admin/component/SearchProduct::SearchProduct}">
-                </div>
+                <div id="list-result" class="col-12 hidden"></div>
             </div>
 
             <div class="col-4 mt-3">
@@ -238,38 +174,39 @@
                 </div>
                 <div class="d-flex">
                     <span class="col-5">Tổng đơn hàng:</span>
-                    <h4 style="color:red" th:text="${#numbers.formatDecimal(invoice.totalBill, 0, 'POINT', 0, 'POINT')} +'đ'"></h4>
-                </div>
-            </div>
-            </div>
-        </div>
-    </div>
-
-    <!--     Modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Lịch sử đơn hàng</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <ul th:if="${histories != null}" th:each="history :${histories}">
-                        <li>
-                            <span th:text=" ${history.timeAgo}"
-                                  class="fw-lighter fs-8"></span>
-                            <p th:utext="${history.content}"></p>
-                        </li>
-                    </ul>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <h4 id="totalBill" style="color:red"
+                        th:text="${#numbers.formatDecimal(invoice.totalBill, 0, 'POINT', 0, 'POINT')} +'đ'"></h4>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!--     Modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Lịch sử đơn hàng</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul th:if="${histories != null}" th:each="history :${histories}">
+                    <li>
+                            <span th:text=" ${history.timeAgo}"
+                                  class="fw-lighter fs-8"></span>
+                        <p th:utext="${history.content}"></p>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script th:src="@{/script/AdminScript/InvoiceDetailScript.js}"></script>
 </body>
 </html>

@@ -44,11 +44,7 @@ public class CtlAdminInvoiceDetail {
 
         List<InvoiceStatus> status = invoiceStatusService.findAll();
 
-        List<ProductDetail> productDetails = productDetailService.findAll();
-
         List<History> histories = historyService.findByInvoiceId(invoiceId);
-
-        var totalAmount = invoiceDetailService.totalAdmount(invoiceDetails);
 
         accountService.getAccountResponse(model);
         List<AccountResponse> accountResponses = accountService.findAll();
@@ -57,19 +53,18 @@ public class CtlAdminInvoiceDetail {
         model.addAttribute("invoiceDetails", invoiceDetails);
         model.addAttribute("invoice", invoice);
         model.addAttribute("status", status);
-        model.addAttribute("searchResult", productDetails);
         model.addAttribute("histories", histories);
-        model.addAttribute("totalAmount", totalAmount);
         model.addAttribute("title","Invoice");
 
         return "admin/InvoiceDetail";
     }
 
 
-    @DeleteMapping("/delete/{detailId}")
-    public ResponseEntity<String> deleteCat(@PathVariable("detailId") Integer detailId) {
-        System.out.println(detailId);
-        return invoiceDetailService.deleteByDetailId(detailId);
+    @DeleteMapping("/delete")
+    public String deleteCat(Model model,
+                            @RequestParam("detailId") Integer detailId,
+                            @RequestParam("invoiceId") String invoiceId) {
+        return invoiceDetailService.deleteByDetailId(model,detailId,invoiceId);
     }
 
 
@@ -85,29 +80,41 @@ public class CtlAdminInvoiceDetail {
 
         accountService.getAccountResponse(model);
 
-        System.out.println(search);
         model.addAttribute("search", search);
         model.addAttribute("invoiceId", invoiceId);
         return "admin/component/SearchProduct";
     }
 
     @PostMapping("/addProductInvoiceDetail")
-    public ResponseEntity<String> addProduct(@RequestParam("productDetailId") Integer productDetailId,
-                                             @RequestParam("invoiceId") String invoiceId) {
-        return invoiceDetailService.addProductInvoiceDetail(productDetailId, invoiceId);
+    public String addProduct(Model model,
+                             @RequestParam("productDetailId") Integer productDetailId,
+                             @RequestParam("invoiceId") String invoiceId) {
+        invoiceDetailService.addProductInvoiceDetail(productDetailId, invoiceId);
+        List<InvoiceDetail> invoiceDetails = invoiceDetailService.findAllByInvoice_InvoiceId(invoiceId);
+
+        model.addAttribute("invoiceDetails", invoiceDetails);
+        return "admin/component/ListProduct";
 
     }
 
     @PutMapping("/update-quantity")
-    public ResponseEntity<String> updateQuantityInvoiceDetail(@RequestParam("newQuantity") Integer newQuantity,
-                                                              @RequestParam("invoiceDetailId") Integer invoiceDetailId) {
-        return invoiceDetailService.updateQuantityInvoiceDetail(newQuantity, invoiceDetailId);
+    public String updateQuantityInvoiceDetail(Model model,
+                                              @RequestParam("newQuantity") Integer newQuantity,
+                                              @RequestParam("invoiceDetailId") Integer invoiceDetailId,
+                                              @RequestParam("invoiceId") String invoiceId) {
+        return invoiceDetailService.updateQuantityInvoiceDetail(model,newQuantity, invoiceDetailId,invoiceId);
     }
 
     @PutMapping("/update-invoice/{invoiceId}")
     public ResponseEntity<String> updateInvoice(@PathVariable("invoiceId") String invoiceId,
                                                 @ModelAttribute Invoice i) {
         return invoiceService.updateInvoice(invoiceId, i);
+    }
+
+    @GetMapping("/update-total-bill")
+    public ResponseEntity<Integer> updateTotalBill(@RequestParam("invoiceId") String invoiceId) {
+        Invoice invoice = invoiceService.findById(invoiceId);
+        return ResponseEntity.ok(invoice.getTotalBill());
     }
 
 }

@@ -30,11 +30,16 @@ public class CartService {
         return price;
     }
 
-    public void getShippingFee(Model model,int totalPrice){
+    public int getShippingFee(int totalPrice){
+        var shippingFee =0;
         if (totalPrice < 500000 && totalPrice > 0){
-            model.addAttribute("shippingFee",30000);
-        }else
-            model.addAttribute("shippingFee",0);
+            shippingFee = 30000;
+
+        }else{
+            shippingFee = 0;
+        }
+        return shippingFee;
+
     }
 
     public void addCart(int prDetailId,List<CartItem> cartItemList,int quantity){

@@ -7,7 +7,6 @@ $(document).ready(() => {
         const quantity = $(input.target).val()
         const price = $("#" + prDetailCode + "-price").attr("data-price");
         const totalPrice = quantity * price;
-        console.log(totalPrice)
         $("#" + prDetailCode + "P").text(totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }).replace('₫', 'đ'));
         $.ajax({
             type: 'GET',
@@ -30,18 +29,14 @@ $(document).ready(() => {
                 $("#address").val() === ""){
                 alert("Nhập sai hoặc thiếu thông tin")
             }else {
-                const totalPrice = $("#total").attr("data-total");
                 const shippingFee = $("#shipping-fee").attr("data-shipping");
-                const totalBill = $("#totalBill").attr("data-total-bill");
                 const formData = $('#form').serializeArray(); // Lấy dữ liệu form
-                formData.push({ name: 'totalPrice', value: totalPrice });
                 formData.push({ name: 'shippingFee', value: shippingFee });
-                formData.push({ name: 'totalBill', value: totalBill });
 
                 const url = $('#form').attr('action'); // Lấy URL của form
                 const csrfToken = $("meta[name='_csrf']").attr("content");
                 const csrfHeader = $("meta[name='_csrf_header']").attr("content");
-                // console.log(formData)
+
                 $.ajax({
                     type: 'POST',
                     url: url,

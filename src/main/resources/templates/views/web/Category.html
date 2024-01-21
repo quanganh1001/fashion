@@ -26,7 +26,8 @@
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-                    <li class="breadcrumb-item " aria-current="page" th:text="${cat.catName}"></li>
+                    <li th:if="${cat.catName} != null" class="breadcrumb-item " aria-current="page" th:text="${cat.catName}"></li>
+                    <li th:unless="${cat.catName} != null" class="breadcrumb-item " aria-current="page"> Sale</li>
                 </ol>
             </nav>
         </div>

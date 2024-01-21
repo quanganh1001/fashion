@@ -75,10 +75,4 @@ public class CtlProduct {
         model.addAttribute("productId",productId);
         return "web/component/SelectSize";
     }
-
-    @GetMapping("/header")
-    public String header(Model model){
-        categoryService.listCategory(model);
-        return "web/component/header";
-    }
 }

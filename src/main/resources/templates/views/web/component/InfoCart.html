@@ -2,8 +2,6 @@
     <div class="d-flex justify-content-between p-2">
         <span>Tổng tiền:</span>
         <h4 class="fw-bold"
-            id="total"
-            th:data-total="${totalPrice}"
             th:text="${#numbers.formatDecimal(totalPrice, 0, 'POINT', 0, 'POINT')} +' đ'"></h4>
     </div>
     <div class="d-flex justify-content-between p-2">
@@ -16,8 +14,6 @@
     <div class="d-flex justify-content-between p-2">
         <span>Tổng đơn:</span>
         <h4 style="color: red" class="fw-bold"
-            id="totalBill"
-            th:data-total-bill="${totalPrice + shippingFee}"
             th:text="${#numbers.formatDecimal(totalPrice + shippingFee, 0, 'POINT', 0, 'POINT')} +' đ'"></h4>
     </div>
 </div>

@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: localhost
--- Thời gian đã tạo: Th1 21, 2024 lúc 08:17 AM
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th1 21, 2024 lúc 05:42 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.2.4
+-- Phiên bản PHP: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,7 +41,7 @@ CREATE TABLE `accounts` (
 
 INSERT INTO `accounts` (`account_id`, `password`, `user_name`, `role`, `enabled`) VALUES
 (1, '$2a$10$2ZYXkyXJ504frJtNhx55CuJJ.uIOfbMMBflCr7Y.R2de7xCMBrO3y', 'quanly', 'ROLE_MANAGER', b'1'),
-(2, '$2a$10$ghYBZtTkVUweDOIyd8XD.uDEC30KF54.GG4/yt9ydXQcUhUzHxUt.', 'nhanvien1', 'ROLE_EMPLOYEE', b'0'),
+(2, '$2a$10$ghYBZtTkVUweDOIyd8XD.uDEC30KF54.GG4/yt9ydXQcUhUzHxUt.', 'nhanvien1', 'ROLE_EMPLOYEE', b'1'),
 (4, '$2a$10$tpaoi/izGUSiZJlapt.s7uPSHbw4eUB0JlPFnqlb7yHXaVJsj0FHG', 'nhanvien2', 'ROLE_EMPLOYEE', b'1'),
 (8, '$2a$10$o1Jl1nTZq7O0CuynH5KPEu10MA46VbD/J5fsAsukT35H9KyJow7lu', 'nhanvien3', 'ROLE_EMPLOYEE', b'1');
 
@@ -620,7 +620,377 @@ INSERT INTO `history` (`id`, `invoice_id`, `content`, `time`, `time_ago`) VALUES
 (625, 'GB4ENHC1', ' đã thay đổi Số lượng (DWCT00161PE00RB_NV-S) :1 -> 2', '2024-01-20 10:28:54', NULL),
 (626, 'GB4ENHC1', ' đã thay đổi Số lượng (DWCT00161PE00RB_NV-S) :2 -> 1', '2024-01-20 10:28:57', NULL),
 (627, 'GB4ENHC1', ' đã thay đổi Số lượng (DWCT00161PE00RB_NV-S) :1 -> 2', '2024-01-20 10:29:00', NULL),
-(628, 'I8XDEQJH', ' đã thay đổi Số lượng (DWBS01203CV00SB_DGR-S-S) :1 -> 2', '2024-01-20 10:31:14', NULL);
+(628, 'I8XDEQJH', ' đã thay đổi Số lượng (DWBS01203CV00SB_DGR-S-S) :1 -> 2', '2024-01-20 10:31:14', NULL),
+(629, 'KT9P9ZMY', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-38 (giá = 480000)', '2024-01-21 08:53:55', NULL),
+(630, 'KT9P9ZMY', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-38 (giá = 480000)', '2024-01-21 08:54:20', NULL),
+(631, 'KT9P9ZMY', ' đã thay đổi Số lượng (DWCT00431PE32SB_BL-S) :2 -> 1', '2024-01-21 08:54:23', NULL),
+(632, 'KT9P9ZMY', 'quanly đã thêm sản phẩm: DABJ00401CT00SB_NV-29 (giá = 550000)', '2024-01-21 08:54:27', NULL),
+(633, 'KT9P9ZMY', ' đã thay đổi Số lượng (DWCT00431PE32SB_BL-S) :1 -> 2', '2024-01-21 08:55:07', NULL),
+(634, 'KT9P9ZMY', ' đã thay đổi Số lượng (DABJ00401CT00SB_NV-29) :1 -> 2', '2024-01-21 08:55:28', NULL),
+(635, 'SMMKHRU1', ' đã thay đổi Số lượng (ESTP01072TC00SB_WH-S) :1 -> 2', '2024-01-21 08:58:14', NULL),
+(636, 'SMMKHRU1', ' đã thay đổi Số lượng (ESTP01072TC00SB_WH-S) :2 -> 1', '2024-01-21 08:58:20', NULL),
+(637, 'SMMKHRU1', ' đã thay đổi Số lượng (ESTP01072TC00SB_WH-S) :1 -> 3', '2024-01-21 09:04:01', NULL),
+(638, 'SMMKHRU1', ' đã thay đổi Số lượng (ESTP01072TC00SB_WH-S) :3 -> 1', '2024-01-21 09:04:07', NULL),
+(639, 'SMMKHRU1', ' đã thay đổi Số lượng (ESTP01072TC00SB_WH-S) :1 -> 2', '2024-01-21 09:04:12', NULL),
+(640, 'SMMKHRU1', ' đã thay đổi Số lượng (ESTP01072TC00SB_WH-S) :2 -> 1', '2024-01-21 09:07:05', NULL),
+(641, 'SMMKHRU1', ' đã thay đổi Số lượng (ESTP01072TC00SB_WH-S) :1 -> 3', '2024-01-21 09:07:08', NULL),
+(642, 'SMMKHRU1', ' đã thay đổi Số lượng (ESTP01072TC00SB_WH-S) :3 -> 1', '2024-01-21 09:07:11', NULL),
+(643, 'SMMKHRU1', ' đã thay đổi Số lượng (ESTP01072TC00SB_WH-S) :1 -> 2', '2024-01-21 09:08:16', NULL),
+(644, 'SMMKHRU1', ' đã thay đổi Số lượng (ESTP01072TC00SB_WH-S) :2 -> 1', '2024-01-21 09:08:18', NULL),
+(652, 'SMMKHRU1', ' đã thay đổi Số lượng (ESTP01072TC00SB_WH-S) :1 -> 3', '2024-01-21 09:15:36', NULL),
+(653, 'SMMKHRU1', ' đã thay đổi Số lượng (ESTP01072TC00SB_WH-S) :3 -> 2', '2024-01-21 09:16:26', NULL),
+(654, 'SMMKHRU1', ' đã thay đổi Số lượng (ESTP01072TC00SB_WH-S) :2 -> 1', '2024-01-21 09:16:28', NULL),
+(655, 'SMMKHRU1', ' đã thay đổi Số lượng (ESTP01072TC00SB_WH-S) :1 -> 2', '2024-01-21 09:17:21', NULL),
+(656, 'SMMKHRU1', ' đã thay đổi Số lượng (ESTP01072TC00SB_WH-S) :2 -> 3', '2024-01-21 09:17:23', NULL),
+(657, 'SMMKHRU1', ' đã thay đổi Số lượng (ESTP01072TC00SB_WH-S) :3 -> 1', '2024-01-21 09:17:25', NULL),
+(658, 'I1TWS5QJ', 'quanly đã tạo đơn hàng: <br>Mã đơn: I1TWS5QJ,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 423432,<br>Địa chỉ: sdf,<br>Ghi chú: ,<br>Nguồn:  quanly', '2024-01-21 09:17:56', NULL),
+(659, 'I1TWS5QJ', 'quanly đã thêm sản phẩm: DWCT00161PE00RB_NV-S (giá = 990000)', '2024-01-21 09:17:56', NULL),
+(660, 'I1TWS5QJ', 'quanly đã thêm sản phẩm: DABJ00401CT00SB_NV-29 (giá = 550000)', '2024-01-21 09:18:55', NULL),
+(661, 'OCFAOWMB', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-38 (giá = 480000)', '2024-01-21 09:19:08', NULL),
+(662, 'OCFAOWMB', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :1 -> 2', '2024-01-21 09:20:19', NULL),
+(663, 'OCFAOWMB', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :2 -> 1', '2024-01-21 09:20:23', NULL),
+(664, 'OCFAOWMB', ' đã thay đổi Số lượng (ESTP02872CV00SB_WH-L) :1 -> 2', '2024-01-21 09:20:46', NULL),
+(665, 'OCFAOWMB', ' đã thay đổi Số lượng (ESTP02872CV00SB_WH-L) :2 -> 3', '2024-01-21 09:24:33', NULL),
+(666, 'OCFAOWMB', ' đã thay đổi Số lượng (ESTP02872CV00SB_WH-L) :3 -> 1', '2024-01-21 09:24:40', NULL),
+(668, 'OCFAOWMB', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :1 -> 2', '2024-01-21 09:45:11', NULL),
+(669, 'OCFAOWMB', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :2 -> 1', '2024-01-21 09:45:14', NULL),
+(670, 'KT9P9ZMY', ' đã thay đổi Số lượng (DABJ00401CT00SB_NV-29) :2 -> 1', '2024-01-21 09:52:48', NULL),
+(671, 'KT9P9ZMY', ' đã thay đổi Số lượng (DWCT00431PE32SB_BL-S) :2 -> 1', '2024-01-21 09:52:53', NULL),
+(672, 'KT9P9ZMY', ' đã thay đổi Số lượng (DWCT00431PE32SB_BL-S) :1 -> 2', '2024-01-21 09:53:05', NULL),
+(673, 'KT9P9ZMY', ' đã thay đổi Số lượng (DABJ00401CT00SB_NV-29) :1 -> 2', '2024-01-21 09:53:13', NULL),
+(674, 'KT9P9ZMY', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-38 (giá = 480000)', '2024-01-21 09:57:41', NULL),
+(675, 'XRAPWYJI', 'quanly đã tạo đơn hàng: <br>Mã đơn: XRAPWYJI,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 4534543,<br>Địa chỉ: fđ,<br>Ghi chú: ,<br>Nguồn:  quanly', '2024-01-21 10:02:57', NULL),
+(676, 'XRAPWYJI', 'quanly đã thêm sản phẩm: DWCT00161PE00RB_NV-S (giá = 990000)', '2024-01-21 10:02:57', NULL),
+(677, 'KT9P9ZMY', 'quanly đã thêm sản phẩm: DSBI01302LI00SB_BE-29 (giá = 380000)', '2024-01-21 10:04:32', NULL),
+(678, 'KT9P9ZMY', 'quanly đã xóa sản phẩm: DSBI01302LI00SB_BE-29 (giá = 380000)', '2024-01-21 10:04:36', NULL),
+(679, 'KT9P9ZMY', 'quanly đã thêm sản phẩm: DSBI01302LI00SB_BE-30 (giá = 380000)', '2024-01-21 10:05:05', NULL),
+(680, 'KT9P9ZMY', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2024-01-21 10:05:10', NULL),
+(681, 'KT9P9ZMY', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-39) :1 -> 2', '2024-01-21 10:09:17', NULL),
+(682, 'KT9P9ZMY', 'quanly đã xóa sản phẩm: DSBI01302LI00SB_BE-30 (giá = 380000)', '2024-01-21 10:09:25', NULL),
+(683, 'KT9P9ZMY', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-38 (giá = 480000)', '2024-01-21 10:09:28', NULL),
+(684, 'KT9P9ZMY', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2024-01-21 10:09:31', NULL),
+(685, 'KT9P9ZMY', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-38 (giá = 480000)', '2024-01-21 10:09:35', NULL),
+(686, 'KT9P9ZMY', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :1 -> 2', '2024-01-21 10:09:48', NULL),
+(687, 'KT9P9ZMY', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :2 -> 1', '2024-01-21 10:10:17', NULL),
+(688, 'KT9P9ZMY', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :1 -> 2', '2024-01-21 10:10:21', NULL),
+(689, 'KT9P9ZMY', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2024-01-21 10:10:58', NULL),
+(690, 'AEAXIQS0', 'Khách hàng đã tạo đơn hàng: <br>Mã đơn: AEAXIQS0,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 34232,<br>Địa chỉ: ssd,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-21 10:16:12', NULL),
+(691, 'AEAXIQS0', 'Khách hàng đã thêm sản phẩm: DWCT00161PE00RB_NV-S (giá = 990000)', '2024-01-21 10:16:12', NULL),
+(692, 'X6JPOCJH', 'Khách hàng đã tạo đơn hàng: <br>Mã đơn: X6JPOCJH,<br>Tên khách hàng: sdgsd,<br>Số điện thoại: 345234532,<br>Địa chỉ: cxgdf,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-21 10:22:04', NULL),
+(693, 'X6JPOCJH', 'Khách hàng đã thêm sản phẩm: DWCT00161PE00RB_NV-S (giá = 990000)', '2024-01-21 10:22:04', NULL),
+(694, '5FTZ8G2K', ' đã thay đổi Số lượng (ESTP00572CT00SB_DNV-S) :2 -> 1', '2024-01-21 10:22:20', NULL),
+(695, '5FTZ8G2K', ' đã thay đổi Số lượng (ESTP00572CT00SB_DNV-S) :1 -> 2', '2024-01-21 10:22:22', NULL),
+(696, '5FTZ8G2K', ' đã thay đổi Số lượng (ESTP00572CT00SB_DNV-S) :2 -> 1', '2024-01-21 10:22:26', NULL),
+(697, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSBI01302LI00SB_BE-29 (giá = 380000)', '2024-01-21 10:22:29', NULL),
+(698, '5FTZ8G2K', ' đã thay đổi Số lượng (DSBI01302LI00SB_BE-29) :1 -> 2', '2024-01-21 10:22:37', NULL),
+(699, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSBI01302LI00SB_BE-29 (giá = 380000)', '2024-01-21 10:23:10', NULL),
+(700, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DABJ00401CT00SB_NV-29 (giá = 550000)', '2024-01-21 10:25:08', NULL),
+(702, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DABJ00401CT00SB_NV-29 (giá = 550000)', '2024-01-21 10:26:43', NULL),
+(703, '5FTZ8G2K', 'quanly đã xóa sản phẩm: ESTP00572CT00SB_DNV-S (giá = 420000)', '2024-01-21 10:26:54', NULL),
+(704, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DABJ00401CT00SB_NV-29 (giá = 550000)', '2024-01-21 10:27:06', NULL),
+(705, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSTP61172CX00SB_WH-S (giá = 333333)', '2024-01-21 10:27:09', NULL),
+(706, '5FTZ8G2K', ' đã thay đổi Số lượng (DSTP61172CX00SB_WH-S) :1 -> 2', '2024-01-21 10:27:12', NULL),
+(707, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DABJ00401CT00SB_NV-29 (giá = 550000)', '2024-01-21 10:27:19', NULL),
+(708, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2024-01-21 10:27:26', NULL),
+(709, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSBI01302LI00SB_WH-30 (giá = 380000)', '2024-01-21 10:27:29', NULL),
+(710, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DABJ90401CT19SB_NV-30 (giá = 550000)', '2024-01-21 10:27:33', NULL),
+(711, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DABJ90401CT19SB_NV-30 (giá = 550000)', '2024-01-21 10:27:37', NULL),
+(712, '5FTZ8G2K', ' đã thay đổi Số lượng (DSBI01302LI00SB_WH-30) :1 -> 2', '2024-01-21 10:27:44', NULL),
+(713, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSTP61172CX00SB_WH-S (giá = 333333)', '2024-01-21 10:27:50', NULL),
+(714, 'EYCDR8PC', ' đã thay đổi Số lượng (DSTP90372CT32RB_WCB-M) :3 -> 2', '2024-01-21 10:29:19', NULL),
+(715, 'EYCDR8PC', ' đã thay đổi Số lượng (DSTP90372CT32RB_WCB-M) :2 -> 1', '2024-01-21 10:29:22', NULL),
+(716, '5FTZ8G2K', ' đã thay đổi Số lượng (DSBI01302LI00SB_WH-30) :2 -> 1', '2024-01-21 10:29:34', NULL),
+(717, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSBI01302LI00SB_WH-30 (giá = 380000)', '2024-01-21 10:29:38', NULL),
+(718, 'A5K1TOQE', ' đã thay đổi Số lượng (ESTP06772TC00SB_BL-S) :2 -> 3', '2024-01-21 10:40:16', NULL),
+(719, 'A5K1TOQE', ' đã thay đổi Số lượng (ESTP06772TC00SB_BL-S) :3 -> 1', '2024-01-21 10:43:36', NULL),
+(720, 'A5K1TOQE', ' đã thay đổi Số lượng (ESTP06772TC00SB_BL-S) :1 -> 2', '2024-01-21 10:44:12', NULL),
+(721, 'A5K1TOQE', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-39 (giá = 450000)', '2024-01-21 10:44:17', NULL),
+(722, 'A5K1TOQE', ' đã thay đổi Số lượng (DATB61471BA00SB_LLB-39) :1 -> 21', '2024-01-21 10:44:22', NULL),
+(723, 'A5K1TOQE', ' đã thay đổi Số lượng (DATB61471BA00SB_LLB-39) :21 -> 1', '2024-01-21 10:44:24', NULL),
+(724, 'A5K1TOQE', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-39 (giá = 450000)', '2024-01-21 10:44:28', NULL),
+(725, 'A5K1TOQE', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-38 (giá = 480000)', '2024-01-21 10:45:11', NULL),
+(726, 'A5K1TOQE', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2024-01-21 10:49:57', NULL),
+(727, 'A5K1TOQE', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :1 -> 2', '2024-01-21 10:50:28', NULL),
+(728, 'A5K1TOQE', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-39) :1 -> 2', '2024-01-21 10:50:46', NULL),
+(729, 'A5K1TOQE', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2024-01-21 10:51:06', NULL),
+(730, 'A5K1TOQE', 'quanly đã thêm sản phẩm: DSBI01302LI00SB_BE-31 (giá = 380000)', '2024-01-21 10:51:12', NULL),
+(731, 'A5K1TOQE', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :2 -> 3', '2024-01-21 10:51:39', NULL),
+(732, 'A5K1TOQE', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :3 -> 4', '2024-01-21 10:52:03', NULL),
+(733, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-39) :1 -> 2', '2024-01-21 10:56:01', NULL),
+(734, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-38 (giá = 480000)', '2024-01-21 10:56:53', NULL),
+(735, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-38 (giá = 480000)', '2024-01-21 12:13:56', NULL),
+(736, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSBI01302LI00SB_BE-29 (giá = 380000)', '2024-01-21 12:14:00', NULL),
+(737, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSBI01302LI00SB_BE-30 (giá = 380000)', '2024-01-21 12:15:57', NULL),
+(738, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSBI01302LI00SB_BE-29 (giá = 380000)', '2024-01-21 12:16:17', NULL),
+(739, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSBI01302LI00SB_BE-30 (giá = 380000)', '2024-01-21 12:16:19', NULL),
+(740, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2024-01-21 12:16:20', NULL),
+(741, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-38 (giá = 480000)', '2024-01-21 12:16:24', NULL),
+(742, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSBI01302LI00SB_BE-30 (giá = 380000)', '2024-01-21 12:19:57', NULL),
+(743, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSBI01302LI00SB_BE-29 (giá = 380000)', '2024-01-21 12:20:01', NULL),
+(744, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSBI01302LI00SB_WH-29 (giá = 380000)', '2024-01-21 12:20:03', NULL),
+(745, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DABJ01001CT00SB_BU-29 (giá = 550000)', '2024-01-21 12:20:11', NULL),
+(746, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DABJ01001CT00SB_BU-29 (giá = 550000)', '2024-01-21 12:20:18', NULL),
+(747, '5FTZ8G2K', ' đã thay đổi Số lượng (DSBI01302LI00SB_BE-29) :1 -> 2', '2024-01-21 12:20:25', NULL),
+(748, '5FTZ8G2K', ' đã thay đổi Số lượng (DSBI01302LI00SB_BE-30) :1 -> 2', '2024-01-21 12:20:33', NULL),
+(749, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSBI01302LI00SB_BE-31 (giá = 380000)', '2024-01-21 12:20:39', NULL),
+(750, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSBI01302LI00SB_BE-29 (giá = 380000)', '2024-01-21 12:21:27', NULL),
+(751, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSBI01302LI00SB_WH-29 (giá = 380000)', '2024-01-21 12:21:29', NULL),
+(752, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSBI01302LI00SB_BE-31 (giá = 380000)', '2024-01-21 12:21:30', NULL),
+(753, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :1 -> 2', '2024-01-21 12:21:34', NULL),
+(754, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2024-01-21 12:21:38', NULL),
+(755, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :2 -> 3', '2024-01-21 12:22:27', NULL),
+(756, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :3 -> 4', '2024-01-21 12:22:27', NULL),
+(757, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :4 -> 5', '2024-01-21 12:22:28', NULL),
+(758, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :5 -> 6', '2024-01-21 12:22:29', NULL),
+(759, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :6 -> 7', '2024-01-21 12:22:29', NULL),
+(760, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :7 -> 8', '2024-01-21 12:22:30', NULL),
+(761, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :8 -> 9', '2024-01-21 12:22:30', NULL),
+(762, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :9 -> 10', '2024-01-21 12:22:30', NULL),
+(763, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-39) :1 -> 2', '2024-01-21 12:22:31', NULL),
+(764, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-39) :2 -> 3', '2024-01-21 12:22:31', NULL),
+(765, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-39) :3 -> 4', '2024-01-21 12:22:31', NULL),
+(766, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-39) :4 -> 5', '2024-01-21 12:22:31', NULL),
+(767, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-40 (giá = 480000)', '2024-01-21 12:22:31', NULL),
+(768, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-40) :1 -> 2', '2024-01-21 12:22:32', NULL),
+(769, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-40) :2 -> 3', '2024-01-21 12:22:32', NULL),
+(770, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-40) :3 -> 4', '2024-01-21 12:22:32', NULL),
+(771, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :10 -> 11', '2024-01-21 12:22:32', NULL),
+(772, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :11 -> 12', '2024-01-21 12:22:32', NULL),
+(773, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :12 -> 13', '2024-01-21 12:22:33', NULL),
+(774, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-39) :5 -> 6', '2024-01-21 12:22:39', NULL),
+(775, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-39) :6 -> 7', '2024-01-21 12:22:44', NULL),
+(776, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-40) :4 -> 5', '2024-01-21 12:22:47', NULL),
+(777, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2024-01-21 12:22:52', NULL),
+(778, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-40 (giá = 480000)', '2024-01-21 12:22:54', NULL),
+(779, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSBI01302LI00SB_BE-30 (giá = 380000)', '2024-01-21 12:22:55', NULL),
+(780, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :13 -> 14', '2024-01-21 12:23:04', NULL),
+(781, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2024-01-21 12:23:06', NULL),
+(782, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-39) :1 -> 2', '2024-01-21 12:23:08', NULL),
+(783, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-39) :2 -> 3', '2024-01-21 12:23:09', NULL),
+(784, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-41 (giá = 480000)', '2024-01-21 12:23:11', NULL),
+(785, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-41) :1 -> 2', '2024-01-21 12:23:15', NULL),
+(786, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-41) :2 -> 3', '2024-01-21 12:23:17', NULL),
+(787, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-41) :3 -> 4', '2024-01-21 12:23:21', NULL),
+(788, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-40 (giá = 480000)', '2024-01-21 12:23:23', NULL),
+(789, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-40) :1 -> 2', '2024-01-21 12:23:27', NULL),
+(790, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-40) :2 -> 3', '2024-01-21 12:23:31', NULL),
+(791, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-40) :3 -> 4', '2024-01-21 12:23:36', NULL),
+(792, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-40) :4 -> 5', '2024-01-21 12:23:37', NULL),
+(793, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-40) :5 -> 6', '2024-01-21 12:23:38', NULL),
+(794, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-40 (giá = 480000)', '2024-01-21 12:23:42', NULL),
+(795, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-41 (giá = 480000)', '2024-01-21 12:23:44', NULL),
+(796, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2024-01-21 12:23:45', NULL),
+(797, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-38 (giá = 480000)', '2024-01-21 12:23:46', NULL),
+(798, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSTP61172CX00SB_WH-S (giá = 333333)', '2024-01-21 12:23:50', NULL),
+(799, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSTP61172CX00SB_WH-M (giá = 333333)', '2024-01-21 12:23:51', NULL),
+(800, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSTP61172CX00SB_WH-XL (giá = 333333)', '2024-01-21 12:23:53', NULL),
+(801, '5FTZ8G2K', ' đã thay đổi Số lượng (DSTP61172CX00SB_WH-S) :1 -> 2', '2024-01-21 12:23:58', NULL),
+(802, '5FTZ8G2K', ' đã thay đổi Số lượng (DSTP61172CX00SB_WH-M) :1 -> 2', '2024-01-21 12:24:01', NULL),
+(803, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSTP61172CX00SB_WH-L (giá = 333333)', '2024-01-21 12:24:02', NULL),
+(804, '5FTZ8G2K', ' đã thay đổi Số lượng (DSTP61172CX00SB_WH-L) :1 -> 2', '2024-01-21 12:24:04', NULL),
+(805, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSTP61172CX00SB_WH-L (giá = 333333)', '2024-01-21 12:25:11', NULL),
+(806, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSTP61172CX00SB_WH-XL (giá = 333333)', '2024-01-21 12:25:12', NULL),
+(807, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-38 (giá = 450000)', '2024-01-21 12:25:24', NULL),
+(808, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-38 (giá = 450000)', '2024-01-21 12:25:24', NULL),
+(809, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-38 (giá = 450000)', '2024-01-21 12:25:24', NULL),
+(810, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-38 (giá = 450000)', '2024-01-21 12:25:24', NULL),
+(811, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB61471BA00SB_LLB-38) :1 -> 2', '2024-01-21 12:25:27', NULL),
+(812, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-40 (giá = 450000)', '2024-01-21 12:25:30', NULL),
+(813, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-40 (giá = 450000)', '2024-01-21 12:25:30', NULL),
+(814, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-40 (giá = 450000)', '2024-01-21 12:25:30', NULL),
+(815, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-40 (giá = 450000)', '2024-01-21 12:25:30', NULL),
+(816, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-40 (giá = 480000)', '2024-01-21 12:25:50', NULL),
+(817, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2024-01-21 12:25:51', NULL),
+(818, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-38 (giá = 480000)', '2024-01-21 12:25:52', NULL),
+(819, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-39 (giá = 450000)', '2024-01-21 12:25:54', NULL),
+(820, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-42 (giá = 450000)', '2024-01-21 12:25:56', NULL),
+(821, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_WH-38 (giá = 450000)', '2024-01-21 12:25:57', NULL),
+(822, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_WH-40 (giá = 450000)', '2024-01-21 12:25:58', NULL),
+(823, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB61471BA00SB_WH-40) :1 -> 2', '2024-01-21 12:25:59', NULL),
+(824, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_NV-38 (giá = 450000)', '2024-01-21 12:26:00', NULL),
+(825, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-38 (giá = 450000)', '2024-01-21 12:26:16', NULL),
+(826, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-38 (giá = 450000)', '2024-01-21 12:26:18', NULL),
+(827, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-38 (giá = 450000)', '2024-01-21 12:26:20', NULL),
+(828, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-38 (giá = 450000)', '2024-01-21 12:26:21', NULL),
+(829, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-40 (giá = 450000)', '2024-01-21 12:26:22', NULL),
+(830, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-40 (giá = 450000)', '2024-01-21 12:26:23', NULL),
+(831, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-40 (giá = 450000)', '2024-01-21 12:26:25', NULL),
+(832, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-40 (giá = 450000)', '2024-01-21 12:26:25', NULL),
+(833, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2024-01-21 12:26:27', NULL),
+(834, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-39 (giá = 450000)', '2024-01-21 12:26:28', NULL),
+(835, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-42 (giá = 450000)', '2024-01-21 12:26:29', NULL),
+(836, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_WH-38 (giá = 450000)', '2024-01-21 12:26:30', NULL),
+(837, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-40 (giá = 480000)', '2024-01-21 12:26:31', NULL),
+(838, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-38 (giá = 480000)', '2024-01-21 12:26:33', NULL),
+(839, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_WH-40 (giá = 450000)', '2024-01-21 12:26:34', NULL),
+(840, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_NV-38 (giá = 450000)', '2024-01-21 12:26:35', NULL),
+(841, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSTP61172CX00SB_WH-M (giá = 333333)', '2024-01-21 12:26:36', NULL),
+(842, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-39 (giá = 450000)', '2024-01-21 12:28:07', NULL),
+(843, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-38 (giá = 450000)', '2024-01-21 12:28:13', NULL),
+(844, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-40 (giá = 450000)', '2024-01-21 12:28:14', NULL),
+(845, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-41 (giá = 450000)', '2024-01-21 12:28:15', NULL),
+(846, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_WH-39 (giá = 450000)', '2024-01-21 12:28:17', NULL),
+(847, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_NV-40 (giá = 450000)', '2024-01-21 12:28:22', NULL),
+(848, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-39 (giá = 450000)', '2024-01-21 12:28:36', NULL),
+(849, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-38 (giá = 450000)', '2024-01-21 12:28:38', NULL),
+(850, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-40 (giá = 450000)', '2024-01-21 12:28:38', NULL),
+(851, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-41 (giá = 450000)', '2024-01-21 12:28:40', NULL),
+(852, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_WH-39 (giá = 450000)', '2024-01-21 12:28:41', NULL),
+(853, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_NV-40 (giá = 450000)', '2024-01-21 12:28:43', NULL),
+(854, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-38 (giá = 450000)', '2024-01-21 12:28:48', NULL),
+(855, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-38 (giá = 450000)', '2024-01-21 12:28:48', NULL),
+(857, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-38 (giá = 450000)', '2024-01-21 12:28:48', NULL),
+(858, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-38 (giá = 450000)', '2024-01-21 12:28:48', NULL),
+(860, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB61471BA00SB_LLB-38) :1 -> 2', '2024-01-21 12:28:57', NULL),
+(861, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-38 (giá = 450000)', '2024-01-21 12:36:23', NULL),
+(862, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-38 (giá = 450000)', '2024-01-21 12:36:24', NULL),
+(863, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-38 (giá = 450000)', '2024-01-21 12:36:25', NULL),
+(864, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-38 (giá = 450000)', '2024-01-21 12:36:26', NULL),
+(866, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSBI01302LI00SB_BE-29 (giá = 380000)', '2024-01-21 12:36:30', NULL),
+(867, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2024-01-21 12:36:38', NULL),
+(868, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2024-01-21 12:36:38', NULL),
+(869, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-38 (giá = 480000)', '2024-01-21 12:36:42', NULL),
+(871, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :1 -> 2', '2024-01-21 12:36:45', NULL),
+(872, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :2 -> 3', '2024-01-21 12:36:46', NULL),
+(873, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-38) :3 -> 4', '2024-01-21 12:36:47', NULL),
+(874, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-39) :1 -> 2', '2024-01-21 12:36:48', NULL),
+(875, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB41671CA11RB_NBX-39) :2 -> 3', '2024-01-21 12:36:49', NULL),
+(876, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-40 (giá = 480000)', '2024-01-21 12:36:51', NULL),
+(877, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-40 (giá = 480000)', '2024-01-21 12:36:51', NULL),
+(878, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2024-01-21 12:37:12', NULL),
+(879, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2024-01-21 12:37:14', NULL),
+(880, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-38 (giá = 480000)', '2024-01-21 12:37:15', NULL),
+(881, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-40 (giá = 480000)', '2024-01-21 12:37:16', NULL),
+(882, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSBI01302LI00SB_BE-29 (giá = 380000)', '2024-01-21 12:37:17', NULL),
+(883, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSTP61172CX00SB_WH-S (giá = 333333)', '2024-01-21 12:37:18', NULL),
+(884, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-40 (giá = 480000)', '2024-01-21 12:37:19', NULL),
+(885, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-38 (giá = 450000)', '2024-01-21 12:37:25', NULL),
+(886, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-38 (giá = 450000)', '2024-01-21 12:37:25', NULL),
+(887, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-39 (giá = 450000)', '2024-01-21 12:37:29', NULL),
+(888, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-39 (giá = 450000)', '2024-01-21 12:37:29', NULL),
+(889, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-42 (giá = 450000)', '2024-01-21 12:37:35', NULL),
+(890, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-42 (giá = 450000)', '2024-01-21 12:37:35', NULL),
+(891, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-38 (giá = 450000)', '2024-01-21 12:43:28', NULL),
+(892, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-38 (giá = 450000)', '2024-01-21 12:43:30', NULL),
+(893, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-39 (giá = 450000)', '2024-01-21 12:43:32', NULL),
+(894, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-39 (giá = 450000)', '2024-01-21 12:43:33', NULL),
+(895, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-42 (giá = 450000)', '2024-01-21 12:43:34', NULL),
+(896, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-42 (giá = 450000)', '2024-01-21 12:43:35', NULL),
+(897, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-40 (giá = 450000)', '2024-01-21 12:43:40', NULL),
+(898, '5FTZ8G2K', ' đã thay đổi Số lượng (DATB61471BA00SB_LLB-40) :1 -> 2', '2024-01-21 12:43:54', NULL),
+(899, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-38 (giá = 480000)', '2024-01-21 12:56:30', NULL),
+(900, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSBI01302LI00SB_BE-30 (giá = 380000)', '2024-01-21 13:06:23', NULL),
+(901, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSTP61172CX00SB_WH-S (giá = 333333)', '2024-01-21 13:07:20', NULL),
+(902, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSBI01302LI00SB_BE-30 (giá = 380000)', '2024-01-21 13:07:25', NULL),
+(903, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSTP61172CX00SB_WH-S (giá = 333333)', '2024-01-21 13:07:27', NULL),
+(904, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSTP65072CT04SB_BL-L (giá = 450000)', '2024-01-21 13:08:12', NULL),
+(905, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSTP61172CX00SB_WH-M (giá = 333333)', '2024-01-21 13:09:34', NULL),
+(906, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSTP65072CT04SB_BL-L (giá = 450000)', '2024-01-21 13:09:38', NULL),
+(907, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSTP61172CX00SB_WH-M (giá = 333333)', '2024-01-21 13:09:42', NULL),
+(908, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-38 (giá = 480000)', '2024-01-21 13:09:43', NULL),
+(909, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2024-01-21 13:09:47', NULL),
+(910, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSBI01302LI00SB_BE-33 (giá = 380000)', '2024-01-21 13:14:31', NULL),
+(911, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-39 (giá = 480000)', '2024-01-21 13:14:33', NULL),
+(912, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSTP61172CX00SB_WH-S (giá = 333333)', '2024-01-21 13:14:39', NULL),
+(913, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSTP61172CX00SB_WH-S (giá = 333333)', '2024-01-21 13:32:42', NULL),
+(914, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSBI01302LI00SB_BE-33 (giá = 380000)', '2024-01-21 13:40:31', NULL),
+(915, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-40 (giá = 450000)', '2024-01-21 14:02:03', NULL),
+(916, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-38 (giá = 480000)', '2024-01-21 14:02:09', NULL),
+(917, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-38 (giá = 480000)', '2024-01-21 14:02:16', NULL),
+(918, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSTP61172CX00SB_WH-S (giá = 333333)', '2024-01-21 14:02:49', NULL),
+(919, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSBI01302LI00SB_BE-29 (giá = 380000)', '2024-01-21 14:02:55', NULL),
+(920, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSBI01302LI00SB_BE-29 (giá = 380000)', '2024-01-21 14:02:59', NULL),
+(921, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSTP61172CX00SB_WH-S (giá = 333333)', '2024-01-21 14:03:47', NULL),
+(922, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSBI01302LI00SB_BE-31 (giá = 380000)', '2024-01-21 14:04:20', NULL),
+(923, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSBI01302LI00SB_BE-32 (giá = 380000)', '2024-01-21 14:04:25', NULL),
+(924, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSBI01302LI00SB_BE-32 (giá = 380000)', '2024-01-21 14:04:34', NULL),
+(925, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSBI01302LI00SB_BE-31 (giá = 380000)', '2024-01-21 14:05:01', NULL),
+(926, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-41 (giá = 450000)', '2024-01-21 14:05:12', NULL),
+(927, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-41 (giá = 480000)', '2024-01-21 14:05:19', NULL),
+(928, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-41 (giá = 480000)', '2024-01-21 14:05:23', NULL),
+(929, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-40 (giá = 480000)', '2024-01-21 14:06:34', NULL),
+(930, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-40 (giá = 480000)', '2024-01-21 14:06:56', NULL),
+(931, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-41 (giá = 450000)', '2024-01-21 14:07:55', NULL),
+(932, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-42 (giá = 480000)', '2024-01-21 14:08:16', NULL),
+(933, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-42 (giá = 480000)', '2024-01-21 14:08:24', NULL),
+(934, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB41671CA11RB_NBX-38 (giá = 480000)', '2024-01-21 14:12:38', NULL),
+(935, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_NV-38 (giá = 450000)', '2024-01-21 14:12:43', NULL),
+(936, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_NV-38 (giá = 450000)', '2024-01-21 14:13:59', NULL),
+(937, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-40 (giá = 450000)', '2024-01-21 14:14:04', NULL),
+(938, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-40 (giá = 450000)', '2024-01-21 14:14:08', NULL),
+(939, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-41 (giá = 450000)', '2024-01-21 14:14:51', NULL),
+(940, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-41 (giá = 450000)', '2024-01-21 14:15:15', NULL),
+(941, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-41 (giá = 450000)', '2024-01-21 14:15:20', NULL),
+(942, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-41 (giá = 450000)', '2024-01-21 14:16:12', NULL),
+(943, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_NV-38 (giá = 450000)', '2024-01-21 14:16:19', NULL),
+(944, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_NV-38 (giá = 450000)', '2024-01-21 14:16:30', NULL),
+(945, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_WH-40 (giá = 450000)', '2024-01-21 14:16:36', NULL),
+(946, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_WH-40 (giá = 450000)', '2024-01-21 14:19:25', NULL),
+(947, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DABJ90301CT16SB_NV-33 (giá = 550000)', '2024-01-21 14:23:52', NULL),
+(948, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DABJ90301CT16SB_NV-33 (giá = 550000)', '2024-01-21 14:25:48', NULL),
+(949, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DABJ01001CT00SB_BU-31 (giá = 550000)', '2024-01-21 14:30:09', NULL),
+(950, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSBI01302LI00SB_BE-30 (giá = 380000)', '2024-01-21 14:33:41', NULL),
+(951, '5FTZ8G2K', 'quanly đã thêm sản phẩm: CABJ00301CT19SB_BU-33 (giá = 550000)', '2024-01-21 14:34:56', NULL),
+(952, '5FTZ8G2K', 'quanly đã xóa sản phẩm: CABJ00301CT19SB_BU-33 (giá = 550000)', '2024-01-21 14:47:51', NULL),
+(953, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSBI01302LI00SB_BE-30 (giá = 380000)', '2024-01-21 14:47:55', NULL),
+(954, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSBI01302LI00SB_NV-31 (giá = 380000)', '2024-01-21 14:47:58', NULL),
+(955, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DSBI01302LI00SB_NV-31 (giá = 380000)', '2024-01-21 14:47:59', NULL),
+(956, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DABJ01001CT00SB_BU-31 (giá = 550000)', '2024-01-21 14:48:01', NULL),
+(957, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB41671CA11RB_NBX-38 (giá = 480000)', '2024-01-21 14:48:02', NULL),
+(958, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DSBI01302LI00SB_BE-31 (giá = 380000)', '2024-01-21 14:57:38', NULL),
+(959, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DATB61471BA00SB_LLB-41 (giá = 450000)', '2024-01-21 14:57:59', NULL),
+(960, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DABJ00401CT00SB_NV-31 (giá = 550000)', '2024-01-21 14:58:39', NULL),
+(961, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DABJ00401CT00SB_NV-31 (giá = 550000)', '2024-01-21 14:58:42', NULL),
+(962, '5FTZ8G2K', 'quanly đã xóa sản phẩm: DATB61471BA00SB_LLB-41 (giá = 450000)', '2024-01-21 14:59:39', NULL),
+(963, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DABJ90301CT16SB_NV-29 (giá = 550000)', '2024-01-21 14:59:45', NULL),
+(964, '5FTZ8G2K', 'quanly đã thêm sản phẩm: DABJ90801CT19SB_DBU-29 (giá = 550000)', '2024-01-21 15:00:44', NULL),
+(965, '5FTZ8G2K', ' đã thay đổi Số lượng (DABJ90801CT19SB_DBU-29) :1 -> 2', '2024-01-21 15:06:02', NULL),
+(966, '5FTZ8G2K', ' đã thay đổi Số lượng (DABJ90801CT19SB_DBU-29) :2 -> 1', '2024-01-21 15:06:11', NULL),
+(967, '5FTZ8G2K', ' đã thay đổi Số lượng (DABJ90801CT19SB_DBU-29) :1 -> 2', '2024-01-21 15:08:48', NULL),
+(968, '5FTZ8G2K', ' đã thay đổi Số lượng (DABJ90801CT19SB_DBU-29) :2 -> 1', '2024-01-21 15:10:38', NULL),
+(969, '5FTZ8G2K', ' đã thay đổi Số lượng (DABJ90801CT19SB_DBU-29) :1 -> 2', '2024-01-21 15:11:45', NULL),
+(970, '5FTZ8G2K', ' đã thay đổi Số lượng (DABJ90801CT19SB_DBU-29) :2 -> 1', '2024-01-21 15:13:00', NULL),
+(971, '5FTZ8G2K', ' đã thay đổi Số lượng (DABJ90801CT19SB_DBU-29) :1 -> 2', '2024-01-21 15:18:38', NULL),
+(972, '5FTZ8G2K', ' đã thay đổi Số lượng (DABJ90801CT19SB_DBU-29) :2 -> 1', '2024-01-21 15:18:46', NULL),
+(973, '5FTZ8G2K', ' đã thay đổi Số lượng (DABJ90801CT19SB_DBU-29) :1 -> 2', '2024-01-21 15:18:51', NULL),
+(974, '5FTZ8G2K', ' đã thay đổi Số lượng (DABJ90801CT19SB_DBU-29) :2 -> 1', '2024-01-21 15:18:53', NULL),
+(975, '5FTZ8G2K', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đã lên đơn', '2024-01-21 15:23:37', NULL),
+(976, '7MOJYIGO', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đang xử lý', '2024-01-21 15:30:24', NULL),
+(977, '7MOJYIGO', 'quanly đã thay đổi Trạng thái đơn hàng: Đang xử lý -> Đã lên đơn', '2024-01-21 15:30:27', NULL),
+(978, '7MOJYIGO', 'quanly đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Đang xử lý', '2024-01-21 15:35:22', NULL),
+(979, '7MOJYIGO', 'quanly đã thay đổi Trạng thái đơn hàng: Đang xử lý -> Đã lên đơn', '2024-01-21 15:35:25', NULL),
+(980, '7MOJYIGO', 'quanly đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Đơn mới', '2024-01-21 15:48:49', NULL),
+(981, '7MOJYIGO', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đã lên đơn', '2024-01-21 15:48:52', NULL),
+(982, '7MOJYIGO', 'quanly đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Đang xử lý', '2024-01-21 15:49:30', NULL),
+(983, '7MOJYIGO', 'quanly đã thay đổi Trạng thái đơn hàng: Đang xử lý -> Đã lên đơn', '2024-01-21 15:49:44', NULL),
+(984, '7MOJYIGO', 'nhanvien1 đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Đang xử lý', '2024-01-21 15:51:46', NULL),
+(985, '7MOJYIGO', 'nhanvien1 đã thay đổi Trạng thái đơn hàng: Đang xử lý -> Đã lên đơn', '2024-01-21 15:51:50', NULL),
+(986, '7MOJYIGO', 'nhanvien1 đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Đang giao hàng', '2024-01-21 15:51:54', NULL),
+(987, '7MOJYIGO', 'nhanvien1 đã thay đổi Trạng thái đơn hàng: Đang giao hàng -> Đã lên đơn', '2024-01-21 15:51:57', NULL),
+(988, '7MOJYIGO', 'nhanvien1 đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Đang giao hàng', '2024-01-21 15:52:01', NULL),
+(989, '7MOJYIGO', 'nhanvien1 đã thay đổi Trạng thái đơn hàng: Đang giao hàng -> Đã lên đơn', '2024-01-21 15:52:17', NULL),
+(990, '7MOJYIGO', 'nhanvien1 đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Đang xử lý', '2024-01-21 15:52:21', NULL),
+(991, '7MOJYIGO', 'nhanvien1 đã thay đổi Trạng thái đơn hàng: Đang xử lý -> Đã lên đơn', '2024-01-21 15:52:28', NULL),
+(992, '7MOJYIGO', 'nhanvien1 đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Đang xử lý', '2024-01-21 15:52:32', NULL),
+(993, '7MOJYIGO', 'nhanvien1 đã thay đổi Trạng thái đơn hàng: Đang xử lý -> Đã lên đơn', '2024-01-21 15:52:36', NULL),
+(994, '7MOJYIGO', 'nhanvien1 đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Đang giao hàng', '2024-01-21 15:52:38', NULL),
+(995, '7MOJYIGO', 'nhanvien1 đã thay đổi Trạng thái đơn hàng: Đang giao hàng -> Đã lên đơn', '2024-01-21 15:55:46', NULL),
+(996, '7MOJYIGO', 'nhanvien1 đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Đang giao hàng', '2024-01-21 15:55:50', NULL),
+(997, '7MOJYIGO', 'nhanvien1 đã thay đổi Trạng thái đơn hàng: Đang giao hàng -> Đã lên đơn', '2024-01-21 15:55:54', NULL),
+(998, 'A5K1TOQE', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đã lên đơn', '2024-01-21 16:02:24', NULL),
+(999, 'A5K1TOQE', 'quanly đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Đang xử lý', '2024-01-21 16:02:32', NULL),
+(1000, 'A5K1TOQE', 'quanly đã thay đổi Trạng thái đơn hàng: Đang xử lý -> Đã lên đơn', '2024-01-21 16:02:39', NULL),
+(1001, 'A5K1TOQE', 'quanly đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Đang xử lý', '2024-01-21 16:02:42', NULL),
+(1002, '7MOJYIGO', 'quanly đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Đơn mới', '2024-01-21 16:16:16', NULL),
+(1003, '7MOJYIGO', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Hủy', '2024-01-21 16:16:22', NULL),
+(1004, '7MOJYIGO', 'quanly đã thay đổi Trạng thái đơn hàng: Hủy -> Đang xử lý', '2024-01-21 16:16:37', NULL),
+(1005, '7MOJYIGO', 'quanly đã thay đổi Trạng thái đơn hàng: Đang xử lý -> Đơn mới', '2024-01-21 16:16:42', NULL),
+(1006, '7MOJYIGO', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đã lên đơn', '2024-01-21 16:16:46', NULL),
+(1007, 'AEAXIQS0', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đã lên đơn', '2024-01-21 16:19:25', NULL),
+(1008, 'GB4ENHC1', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đã lên đơn', '2024-01-21 16:19:45', NULL),
+(1009, 'I8XDEQJH', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Hủy', '2024-01-21 16:36:23', NULL),
+(1010, 'I8XDEQJH', 'quanly đã thay đổi Trạng thái đơn hàng: Hủy -> Đơn mới', '2024-01-21 16:36:28', NULL),
+(1011, 'I8XDEQJH', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đang xử lý', '2024-01-21 16:36:57', NULL);
 
 -- --------------------------------------------------------
 
@@ -1179,19 +1549,23 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `created_at`, `note`, `customer_note`, `account_id`, `invoice_status`, `total_price`, `shipping_fee`, `total_bill`) VALUES
-('5FTZ8G2K', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 10:14:00', '', 'fsd', NULL, 1, 420000, 30000, 450000),
-('7MOJYIGO', 'vcxvx', '33333', 'fsd', '2024-01-20 10:18:42', '', 'sd', 2, 1, 2350000, 0, 2350000),
-('A5K1TOQE', 'gdfgfdg', '3423', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 08:25:06', '', 'vsd', 1, 1, 760000, 30000, 410000),
-('EYCDR8PC', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 10:09:17', '                        fsd', NULL, 1, 1, 870000, 0, 870000),
-('GB4ENHC1', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 10:29:00', '', 'dfs', NULL, 1, 1980000, 0, 1980000),
-('I8XDEQJH', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 10:31:14', '', 'sd', NULL, 1, 598000, 0, 598000),
-('KT9P9ZMY', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 09:28:32', '', 'dsf', NULL, 1, 1500000, 0, 1500000),
+('5FTZ8G2K', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-21 16:42:11', '', 'fsd', NULL, 0, 1480000, 0, 1480000),
+('7MOJYIGO', 'vcxvx', '33333', 'fsd', '2024-01-21 16:42:11', '', 'sd', NULL, 0, 2350000, 20000, 2370000),
+('A5K1TOQE', 'gdfgfdg', '3423', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-21 16:02:42', '', 'vsd', 1, 2, 3060000, 30000, 3090000),
+('AEAXIQS0', 'quang anh', '34232', 'ssd', '2024-01-21 16:42:11', '', 'x', NULL, 0, 990000, 0, NULL),
+('EYCDR8PC', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-21 10:29:22', '                        fsd', NULL, 1, 1, 580000, 0, 580000),
+('GB4ENHC1', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-21 16:42:11', '', 'dfs', NULL, 0, 1980000, 0, 1980000),
+('I1TWS5QJ', 'quang anh', '423432', 'sdf', '2024-01-21 09:18:55', '', 'sd', 1, 1, 550000, 0, NULL),
+('I8XDEQJH', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-21 16:36:57', '', 'sd', 1, 2, 598000, 0, 598000),
+('KT9P9ZMY', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-21 10:11:15', '', 'dsf', NULL, 1, 4040000, 20000, 4060000),
 ('MSFDUEXY', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 10:08:47', '', 'sd', 1, 1, 420000, 0, NULL),
-('OCFAOWMB', 'fsdfsd', '333333', 'vd', '2024-01-20 08:25:31', '', 'd', 1, 1, 420000, 30000, 450000),
-('SMMKHRU1', 'dfsd', '222222', 'sdf', '2024-01-20 08:42:50', '', 'fds', NULL, 1, 400000, 30000, 430000),
+('OCFAOWMB', 'fsdfsd', '333333', 'vd', '2024-01-21 09:45:14', '', 'd', 1, 1, 1380000, 30000, 1410000),
+('SMMKHRU1', 'dfsd', '222222', 'sdf', '2024-01-21 09:17:25', '', 'fds', NULL, 1, 400000, 30000, 430000),
 ('TLSY7TFT', 'dfgdf', '323233232', 'fds', '2024-01-20 08:38:59', '', 'f', NULL, 1, 750000, 0, 750000),
 ('UAEZV8YX', 'gdfgfdg', '3423', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 08:24:41', '', 'vsd', 1, 1, 550000, 30000, 410000),
 ('UZZHM3TR', 'nguyễn quang anh', '333322323', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 08:28:41', '', 'fs', NULL, 1, 480000, 30000, 510000),
+('X6JPOCJH', 'sdgsd', '345234532', 'cxgdf', '2024-01-21 10:22:04', '', 'df', NULL, 1, 1980000, 0, 1980000),
+('XRAPWYJI', 'quang anh', '4534543', 'fđ', '2024-01-21 10:02:57', '', 'dgf', 1, 1, 990000, 0, NULL),
 ('YHNB0POU', 'dsfds', '2312312', 'f', '2024-01-20 08:48:58', '', 's', NULL, 1, 420000, 30000, 450000),
 ('ZUI23NIT', 'nguyễn quang anh', '36515182222', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 07:42:26', '                        dsf', NULL, 1, 1, 290000, 20000, 890000);
 
@@ -1258,10 +1632,18 @@ END
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `update_ship` BEFORE UPDATE ON `invoices` FOR EACH ROW IF NEW.shipping_fee != OLD.shipping_fee OR NEW.total_price != OLD.total_price
+CREATE TRIGGER `insert_ship` BEFORE INSERT ON `invoices` FOR EACH ROW BEGIN
+SET NEW.total_bill = NEW.total_price + NEW.shipping_fee;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_ship` BEFORE UPDATE ON `invoices` FOR EACH ROW BEGIN
+IF NEW.shipping_fee != OLD.shipping_fee
 THEN
 SET NEW.total_bill = NEW.total_price + NEW.shipping_fee;
-END IF
+END IF;
+END
 $$
 DELIMITER ;
 
@@ -1290,7 +1672,7 @@ INSERT INTO `invoices_detail` (`detail_id`, `invoice_id`, `product_detail_id`, `
 (232, 'MSFDUEXY', 198, 420000, 1, 420000),
 (233, 'I8XDEQJH', 671, 299000, 2, 598000),
 (234, 'A5K1TOQE', 16, 380000, 2, 760000),
-(235, 'EYCDR8PC', 191, 290000, 3, 870000),
+(235, 'EYCDR8PC', 191, 290000, 1, 290000),
 (236, 'UAEZV8YX', 527, 550000, 1, 550000),
 (237, 'OCFAOWMB', 33, 420000, 1, 420000),
 (238, 'UZZHM3TR', 503, 480000, 1, 480000),
@@ -1299,11 +1681,24 @@ INSERT INTO `invoices_detail` (`detail_id`, `invoice_id`, `product_detail_id`, `
 (241, 'YHNB0POU', 86, 420000, 1, 420000),
 (242, 'GB4ENHC1', 691, 990000, 2, 1980000),
 (244, 'KT9P9ZMY', 697, 750000, 2, 1500000),
-(245, '5FTZ8G2K', 85, 420000, 2, 840000),
 (246, '7MOJYIGO', 191, 290000, 2, 580000),
 (247, '7MOJYIGO', 192, 290000, 1, 290000),
 (248, '7MOJYIGO', 614, 380000, 1, 380000),
-(249, '7MOJYIGO', 533, 550000, 1, 550000);
+(249, '7MOJYIGO', 533, 550000, 1, 550000),
+(251, 'KT9P9ZMY', 527, 550000, 2, 1100000),
+(252, 'I1TWS5QJ', 691, 990000, 1, 990000),
+(253, 'I1TWS5QJ', 527, 550000, 1, 550000),
+(254, 'OCFAOWMB', 442, 480000, 1, 480000),
+(256, 'XRAPWYJI', 691, 990000, 1, 990000),
+(260, 'KT9P9ZMY', 442, 480000, 2, 960000),
+(261, 'KT9P9ZMY', 443, 480000, 1, 480000),
+(262, 'AEAXIQS0', 691, 990000, 1, 990000),
+(263, 'X6JPOCJH', 691, 990000, 2, 1980000),
+(272, 'A5K1TOQE', 442, 480000, 4, 1920000),
+(274, 'A5K1TOQE', 614, 380000, 1, 380000),
+(365, '5FTZ8G2K', 614, 380000, 1, 380000),
+(368, '5FTZ8G2K', 541, 550000, 1, 550000),
+(369, '5FTZ8G2K', 542, 550000, 1, 550000);
 
 --
 -- Bẫy `invoices_detail`
@@ -1354,32 +1749,63 @@ END
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `insert` BEFORE INSERT ON `invoices_detail` FOR EACH ROW BEGIN
-    IF NEW.price IS NOT NULL THEN
-    SET NEW.`total_price` = NEW.price * NEW.quantity;
-    END IF;
+CREATE TRIGGER `delete_invoice_detail` AFTER DELETE ON `invoices_detail` FOR EACH ROW BEGIN
+    UPDATE invoices
+    SET total_price = (
+        SELECT SUM(total_price)
+        FROM invoices_detail
+        WHERE invoice_id = OLD.invoice_id
+    )
+    WHERE invoice_id = OLD.invoice_id;
     
     UPDATE invoices
-    SET invoices.total_price = (
-        SELECT SUM(invoices_detail.total_price)
+    SET total_bill = total_price + shipping_fee
+    WHERE invoice_id = OLD.invoice_id;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `insert` BEFORE INSERT ON `invoices_detail` FOR EACH ROW BEGIN
+	SET NEW.total_price = NEW.price * NEW.quantity;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `insert_invoice_detail` AFTER INSERT ON `invoices_detail` FOR EACH ROW BEGIN
+    UPDATE invoices
+    SET total_price = (
+        SELECT SUM(total_price)
         FROM invoices_detail
-        WHERE invoices_detail.invoice_id = NEW.invoice_id
+        WHERE invoice_id = NEW.invoice_id
     )
-    WHERE invoices.invoice_id = NEW.invoice_id;
+    WHERE invoice_id = NEW.invoice_id;
+    
+    UPDATE invoices
+    SET total_bill = total_price + shipping_fee
+    WHERE invoice_id = NEW.invoice_id;
 END
 $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `update` BEFORE UPDATE ON `invoices_detail` FOR EACH ROW BEGIN
+    -- Update the totalPrice in invoice_detail
     SET NEW.total_price = NEW.price * NEW.quantity;
-
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_invoice_detail` AFTER UPDATE ON `invoices_detail` FOR EACH ROW BEGIN
     UPDATE invoices
-    SET invoices.total_price = (
-        SELECT SUM(NEW.total_price)
+    SET total_price = (
+        SELECT SUM(total_price)
         FROM invoices_detail
-        WHERE invoices_detail.invoice_id = NEW.invoice_id
+        WHERE invoice_id = NEW.invoice_id
     )
-    WHERE invoices.invoice_id = NEW.invoice_id;
+    WHERE invoice_id = NEW.invoice_id;
+    
+    UPDATE invoices
+    SET total_bill = total_price + shipping_fee
+    WHERE invoice_id = NEW.invoice_id;
 END
 $$
 DELIMITER ;
@@ -1773,8 +2199,8 @@ INSERT INTO `products_detail` (`product_detail_id`, `product_id`, `code`, `color
 (188, 'ESTP015', 'ESTP01572CV32SB_WNV-L', 'WNV', 'L', 999, b'1', b'1'),
 (189, 'ESTP015', 'ESTP01572CV32SB_WNV-XL', 'WNV', 'XL', 999, b'1', b'1'),
 (190, 'DSTP903', 'DSTP90372CT32RB_WCB-S', 'WCB', 'S', 999, b'1', b'1'),
-(191, 'DSTP903', 'DSTP90372CT32RB_WCB-M', 'WCB', 'M', 999, b'1', b'1'),
-(192, 'DSTP903', 'DSTP90372CT32RB_WCB-L', 'WCB', 'L', 999, b'1', b'1'),
+(191, 'DSTP903', 'DSTP90372CT32RB_WCB-M', 'WCB', 'M', 989, b'1', b'1'),
+(192, 'DSTP903', 'DSTP90372CT32RB_WCB-L', 'WCB', 'L', 994, b'1', b'1'),
 (193, 'DSTP903', 'DSTP90372CT32RB_WCB-XL', 'WCB', 'XL', 999, b'1', b'1'),
 (194, 'DSTP903', 'DSTP90372CT32RB_HCR-S', 'HCR', 'S', 999, b'1', b'1'),
 (195, 'DSTP903', 'DSTP90372CT32RB_HCR-M', 'HCR', 'M', 995, b'1', b'1'),
@@ -2080,7 +2506,7 @@ INSERT INTO `products_detail` (`product_detail_id`, `product_id`, `code`, `color
 (530, 'DABJ004', 'DABJ00401CT00SB_NV-32', 'NV', '32', 999, b'1', b'1'),
 (531, 'DABJ004', 'DABJ00401CT00SB_NV-33', 'NV', '33', 999, b'1', b'1'),
 (532, 'DABJ010', 'DABJ01001CT00SB_BU-29', 'BU', '29', 999, b'1', b'1'),
-(533, 'DABJ010', 'DABJ01001CT00SB_BU-30', 'BU', '30', 0, b'0', b'1'),
+(533, 'DABJ010', 'DABJ01001CT00SB_BU-30', 'BU', '30', -5, b'0', b'1'),
 (534, 'DABJ010', 'DABJ01001CT00SB_BU-31', 'BU', '31', 999, b'1', b'1'),
 (535, 'DABJ010', 'DABJ01001CT00SB_BU-32', 'BU', '32', 999, b'1', b'1'),
 (536, 'DABJ010', 'DABJ01001CT00SB_BU-33', 'BU', '33', 999, b'1', b'1'),
@@ -2088,8 +2514,8 @@ INSERT INTO `products_detail` (`product_detail_id`, `product_id`, `code`, `color
 (538, 'DABJ903', 'DABJ90301CT16SB_NV-32', 'NV', '32', 999, b'1', b'1'),
 (539, 'DABJ903', 'DABJ90301CT16SB_NV-31', 'NV', '31', 999, b'1', b'1'),
 (540, 'DABJ903', 'DABJ90301CT16SB_NV-30', 'NV', '30', 999, b'1', b'1'),
-(541, 'DABJ903', 'DABJ90301CT16SB_NV-29', 'NV', '29', 999, b'1', b'1'),
-(542, 'DABJ908', 'DABJ90801CT19SB_DBU-29', 'DBU', '29', 999, b'1', b'1'),
+(541, 'DABJ903', 'DABJ90301CT16SB_NV-29', 'NV', '29', 998, b'1', b'1'),
+(542, 'DABJ908', 'DABJ90801CT19SB_DBU-29', 'DBU', '29', 998, b'1', b'1'),
 (543, 'DABJ908', 'DABJ90801CT19SB_DBU-30', 'DBU', '30', 999, b'1', b'1'),
 (544, 'DABJ908', 'DABJ90801CT19SB_DBU-31', 'DBU', '31', 999, b'1', b'1'),
 (545, 'DABJ908', 'DABJ90801CT19SB_DBU-32', 'DBU', '32', 999, b'1', b'1'),
@@ -2161,7 +2587,7 @@ INSERT INTO `products_detail` (`product_detail_id`, `product_id`, `code`, `color
 (611, 'ESBK002', 'ESBK00202CT00RB_BE-33', 'BE', '33', 999, b'1', b'1'),
 (612, 'BI013', 'DSBI01302LI00SB_BE-29', 'BE', '29', 996, b'1', b'1'),
 (613, 'BI013', 'DSBI01302LI00SB_BE-30', 'BE', '30', 999, b'1', b'1'),
-(614, 'BI013', 'DSBI01302LI00SB_BE-31', 'BE', '31', 999, b'1', b'1'),
+(614, 'BI013', 'DSBI01302LI00SB_BE-31', 'BE', '31', 993, b'1', b'1'),
 (615, 'BI013', 'DSBI01302LI00SB_BE-32', 'BE', '32', 999, b'1', b'1'),
 (616, 'BI013', 'DSBI01302LI00SB_BE-33', 'BE', '33', 999, b'1', b'1'),
 (617, 'BI013', 'DSBI01302LI00SB_WH-29', 'WH', '29', 999, b'1', b'1'),
@@ -2238,7 +2664,7 @@ INSERT INTO `products_detail` (`product_detail_id`, `product_id`, `code`, `color
 (688, 'EWCW007', 'EWCW00751PE00SB_BL-M', 'BL', 'M', 0, b'0', b'1'),
 (689, 'EWCW007', 'EWCW00751PE00SB_BL-L', 'BL', 'L', 0, b'0', b'1'),
 (690, 'EWCW007', 'EWCW00751PE00SB_BL-XL', 'BL', 'XL', 0, b'0', b'1'),
-(691, 'DWCT001', 'DWCT00161PE00RB_NV-S', 'NV', 'S', 999, b'1', b'1'),
+(691, 'DWCT001', 'DWCT00161PE00RB_NV-S', 'NV', 'S', 996, b'1', b'1'),
 (692, 'DWCT001', 'DWCT00161PE00RB_NV-M', 'NV', 'M', 999, b'1', b'1'),
 (693, 'DWCT001', 'DWCT00161PE00RB_NV-L', 'NV', 'L', 0, b'0', b'1'),
 (694, 'DWCT001', 'DWCT00161PE00RB_NV-XL', 'NV', 'XL', 0, b'0', b'1'),
@@ -2546,7 +2972,7 @@ ALTER TABLE `accounts`
 -- AUTO_INCREMENT cho bảng `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=629;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1012;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_product`
@@ -2564,7 +2990,7 @@ ALTER TABLE `imgs_size`
 -- AUTO_INCREMENT cho bảng `invoices_detail`
 --
 ALTER TABLE `invoices_detail`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=250;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=370;
 
 --
 -- AUTO_INCREMENT cho bảng `invoices_status`

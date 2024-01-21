@@ -2,12 +2,10 @@ package project.fashion.model.service;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import project.fashion.model.entity.ImgProduct;
+import org.springframework.ui.Model;
 import project.fashion.model.entity.Invoice;
 import project.fashion.model.entity.InvoiceDetail;
 import project.fashion.model.entity.ProductDetail;
@@ -16,9 +14,6 @@ import project.fashion.model.repository.InvoiceDetailRepo;
 import project.fashion.model.repository.InvoiceRepo;
 import project.fashion.model.repository.ProductDetailRepo;
 
-import java.net.MalformedURLException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -45,7 +40,7 @@ public class InvoiceDetailService{
     }
 
     @Transactional
-    public ResponseEntity<String> deleteByDetailId(Integer detailId) {
+    public String deleteByDetailId(Model model,Integer detailId, String invoiceId) {
         Optional<InvoiceDetail> OptionalInvoiceDetail = invoiceDetailRepo.findById(detailId);
         var status = OptionalInvoiceDetail.get().getInvoice().getInvoiceStatus().getStatusId();
 
@@ -53,15 +48,17 @@ public class InvoiceDetailService{
             // create history
             historyService.setTriggerVariableForHistory();
             invoiceDetailRepo.deleteById(detailId);
+            List<InvoiceDetail> invoiceDetails = findAllByInvoice_InvoiceId(invoiceId);
 
-            return ResponseEntity.ok().build();
+            model.addAttribute("invoiceDetails", invoiceDetails);
+            return "admin/component/ListProduct";
 
-        }else return new ResponseEntity<>("Không thể xóa xóa vì đã lên đơn hàng", HttpStatus.BAD_REQUEST);
+        }else return "Không thể xóa xóa vì đã lên đơn hàng";
 
     }
 
     @Transactional
-    public ResponseEntity<String> addProductInvoiceDetail(Integer productDetailId, String invoiceId) {
+    public void addProductInvoiceDetail(Integer productDetailId, String invoiceId) {
             //kiểm tra sản phẩm đã tồn tại trong invoiceDetail chưa?
             //nếu chưa thì thêm mới, nếu có rồi thì +1
             InvoiceDetail newInvoiceDetail = new InvoiceDetail();
@@ -95,7 +92,6 @@ public class InvoiceDetailService{
                 historyService.setTriggerVariableForHistory();
                 invoiceDetailRepo.save(newInvoiceDetail);
 
-                return ResponseEntity.ok("done");
             } else {
                 var quantity = result.getQuantity();
                 var newQuantity = quantity + 1;
@@ -104,31 +100,25 @@ public class InvoiceDetailService{
                 // create history
                 historyService.setTriggerVariableForHistory();
                 invoiceDetailRepo.save(result);
-                return ResponseEntity.ok("done");
             }
     }
 
     @Transactional
-    public ResponseEntity<String> updateQuantityInvoiceDetail(Integer newQuantity,Integer invoiceDetailId){
+    public String updateQuantityInvoiceDetail(Model model,Integer newQuantity,Integer invoiceDetailId,String invoiceId){
         if(newQuantity >= 1){
             historyService.setTriggerVariableForHistory();
             invoiceDetailRepo.updateQuantityInvoiceDetail(newQuantity,invoiceDetailId);
-            return ResponseEntity.ok().build();
+            List<InvoiceDetail> invoiceDetails = findAllByInvoice_InvoiceId(invoiceId);
+
+            model.addAttribute("invoiceDetails", invoiceDetails);
+            return "admin/component/ListProduct";
         } else if (newQuantity == 0) {
-            deleteByDetailId(invoiceDetailId);
-            return ResponseEntity.ok().build();
+            return deleteByDetailId(model,invoiceDetailId,invoiceId);
+
         }else
-            return new ResponseEntity<>("Số lượng không hợp lệ", HttpStatus.BAD_REQUEST);
+            return "Số lượng không hợp lệ";
     }
 
-
-    public Integer totalAdmount(List<InvoiceDetail> invoiceDetails){
-        var totalAmount = 0;
-        for (InvoiceDetail id:invoiceDetails){
-            totalAmount += id.getPrice() * id.getQuantity();
-        }
-        return totalAmount;
-    }
 
     public void save(InvoiceDetail invoiceDetail){
         invoiceDetailRepo.save(invoiceDetail);

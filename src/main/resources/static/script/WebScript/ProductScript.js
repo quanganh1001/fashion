@@ -27,10 +27,10 @@ $(document).ready(function () {
         const productDetail = $("#productDetail-code").val()
         const quantity = $("#quantity").val();
 
-        if (quantity > 0 && productDetail != null){
+        if (quantity > 0 && productDetail != null) {
             $("#submit").removeClass("hidden")
             $("#no-submit").addClass("hidden")
-        }else {
+        } else {
             $("#no-submit").removeClass("hidden")
             $("#submit").addClass("hidden")
         }
@@ -88,33 +88,23 @@ $(document).ready(function () {
         }
     })
 
-    $("#submit").click(()=>{
+    $("#submit").click(() => {
         const quantity = $("#quantity").val();
         const prDetailId = $("#productDetail-id").text()
 
         $.ajax({
             type: 'GET',
             url: "/carts/addToCart",
-            data: {prDetailId:prDetailId,quantity:quantity},
-            success:  (()=> {
+            data: {prDetailId: prDetailId, quantity: quantity},
+            success: ((data) => {
                 alert("Đã thêm vào giỏ hàng");
-                // window.location.href="/carts"
+                $("#header").html(data)
             }),
             error: (jqXHR) => {
                 alert(jqXHR.responseText)
             }
         });
 
-        $.ajax({
-            type: 'GET',
-            url: "/products/header",
 
-            success:  ((data)=> {
-                $("#header").html(data)
-            }),
-            error: (jqXHR) => {
-                alert(jqXHR.responseText)
-            }
-        })
     })
 });

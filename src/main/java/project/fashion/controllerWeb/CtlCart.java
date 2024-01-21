@@ -38,18 +38,21 @@ public class CtlCart {
     public String Cart(Model model,@ModelAttribute("CARTS") List<CartItem> cartItemList) {
         categoryService.listCategory(model);
         var totalPrice = cartService.getTotalPrice(cartItemList);
-        cartService.getShippingFee(model,totalPrice);
+        var shippingFee = cartService.getShippingFee(totalPrice);
 
+        model.addAttribute("shippingFee",shippingFee);
         model.addAttribute("totalPrice",totalPrice);
         return "web/Cart";
     }
 
     @GetMapping("/addToCart")
-    public String addToCart(@RequestParam("prDetailId") Integer prDetailId,
+    public String addToCart(Model model,
+                            @RequestParam("prDetailId") Integer prDetailId,
                             @RequestParam("quantity") int quantity,
                             @ModelAttribute("CARTS") List<CartItem> cartItemList) {
         cartService.addCart(prDetailId, cartItemList, quantity);
-        return "redirect:/carts";
+        categoryService.listCategory(model);
+        return "web/component/header";
     }
 
     @GetMapping("/delete")
@@ -68,9 +71,10 @@ public class CtlCart {
         cartService.setQuantity(quantity,cartItemList,prDetailCode);
 
         var totalPrice = cartService.getTotalPrice(cartItemList);
-        cartService.getShippingFee(model,totalPrice);
+        var shippingFee = cartService.getShippingFee(totalPrice);
 
         model.addAttribute("totalPrice",totalPrice);
+        model.addAttribute("shippingFee",shippingFee);
         return "web/component/InfoCart";
     }
 

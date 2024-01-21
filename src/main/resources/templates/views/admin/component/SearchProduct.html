@@ -1,68 +1,69 @@
-<div th:fragment="SearchProduct">
-    <ul class="list-group" th:if="${search != null} " th:each="result :${search}">
-        <li th:data-product-detail-id="${result.productDetailId}"
-            th:data-invoice-id="${invoiceId}"
-            th:id="${result.productDetailId}"
-            class="item list-group-item" style="display: flex">
-            <img class="img-thumbnail" width="50px"
-                 th:src="@{'/admin/invoiceDetail/img/'+${result.product.productId}}" alt="">
-            <div>
+<ul class="list-group" th:if="${search != null} " th:each="result :${search}">
+    <li th:data-product-detail-id="${result.productDetailId}"
+        th:data-invoice-id="${invoiceId}"
+        th:id="${result.productDetailId}"
+        class="item list-group-item" style="display: flex">
+        <img class="img-thumbnail" width="50px"
+             th:src="@{'/admin/invoiceDetail/img/'+${result.product.productId}}" alt="">
+        <div>
                 <span th:if="${result.outOfStock == true}"
-                        th:text="${result.product.productName} + ' | ' +  ${result.size.name} + ' | ' +  ${result.color.name}"></span>
-                <span th:unless="${result.outOfStock == true}"
-                      th:text="${result.product.productName} + ' | ' +  ${result.size.name} + ' | ' +  ${result.color.name}"
-                      style="text-decoration: line-through;"></span>
-                <div class="d-flex justify-content-between">
-                    <div th:if="${result.product.isDiscount == true}">
+                      th:text="${result.product.productName} + ' | ' +  ${result.size.name} + ' | ' +  ${result.color.name}"></span>
+            <span th:unless="${result.outOfStock == true}"
+                  th:text="${result.product.productName} + ' | ' +  ${result.size.name} + ' | ' +  ${result.color.name}"
+                  style="text-decoration: line-through;"></span>
+            <div class="d-flex justify-content-between">
+                <div th:if="${result.product.isDiscount == true}">
                                         <span
                                                 th:text="${#numbers.formatDecimal(result.product.price, 0, 'POINT', 0, 'POINT')} + 'đ'"
-                                              style="text-decoration: line-through;">
+                                                style="text-decoration: line-through;">
                                         </span>
-                        <span th:text="${#numbers.formatDecimal(result.product.discountPrice, 0, 'POINT', 0, 'POINT')} + 'đ'" style="color:red"></span>
-                    </div>
-                    <span th:unless="${result.product.isDiscount == true}"
-                          th:text="${#numbers.formatDecimal(result.product.price, 0, 'POINT', 0, 'POINT')} + 'đ'"
-                          style="color:red">
+                    <span th:text="${#numbers.formatDecimal(result.product.discountPrice, 0, 'POINT', 0, 'POINT')} + 'đ'"
+                          style="color:red"></span>
+                </div>
+                <span th:unless="${result.product.isDiscount == true}"
+                      th:text="${#numbers.formatDecimal(result.product.price, 0, 'POINT', 0, 'POINT')} + 'đ'"
+                      style="color:red">
                     </span>
 
-                    <span class="fw-lighter" th:text="'Số lượng: '+${result.quantity}"></span>
-                </div>
+                <span class="fw-lighter" th:text="'Số lượng: '+${result.quantity}"></span>
             </div>
-        </li>
-    </ul>
+        </div>
+    </li>
+</ul>
 
-    <script>
-        $(document).ready(function ()  {
-            $(".item").click( function () {
-                var productDetailId = $(this).attr("data-product-detail-id")
-                var invoiceId = $(this).attr("data-invoice-id")
-                if (!$(this).data('eventTriggered')) {
-                    console.log(invoiceId)
-                    console.log(productDetailId)
-                    var csrfToken = $("meta[name='_csrf']").attr("content");
-                    var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-                    $.ajax({
-                        type: 'POST',
-                        url: "/admin/invoiceDetail/addProductInvoiceDetail",
-                        data: {productDetailId:productDetailId,invoiceId:invoiceId},
-                        beforeSend: function (xhr) {
-                            // Sử dụng tên HTTP header chuẩn và giá trị token
-                            xhr.setRequestHeader(csrfHeader, csrfToken);
-                        },
-                        success: function () {
-                            window.location.reload();
+<script>
+    $(document).ready(() =>{
+        $(".item").click(function ()  {
+            const productDetailId = $(this).attr("data-product-detail-id");
+            const invoiceId = $(this).attr("data-invoice-id");
 
-                        },
-                        error: function (error) {
-                            console.log(error)
-                        }
-                    });
+            if (!$(this).data('eventTriggered')) {
+                const csrfToken = $("meta[name='_csrf']").attr("content");
+                const csrfHeader = $("meta[name='_csrf_header']").attr("content");
+                $.ajax({
+                    type: 'POST',
+                    url: "/admin/invoiceDetail/addProductInvoiceDetail",
+                    data: {productDetailId:productDetailId,invoiceId:invoiceId},
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(csrfHeader, csrfToken);
+                    },
+                    success:  (data) => {
+                        $("#plus-cancel").addClass("hidden")
+                        $("#plus").removeClass("hidden")
+                        $("#input-plus").addClass("hidden")
+                        $("#list-result").addClass("hidden")
+                        $("#table").html(data)
+                        updateTotalBill(invoiceId)
+                    },
+                    error:  (error) => {
+                        console.log(error)
+                    }
+                });
 
-                    // Đánh dấu đã thực hiện sự kiện cho phần tử này
-                    $(this).data('eventTriggered', true);
-                }
+                // Đánh dấu đã thực hiện sự kiện cho phần tử này
+                $(this).data('eventTriggered', true);
+            }
 
-            });
-        })
-    </script>
-</div>
+        });
+    })
+</script>
