@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 21, 2024 lúc 05:42 PM
+-- Máy chủ: localhost
+-- Thời gian đã tạo: Th1 22, 2024 lúc 12:32 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.0.28
+-- Phiên bản PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -96,6 +96,26 @@ INSERT INTO `categories` (`cat_id`, `cat_name`, `parent_id`, `is_cat_active`) VA
 ('THUN', 'Áo thun', 'AO', b'1'),
 ('TIH', 'Thun in hình', 'THUN', b'1'),
 ('TT', 'Tank top', 'THUN', b'1');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `city`
+--
+
+CREATE TABLE `city` (
+  `city_id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `city`
+--
+
+INSERT INTO `city` (`city_id`, `name`) VALUES
+(1, 'Hà Nội'),
+(2, 'Hồ Chí Minh'),
+(3, 'Đà Nẵng');
 
 -- --------------------------------------------------------
 
@@ -990,7 +1010,12 @@ INSERT INTO `history` (`id`, `invoice_id`, `content`, `time`, `time_ago`) VALUES
 (1008, 'GB4ENHC1', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đã lên đơn', '2024-01-21 16:19:45', NULL),
 (1009, 'I8XDEQJH', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Hủy', '2024-01-21 16:36:23', NULL),
 (1010, 'I8XDEQJH', 'quanly đã thay đổi Trạng thái đơn hàng: Hủy -> Đơn mới', '2024-01-21 16:36:28', NULL),
-(1011, 'I8XDEQJH', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đang xử lý', '2024-01-21 16:36:57', NULL);
+(1011, 'I8XDEQJH', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đang xử lý', '2024-01-21 16:36:57', NULL),
+(1012, '5FTZ8G2K', 'quanly đã thay đổi Trạng thái đơn hàng: Hủy -> Đơn mới', '2024-01-22 03:54:48', NULL),
+(1013, '5FTZ8G2K', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đã lên đơn', '2024-01-22 04:07:18', NULL),
+(1014, '5FTZ8G2K', 'quanly đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Đang xử lý', '2024-01-22 04:33:31', NULL),
+(1015, 'MSFDUEXY', ' đã thay đổi Số lượng (ESTP01772CV32SB_BLE-S) :1 -> 2', '2024-01-22 05:29:08', NULL),
+(1016, '5FTZ8G2K', ' đã thay đổi Số lượng (DSBI01302LI00SB_BE-31) :1 -> 2', '2024-01-22 06:38:38', NULL);
 
 -- --------------------------------------------------------
 
@@ -1549,7 +1574,7 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `created_at`, `note`, `customer_note`, `account_id`, `invoice_status`, `total_price`, `shipping_fee`, `total_bill`) VALUES
-('5FTZ8G2K', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-21 16:42:11', '', 'fsd', NULL, 0, 1480000, 0, 1480000),
+('5FTZ8G2K', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-22 06:38:38', '', 'fsd', 1, 2, 1860000, 10000, 1870000),
 ('7MOJYIGO', 'vcxvx', '33333', 'fsd', '2024-01-21 16:42:11', '', 'sd', NULL, 0, 2350000, 20000, 2370000),
 ('A5K1TOQE', 'gdfgfdg', '3423', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-21 16:02:42', '', 'vsd', 1, 2, 3060000, 30000, 3090000),
 ('AEAXIQS0', 'quang anh', '34232', 'ssd', '2024-01-21 16:42:11', '', 'x', NULL, 0, 990000, 0, NULL),
@@ -1558,7 +1583,7 @@ INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `created_at`, 
 ('I1TWS5QJ', 'quang anh', '423432', 'sdf', '2024-01-21 09:18:55', '', 'sd', 1, 1, 550000, 0, NULL),
 ('I8XDEQJH', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-21 16:36:57', '', 'sd', 1, 2, 598000, 0, 598000),
 ('KT9P9ZMY', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-21 10:11:15', '', 'dsf', NULL, 1, 4040000, 20000, 4060000),
-('MSFDUEXY', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 10:08:47', '', 'sd', 1, 1, 420000, 0, NULL),
+('MSFDUEXY', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-22 05:29:08', '', 'sd', 1, 1, 840000, 0, 840000),
 ('OCFAOWMB', 'fsdfsd', '333333', 'vd', '2024-01-21 09:45:14', '', 'd', 1, 1, 1380000, 30000, 1410000),
 ('SMMKHRU1', 'dfsd', '222222', 'sdf', '2024-01-21 09:17:25', '', 'fds', NULL, 1, 400000, 30000, 430000),
 ('TLSY7TFT', 'dfgdf', '323233232', 'fds', '2024-01-20 08:38:59', '', 'f', NULL, 1, 750000, 0, 750000),
@@ -1669,7 +1694,7 @@ CREATE TABLE `invoices_detail` (
 INSERT INTO `invoices_detail` (`detail_id`, `invoice_id`, `product_detail_id`, `price`, `quantity`, `total_price`) VALUES
 (230, 'EYCDR8PC', 190, 290000, 1, 290000),
 (231, 'ZUI23NIT', 190, 290000, 1, 290000),
-(232, 'MSFDUEXY', 198, 420000, 1, 420000),
+(232, 'MSFDUEXY', 198, 420000, 2, 840000),
 (233, 'I8XDEQJH', 671, 299000, 2, 598000),
 (234, 'A5K1TOQE', 16, 380000, 2, 760000),
 (235, 'EYCDR8PC', 191, 290000, 1, 290000),
@@ -1696,7 +1721,7 @@ INSERT INTO `invoices_detail` (`detail_id`, `invoice_id`, `product_detail_id`, `
 (263, 'X6JPOCJH', 691, 990000, 2, 1980000),
 (272, 'A5K1TOQE', 442, 480000, 4, 1920000),
 (274, 'A5K1TOQE', 614, 380000, 1, 380000),
-(365, '5FTZ8G2K', 614, 380000, 1, 380000),
+(365, '5FTZ8G2K', 614, 380000, 2, 760000),
 (368, '5FTZ8G2K', 541, 550000, 1, 550000),
 (369, '5FTZ8G2K', 542, 550000, 1, 550000);
 
@@ -2855,13 +2880,17 @@ CREATE TABLE `stores` (
   `address` varchar(255) DEFAULT NULL,
   `time` varchar(255) DEFAULT NULL,
   `phone` varchar(255) DEFAULT NULL,
-  `apiMap` varchar(255) DEFAULT NULL,
-  `cityId` int(11) DEFAULT NULL,
-  `storeActive` bit(1) NOT NULL DEFAULT b'1',
-  `api_map` varchar(255) DEFAULT NULL,
-  `city_id` varchar(255) DEFAULT NULL,
-  `store_active` bit(1) DEFAULT NULL
+  `api` varchar(500) DEFAULT NULL,
+  `city_id` int(11) DEFAULT NULL,
+  `store_active` bit(1) DEFAULT b'1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `stores`
+--
+
+INSERT INTO `stores` (`id`, `name`, `address`, `time`, `phone`, `api`, `city_id`, `store_active`) VALUES
+(1, 'TORANO TRƯƠNG ĐỊNH', 'Số 179 Trương Định, Quận Hoàng Mai, Hà Nội', '8h30 - 20h00 (kể cả CN và ngày lễ)', '098989999', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.0480498187626!2d105.84330438099062!3d20.990710939209666!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ad2d85f4d157%3A0xb342677bf9ee0d68!2zVE9SQU5PIDE3OSBUUsavxqBORyDEkOG7ik5I!5e0!3m2!1svi!2s!4v1705909366457!5m2!1svi!2s', 1, b'1');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -2879,6 +2908,12 @@ ALTER TABLE `accounts`
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`cat_id`),
   ADD KEY `dsgsg` (`parent_id`);
+
+--
+-- Chỉ mục cho bảng `city`
+--
+ALTER TABLE `city`
+  ADD PRIMARY KEY (`city_id`);
 
 --
 -- Chỉ mục cho bảng `colors`
@@ -2956,7 +2991,7 @@ ALTER TABLE `sizes`
 --
 ALTER TABLE `stores`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `city_id` (`cityId`);
+  ADD KEY `city_id` (`city_id`);
 
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
@@ -2969,10 +3004,16 @@ ALTER TABLE `accounts`
   MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
+-- AUTO_INCREMENT cho bảng `city`
+--
+ALTER TABLE `city`
+  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT cho bảng `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1012;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1017;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_product`
@@ -3003,6 +3044,12 @@ ALTER TABLE `invoices_status`
 --
 ALTER TABLE `products_detail`
   MODIFY `product_detail_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=741;
+
+--
+-- AUTO_INCREMENT cho bảng `stores`
+--
+ALTER TABLE `stores`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -3048,6 +3095,12 @@ ALTER TABLE `products_detail`
   ADD CONSTRAINT `gfd` FOREIGN KEY (`color_id`) REFERENCES `colors` (`color_id`),
   ADD CONSTRAINT `grwr` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`),
   ADD CONSTRAINT `vds` FOREIGN KEY (`size_id`) REFERENCES `sizes` (`size_id`);
+
+--
+-- Các ràng buộc cho bảng `stores`
+--
+ALTER TABLE `stores`
+  ADD CONSTRAINT `stores_ibfk_1` FOREIGN KEY (`city_id`) REFERENCES `city` (`city_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

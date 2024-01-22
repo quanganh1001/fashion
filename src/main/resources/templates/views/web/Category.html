@@ -59,11 +59,11 @@
                             </div>
                             <h5 class="card-title mt-2" th:text="${pr.productName}"></h5>
                             <div th:if="${pr.isDiscount == true}">
-                                <span th:text="${pr.price}" style="text-decoration-line: line-through"></span>
-                                <span th:text="${pr.discountPrice}" style="color: red;font-weight: bold"></span>
+                                <span th:text="${#numbers.formatDecimal(pr.price, 0, 'POINT', 0, 'POINT')} +' đ'" style="text-decoration-line: line-through"></span>
+                                <span th:text="${#numbers.formatDecimal(pr.discountPrice, 0, 'POINT', 0, 'POINT')} +' đ'" style="color: red;font-weight: bold"></span>
                             </div>
                             <div th:unless="${pr.isDiscount == true}">
-                                <span th:text="${pr.price}" style="color: red;font-weight: bold"></span>
+                                <span th:text="${#numbers.formatDecimal(pr.price, 0, 'POINT', 0, 'POINT')} +' đ'" style="color: red;font-weight: bold"></span>
                             </div>
 
                         </div>

@@ -12,6 +12,7 @@ function updateTotalBill(invoiceId) {
     })
 }
 
+
 $(document).ready(() => {
     const csrfToken = $("meta[name='_csrf']").attr("content");
     const csrfHeader = $("meta[name='_csrf_header']").attr("content");
@@ -98,7 +99,6 @@ $(document).ready(() => {
         } else {
             $("#list-result").addClass("hidden")
         }
-        $("#script").html()
     })
 })
 

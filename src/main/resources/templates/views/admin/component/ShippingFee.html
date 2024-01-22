@@ -1,0 +1,60 @@
+<div th:fragment="ShippingFee">
+    <span id="shippingFee" th:text="${#numbers.formatDecimal(invoice.shippingFee, 0, 'POINT', 0, 'POINT')} +'đ'"></span>
+    <input class="hidden col-6"
+           id="input-ship"
+           type="number"
+           th:data-invoice-id="${invoice.invoiceId}"
+           th:value="${invoice.shippingFee}"/>
+    <span th:if="${invoice.invoiceStatus.statusId} >= 0 and ${invoice.invoiceStatus.statusId} <=2"
+          id="edit-ship">
+        <i class="fa-regular fa-pen-to-square" style="color: #0033ff;"></i>
+    </span>
+    <span class="hidden"
+          id="done-ship">
+        <i class="fa-solid fa-check" style="color: #00ff59;"></i>
+    </span>
+    <span class="hidden"
+          id="cancel-ship">
+        <i class="fa-solid fa-xmark" style="color: #ff0000;"></i>
+    </span>
+    <script>
+        function toggleShippingFee() {
+            $("#shippingFee").toggleClass("hidden");
+            $("#input-ship").toggleClass("hidden")
+            $("#done-ship").toggleClass("hidden")
+            $("#cancel-ship").toggleClass("hidden")
+            $("#edit-ship").toggleClass("hidden")
+        }
+
+        $("#edit-ship").click(()=>{
+            toggleShippingFee()
+        })
+
+        $("#cancel-ship").click(()=>{
+            toggleShippingFee()
+        })
+
+        $("#done-ship").click(()=>{
+            toggleShippingFee()
+            const newShippingFee = $("#input-ship").val();
+            const invoiceId = $("#input-ship").attr("data-invoice-id");
+            const csrfToken = $("meta[name='_csrf']").attr("content");
+            const csrfHeader = $("meta[name='_csrf_header']").attr("content");
+            $.ajax({
+                type: 'PUT',
+                url: '/admin/invoiceDetail/updateShip',
+                data:{newShippingFee:newShippingFee,invoiceId:invoiceId},
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(csrfHeader, csrfToken);
+                },
+                success: function (data) {
+                    $("#ship").html(data);
+                    updateTotalBill(invoiceId);
+                },
+                error: (jqXHR) => {
+                    alert(jqXHR.responseText)
+                }
+            });
+        })
+    </script>
+</div>

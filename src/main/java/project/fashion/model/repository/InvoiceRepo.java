@@ -80,4 +80,8 @@ public interface InvoiceRepo extends JpaRepository<Invoice,String> {
             Pageable pageable
     );
 
+    @Modifying
+    @Query(value = "UPDATE invoices SET shipping_fee = :newShippingFee WHERE invoice_id = :invoiceId",
+            nativeQuery = true)
+    void updateShippingFee(@Param("invoiceId") String invoiceId,@Param("newShippingFee") int newShippingFee);
 }

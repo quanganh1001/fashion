@@ -117,4 +117,15 @@ public class CtlAdminInvoiceDetail {
         return ResponseEntity.ok(invoice.getTotalBill());
     }
 
+    @PutMapping("/updateShip")
+    public String updateShip(Model model,
+                             @RequestParam("invoiceId") String invoiceId,
+                             @RequestParam("newShippingFee") int newShippingFee) throws Exception {
+        invoiceService.updateShippingFee(invoiceId,newShippingFee);
+        Invoice invoice = invoiceService.findById(invoiceId);
+
+        model.addAttribute("invoice",invoice);
+        return "admin/component/ShippingFee";
+    }
+
 }

@@ -1,8 +1,6 @@
 package project.fashion.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -15,7 +13,10 @@ public class Store {
     private String address;
     private String time;
     private String phone;
-    private String apiMap;
-    private String cityId;
+    private String api;
     private Boolean storeActive;
+
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City city;
 }

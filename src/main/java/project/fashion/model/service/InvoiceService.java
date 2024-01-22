@@ -128,10 +128,13 @@ public class InvoiceService {
         } else if ((status >= 5) && !newStatus.equals(status)) {
             return new ResponseEntity<>(" Đơn đã thành công hoặc hoàn thì không thể thay đổi thay đổi thông tin"
                     , HttpStatus.BAD_REQUEST);
-        }else if ((newStatus >= 3) && (newAccountId == null || oldAccountId == null)) {
+        }else if ((newStatus >= 3) && (newAccountId == null)) {
             return new ResponseEntity<>("Chưa chia nguồn thì không thể lên đơn"
                     , HttpStatus.BAD_REQUEST);
-        }else if ((status >= 3) && (!Objects.equals(newAccountId, oldAccountId))) {
+        }else if ((newStatus >= 3) && (newAccountId == null && oldAccountId == null)) {
+            return new ResponseEntity<>("Chưa chia nguồn thì không thể lên đơn"
+                    , HttpStatus.BAD_REQUEST);
+        } else if ((status >= 3) && (!Objects.equals(newAccountId, oldAccountId))) {
             return new ResponseEntity<>("Đơn đã xác nhận hoặc gửi đi thì không thể thay nguồn"
                     , HttpStatus.BAD_REQUEST);
         }else if ((status >= 3) && (!Objects.equals(oldName, newName))) {
@@ -213,6 +216,20 @@ public class InvoiceService {
             invoiceRepo.save(invoice);
             return ResponseEntity.ok(randomId);
         }
+    }
+
+    @Transactional
+    public void updateShippingFee(String invoiceId,int newShippingFee) throws Exception {
+        try {
+            if(newShippingFee <0) {
+                newShippingFee = 0;
+            }
+            invoiceRepo.updateShippingFee(invoiceId,newShippingFee);
+
+        }catch (Exception e){
+            throw new Exception(e);
+        }
+
     }
 }
 

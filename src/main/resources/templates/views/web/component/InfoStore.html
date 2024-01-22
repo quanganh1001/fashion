@@ -1,0 +1,14 @@
+<div th:fragment="InfoStore">
+    <div th:each="store : ${stores}" class="list-store d-flex mt-5">
+        <div class="m-3">
+            <i class="fa-solid fa-location-dot"></i>
+        </div>
+        <div >
+            <div th:text="${store.name}" class="mt-3"></div>
+            <div th:text="${store.address}" class="mt-3"></div>
+            <div class="mt-3">Thời gian hoạt động: <span th:text="${store.address}" class="fw-bold"></span></div>
+            <div class="mt-3">Số điện thoại: <span th:text="${store.phone}" class="fw-bold"></span></div>
+            <div class="mt-3"><a th:href="@{/address/map?api=__${store.api}__}"></a></div>
+        </div>
+    </div>
+</div>

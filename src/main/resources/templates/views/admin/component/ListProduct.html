@@ -40,7 +40,7 @@
                       th:data-detail-id="${id.detailId}">
                             <i class="fa-solid fa-check" style="color: #00ff59;"></i>
                         </span>
-                <span class="hidden"
+                <span class="hidden cancel"
                       th:id="'cancel' + ${id.detailId}"
                       th:data-detail-id="${id.detailId}">
                             <i class="fa-solid fa-xmark" style="color: #ff0000;"></i>
@@ -81,6 +81,10 @@
                 toggleEditMode(btn)
             })
 
+            $(".cancel").click(function (btn) {
+                toggleEditMode(btn)
+            })
+
             $(".delete").click(function (btn) {
                 const detailId = $(btn.currentTarget).attr("data-id");
 
@@ -100,6 +104,7 @@
                     }
                 });
             })
+
             $(".saveQuantity").click(function (btn) {
                 const invoiceDetailId = $(btn.currentTarget).attr('data-detail-id');
                 const quantityElement = $('#input' + invoiceDetailId);

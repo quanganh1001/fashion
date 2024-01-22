@@ -7,6 +7,12 @@
 
 <header th:include="~{web/component/header::header}"></header>
 
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item">Cart</li>
+    </ol>
+</nav>
 <div class="col-12 p-5 d-flex flex-wrap justify-content-between">
     <div th:if="${#lists.size(CARTS) > 0}" class="col-8">
         <h4 style="color:red">Giỏ hàng của bạn</h4>
