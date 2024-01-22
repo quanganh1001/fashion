@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+
+<head th:include="~{admin/component/head::head}"></head>
+
+<body>
+<div class="ui-menu-item-wrapper">
+    <div th:include="~{admin/component/Menu::menu}"></div>
+
+    <div class="container p-4">
+        <h2>THÊM MỚI CỬA HÀNG</h2>
+        <form id="form" th:action="@{/admin/store/add-store}" method="post" th:object="${cl}">
+            <div class="row">
+                <div class="mb-3 col-6">
+                    <label for="name" class="form-label">Tên cửa hàng<span style="color:red">*</span></label>
+                    <input type="text" class="form-control" id="name" name="name" >
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label for="address" class="form-label">Tên địa chỉ<span style="color:red">*</span></label>
+                    <input type="text" class="form-control" id="address" name="address">
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label for="time" class="form-label">Thời gian mở cửa<span style="color:red">*</span></label>
+                    <input type="text" class="form-control" id="time" name="time">
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label for="phone" class="form-label">Số điện thoại<span style="color:red">*</span></label>
+                    <input type="text" class="form-control" id="phone" name="phone">
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label for="api" class="form-label">Link google map<span style="color:red">*</span></label>
+                    <input type="text" class="form-control" id="api" name="api">
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label for="city"  class="form-label">Thành phố<span style="color:red">*</span></label>
+                    <select class="form-control" id="city" name="city.cityId">
+                        <option value="">Chưa chọn</option>
+                        <option th:each="city : ${cities}"
+                                th:value="${city.cityId}"
+                                th:text="${city.name}">
+                        </option>
+                    </select>
+                </div>
+                <button style="text-align: center" type="button" id="btn-submit" class="col-2 btn btn-primary">Thêm cửa hàng</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+<script th:src="@{/script/AdminScript/AddStoreScript.js}"></script>
+</body>
+</html>
+

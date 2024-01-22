@@ -8,7 +8,6 @@ $(document).ready(() => {
             var url = $('#form').attr('action'); // Lấy URL của form
             var csrfToken = $("meta[name='_csrf']").attr("content");
             var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-            console.log(url)
             $.ajax({
                 type: 'POST',
                 url: url,

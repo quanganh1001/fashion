@@ -8,13 +8,13 @@ import lombok.Data;
 @Data
 public class Store {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private String address;
     private String time;
     private String phone;
     private String api;
-    private Boolean storeActive;
 
     @ManyToOne
     @JoinColumn(name = "city_id")

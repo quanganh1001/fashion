@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: localhost
--- Thời gian đã tạo: Th1 22, 2024 lúc 12:32 PM
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th1 22, 2024 lúc 04:45 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.2.4
+-- Phiên bản PHP: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -2881,16 +2881,19 @@ CREATE TABLE `stores` (
   `time` varchar(255) DEFAULT NULL,
   `phone` varchar(255) DEFAULT NULL,
   `api` varchar(500) DEFAULT NULL,
-  `city_id` int(11) DEFAULT NULL,
-  `store_active` bit(1) DEFAULT b'1'
+  `city_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `stores`
 --
 
-INSERT INTO `stores` (`id`, `name`, `address`, `time`, `phone`, `api`, `city_id`, `store_active`) VALUES
-(1, 'TORANO TRƯƠNG ĐỊNH', 'Số 179 Trương Định, Quận Hoàng Mai, Hà Nội', '8h30 - 20h00 (kể cả CN và ngày lễ)', '098989999', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.0480498187626!2d105.84330438099062!3d20.990710939209666!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ad2d85f4d157%3A0xb342677bf9ee0d68!2zVE9SQU5PIDE3OSBUUsavxqBORyDEkOG7ik5I!5e0!3m2!1svi!2s!4v1705909366457!5m2!1svi!2s', 1, b'1');
+INSERT INTO `stores` (`id`, `name`, `address`, `time`, `phone`, `api`, `city_id`) VALUES
+(1, 'TORANO TRƯƠNG ĐỊNH', 'Số 179 Trương Định, Quận Hoàng Mai, Hà Nội', '8h30 - 20h00 (kể cả CN và ngày lễ)', '098989999', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.0480498187626!2d105.84330438099062!3d20.990710939209666!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ad2d85f4d157%3A0xb342677bf9ee0d68!2zVE9SQU5PIDE3OSBUUsavxqBORyDEkOG7ik5I!5e0!3m2!1svi!2s!4v1705909366457!5m2!1svi!2s', 1),
+(2, 'TORANO 425A SƯ VẠN HẠNH NỐI DÀI', '425A SƯ VẠN HẠNH NỐI DÀI, P.12, Q.10', '8h30 - 20h00 (kể cả CN và ngày lễ)', '096968696', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3919.509913521864!2d106.669631!3d10.772203!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f5b255f0b29%3A0x9c61555ce8088f5a!2zVE9SQU5PIDQyNUEgU8avIFbhuqBOIEjhuqBOSA!5e0!3m2!1svi!2sus!4v1705923884646!5m2!1svi!2sus', 2),
+(3, 'TORANO ĐÀ NẴNG', '281 Điện Biên Phủ, Q. Thanh Khê', '8h30 - 20h00 (kể cả CN và ngày lễ)', '0998999999‬', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3833.9981268069027!2d108.193418!3d16.065587!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3142191253cf72b3%3A0xd5167753b8ddac4f!2zVG9yYW5vIMSQw6AgTuG6tW5n!5e0!3m2!1svi!2sus!4v1705923998699!5m2!1svi!2sus', 3),
+(4, 'TORANO 35 NGUYỄN PHONG SẮC', 'Số 35 Nguyễn Phong Sắc, Cầu Giấy, Hà Nội', '8h30 - 22h00 (kể cả CN và ngày lễ)', '0978361786', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3723.8900233858894!2d105.789871!3d21.037086!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab23cb755bf9%3A0xf10ea9cb5e5101c4!2sTorano!5e0!3m2!1svi!2sus!4v1705924309896!5m2!1svi!2sus', 1),
+(5, 'TORANO VẠN PHÚC', 'Số 178 Vạn Phúc, Q. Hà Đông, Hà Nội', '8h30 - 22h00 (kể cả CN và ngày lễ)', '0989786959', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1862.6291204576075!2d105.770733!3d20.982283!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3134533079da2b41%3A0x3c0fb1a30fda48c!2zMTc4IMSQxrDhu51uZyBW4bqhbiBQaMO6YywgVuG6oW4gUGjDumMsIEjDoCDEkMO0bmcsIEjDoCBO4buZaSAxMDAwMDAsIFZp4buHdCBOYW0!5e0!3m2!1svi!2sus!4v1705924376967!5m2!1svi!2sus', 1);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -3049,7 +3052,7 @@ ALTER TABLE `products_detail`
 -- AUTO_INCREMENT cho bảng `stores`
 --
 ALTER TABLE `stores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

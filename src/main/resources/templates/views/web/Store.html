@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head th:include="~{web/component/head::head}"></head>
+<style>
+    #store-info {
+        max-height: 400px;
+        overflow-y: auto;
+        overflow-scrolling: unset;
+    }
+</style>
+<body>
+<header th:include="~{web/component/header::header}"></header>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item">Hệ thống cửa hàng</li>
+    </ol>
+</nav>
+
+
+<h2 class=" col-12 d-flex justify-content-center">Hệ thống cửa hàng</h2>
+
+<div  id="map">
+    <div th:replace="~{web/component/Map::Map}"></div>
+</div>
+
+
+</body>
+</html>

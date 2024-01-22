@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head th:include="~{admin/component/head::head}"></head>
+<style>
+    #store-info {
+        max-height: 400px;
+        overflow-y: auto;
+        overflow-scrolling: unset;
+    }
+</style>
+<body>
+<div class="ui-menu-item-wrapper">
+    <div th:include="~{admin/component/Menu::menu}"></div>
+
+    <div class="col-10 p-5 d-flex flex-wrap">
+        <h2 class="col-12 d-flex justify-content-center">Hệ thống cửa hàng</h2>
+        <button class="btn btn-primary"><a href="/admin/store/add-store" style="color:white">Thêm mới</a></button>
+        <div id="map" class="col-12">
+            <div th:replace="~{admin/component/Map::Map}"></div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
