@@ -1,5 +1,7 @@
-$(document).ready(()=>{
-    $("#btn-submit").click(() =>{
+$(document).ready(() => {
+    const csrfToken = $("meta[name='_csrf']").attr("content");
+    const csrfHeader = $("meta[name='_csrf_header']").attr("content");
+    $("#btn-submit").click(() => {
         if ($("#name").val() === "" ||
             $("#address").val() === "" ||
             $("#time").val() === "" ||
@@ -10,8 +12,7 @@ $(document).ready(()=>{
         else {
             const formData = $('#form').serialize();
             const url = $('#form').attr('action');
-            const csrfToken = $("meta[name='_csrf']").attr("content");
-            const csrfHeader = $("meta[name='_csrf_header']").attr("content");
+
             $.ajax({
                 type: 'POST',
                 url: url,
@@ -29,4 +30,5 @@ $(document).ready(()=>{
             });
         }
     })
+
 })

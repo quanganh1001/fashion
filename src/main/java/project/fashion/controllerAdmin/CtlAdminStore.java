@@ -50,8 +50,9 @@ public class CtlAdminStore {
     }
 
     @PostMapping("/add-store")
-    public void addStore(@ModelAttribute Store newStore){
+    public ResponseEntity<String> addStore(@ModelAttribute Store newStore){
          storeService.save(newStore);
+         return ResponseEntity.ok("done");
     }
 
     @DeleteMapping("/delete")
@@ -69,5 +70,22 @@ public class CtlAdminStore {
         model.addAttribute("cities", cities);
         model.addAttribute("cityId", cityId);
         return "admin/component/Map";
+    }
+
+    @PostMapping("add-city")
+    public String addCity(Model model,@RequestParam("newCity") String newCity) {
+        cityService.save(model,newCity);
+        List<City> cities = cityService.findAll();
+
+        model.addAttribute("cities",cities);
+        return "admin/component/ModalCity";
+    }
+
+    @DeleteMapping("delete-city")
+    public String deleteCity(Model model,@RequestParam("cityId") Integer cityId) {
+        cityService.delete(cityId);
+        List<City> cities = cityService.findAll();
+        model.addAttribute("cities",cities);
+        return "admin/component/ModalCity";
     }
 }

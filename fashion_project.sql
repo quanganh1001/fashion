@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 22, 2024 lúc 04:45 PM
+-- Máy chủ: localhost
+-- Thời gian đã tạo: Th1 23, 2024 lúc 02:52 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.0.28
+-- Phiên bản PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -115,7 +115,38 @@ CREATE TABLE `city` (
 INSERT INTO `city` (`city_id`, `name`) VALUES
 (1, 'Hà Nội'),
 (2, 'Hồ Chí Minh'),
-(3, 'Đà Nẵng');
+(3, 'Đà Nẵng'),
+(10, 'Huế'),
+(11, 'Hu'),
+(12, 'fds'),
+(13, 'df'),
+(14, 'dsfsdf'),
+(15, 'sdfds'),
+(16, 'd'),
+(17, 'x'),
+(18, 'dsfsd'),
+(19, 'cvxc'),
+(20, 'gfg'),
+(21, 'bfdf'),
+(22, 'bc'),
+(23, 'vsd'),
+(24, 'vcx'),
+(25, 'vd'),
+(26, 'dsv'),
+(27, 'ds'),
+(28, 'fdsfds'),
+(29, 'c'),
+(30, 'cf'),
+(31, 'dfd'),
+(32, 'cccccc'),
+(33, 'vdc'),
+(34, 'vxc'),
+(35, 'v'),
+(36, 'vc'),
+(37, 'cvcvc'),
+(38, 'ccccccc'),
+(39, 'vcvcx'),
+(40, 'bfgbgf');
 
 -- --------------------------------------------------------
 
@@ -3010,7 +3041,7 @@ ALTER TABLE `accounts`
 -- AUTO_INCREMENT cho bảng `city`
 --
 ALTER TABLE `city`
-  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT cho bảng `history`
@@ -3052,7 +3083,7 @@ ALTER TABLE `products_detail`
 -- AUTO_INCREMENT cho bảng `stores`
 --
 ALTER TABLE `stores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
