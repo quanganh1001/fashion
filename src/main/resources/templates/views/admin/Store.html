@@ -16,11 +16,44 @@
     <div class="col-10 p-5 d-flex flex-wrap">
         <h2 class="col-12 d-flex justify-content-center">Hệ thống cửa hàng</h2>
         <button class="btn btn-primary"><a href="/admin/store/add-store" style="color:white">Thêm mới</a></button>
-        <div id="map" class="col-12">
-            <div th:replace="~{admin/component/Map::Map}"></div>
-        </div>
+        <div class="col-12">
+            <div class="col-12  d-flex justify-content-around mt-5">
+                <div class="col-4 border p-5">
+                    <h4>Tìm cửa hàng</h4>
+                    <div class="mb-3">
+                        <p>Chọn tỉnh thành</p>
+                        <select class="col-12 form-control" id="changeCity">
+                            <option th:each="city : ${cities}"
+                                    th:value="${city.cityId}"
+                                    th:text="${city.name}"
+                                    th:selected="${cityId == city.cityId}">
+                            </option>
+                        </select>
+                    </div>
+                    <div id="store-info"  th:include="~{admin/component/Map::Map}"></div>
+                </div>
+                <iframe id="map-api" th:src="${api}" class="border col-6" height="600" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
 
+        </div>
     </div>
 </div>
+<script>
+    $("#changeCity").change(function (select) {
+        const cityId = $(select.target).val();
+        $.ajax({
+            type: 'GET',
+            url: '/admin/store/change-map',
+            data: {cityId: cityId},
+            success: (data) => {
+                $("#store-info").html(data)
+            },
+            error: (jqXHR) => {
+                alert(jqXHR.responseText)
+            }
+        });
+    })
+</script>
 </body>
 </html>

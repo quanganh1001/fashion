@@ -88,4 +88,12 @@ public class CtlAdminStore {
         model.addAttribute("cities",cities);
         return "admin/component/ModalCity";
     }
+
+    @GetMapping("list-city")
+    public String listCity(Model model) {
+        List<City> cities = cityService.findAll();
+
+        model.addAttribute("cities", cities);
+        return "admin/component/ListCity";
+    }
 }
