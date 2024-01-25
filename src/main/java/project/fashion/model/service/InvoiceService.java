@@ -10,10 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import project.fashion.model.entity.Account;
-import project.fashion.model.entity.Invoice;
-import project.fashion.model.entity.InvoiceDetail;
-import project.fashion.model.entity.InvoiceStatus;
+import project.fashion.Response.AccountResponse;
+import project.fashion.model.entity.*;
 import project.fashion.model.repository.InvoiceDetailRepo;
 import project.fashion.model.repository.InvoiceRepo;
 import project.fashion.model.repository.ProductDetailRepo;
@@ -49,12 +47,18 @@ public class InvoiceService {
         return OptionalInvoice.get();
     }
 
-    public Page<Invoice> findInvoiceByKeyAndStatus(Integer selectAccount, String key, Integer filterStatus, Integer accountId, Integer page) {
+    public Page<Invoice> findInvoiceByKeyAndStatus(Integer selectAccount, String key, Integer filterStatus, Integer page) {
         if (page < 0)
             page = 0;
-        var accountLogging = accountService.getAccount(accountId);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetail customUserDetail = (CustomUserDetail) authentication.getPrincipal();
+        AccountResponse accountResponse = AccountResponse.accountResponse(customUserDetail.getUser());
+
+        var accountLogging = accountResponse.getRole();
+        var accountId = accountResponse.getAccountId();;
+
         // quyền manager
-        if (Objects.equals(accountLogging.getRole(  ).toString(), "ROLE_MANAGER")) {
+        if (Objects.equals(accountLogging.toString(), "ROLE_MANAGER")) {
             //lọc theo trạng thái + quyền manager
             if (filterStatus != -1) {
                 //tất cả account + lọc theo trạng thái + quyền manager

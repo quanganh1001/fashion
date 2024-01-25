@@ -96,4 +96,5 @@ public class CtlAdminStore {
         model.addAttribute("cities", cities);
         return "admin/component/ListCity";
     }
+
 }

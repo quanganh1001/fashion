@@ -1,37 +1,32 @@
 <div th:fragment="ListInvoice">
-    <div class="col-12 d-flex justify-content-between align-items-center">
-        <button class="btn btn-primary" id="btnAddInvoice">Tạo đơn hàng</button>
-        <form th:action="@{/admin/invoice/filter/__${filterStatus}__}" method="get">
+    <div class="col-12 mt-3 mb-3 d-flex justify-content-between align-items-center">
+        <a class="btn btn-primary" id="btnAddInvoice" href="/admin/invoice/add">Tạo đơn hàng</a>
+        <div id="search">
             <label for="key">Tìm kiếm:</label>
-            <input type="hidden" name="selectAccount" th:value="${selectAccount}">
-            <input type="hidden" name="accountId" th:value="${account.accountId}">
-            <input type="text" id="key" name="key" th:value="${#strings.isEmpty(searchKey) ? '' : searchKey}"
-                   placeholder="Nhập SĐT hoặc mã đơn hàng...">
-            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
-        </form>
+            <input type="text" id="key" name="key" placeholder="Nhập SĐT hoặc mã đơn hàng...">
+            <button id="button-search" class="btn btn-primary">Tìm kiếm</button>
+        </div>
 
         <div>Tổng: <span th:text="${totalItems}" style="color:red"></span> đơn hàng</div>
         <nav aria-label="col-4 d-flex Page navigation">
             <ul class="pagination">
                 <li class="page-item" th:class="${currentPage == 0} ? 'page-item disabled' : 'page-item'">
                     <a class="page-link"
-                       th:href="@{/admin/invoice/filter/__${filterStatus}__(page=${currentPage}-1,key=${key},accountId=${account.accountId},selectAccount=${selectAccount})}"
-                       aria-label="Previous">
+                       aria-label="Previous"
+                       id="previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
                 <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
-                    <a class="page-link"
-                       th:href="@{/admin/invoice/filter/__${filterStatus}__(page=${i >= 0 ? i : 0},key=${key},accountId=${account.accountId},selectAccount=${selectAccount})}"
+                    <a th:data-page = "${i >= 0 ? i : 0}"
                        th:text="${i + 1}"
-                       th:class="${currentPage == i} ? 'page-link active' : 'page-link'"
+                       th:class="${currentPage == i} ? 'page-link active number' : 'number page-link'"
                     ></a>
                 </li>
-                <li class="page-item"
-                    th:class="${currentPage == totalPages - 1} ? 'page-item disabled' : 'page-item'">
+                <li th:class="${currentPage == totalPages - 1} ? 'page-item disabled' : 'page-item'">
                     <a class="page-link"
-                       th:href="@{/admin/invoice/filter/__${filterStatus}__(page=${currentPage+1},key=${key},accountId=${account.accountId},selectAccount=${selectAccount})}"
-                       aria-label="Next">
+                       aria-label="Next"
+                       id="next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
@@ -39,7 +34,11 @@
         </nav>
     </div>
 
-    <table>
+    <table id="table"
+           th:data-filterStatus="${filterStatus}"
+           th:data-selectAccount="${selectAccount}"
+           th:data-currentPage="${currentPage}"
+           th:data-key="${key}">
         <thead>
         <tr>
             <th>Mã đơn hàng</th>
@@ -72,4 +71,79 @@
         </tr>
         </tbody>
     </table>
+
+    <script>
+        $(document).ready(() => {
+            const filterStatus = $("#table").attr("data-filterStatus")
+            const selectAccount = $("#table").attr("data-selectAccount")
+            const currentPage = $("#table").attr("data-currentPage")
+            const key = $("#table").attr("data-key")
+            $("#previous").click(() => {
+                const page = currentPage - 1;
+                $.ajax({
+                    type: 'GET',
+                    url: "/admin/invoice/change-list-invoice",
+                    data: {selectAccount: selectAccount, filterStatus: filterStatus, page: page, key: key},
+                    success: (data) => {
+                        $("#list-invoice").html(data)
+                    },
+                    error: (jqXHR) => {
+                        alert(jqXHR.responseText)
+                    }
+                });
+            })
+            $(".number").click((event) => {
+                const page = $(event.target).attr("data-page")
+                $.ajax({
+                    type: 'GET',
+                    url: "/admin/invoice/change-list-invoice",
+                    data: {selectAccount: selectAccount, filterStatus: filterStatus, page: page, key: key},
+                    success: (data) => {
+                        $("#list-invoice").html(data)
+                    },
+                    error: (jqXHR) => {
+                        alert(jqXHR.responseText)
+                    }
+                });
+            })
+            $("#next").click(() => {
+                $.ajax({
+                    type: 'GET',
+                    url: "/admin/invoice/change-list-invoice",
+                    data: {selectAccount: selectAccount, filterStatus: filterStatus, key: key},
+                    success: (data) => {
+                        $("#list-invoice").html(data)
+                    },
+                    error: (jqXHR) => {
+                        alert(jqXHR.responseText)
+                    }
+                });
+            })
+
+            $("#button-search").click(() => {
+                const key = $('#key').val();
+                $.ajax({
+                    type: 'GET',
+                    url: "/admin/invoice/change-list-invoice",
+                    data: {selectAccount: selectAccount, filterStatus: filterStatus, key: key},
+                    success: (data) => {
+                        $("#list-invoice").html(data)
+                    },
+                    error: (jqXHR) => {
+                        alert(jqXHR.responseText)
+                    }
+                });
+            })
+            $(".filter").each(function () {
+                const id = $(this).attr("id");
+                $(this).addClass("btn-secondary")
+                if (filterStatus === id) {
+                    console.log(id)
+                    console.log(filterStatus)
+                    $(this).removeClass("btn-secondary");
+                    $(this).addClass("btn-primary");
+                }
+            })
+        })
+    </script>
 </div>

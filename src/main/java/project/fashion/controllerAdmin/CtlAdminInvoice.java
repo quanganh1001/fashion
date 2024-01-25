@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.fashion.Response.AccountResponse;
+import project.fashion.model.entity.City;
 import project.fashion.model.entity.Invoice;
 import project.fashion.model.service.AccountService;
 import project.fashion.model.service.InvoiceService;
@@ -28,10 +29,9 @@ public class CtlAdminInvoice {
                                @PathVariable("filterStatus") Integer filterStatus,
                                @RequestParam(name = "page", defaultValue = "0") int page,
                                @RequestParam(name = "key", defaultValue = "") String key,
-                               @RequestParam(name = "accountId") Integer accountId,
                                @RequestParam(name = "selectAccount", defaultValue = "-1") Integer selectAccount) {
 
-        Page<Invoice> searchInvoice = invoiceService.findInvoiceByKeyAndStatus(selectAccount,key, filterStatus,accountId, page);
+        Page<Invoice> searchInvoice = invoiceService.findInvoiceByKeyAndStatus(selectAccount,key, filterStatus, page);
         accountService.getAccountResponse(model);
 
         List<AccountResponse> accountResponses = accountService.findAll();
@@ -61,6 +61,24 @@ public class CtlAdminInvoice {
     @PostMapping("/add")
     public ResponseEntity<String> addInvoice(@ModelAttribute Invoice invoice) {
         return invoiceService.addInvoice(invoice);
+    }
+
+    @GetMapping("change-list-invoice")
+    public String changeListInvoice(Model model,
+                                    @RequestParam(name = "filterStatus",defaultValue = "-1") Integer filterStatus,
+                                    @RequestParam(name = "selectAccount", defaultValue = "-1") Integer selectAccount,
+                                    @RequestParam(name = "page", defaultValue = "0") int page,
+                                    @RequestParam(name = "key", defaultValue = "") String key) {
+        Page<Invoice> searchInvoice = invoiceService.findInvoiceByKeyAndStatus(selectAccount,key, filterStatus, page);
+
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", searchInvoice.getTotalPages());
+        model.addAttribute("totalItems", searchInvoice.getTotalElements());
+        model.addAttribute("invoice", searchInvoice.getContent());
+        model.addAttribute("key", key);
+        model.addAttribute("selectAccount", selectAccount);
+        model.addAttribute("filterStatus", filterStatus);
+        return "admin/component/ListInvoice";
     }
 
 }

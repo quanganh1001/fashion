@@ -13,7 +13,7 @@
             <span>Chọn người lên đơn</span>
             <select id="changeAccount" class="form-control">
                 <option value=-1 th:selected="${selectAccount == -1}">Tất cả</option>
-                <option value=0 th:selected="${selectAccount == 0}">Hệ thống</option>
+                <option value=0 th:selected="${selectAccount == 0}">Chưa chia</option>
                 <option th:each="a : ${accountResponses}"
                         th:value="${a.accountId}"
                         th:text="${a.userName}"
@@ -22,137 +22,62 @@
             </select>
         </div>
         <div class=" d-flex flex-wrap justify-content-start">
-            <a th:href="@{/admin/invoice/filter/-1?accountId=__${account.accountId}__&selectAccount=__${selectAccount}__}"
-               id="-1"
-               class=" m-3 p-2 btn-secondary btn col-2">
-                <div class="info-box d-flex p-2">
-                    <span class="info-box-icon"><i class="fa-2xl fa-solid fa-file-invoice-dollar"
-                                                   style="color: #000000;"></i></span>
-                    <div class="info-box-content">
-                        <div class="info-box-text">Tất cả đơn hàng</div>
-                    </div>
-                </div>
-            </a>
 
-            <a th:href="@{/admin/invoice/filter/0?accountId=__${account.accountId}__&selectAccount=__${selectAccount}__}"
-               id="0" class="filter col-2 m-3 p-2 btn-secondary btn">
-                <div class="info-box d-flex p-2 ">
-                    <span class="info-box-icon"><i class="fa-2xl fa-solid fa-xmark" style="color: #ff0000;"></i></span>
-                    <div class="info-box-content">
-                        <div class="info-box-text">Đơn đã hủy</div>
-                    </div>
-                </div>
-            </a>
+            <div class="filter m-3 p-2 btn col-2 d-flex align-items-center justify-content-around p-3"
+                 id="-1" th:data-filter-status="-1">
+                <i th:data-filter-status="-1" class=" fa-2xl fa-solid fa-file-invoice-dollar" style="color: #000000;"></i>
+                Tất cả đơn hàng
+            </div>
 
-            <a th:href="@{/admin/invoice/filter/1?accountId=__${account.accountId}__&selectAccount=__${selectAccount}__}"
-               id="1" class="filter col-2 m-3 p-2 btn-secondary btn">
-                <div class="info-box d-flex p-2">
-                    <span class="info-box-icon"><i class="fa-2xl fa-solid fa-cart-plus"
-                                                   style="color: #005eff;"></i></span>
-                    <div class="info-box-content">
-                        <div class="info-box-text">Đơn mới</div>
-                    </div>
-                </div>
-            </a>
 
-            <a th:href="@{/admin/invoice/filter/2?accountId=__${account.accountId}__&selectAccount=__${selectAccount}__}"
-               id="2" class="filter col-2 m-3 p-2 btn-secondary btn">
-                <div class="info-box d-flex p-2">
-                    <span class="info-box-icon"><i class="fa-2xl fa-solid fa-hourglass-half" style="color: yellow;"></i></span>
-                    <div class="info-box-content">
-                        <div class="info-box-text">Đang xử lý</div>
-                    </div>
-                </div>
-            </a>
+            <div class="filter m-3 p-2 btn col-2 d-flex align-items-center justify-content-around p-3"
+                 id="0" th:data-filter-status="0">
+                <i th:data-filter-status="0" class=" fa-2xl fa-solid fa-file-invoice-dollar" style="color: #ff0000;"></i>
+                Đơn đã hủy
+            </div>
 
-            <a th:href="@{/admin/invoice/filter/3?accountId=__${account.accountId}__&selectAccount=__${selectAccount}__}"
-               id="3" class="filter col-2 m-3 p-2 btn-secondary btn">
-                <div class="info-box d-flex p-2">
-                    <span class="info-box-icon"><i class="fa-2xl fa-solid fa-check"
-                                                   style="color: #00800f;"></i></span>
-                    <div class="info-box-content">
-                        <div class="info-box-text">Đơn đã lên</div>
-                    </div>
-                </div>
-            </a>
+            <div class="filter m-3 p-2 btn col-2 d-flex align-items-center justify-content-around p-3"
+                 id="1" th:data-filter-status="1">
+                <i th:data-filter-status="1" class=" fa-2xl fa-solid fa-file-invoice-dollar" style="color: #005eff;"></i>
+                Đơn mới
+            </div>
 
-            <a th:href="@{/admin/invoice/filter/4?accountId=__${account.accountId}__&selectAccount=__${selectAccount}__}"
-               id="4" class="filter col-2 m-3 p-2 btn-secondary btn">
-                <div class="info-box d-flex p-2">
-                    <span
-                            class="info-box-icon"><i class="fa-2xl fa-solid fa-truck-fast" style="color: #ffc800;"></i></span>
-                    <div class="info-box-content">
-                        <div class="info-box-text">Đơn đang giao</div>
-                    </div>
-                </div>
-            </a>
+            <div class="filter m-3 p-2 btn col-2 d-flex align-items-center justify-content-around p-3"
+                 id="2" th:data-filter-status="2">
+                <i th:data-filter-status="2" class=" fa-2xl fa-solid fa-file-invoice-dollar" style="color: yellow;"></i>
+                Đơn đang xử lý
+            </div>
 
-            <a th:href="@{/admin/invoice/filter/5?accountId=__${account.accountId}__&selectAccount=__${selectAccount}__}"
-               id="5" class="filter col-2 m-3 p-2 btn-secondary btn">
-                <div class="info-box d-flex p-2">
-                    <span class="info-box-icon"><i class="fa-2xl fa-solid fa-circle-check"
-                                                   style="color: #0045bd;"></i></span>
-                    <div class="info-box-content">
-                        <div class="info-box-text">Đơn thành công</div>
-                    </div>
-                </div>
-            </a>
+            <div class="filter m-3 p-2 btn col-2 d-flex align-items-center justify-content-around p-3"
+                 id="3" th:data-filter-status="3">
+                <i th:data-filter-status="3" class=" fa-2xl fa-solid fa-file-invoice-dollar" style="color: #00800f;"></i>
+                Đã lên đơn
+            </div>
 
-            <a th:href="@{/admin/invoice/filter/6?accountId=__${account.accountId}__&selectAccount=__${selectAccount}__}"
-               id="6" class="filter col-2 m-3 p-2 btn-secondary btn">
-                <div class="info-box d-flex p-2">
-                    <span
-                            class="info-box-icon"><i class="fa-2xl fa-solid fa-ban"
-                                                     style="color: #ff0000;"></i></span>
-                    <div class="info-box-content">
-                        <div class="info-box-text">Đơn hoàn</div>
-                    </div>
-                </div>
-            </a>
+            <div class="filter m-3 p-2 btn col-2 d-flex align-items-center justify-content-around p-3"
+                 id="4" th:data-filter-status="4">
+                <i th:data-filter-status="4" class=" fa-2xl fa-solid fa-file-invoice-dollar" style="color: #ffc800;"></i>
+                Đơn dang giao
+            </div>
+
+            <div class="filter m-3 p-2 btn col-2 d-flex align-items-center justify-content-around p-3"
+                 id="5" th:data-filter-status="5">
+                <i th:data-filter-status="5" class=" fa-2xl fa-solid fa-file-invoice-dollar" style="color: #0045bd;"></i>
+                Đơn thành công
+            </div>
+
+            <div class="filter m-3 p-2 btn col-2 d-flex align-items-center justify-content-around p-3"
+                 id="6" th:data-filter-status="6">
+                <i th:data-filter-status="6" class=" fa-2xl fa-solid fa-file-invoice-dollar" style="color: #ff0000;"></i>
+                Đơn hoàn
+            </div>
+
         </div>
 
-        <div id="list-invoice" th:include="~{admin/component/ListInvoice::ListInvoice}">
-        </div>
+        <div id="list-invoice" th:include="~{admin/component/ListInvoice::ListInvoice}"></div>
     </div>
 </div>
-<script th:inline="javascript">
-    $(document).ready(() => {
-        if ([[${filterStatus}]] === -1) {
-            $("#-1").removeClass("btn-secondary");
-            $("#-1").addClass("btn-primary");
-        } else if ([[${filterStatus}]] === 0) {
-            $("#0").removeClass("btn-secondary");
-            $("#0").addClass("btn-primary");
-        } else if ([[${filterStatus}]] === 1) {
-            $("#1").removeClass("btn-secondary");
-            $("#1").addClass("btn-primary");
-        } else if ([[${filterStatus}]] === 2) {
-            $("#2").removeClass("btn-secondary");
-            $("#2").addClass("btn-primary");
-        } else if ([[${filterStatus}]] === 3) {
-            $("#3").removeClass("btn-secondary");
-            $("#3").addClass("btn-primary");
-        } else if ([[${filterStatus}]] === 4) {
-            $("#4").removeClass("btn-secondary");
-            $("#4").addClass("btn-primary");
-        } else if ([[${filterStatus}]] === 5) {
-            $("#5").removeClass("btn-secondary");
-            $("#5").addClass("btn-primary");
-        } else if ([[${filterStatus}]] === 6) {
-            $("#6").removeClass("btn-secondary");
-            $("#6").addClass("btn-primary");
-        }
-
-        $("#btnAddInvoice").click(() => {
-            window.location.href = "/admin/invoice/add";
-        })
-
-        $("#changeAccount").change(() => {
-            var changeAccount = $("#changeAccount").val();
-            window.location.href = "/admin/invoice/filter/" + [[${filterStatus}]] + "?accountId=" + [[${account.accountId}]] + "&selectAccount=" + changeAccount
-        })
-    })
-</script>
+<script th:src="@{/script/AdminScript/InvoiceAdminScript.js}"></script>
 
 </body>
 </html>
