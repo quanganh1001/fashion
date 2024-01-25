@@ -21,7 +21,6 @@ $(document).ready(() => {
                 },
                 success: (data) => {
                     alert('Đã thêm thành công!');
-                    console.log(data)
                     window.location.href = "/admin/category?parent=" + data;
                     // Có thể thực hiện các hành động khác sau khi cập nhật thành công
                 },
