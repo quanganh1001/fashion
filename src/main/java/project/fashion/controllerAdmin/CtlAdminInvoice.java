@@ -24,9 +24,9 @@ public class CtlAdminInvoice {
     @Autowired
     private AccountService accountService;
 
-    @GetMapping("filter/{filterStatus}")
+    @GetMapping("")
     public String filterStatus(Model model,
-                               @PathVariable("filterStatus") Integer filterStatus,
+                               @RequestParam(value = "filterStatus",defaultValue = "-1") Integer filterStatus,
                                @RequestParam(name = "page", defaultValue = "0") int page,
                                @RequestParam(name = "key", defaultValue = "") String key,
                                @RequestParam(name = "selectAccount", defaultValue = "-1") Integer selectAccount) {

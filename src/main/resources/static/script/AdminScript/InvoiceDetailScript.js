@@ -22,16 +22,20 @@ $(document).ready(() => {
         const oldStatus = $(select.currentTarget).attr("data-old-status")
         const newStatus = $(select.currentTarget).val();
         // kiểm tra nếu đơn đã gửi thì không thể chuyển trạng thái về chưa gửi
-        if (oldStatus === 4 && newStatus <= 3) {
-            select.value = oldStatus
+        if (oldStatus == 4 && newStatus <= 3) {
+            $(select.currentTarget).val(oldStatus);
             alert('Đơn đã gửi thì không thể đổi trạng thái về lúc chưa gửi');
+        }else if (oldStatus == 3 && newStatus >= 5) {
+            console.log(newStatus)
+            $(select.currentTarget).val(oldStatus);
+            alert('Đơn chưa gửi thì không thể đổi trạng thái thành công hoặc hoàn');
         }
         // kiểm tra nếu đơn chưa gửi thì không thể chuyển trạng thái thành công hoặc hoàn
         else if (oldStatus <= 2 && newStatus >= 4) {
-            select.value = oldStatus
+            $(select.currentTarget).val(oldStatus);
             alert("Đơn chưa gửi không thể cập nhập trạng thái đang chuyển, thành công hoặc hoàn")
-        } else if (oldStatus === 5 || oldStatus === 6) {
-            select.value = oldStatus
+        } else if (oldStatus == 5 || oldStatus == 6) {
+            $(select.currentTarget).val(oldStatus);
             alert("Đơn hàng đã thành công hoặc hoàn thì không thể cập nhập trạng thái")
         }
     })

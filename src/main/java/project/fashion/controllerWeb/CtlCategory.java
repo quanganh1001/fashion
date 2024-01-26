@@ -3,6 +3,8 @@ package project.fashion.controllerWeb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,12 +31,18 @@ public class CtlCategory {
     private CategoryService categoryService;
 
     @GetMapping("/{catId}")
-    public String getCategory(Model model, @PathVariable String catId){
+    public String getCategory(Model model,
+                              @PathVariable String catId,
+                              @RequestParam(value = "page",defaultValue = "0") int page){
+
         categoryService.listCategory(model);
-        List<Product> products = categoryService.searchProductByCatId(catId);
+        Page<Product> products = categoryService.searchProductByCatId(catId, page, 15);
         Optional<Category> cat = Optional.of(categoryService.findById(catId).orElse(new Category()));
 
-        model.addAttribute("products",products);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalItems", products.getTotalElements());
+        model.addAttribute("products", products.getContent());
+        model.addAttribute("totalPages", products.getTotalPages());
         model.addAttribute("cat",cat.get());
         model.addAttribute("title","Category");
         return "web/Category";

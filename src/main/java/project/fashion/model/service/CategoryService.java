@@ -5,6 +5,10 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -57,7 +61,7 @@ public class CategoryService {
         if (Objects.equals(category.getCatId(), "") || category.getCatId() == null ||
                 Objects.equals(category.getCatName(), "") || category.getCatName() == null) {
             return new ResponseEntity<>("Lỗi validate", HttpStatus.BAD_REQUEST);
-        } else if(categoryRepo.existsById(category.getCatId())) {
+        } else if (categoryRepo.existsById(category.getCatId())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Danh mục đã tồn tại");
         } else {
             setCatActive(category.getCatId(), category.getIsCatActive());
@@ -75,22 +79,40 @@ public class CategoryService {
         return categories;
     }
 
-    public List<Product> searchProductByCatId(String catId) {
-        if(Objects.equals(catId, "sale")){
-            return productRepo.findAllByIsDiscountIsTrue();
-        }else {
-            List<Product> products = new ArrayList<>(productRepo.findByCategoryCatId(catId));
+    public Page<Product> searchProductByCatId(String catId,int page,int size ) {
+        if (page < 0)
+            page = 0;
+        if (Objects.equals(catId, "sale")) {
+            return productRepo.findAllByIsDiscountIsTrue(PageRequest.of(page,size));
+        } else {
+            List<Product> products = productRepo.findByCategoryCatId(catId);
             List<Category> allCategory = new ArrayList<>();
-            CatDescendants(catId,allCategory);
+            CatDescendants(catId, allCategory);
 
-            for (Category c: allCategory){
+            for (Category c : allCategory) {
                 products.addAll(productRepo.findByCategoryCatId(c.getCatId()));
             }
 
-            return products;
+            // Chuyển đổi danh sách sản phẩm thành một trang
+            int start = Math.toIntExact(PageRequest.of(page,size).getOffset());
+            int end = Math.min((start + PageRequest.of(page,size).getPageSize()), products.size());
+            return new PageImpl<>(products.subList(start, end), PageRequest.of(page,size), products.size());
         }
     }
-    public void CatDescendants(String catId, List<Category> allCategory){
+
+    public List<Product> searchProductByCatId(String catId) {
+        List<Product> products = productRepo.findByCategoryCatId(catId);
+        List<Category> allCategory = new ArrayList<>();
+        CatDescendants(catId, allCategory);
+        for (Category c : allCategory) {
+            products.addAll(productRepo.findByCategoryCatId(c.getCatId()));
+        }
+
+        return products;
+    }
+
+
+    public void CatDescendants(String catId, List<Category> allCategory) {
         List<Category> categories = getCategoriesByCatParentCatId(catId);
         for (Category child : categories) {
             allCategory.add(child);
@@ -122,32 +144,31 @@ public class CategoryService {
     }
 
     public ResponseEntity<String> deleteById(String catId) {
-        try{
+        try {
             Optional<Category> category = Optional.of(categoryRepo.findById(catId).orElse(new Category()));
             var parentId = category.get().getCatParent().getCatId();
             categoryRepo.deleteById(catId);
             return ResponseEntity.ok(parentId);
-        }
-        catch (Exception e){
-            return new ResponseEntity<>("Lỗi không thể xóa",HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Lỗi không thể xóa", HttpStatus.BAD_REQUEST);
         }
 
     }
 
-    public Optional<Category> findById(String catId){
+    public Optional<Category> findById(String catId) {
         return categoryRepo.findById(catId);
     }
 
-    public List<Category> findAll(){
+    public List<Category> findAll() {
         return categoryRepo.findAll();
     }
 
 
-    public void listCategory(Model model){
+    public void listCategory(Model model) {
         List<Category> categoriesF1 = categoryRepo.findCategoriesByCatParentCatId(null);
         List<Category> categoriesF2 = new ArrayList<>();
         List<Category> categoriesF3 = new ArrayList<>();
-        for (Category catF1:categoriesF1){
+        for (Category catF1 : categoriesF1) {
             categoriesF2.addAll(categoryRepo.findCategoriesByCatParentCatId(catF1.getCatId()));
         }
         for (Category catF2 : categoriesF2) {
@@ -155,7 +176,6 @@ public class CategoryService {
         }
 
         List<CartItem> numberCart = (List<CartItem>) model.getAttribute("CARTS");
-        System.out.println(numberCart);
         // Tính tổng số lượng sản phẩm trong giỏ hàng
         int number = 0;
         if (numberCart != null) {
@@ -164,9 +184,9 @@ public class CategoryService {
             }
         }
 
-        model.addAttribute("categoriesF1",categoriesF1);
-        model.addAttribute("categoriesF2",categoriesF2);
-        model.addAttribute("categoriesF3",categoriesF3);
+        model.addAttribute("categoriesF1", categoriesF1);
+        model.addAttribute("categoriesF2", categoriesF2);
+        model.addAttribute("categoriesF3", categoriesF3);
         model.addAttribute("number", number);
 
     }

@@ -3,7 +3,8 @@
         <a class="btn btn-primary" id="btnAddInvoice" href="/admin/invoice/add">Tạo đơn hàng</a>
         <div id="search">
             <label for="key">Tìm kiếm:</label>
-            <input type="text" id="key" name="key" placeholder="Nhập SĐT hoặc mã đơn hàng...">
+            <input type="text" id="key" th:value="${key}" name="key"
+                   placeholder="Nhập SĐT hoặc mã đơn hàng...">
             <button id="button-search" class="btn btn-primary">Tìm kiếm</button>
         </div>
 
@@ -107,6 +108,7 @@
                 });
             })
             $("#next").click(() => {
+                console.log("sc")
                 $.ajax({
                     type: 'GET',
                     url: "/admin/invoice/change-list-invoice",
@@ -138,8 +140,6 @@
                 const id = $(this).attr("id");
                 $(this).addClass("btn-secondary")
                 if (filterStatus === id) {
-                    console.log(id)
-                    console.log(filterStatus)
                     $(this).removeClass("btn-secondary");
                     $(this).addClass("btn-primary");
                 }

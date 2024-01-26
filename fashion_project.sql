@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th1 23, 2024 lúc 02:52 PM
+-- Thời gian đã tạo: Th1 26, 2024 lúc 12:56 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -115,38 +115,7 @@ CREATE TABLE `city` (
 INSERT INTO `city` (`city_id`, `name`) VALUES
 (1, 'Hà Nội'),
 (2, 'Hồ Chí Minh'),
-(3, 'Đà Nẵng'),
-(10, 'Huế'),
-(11, 'Hu'),
-(12, 'fds'),
-(13, 'df'),
-(14, 'dsfsdf'),
-(15, 'sdfds'),
-(16, 'd'),
-(17, 'x'),
-(18, 'dsfsd'),
-(19, 'cvxc'),
-(20, 'gfg'),
-(21, 'bfdf'),
-(22, 'bc'),
-(23, 'vsd'),
-(24, 'vcx'),
-(25, 'vd'),
-(26, 'dsv'),
-(27, 'ds'),
-(28, 'fdsfds'),
-(29, 'c'),
-(30, 'cf'),
-(31, 'dfd'),
-(32, 'cccccc'),
-(33, 'vdc'),
-(34, 'vxc'),
-(35, 'v'),
-(36, 'vc'),
-(37, 'cvcvc'),
-(38, 'ccccccc'),
-(39, 'vcvcx'),
-(40, 'bfgbgf');
+(3, 'Đà Nẵng');
 
 -- --------------------------------------------------------
 
@@ -1046,7 +1015,16 @@ INSERT INTO `history` (`id`, `invoice_id`, `content`, `time`, `time_ago`) VALUES
 (1013, '5FTZ8G2K', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đã lên đơn', '2024-01-22 04:07:18', NULL),
 (1014, '5FTZ8G2K', 'quanly đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Đang xử lý', '2024-01-22 04:33:31', NULL),
 (1015, 'MSFDUEXY', ' đã thay đổi Số lượng (ESTP01772CV32SB_BLE-S) :1 -> 2', '2024-01-22 05:29:08', NULL),
-(1016, '5FTZ8G2K', ' đã thay đổi Số lượng (DSBI01302LI00SB_BE-31) :1 -> 2', '2024-01-22 06:38:38', NULL);
+(1016, '5FTZ8G2K', ' đã thay đổi Số lượng (DSBI01302LI00SB_BE-31) :1 -> 2', '2024-01-22 06:38:38', NULL),
+(1017, '5FTZ8G2K', 'quanly đã thay đổi Nguồn tạo đơn hàng: quanly -> nhanvien2', '2024-01-25 09:19:22', NULL),
+(1018, 'MVNWRADX', 'quanly đã tạo đơn hàng: <br>Mã đơn: MVNWRADX,<br>Tên khách hàng: nhanvien1,<br>Số điện thoại: 365151822,<br>Địa chỉ: số 18 ngõ 222 tựu liệt,thanh trì, hà nội,<br>Ghi chú:                         ,<br>Nguồn:  nhanvien1', '2024-01-26 03:14:24', NULL),
+(1019, 'MVNWRADX', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đã lên đơn', '2024-01-26 03:14:37', NULL),
+(1020, 'MVNWRADX', 'quanly đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Thành công', '2024-01-26 03:14:41', NULL),
+(1021, 'T1VCKYYG', 'quanly đã tạo đơn hàng: <br>Mã đơn: T1VCKYYG,<br>Tên khách hàng: sser,<br>Số điện thoại: 44343,<br>Địa chỉ: f,<br>Ghi chú:                         dfs,<br>Nguồn:  nhanvien1', '2024-01-26 03:15:18', NULL),
+(1022, 'T1VCKYYG', 'quanly đã thay đổi Ghi chú:                         dfs -> dfs', '2024-01-26 03:15:28', NULL),
+(1023, 'T1VCKYYG', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đã lên đơn', '2024-01-26 03:21:23', NULL),
+(1024, 'T1VCKYYG', 'quanly đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Đang xử lý', '2024-01-26 03:23:08', NULL),
+(1025, 'T1VCKYYG', 'quanly đã thay đổi Trạng thái đơn hàng: Đang xử lý -> Đã lên đơn', '2024-01-26 03:23:12', NULL);
 
 -- --------------------------------------------------------
 
@@ -1605,7 +1583,7 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `created_at`, `note`, `customer_note`, `account_id`, `invoice_status`, `total_price`, `shipping_fee`, `total_bill`) VALUES
-('5FTZ8G2K', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-22 06:38:38', '', 'fsd', 1, 2, 1860000, 10000, 1870000),
+('5FTZ8G2K', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-25 09:19:22', '', 'fsd', 4, 2, 1860000, 10000, 1870000),
 ('7MOJYIGO', 'vcxvx', '33333', 'fsd', '2024-01-21 16:42:11', '', 'sd', NULL, 0, 2350000, 20000, 2370000),
 ('A5K1TOQE', 'gdfgfdg', '3423', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-21 16:02:42', '', 'vsd', 1, 2, 3060000, 30000, 3090000),
 ('AEAXIQS0', 'quang anh', '34232', 'ssd', '2024-01-21 16:42:11', '', 'x', NULL, 0, 990000, 0, NULL),
@@ -1615,8 +1593,10 @@ INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `created_at`, 
 ('I8XDEQJH', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-21 16:36:57', '', 'sd', 1, 2, 598000, 0, 598000),
 ('KT9P9ZMY', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-21 10:11:15', '', 'dsf', NULL, 1, 4040000, 20000, 4060000),
 ('MSFDUEXY', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-22 05:29:08', '', 'sd', 1, 1, 840000, 0, 840000),
+('MVNWRADX', 'nhanvien1', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-26 03:14:41', '                        ', NULL, 2, 5, NULL, NULL, NULL),
 ('OCFAOWMB', 'fsdfsd', '333333', 'vd', '2024-01-21 09:45:14', '', 'd', 1, 1, 1380000, 30000, 1410000),
 ('SMMKHRU1', 'dfsd', '222222', 'sdf', '2024-01-21 09:17:25', '', 'fds', NULL, 1, 400000, 30000, 430000),
+('T1VCKYYG', 'sser', '44343', 'f', '2024-01-26 03:23:12', 'dfs', NULL, 2, 3, NULL, NULL, NULL),
 ('TLSY7TFT', 'dfgdf', '323233232', 'fds', '2024-01-20 08:38:59', '', 'f', NULL, 1, 750000, 0, 750000),
 ('UAEZV8YX', 'gdfgfdg', '3423', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 08:24:41', '', 'vsd', 1, 1, 550000, 30000, 410000),
 ('UZZHM3TR', 'nguyễn quang anh', '333322323', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 08:28:41', '', 'fs', NULL, 1, 480000, 30000, 510000),
@@ -3047,7 +3027,7 @@ ALTER TABLE `city`
 -- AUTO_INCREMENT cho bảng `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1017;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1026;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_product`

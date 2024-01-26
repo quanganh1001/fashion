@@ -3,6 +3,7 @@ package project.fashion.model.service;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,12 +39,15 @@ public class ProductService{
         productRepo.setProductActive(cat_id,boo);
     }
 
-    public Page<Product> searchProduct(String key, Pageable pageable) {
+    public Page<Product> searchProduct(String key,int page,  int pagesize) {
+        if(page < 0){
+            page = 0;
+        }
         if (key != null && !key.isEmpty()) {
             return productRepo.searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase(
-                    key, key, pageable);
+                    key, key, PageRequest.of(page,pagesize));
         } else {
-            return productRepo.findAll(pageable);
+            return productRepo.findAll(PageRequest.of(page,pagesize));
         }
     }
 
