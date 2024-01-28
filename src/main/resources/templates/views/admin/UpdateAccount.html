@@ -7,28 +7,31 @@
 <div class="ui-menu-item-wrapper">
     <div th:include="~{admin/component/Menu::menu}"></div>
 
+    <div th:include="~{admin/component/ModalAlert::ModalAlert}"></div>
+
     <div class="container p-4">
         <h2>Cập nhập tài khoản</h2>
-        <form id="form" th:action="@{/admin/account/update-account}"
-              th:object="${ac}">
-            <input type="hidden" th:field="${accountResponse.accountId}">
+        <form th:action="@{/admin/account/update-account}"
+              th:object="${acc}" th:method="put">
+            <input type="hidden" th:field="*{accountId}">
             <div class="row">
                 <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3">
                     <label for="userName" class="form-label">Tài khoản<span style="color:red">*</span></label>
                     <input type="text" class="form-control" id="userName"
-                           th:field="${accountResponse.userName}">
+                           th:field="*{userName}">
+                    <p th:if="${#fields.hasErrors('userName')}" class="text-danger" th:errors="*{userName}"></p>
                 </div>
 
                 <div th:unless="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3">
                     <label class="form-label">Tài khoản<span style="color:red">*</span></label>
                     <input readonly type="text" class="readonly form-control"
-                           th:field="${accountResponse.userName}">
+                           th:field="*{userName}">
                 </div>
 
                 <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3">
                     <label for="role" class="form-label">Quyền<span
                             style="color:red">*</span></label>
-                    <select class="form-control" id="role" th:field="${accountResponse.role}">
+                    <select class="form-control" id="role" th:field="*{role}">
                         <option th:each="role : ${roles}" th:value="${role}"
                                 th:text="${role}"></option>
                     </select>
@@ -37,21 +40,24 @@
                 <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}">
                     <label for="enabled" class="form-label">Trạng thái<span style="color:red">*</span></label>
                     <input id="enabled" type="checkbox"
-                           th:field="${accountResponse.enabled}">Hoạt động/Không kích hoạt
+                           th:field="*{enabled}">Hoạt động/Không kích hoạt
                 </div>
             </div>
 
+            <div class="col-6 d-flex justify-content-between">
+                <button th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" style="text-align: center"
+                        type="submit" id="button" class="col-2 btn btn-primary">Lưu
+                </button>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        class=" btn btn-warning">Đổi mật khẩu
+                </button>
+                <button th:data-account-id="${account.accountId}"
+                        id="reset-button"
+                        class="btn btn-warning">Đặt lại mật khẩu
+                </button>
+            </div>
         </form>
-        <div class="col-6 d-flex justify-content-between">
-            <button th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" style="text-align: center" type="button" id="button" class="col-2 btn btn-primary">Lưu</button>
-            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    class=" btn btn-warning">Đổi mật khẩu
-            </button>
-            <button th:data-account-id="${account.accountId}"
-                    id="reset-button"
-                    class="btn btn-warning">Đặt lại mật khẩu
-            </button>
-        </div>
+
 
     </div>
 
@@ -64,33 +70,42 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="oldPassword" class="form-label">Mật khẩu
-                            cũ<span style="color:red">*</span></label>
-                        <input type="password" class="form-control" id="oldPassword">
-                    </div>
-                    <div class="mb-3">
-                        <label for="newPassword" class="form-label">Mật khẩu
-                            mới<span style="color:red">*</span></label>
-                        <input type="password" class="form-control" id="newPassword">
-                    </div>
-                    <div class="mb-3">
-                        <label for="newPasswordAgain" class="form-label">Nhập lại
-                            mật khẩu mới<span style="color:red">*</span></label>
-                        <input type="password" class="form-control" id="newPasswordAgain">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button id="change-pw-btn" th:data-account-id="${account.accountId}" type="button"
-                            class="btn btn-primary">Lưu thay
-                        đổi</button>
+                    <form th:action="@{/admin/account/change-password/__${acc.accountId}__}"
+                          th:method="put"
+                          th:object="${changePass}">
+                        <div class="mb-3">
+                            <label for="oldPassword" class="form-label">Mật khẩu
+                                cũ<span style="color:red">*</span></label>
+                            <input type="password" class="form-control" id="oldPassword" th:field="*{oldPassword}">
+                            <p th:if="${#fields.hasErrors('oldPassword')}" class="text-danger" th:errors="*{oldPassword}"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">Mật khẩu
+                                mới<span style="color:red">*</span></label>
+                            <input type="password" class="form-control" id="newPassword" th:field="*{password}">
+                            <p th:if="${#fields.hasErrors('password')}" class="text-danger" th:errors="*{password}"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPasswordAgain" class="form-label">Nhập lại
+                                mật khẩu mới<span style="color:red">*</span></label>
+                            <input type="password" class="form-control" id="newPasswordAgain" th:field="*{newPasswordAgain}">
+                            <p th:if="${#fields.hasErrors('newPasswordAgain')}" class="text-danger" th:errors="*{newPasswordAgain}"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+
+                        </div>
+                        <button id="change-pw-btn" type="submit"
+                                class="btn btn-primary">Lưu thay
+                            đổi
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 
 </div>
-<script th:src="@{/script/AdminScript/UpdateAccountScript.js}"></script>
+
 </body>
 </html>

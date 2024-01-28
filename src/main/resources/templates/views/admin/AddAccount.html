@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:include="~{admin/component/head::head}"></head>
 
@@ -11,28 +11,27 @@
     <div class="container p-4">
 
         <h2>THÊM MỚI TÀI KHOẢN</h2>
-        <form id="form" th:action="@{/admin/account/add-account}" method="post" th:object="${ac}">
+        <form id="form" th:action="@{/admin/account/add-account}" method="post" th:object="${newAccount}">
             <div class="row">
                 <div class="mb-3">
                     <label for="userName" class="form-label">Tên tài khoản<span style="color:red">*</span></label>
-                    <input type="text" class="form-control" id="userName" th:field="${newAccount.userName}">
+                    <input type="text" class="form-control" id="userName" th:field="*{userName}">
+                    <p th:if="${#fields.hasErrors('userName')}" class="text-danger" th:errors="*{userName}"></p>
                 </div>
 
                 <div class="mb-3">
                     <label th:for="role" class="form-label">Phân quyền<span style="color:red">*</span></label>
-                    <select class="form-control" th:id="role" th:field="${newAccount.role}">
-                        <option value="">Không có</option>
+                    <select class="form-control" th:id="role" th:field="*{role}">
                         <option th:each="role : ${roles}" th:value="${role}"
                                 th:text="${role}" ></option>
                     </select>
                 </div>
 
-                <button style="text-align: center" type="button" id="btn-submit" class="col-2 btn btn-primary">Tạo tài khoản</button>
+                <button style="text-align: center" type="submit" id="btn-submit" class="col-2 btn btn-primary">Tạo tài khoản</button>
             </div>
         </form>
     </div>
 </div>
-<script th:src="@{/script/AdminScript/AddAccountScript.js}"></script>
 </body>
 </html>
 

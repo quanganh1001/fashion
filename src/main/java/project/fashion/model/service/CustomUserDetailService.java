@@ -22,9 +22,6 @@ public class CustomUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = accountService.findByUserName(username);
-        if(account == null){
-            throw new UsernameNotFoundException("Sai");
-        }
 
         Collection<GrantedAuthority> grantedAuthoritySet = new HashSet<>();
         String role = account.getRole().name();

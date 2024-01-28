@@ -1,0 +1,25 @@
+<div th:fragment="ModalAlert">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Thông báo</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div th:text="${alertMessage}"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class=" btn btn-primary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            if ([[${alertMessage}]] != null) {
+                $('#myModal').modal('show');
+            }
+        });
+    </script>
+</div>

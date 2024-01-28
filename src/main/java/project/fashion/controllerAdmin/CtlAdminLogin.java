@@ -11,4 +11,5 @@ public class CtlAdminLogin {
     public String getHome(Model model){
         return "admin/Login";
     }
+
 }
