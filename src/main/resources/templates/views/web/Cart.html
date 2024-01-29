@@ -66,8 +66,8 @@
                               class="text-danger fw-bold"></span>
                         <span th:unless="${cart.discountPrice == null}" th:id="${cart.code} + 'P'"
                               th:text="${#numbers.formatDecimal(cart.quantity * cart.discountPrice, 0, 'POINT', 0, 'POINT')} +' đ'"
-                              class="text-danger fw-bold"></span>
-
+                              class="text-danger fw-bold">
+                        </span>
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@
 
     <div class="d-flex flex-column align-items-center col-6 p-2 m-3">
         <h4 class="border-bottom p-2">Thông tin người nhận</h4>
-        <form id="form" th:action="@{/checkout}" method="post">
+        <form th:action="@{/checkout}" method="post">
             <div class="row">
                 <div class="mb-3">
                     <label for="name" class="form-label">Họ Tên<span style="color:red">*</span></label>
@@ -108,7 +108,8 @@
                         class="col-2 btn btn-secondary">Đặt hàng</button>
                 <button th:unless="${number == 0}" style="text-align: center" type="button" id="btn-submit"
                         class="col-2 btn btn-primary">Đặt
-                    hàng</button>
+                    hàng
+                </button>
             </div>
         </form>
     </div>

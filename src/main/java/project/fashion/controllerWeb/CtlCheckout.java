@@ -8,8 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.model.entity.*;
 import project.fashion.model.service.*;
 
@@ -35,13 +38,14 @@ public class CtlCheckout {
                               @RequestParam("invoiceId") String invoiceId,
                               @ModelAttribute("invoiceId") String SessioninvoiceId,
                               @ModelAttribute("CARTS") List<CartItem> cartItemList) {
+
         if (Objects.equals(SessioninvoiceId, invoiceId)) {
             categoryService.listCategory(model);
             Invoice invoice = invoiceService.findById(invoiceId);
             List<InvoiceDetail> invoiceDetails = invoiceDetailService.findAllByInvoice_InvoiceId(invoiceId);
             model.addAttribute("invoice", invoice);
             model.addAttribute("invoiceDetails", invoiceDetails);
-
+            model.addAttribute("alertMessage","Đặt hàng thành công");
             cartItemList.clear();
             return "web/Checkout";
         } else {
@@ -51,7 +55,7 @@ public class CtlCheckout {
 
 
     @PostMapping ("")
-    public ResponseEntity<String> addInvoice( ModelMap model,
+    public ResponseEntity<String> addInvoice(ModelMap model,
                                              @ModelAttribute Invoice invoice) {
         var invoiceId = "";
             invoiceId = invoiceService.addInvoice(invoice).getBody();

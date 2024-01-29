@@ -104,7 +104,6 @@ public class CtlAdminAccount {
                                  @PathVariable("accountId") Integer accountId,
                                  RedirectAttributes attributes
                                  ) {
-        System.out.println(accountId);
         return accountService.changePass(changePass,accountId,result,attributes);
     }
 }

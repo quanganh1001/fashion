@@ -1,6 +1,9 @@
 package project.fashion.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -11,14 +14,26 @@ import java.time.LocalDateTime;
 public class Invoice {
     @Id
     private String invoiceId;
+
+    @NotBlank(message = "Tên không được để trống")
     private String name;
+
+    @Pattern(regexp = "^[0-9]{10}$", message = "Số điện thoại không đúng")
     private String phone;
+
+    @NotBlank(message = "Địa chỉ không được để trống")
     private String address;
+
     private String note;
+
     private String customerNote;
+
     private Integer totalPrice;
+
     private Integer shippingFee;
+
     private Integer totalBill;
+
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt;
 

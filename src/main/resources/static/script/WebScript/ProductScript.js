@@ -97,7 +97,6 @@ $(document).ready(function () {
             url: "/carts/addToCart",
             data: {prDetailId: prDetailId, quantity: quantity},
             success: ((data) => {
-                alert("Đã thêm vào giỏ hàng");
                 $("#header").html(data)
             }),
             error: (jqXHR) => {

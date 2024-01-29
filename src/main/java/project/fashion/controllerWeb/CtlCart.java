@@ -7,10 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import project.fashion.model.entity.CartItem;
-import project.fashion.model.entity.ImgProduct;
-import project.fashion.model.entity.Product;
-import project.fashion.model.entity.ProductDetail;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import project.fashion.model.entity.*;
 import project.fashion.model.repository.ProductDetailRepo;
 import project.fashion.model.service.*;
 
@@ -40,6 +38,7 @@ public class CtlCart {
         var totalPrice = cartService.getTotalPrice(cartItemList);
         var shippingFee = cartService.getShippingFee(totalPrice);
 
+        model.addAttribute("newInvoice",new Invoice());
         model.addAttribute("shippingFee",shippingFee);
         model.addAttribute("totalPrice",totalPrice);
         return "web/Cart";
@@ -52,6 +51,7 @@ public class CtlCart {
                             @ModelAttribute("CARTS") List<CartItem> cartItemList) {
         cartService.addCart(prDetailId, cartItemList, quantity);
         categoryService.listCategory(model);
+        model.addAttribute("alertMessage","Thêm giỏ hàng thành công");
         return "web/component/header";
     }
 
