@@ -1,63 +1,54 @@
-function confirmDelete(button) {
-    var result = confirm("Bạn có muốn xóa sản phẩm này?");
-    if (result) {
-        var productDetailId = button.getAttribute('data-prDetail-id')
-        var productId = button.getAttribute('data-product-id')
-        var csrfToken = $("meta[name='_csrf']").attr("content");
-        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-
-        $.ajax({
-            type: 'DELETE',
-            url: '/admin/productDetail/delete/prDetail',
-            data: {prDetailId:productDetailId},
-            beforeSend: function (xhr) {
-                // Sử dụng tên HTTP header chuẩn và giá trị token
-                xhr.setRequestHeader(csrfHeader, csrfToken);
-            },
-            success:  (data) => {
-                alert('Đã xóa!');
-                window.location.href="/admin/product/update-product/" + productId;
-
-            },
-            error: (jqXHR) => {
-                alert(jqXHR.responseText)
-            }
-        });
-    }
-}
 $(document).ready(() => {
-    $("#button").click(() => {
-        if ($("#pr_name").val() === "" ||
-            $("#price").val() === "" ||
-            $("#category").val() === "" ||
-            $("#brand").val() === "" ||
-            $("#imgSize").val() === "" ||
-            isNaN($("#price").val()) ||
-            isNaN($("#discount_price").val())) {
-            alert("Nhập sai hoặc thiếu thông tin");
-            return;
+    $("#form").submit(() => {
+        let validation = true
+
+        if ($("#product-id").val() === ""){
+            $("#idError").text("Chưa nhập mã sản phẩm")
+            validation = false
         }else {
-            var formData = $('#form').serialize(); // Lấy dữ liệu form
-            var url = $('#form').attr('action'); // Lấy URL của form
-            var csrfToken = $("meta[name='_csrf']").attr("content");
-            var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-            $.ajax({
-                type: 'PUT',
-                url: url,
-                data: formData,
-                beforeSend: function (xhr) {
-                    // Sử dụng tên HTTP header chuẩn và giá trị token
-                    xhr.setRequestHeader(csrfHeader, csrfToken);
-                },
-                success:  (data) => {
-                    alert('Đã cập nhật thành công!');
-                    window.location.reload();
-                    // Có thể thực hiện các hành động khác sau khi cập nhật thành công
-                },
-                error: (jqXHR) => {
-                    alert(jqXHR.responseText)
-                }
-            });
+            $("#idError").text("")
         }
-    });
+
+        if($("#pr-name").val() === ""){
+            $("#nameError").text("Chưa nhập tên sản phẩm")
+            validation = false
+        }else {
+            $("#nameError").text("")
+        }
+
+
+        if (!$("#price").val().match(/^[0-9]+$/)){
+            $("#priceError").text("Giá tiền không hợp lệ")
+            validation = false
+        }
+        else {
+            $("#priceError").text("")
+        }
+
+        if($("#discount-price").val() !== "" && !$("#discount-price").val().match(/^[0-9]+$/)){
+            $("#discountError").text("Giá tiền không hợp lệ")
+            validation = false
+        }else {
+            $("#discountError").text("")
+        }
+
+        if($(".category").val() === "" ){
+            $("#categoryError").text("Chưa chọn danh mục")
+            console.log("fds")
+            validation = false
+        }else {
+            $("#categoryError").text("")
+        }
+
+        if($("#brand").val() === "" ){
+            $("#brandError").text("Chưa nhập thương hiệu")
+            validation = false
+        }else {
+            $("#brandError").text("")
+        }
+
+
+        return validation;
+    })
+
 });

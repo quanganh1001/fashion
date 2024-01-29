@@ -1,0 +1,132 @@
+<table th:fragment="ListProduct">
+    <thead>
+    <tr>
+        <th>Image</th>
+        <th>Mã sản phẩm</th>
+        <th>Tên sản phẩm</th>
+        <th>Màu sắc</th>
+        <th>Size</th>
+        <th>Giá</th>
+        <th>Số lượng</th>
+        <th>Tổng tiền</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="id:${invoiceDetails}">
+        <td><img width="50px" th:src="@{'/admin/invoiceDetail/img/'+${id.productDetail.product.productId}}">
+        </td>
+        <td th:text="${id.productDetail.code}"></td>
+        <td th:text="${id.productDetail.product.productName}"></td>
+        <td th:text="${id.productDetail.color.name}"></td>
+        <td th:text="${id.productDetail.size.sizeId}"></td>
+        <td th:text="${#numbers.formatDecimal(id.price, 0, 'POINT', 0, 'POINT')}"></td>
+        <td>
+            <div class="editable-note">
+                <span th:id="'quantity' + ${id.detailId}" th:text="${id.quantity}"></span>
+                <input class="hidden"
+                       th:id="'input' + ${id.detailId}"
+                       type="text"
+                       style="width:30px"
+                       th:value="${id.quantity}"/>
+                <span th:if="${id.invoice.invoiceStatus.statusId} >= 0 and ${id.invoice.invoiceStatus.statusId} <=2"
+                      th:id="'edit' + ${id.detailId}"
+                      th:data-detail-id="${id.detailId}"
+                      class="edit">
+                    <i class=" fa-regular fa-pen-to-square" style="color: #0033ff;"></i>
+                        </span>
+                <span class="hidden saveQuantity"
+                      th:id="'done' + ${id.detailId}"
+                      th:data-detail-id="${id.detailId}">
+                            <i class="fa-solid fa-check" style="color: #00ff59;"></i>
+                        </span>
+                <span class="hidden cancel"
+                      th:id="'cancel' + ${id.detailId}"
+                      th:data-detail-id="${id.detailId}">
+                            <i class="fa-solid fa-xmark" style="color: #ff0000;"></i>
+                        </span>
+            </div>
+        </td>
+        <td th:text="${#numbers.formatDecimal(id.totalPrice, 0, 'POINT', 0, 'POINT')}"></td>
+        <td class="button"
+            th:if="${id.invoice.invoiceStatus.statusId} >= 0 and ${id.invoice.invoiceStatus.statusId} <= 2">
+            <button class="delete btn btn-danger btn-sm" th:data-id="${id.detailId}">
+                <i class="fas fa-trash-alt"></i> Delete
+            </button>
+        </td>
+    </tr>
+    </tbody>
+    <script>
+        function toggleEditMode(button) {
+            var detailId = $(button.currentTarget).attr('data-detail-id');
+            var quantityElement = $('#quantity' + detailId);
+            var inputElement = $('#input' + detailId);
+            var doneElement = $('#done' + detailId);
+            var editElement = $('#edit' + detailId);
+            var cancelElement = $('#cancel' + detailId);
+
+            inputElement.toggleClass('hidden');
+            quantityElement.toggleClass('hidden');
+            doneElement.toggleClass('hidden');
+            editElement.toggleClass('hidden');
+            cancelElement.toggleClass('hidden');
+        }
+
+        $(document).ready(() =>{
+            const csrfToken = $("meta[name='_csrf']").attr("content");
+            const csrfHeader = $("meta[name='_csrf_header']").attr("content");
+            const invoiceId = $("#input-plus").attr("data-invoice-id");
+
+            $(".edit").click(function (btn) {
+                toggleEditMode(btn)
+            })
+
+            $(".cancel").click(function (btn) {
+                toggleEditMode(btn)
+            })
+
+            $(".delete").click(function (btn) {
+                const detailId = $(btn.currentTarget).attr("data-id");
+
+                $.ajax({
+                    url: '/admin/invoiceDetail/delete',
+                    data: {detailId: detailId, invoiceId: invoiceId},
+                    type: 'DELETE',
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(csrfHeader, csrfToken);
+                    },
+                    success: function (data) {
+                        $("#table").html(data)
+                        updateTotalBill(invoiceId)
+                    },
+                    error: (jqXHR) => {
+                        alert(jqXHR.responseText)
+                    }
+                });
+            })
+
+            $(".saveQuantity").click(function (btn) {
+                const invoiceDetailId = $(btn.currentTarget).attr('data-detail-id');
+                const quantityElement = $('#input' + invoiceDetailId);
+                const newQuantity = quantityElement.val();
+
+                $.ajax({
+                    type: 'PUT',
+                    url: '/admin/invoiceDetail/update-quantity', // Replace with your actual endpoint-->
+                    data: {newQuantity: newQuantity, invoiceDetailId: invoiceDetailId,invoiceId:invoiceId},
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(csrfHeader, csrfToken);
+                    },
+                    success: function (data) {
+                        toggleEditMode(btn);
+                        $("#table").html(data)
+                        updateTotalBill(invoiceId)
+                    },
+                    error: (jqXHR) => {
+                        alert(jqXHR.responseText)
+                    }
+                });
+            })
+        })
+    </script>
+</table>

@@ -6,6 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.model.entity.Color;
 import project.fashion.model.entity.Product;
 import project.fashion.model.entity.ProductDetail;
@@ -78,9 +79,18 @@ public class CtlAdminProductDetail {
     }
 
     @DeleteMapping ("/delete/prDetail")
-    public ResponseEntity<Void> deleteProductDetail(@RequestParam("prDetailId") Integer prDetailId) {
-        productDetailService.deleteById(prDetailId);
-         return ResponseEntity.ok().build();
+    public String deleteProductDetail(@RequestParam("prDetailId") Integer prDetailId,
+                                      @RequestParam("productId") String productId,
+                                      RedirectAttributes attributes) {
+        try{
+            productDetailService.deleteById(prDetailId);
+            attributes.addFlashAttribute("alertMessage","Đã xóa sản phẩm");
+            return "redirect:/admin/product/update-product/"+productId;
+        }catch (Exception e){
+            attributes.addFlashAttribute("alertMessage","Không thể xóa");
+            return "redirect:/admin/product/update-product/"+productId;
+        }
+
     }
 
 }

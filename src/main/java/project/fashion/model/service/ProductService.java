@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.model.entity.Category;
 import project.fashion.model.entity.Product;
 import project.fashion.model.entity.ProductDetail;
@@ -52,7 +53,7 @@ public class ProductService{
     }
 
     @Transactional
-    public ResponseEntity<String> saveProduct(Product product){
+    public String saveProduct(Product product,RedirectAttributes attributes) throws Exception {
 
         if(Objects.equals(product.getProductId(), "")|| product.getProductId() == null||
                 Objects.equals(product.getProductName(), "")|| product.getProductName() == null||
@@ -60,36 +61,40 @@ public class ProductService{
                 Objects.equals(product.getBrand(), "")|| product.getBrand() == null||
                 Objects.equals(product.getCategory(), "")|| product.getCategory() == null
                 ) {
-            return new ResponseEntity<>("Lỗi validate", HttpStatus.BAD_REQUEST);
+            throw new Exception("Lỗi validation");
         }
         else if(product.getDiscountPrice() != null && !isNumeric(product.getDiscountPrice().toString())){
-                return new ResponseEntity<>("Lỗi validate", HttpStatus.BAD_REQUEST);
+            throw new Exception("Lỗi validation");
         }
         else {
             productDetailRepo.setProductDetailActive(product.getProductId(),product.getIsProductActive());
             productRepo.save(product);
-            return ResponseEntity.ok(product.getProductId());
+            attributes.addFlashAttribute("alertMessage","Đã cập nhập sản phẩm");
+            return "redirect:/admin/product/update-product/"+product.getProductId();
         }
     }
 
     @Transactional
-    public ResponseEntity<String> addProduct(Product product){
+    public String addProduct(Product product, RedirectAttributes attributes) throws Exception {
         if(Objects.equals(product.getProductId(), "")|| product.getProductId() == null||
                 Objects.equals(product.getProductName(), "")|| product.getProductName() == null||
                 Objects.equals(product.getPrice(), "")|| product.getPrice() == null|| !isNumeric(product.getPrice().toString())||
                 Objects.equals(product.getBrand(), "")|| product.getBrand() == null||
                 Objects.equals(product.getCategory(), "")|| product.getCategory() == null
         ) {
-            return new ResponseEntity<>("Lỗi validate", HttpStatus.BAD_REQUEST);
+            throw new Exception("Lỗi validation");
         }else if(product.getDiscountPrice() != null && !isNumeric(product.getDiscountPrice().toString())){
-            return new ResponseEntity<>("Lỗi validate", HttpStatus.BAD_REQUEST);
+            throw new Exception("Lỗi validation");
+
         }else if(productRepo.existsById(product.getProductId())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Sản phẩm đã tồn tại");
+            attributes.addFlashAttribute("alertMessage","Sản phẩm đã tồn tại");
+            return "redirect:/admin/product/add-product";
         }
         else {
             productDetailRepo.setProductDetailActive(product.getProductId(),product.getIsProductActive());
             productRepo.save(product);
-            return ResponseEntity.ok(product.getProductId());
+            attributes.addFlashAttribute("alertMessage","Đã tạo sản phẩm");
+            return "redirect:/admin/product/update-product/" + product.getProductId();
         }
     }
 

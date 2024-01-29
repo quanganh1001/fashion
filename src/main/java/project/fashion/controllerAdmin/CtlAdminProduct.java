@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.model.entity.Category;
 import project.fashion.model.entity.ImgSize;
 import project.fashion.model.entity.Product;
@@ -61,20 +62,19 @@ public class CtlAdminProduct {
     public String addProduct(Model model,@RequestParam(value = "catId",defaultValue = "") String catId) {
         List<Category> cat = categoryRepo.findAll();
         List<ImgSize> img = imgSizeRepo.findAll();
-        Product product = new Product();
         accountService.getAccountResponse(model);
 
         model.addAttribute("catId",catId);
-        model.addAttribute("product", product);
+        model.addAttribute("product", new Product());
         model.addAttribute("cat", cat);
         model.addAttribute("img", img);
         model.addAttribute("title","Product");
-        return "/admin/AddProduct";
+        return "admin/AddProduct";
     }
 
     @PostMapping("/add-product")
-    public ResponseEntity<String> addProduct(@ModelAttribute Product product) {
-        return productService.addProduct(product);
+    public String addProduct(@ModelAttribute Product product, RedirectAttributes attributes) throws Exception {
+        return productService.addProduct(product,attributes);
     }
 
     @DeleteMapping("/delete-product/{productId}")
@@ -104,8 +104,8 @@ public class CtlAdminProduct {
     }
 
     @PutMapping("/update-product")
-    public ResponseEntity<String> updateProduct(@ModelAttribute Product p) {
-        return productService.saveProduct(p);
+    public String updateProduct(@ModelAttribute Product p,RedirectAttributes attributes) throws Exception {
+        return productService.saveProduct(p,attributes);
     }
 
 }
