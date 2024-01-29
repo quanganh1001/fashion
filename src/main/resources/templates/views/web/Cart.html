@@ -82,31 +82,36 @@
 
     <div class="d-flex flex-column align-items-center col-6 p-2 m-3">
         <h4 class="border-bottom p-2">Thông tin người nhận</h4>
-        <form th:action="@{/checkout}" method="post">
+        <form id="form" th:action="@{/checkout}" method="post">
+            <input type="hidden" id="shippingFeeInput" name="shippingFee">
+
             <div class="row">
                 <div class="mb-3">
                     <label for="name" class="form-label">Họ Tên<span style="color:red">*</span></label>
                     <input type="text" class="form-control" id="name" name="name">
+                    <span id="nameError" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label th:for="phone" class="form-label">Số điện thoại<span style="color:red">*</span></label>
                     <input type="text" class="form-control" id="phone" name="phone">
+                    <span id="phoneError" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label th:for="address" class="form-label">address<span style="color:red">*</span></label>
                     <input type="text" class="form-control" id="address" name="address">
+                    <span id="addressError" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label th:for="customerNote" class="form-label">Lời nhắn của bạn<span style="color:red">*</span></label>
+                    <label th:for="customerNote" class="form-label">Lời nhắn của bạn</label>
                     <textarea class="form-control" id="customerNote" name="customerNote"></textarea>
                 </div>
 
                 <button th:if="${number == 0}" style="text-align: center" disabled
                         class="col-2 btn btn-secondary">Đặt hàng</button>
-                <button th:unless="${number == 0}" style="text-align: center" type="button" id="btn-submit"
+                <button th:unless="${number == 0}" style="text-align: center" type="submit" id="btn-submit"
                         class="col-2 btn btn-primary">Đặt
                     hàng
                 </button>

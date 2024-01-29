@@ -35,34 +35,34 @@ public class CtlCheckout {
 
     @GetMapping("")
     public String getCheckout(Model model,
+                              ModelMap modelMap,
                               @RequestParam("invoiceId") String invoiceId,
-                              @ModelAttribute("invoiceId") String SessioninvoiceId,
                               @ModelAttribute("CARTS") List<CartItem> cartItemList) {
+        String message = (String) modelMap.get("alertMessage");
+        if (message != null) {
 
-        if (Objects.equals(SessioninvoiceId, invoiceId)) {
             categoryService.listCategory(model);
             Invoice invoice = invoiceService.findById(invoiceId);
             List<InvoiceDetail> invoiceDetails = invoiceDetailService.findAllByInvoice_InvoiceId(invoiceId);
             model.addAttribute("invoice", invoice);
             model.addAttribute("invoiceDetails", invoiceDetails);
-            model.addAttribute("alertMessage","Đặt hàng thành công");
             cartItemList.clear();
             return "web/Checkout";
-        } else {
+        }else
             return "redirect:/";
-        }
     }
 
 
     @PostMapping ("")
-    public ResponseEntity<String> addInvoice(ModelMap model,
+    public String addInvoice(ModelMap model,
+                                             RedirectAttributes attributes,
                                              @ModelAttribute Invoice invoice) {
         var invoiceId = "";
             invoiceId = invoiceService.addInvoice(invoice).getBody();
             Invoice newInvoice = invoiceService.findById(invoiceId);
             List<CartItem> cartItemList = (List<CartItem>) model.getAttribute("CARTS");
             if (cartItemList == null || cartItemList.isEmpty()){
-                return new ResponseEntity<>("Chưa có sản phẩm trong giỏ hàng",HttpStatus.BAD_REQUEST);
+                return null;
             }
             for (CartItem cartItem : cartItemList) {
                 var quantity = cartItem.getQuantity();
@@ -80,8 +80,8 @@ public class CtlCheckout {
                 invoiceDetail.setQuantity(quantity);
                 invoiceDetailService.save(invoiceDetail);
             }
-            model.addAttribute("invoiceId", invoiceId);
-            return ResponseEntity.ok(invoiceId);
+            attributes.addFlashAttribute("alertMessage","Đặt hàng thành công");
+            return "redirect:/checkout?invoiceId="+invoiceId;
 
         }
 
