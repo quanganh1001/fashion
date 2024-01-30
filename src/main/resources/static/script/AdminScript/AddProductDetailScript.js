@@ -1,31 +1,38 @@
 $(document).ready(() => {
-    $("#btn-submit").click(()=>{
-        if ($("#code").val() === "" || $("#quantity").val() === ""|| $("#color").val() ==="" || isNaN($("#quantity").val())){
-            alert("Nhập sai hoặc thiếu thông tin")
+    $("#form").submit(() => {
+        let validation = true
+
+        if($("#code").val() === ""){
+            $("#codeError").text("Chưa nhập mã sản phẩm")
+            validation = false
+        }else {
+            $("#codeError").text("")
+        }
+
+        if (!$("#quantity").val().match(/^[0-9]+$/)){
+            $("#quantityError").text("Số lượng không hợp lệ")
+            validation = false
         }
         else {
-            var formData = $('#form').serialize(); // Lấy dữ liệu form
-            var url = $('#form').attr('action'); // Lấy URL của form
-
-            var csrfToken = $("meta[name='_csrf']").attr("content");
-            var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: formData,
-                beforeSend: function (xhr) {
-                    // Sử dụng tên HTTP header chuẩn và giá trị token
-                    xhr.setRequestHeader(csrfHeader, csrfToken);
-                },
-                success:  (data) => {
-                    alert('Đã tạo thành công!');
-                    window.location.href="/admin/product/update-product/" + data;
-
-                },
-                error: (jqXHR) => {
-                    alert(jqXHR.responseText)
-                }
-            });
+            $("#quantityError").text("")
         }
+
+        if ($(".color").val() === ""){
+            $("#colorError").text("Chưa chọn màu sắc")
+            validation = false
+        }
+        else {
+            $("#colorError").text("")
+        }
+
+        if ($("#size").val() === ""){
+            $("#sizeError").text("Chưa chọn size")
+            validation = false
+        }
+        else {
+            $("#sizeError").text("")
+        }
+
+        return validation;
     })
 })

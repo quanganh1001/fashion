@@ -38,21 +38,21 @@ public class CtlAdminProductDetail {
     public String addProductDetail(Model model,@RequestParam("productId") String productId) {
         List<Size> s = sizeService.findAll();
         List<Color> cl = colorService.findAll();
-        ProductDetail pd = new ProductDetail();
         accountService.getAccountResponse(model);
 
         model.addAttribute("productId", productId);
         model.addAttribute("s", s);
         model.addAttribute("cl", cl);
-        model.addAttribute("pd", pd);
+        model.addAttribute("pd", new ProductDetail());
         model.addAttribute("title","Product");
         return "/admin/AddProductDetail";
     }
 
     @PostMapping("/add-prDetail")
-    public ResponseEntity<String> addPrDetail(@ModelAttribute ProductDetail productDetail, @RequestParam("productId") String productId) {
-        System.out.println(productDetail);
-        return productDetailService.save(productId,productDetail);
+    public String addPrDetail(@ModelAttribute ProductDetail productDetail,
+                              @RequestParam("productId") String productId,
+                              RedirectAttributes attributes) {
+        return productDetailService.save(productId,productDetail,attributes);
     }
 
     @GetMapping("update-detail/{prDetailId}")
@@ -73,8 +73,9 @@ public class CtlAdminProductDetail {
     }
 
     @PutMapping("update-detail")
-    public ResponseEntity<String> updateProductDetail(@ModelAttribute ProductDetail pd) {
-        return productDetailService.updatePrDetail(pd);
+    public String updateProductDetail(@ModelAttribute ProductDetail pd,
+                                                      RedirectAttributes attributes) throws Exception {
+        return productDetailService.updatePrDetail(pd,attributes);
 
     }
 

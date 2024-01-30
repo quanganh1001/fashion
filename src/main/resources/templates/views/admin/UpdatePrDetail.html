@@ -9,33 +9,34 @@
 
     <div class="container p-4">
         <h2>SỬA CHI TIẾT SẢN PHẨM</h2>
-        <form id="form" th:action="@{/admin/productDetail/update-detail}" method="POST"
+        <form id="form" th:action="@{/admin/productDetail/update-detail}" th:method="put"
               th:object="${pd}">
-            <input type="hidden" name="_method" value="put"/>
-            <input type="hidden" th:field="${pd.product.productId}">
+            <input type="hidden" th:field="*{product.productId}">
             <div class="row">
                 <div class="mb-3">
-                    <label for="productDetailId" class="form-label">Mã chi tiết sản
+                    <label for="product-detail-id" class="form-label">Mã chi tiết sản
                         phẩm<span style="color:red">*</span></label>
-                    <input readonly type="text" class="readonly form-control" id="productDetailId"
-                           th:field="${pd.productDetailId}"/>
+                    <input readonly type="text" class="readonly form-control" id="product-detail-id"
+                           th:field="*{productDetailId}"/>
                 </div>
 
                 <div class="mb-3">
                     <label for="code" class="form-label">Code<span style="color:red">*</span></label>
                     <input type="text" class="form-control" id="code"
-                           th:field="${pd.code}">
+                           th:field="*{code}">
+                    <span id="codeError" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label for="quantity" class="form-label">Số lượng<span>*</span></label>
-                    <input type="text" class="form-control" id="quantity" th:field="${pd.quantity}">
+                    <input type="text" class="form-control" id="quantity" th:field="*{quantity}">
+                    <span id="quantityError" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label for="color" class="form-label">Màu<span
                             style="color:red">*</span></label>
-                    <select class="form-control" id="color" th:field="${pd.color.colorId}">
+                    <select class="form-control" id="color" th:field="*{color.colorId}">
                         <option th:each="cl : ${color}" th:value="${cl.colorId}"
                                 th:text="${cl.name} + ' - ' + ${cl.colorId}"></option>
                     </select>
@@ -44,7 +45,7 @@
                 <div class="mb-3">
                     <label for="size" class="form-label">Size<span
                             style="color:red">*</span></label>
-                    <select class="form-control" id="size" th:field="${pd.size.sizeId}">
+                    <select class="form-control" id="size" th:field="*{size.sizeId}">
                         <option th:each="s : ${size}" th:value="${s.sizeId}"
                                 th:text="${s.name}"></option>
                     </select>
@@ -52,10 +53,10 @@
 
                 <div class="mb-3">
                     <label for="isActive" class="form-label">Trạng thái<span style="color:red">*</span></label>
-                    <input id="isActive" type="checkbox" th:field="${pd.productDetailActive}">Hoạt động/Ẩn
+                    <input id="isActive" type="checkbox" th:field="*{productDetailActive}">Hoạt động/Ẩn
                 </div>
 
-                <button style="text-align: center" type="button" id="button"  class="col-4 btn btn-primary">Sửa</button>
+                <button style="text-align: center" type="submit" id="button"  class="col-4 btn btn-primary">Sửa</button>
             </div>
         </form>
     </div>

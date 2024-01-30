@@ -62,7 +62,6 @@
                 <td th:text="${p.productName}"></td>
                 <td th:text="${p.category.catName}">
                 <td th:text="${p.isProductActive}==true ? 'Hoạt động' :'Đã ẩn'"></td>
-
                 <td>
                     <div class="d-flex justify-content-center">
                         <a th:href="@{/admin/product/update-product/__${p.productId}__}">
@@ -73,10 +72,14 @@
                 </td>
                 <td>
                     <div class="d-flex justify-content-center">
-                        <button class="align-items-center btn btn-danger btn-sm" th:id="${p.productId}"
-                                onclick="confirmDelete(this.id)">
-                            <i class="fas fa-trash-alt"></i>Xóa
-                        </button>
+                        <form id="form-delete-product"
+                              th:action="@{/admin/product/delete-product/__${p.productId}__}"
+                              th:method="delete"
+                              onsubmit="return confirm('Bạn có muốn xóa sản phẩm này?')">
+                            <button class="btn btn-danger btn-sm" type="submit">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                        </form>
                     </div>
                 </td>
             </tr>
@@ -84,7 +87,6 @@
         </table>
     </div>
 </div>
-<script th:src="@{/script/AdminScript/ProductAdminScript.js}">
-</script>
+
 </body>
 </html>

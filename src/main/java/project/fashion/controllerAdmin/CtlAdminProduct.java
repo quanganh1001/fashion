@@ -42,7 +42,9 @@ public class CtlAdminProduct {
     @Autowired
     private AccountService accountService;
     @GetMapping()
-    public String searchProduct(Model model,@RequestParam(defaultValue = "0") int page,@RequestParam(name = "key",
+    public String searchProduct(Model model,
+                                @RequestParam(defaultValue = "0") int page,
+                                @RequestParam(name = "key",
             required = false) String key){
         Page<Product> searchResults =
                 productService.searchProduct(key,page,10);
@@ -78,11 +80,15 @@ public class CtlAdminProduct {
     }
 
     @DeleteMapping("/delete-product/{productId}")
-    public ResponseEntity<String> deleteProduct(@PathVariable("productId") String productId) throws IOException {
+    public String deleteProduct(@PathVariable("productId") String productId,
+                                                RedirectAttributes attributes) throws IOException {
         try{
-            return productService.deleteProduct(productId);
+            productService.deleteProduct(productId);
+            attributes.addFlashAttribute("alertMessage","Đã xóa sản phẩm");
+            return "redirect:/admin/product";
         }catch (Exception e){
-            return new ResponseEntity<>("Không thể xóa", HttpStatus.BAD_REQUEST);
+            attributes.addFlashAttribute("alertMessage","Không thể xóa sản phẩm");
+            return "redirect:/admin/product";
         }
 
     }
