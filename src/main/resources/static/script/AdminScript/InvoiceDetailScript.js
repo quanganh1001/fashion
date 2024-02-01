@@ -25,7 +25,7 @@ $(document).ready(() => {
         if (oldStatus == 4 && newStatus <= 3) {
             $(select.currentTarget).val(oldStatus);
             alert('Đơn đã gửi thì không thể đổi trạng thái về lúc chưa gửi');
-        }else if (oldStatus == 3 && newStatus >= 5) {
+        } else if (oldStatus == 3 && newStatus >= 5) {
             console.log(newStatus)
             $(select.currentTarget).val(oldStatus);
             alert('Đơn chưa gửi thì không thể đổi trạng thái thành công hoặc hoàn');
@@ -37,37 +37,6 @@ $(document).ready(() => {
         } else if (oldStatus == 5 || oldStatus == 6) {
             $(select.currentTarget).val(oldStatus);
             alert("Đơn hàng đã thành công hoặc hoàn thì không thể cập nhập trạng thái")
-        }
-    })
-
-    $("#btn-submit").click(() => {
-        const formData = $('#form').serialize();
-        const url = $('#form').attr('action');
-        const account = $("#account-id").val();
-        const name = $("#name").val();
-        const phone = $("#phone").val();
-        const newStatus = $("#changeStatus").val();
-
-        if ( name === "" || phone === "" || isNaN(phone)) {
-            alert("Nhập thiếu hoặc sai thông tin")
-        }else if(account === "" && newStatus >= 3){
-            alert("Chưa chia nguồn thì không thể lên đơn")
-        }else {
-            $.ajax({
-                type: 'PUT',
-                url: url,
-                data: formData,
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader(csrfHeader, csrfToken);
-                },
-                success: (data) => {
-                    alert('Đã cập nhật đơn hàng thành công!');
-                    window.location.reload();
-                },
-                error: (jqXHR) => {
-                    alert(jqXHR.responseText)
-                }
-            });
         }
     })
 

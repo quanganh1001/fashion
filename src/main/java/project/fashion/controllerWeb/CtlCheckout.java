@@ -58,7 +58,7 @@ public class CtlCheckout {
                                              RedirectAttributes attributes,
                                              @ModelAttribute Invoice invoice) {
         var invoiceId = "";
-            invoiceId = invoiceService.addInvoice(invoice).getBody();
+            invoiceId = invoiceService.addInvoiceByCustomer(invoice).getBody();
             Invoice newInvoice = invoiceService.findById(invoiceId);
             List<CartItem> cartItemList = (List<CartItem>) model.getAttribute("CARTS");
             if (cartItemList == null || cartItemList.isEmpty()){

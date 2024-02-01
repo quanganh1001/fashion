@@ -84,29 +84,31 @@
                                th:field="${invoice.name}">
                         <input th:unless="${invoice.invoiceStatus.statusId < 3}" readonly type="text"
                                class="readonly form-control"
-                               th:id="name"
+                               id="name"
                                th:field="${invoice.name}">
                     </div>
 
                     <div class="mb-3 col-6">
-                        <label th:for="phone" class="form-label">Số điện thoại<span>*</span></label>
+                        <label th:for="phone" class="form-label">Số điện thoại<span style="color:red">*</span></label>
                         <input th:if="${invoice.invoiceStatus.statusId < 3}" type="text" class="form-control"
                                th:id="phone"
                                th:field="${invoice.phone}">
                         <input th:unless="${invoice.invoiceStatus.statusId < 3}" readonly type="text"
                                class="readonly form-control"
-                               th:id="phone"
+                               id="phone"
                                th:field="${invoice.phone}">
+                        <span id="phoneError" class="text-danger"></span>
                     </div>
-
+                    <span id="nameError" class="text-danger"></span>
                     <div class="mb-3 col-6">
                         <label th:for="address" class="form-label">Địa chỉ<span
                                 style="color:red">*</span></label>
                         <input th:if="${invoice.invoiceStatus.statusId < 3}" class="form-control" th:id="address"
                                th:field="${invoice.address}">
                         <input th:unless="${invoice.invoiceStatus.statusId < 3}" readonly class="readonly form-control"
-                               th:id="address"
+                               id="address"
                                th:field="${invoice.address}">
+                        <span id="addressError" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3 col-6">
@@ -203,12 +205,13 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
 </div>
-
+<script th:src="@{/script/AdminScript/AddInvoiceScripts.js}">
+</script>
 <script th:src="@{/script/AdminScript/InvoiceDetailScript.js}"></script>
 </body>
 </html>

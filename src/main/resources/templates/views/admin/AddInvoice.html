@@ -11,38 +11,40 @@
         <h2>CHI TIẾT ĐƠN HÀNG</h2>
 
         <div class="invoice col-12">
-            <form id="form" th:action="@{/admin/invoice/add}" method="POST" th:object="${i}">
+            <form id="form" th:action="@{/admin/invoice/add?accountId=__${account.accountId}__}" method="POST" th:object="${invoice}">
                 <div class="row">
                     <div class="mb-3 col-6">
                         <label for="name" class="form-label">Tên khách hàng<span style="color:red">*</span></label>
                         <input type="text" class="form-control"
                                id="name"
-                               name="name">
+                               th:field="*{name}">
+                        <span id="nameError" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3 col-6">
                         <label for="phone" class="form-label">Số điện thoại<span>*</span></label>
                         <input type="text" class="form-control"
-                               id="phone" name="phone"
-                        >
+                               id="phone" th:field="*{phone}">
+                        <span id="phoneError" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3 col-6">
                         <label for="address" class="form-label">Địa chỉ<span
                                 style="color:red">*</span></label>
-                        <input class="form-control" id="address" name="address">
+                        <input class="form-control" id="address" th:field="*{address}">
+                        <span id="addressError" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3 col-6">
                         <label for="note" class="form-label">Ghi chú nội bộ</label>
-                        <textarea class="form-control" id="note" rows="4" cols="50" name="note">
+                        <textarea class="form-control" id="note" rows="4" cols="50" th:field="*{note}">
                         </textarea>
                     </div>
 
                     <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-12">
                         <label class="form-label">Nguồn: <span style="color:red">*</span></label>
                         <label>
-                            <select class="form-control" name="account.accountId">
+                            <select class="form-control" th:field="*{account.accountId}">
                                 <option th:each="acc : ${accountResponses}"
                                         th:value="${acc.accountId}"
                                         th:text="${acc.userName}"
@@ -52,9 +54,8 @@
                         </label>
                     </div>
                 </div>
-
-
-                <button th:data-account-id="${account.accountId}" style="text-align: center" type="button" id="btn-submit" class="col-2 btn btn-primary">
+                <button style="text-align: center" type="submit" id="btn-submit"
+                        class="col-2 btn btn-primary">
                     Tạo đơn hàng
                 </button>
             </form>

@@ -22,10 +22,9 @@ import java.util.Optional;
 public class CtlAdminCategory {
     @Autowired
     private CategoryService categoryService;
-
-
     @Autowired
     AccountService accountService;
+
     @GetMapping()
     public String getCat(Model model, @RequestParam(name = "parent", defaultValue = "") String parent ){
         Optional<Category> category = Optional.of(categoryService.findById(parent).orElse(new Category()));
@@ -53,8 +52,10 @@ public class CtlAdminCategory {
 
 
     @PostMapping("/add-category")
-    public ResponseEntity<String> addCat(@ModelAttribute Category category) {
-        return categoryService.addCat(category);
+    public String addCat(@ModelAttribute Category category,
+                         @RequestParam(value = "catParentId",defaultValue = "") String catParentId,
+                         RedirectAttributes attributes) throws Exception {
+        return categoryService.addCat(category,catParentId,attributes);
     }
 
     @DeleteMapping("/delete-cat")

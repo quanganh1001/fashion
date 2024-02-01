@@ -11,21 +11,25 @@
     <div class="container p-4">
 
         <h2>THÊM MỚI DANH MỤC</h2>
-        <form id="form" th:action="@{/admin/category/add-category}" method="post" th:object="${category}">
+        <form id="form" th:action="@{/admin/category/add-category?parent=__${catParentId}__}" method="post"
+              th:object="${category}">
             <div class="row">
                 <div class="mb-3">
-                    <label for="catId" class="form-label">Mã danh mục<span style="color:red">*</span></label>
-                    <input type="text" class="form-control" id="catId" th:field="${category.catId}"/>
+                    <label for="cat-id" class="form-label">Mã danh mục<span style="color:red">*</span></label>
+                    <input type="text" class="form-control" id="cat-id" th:field="*{catId}"/>
+                    <span id="idError" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label for="cat_name" class="form-label">Tên danh mục<span style="color:red">*</span></label>
-                    <input type="text" class="form-control" id="cat_name" th:field="${category.catName}">
+                    <label for="cat-name" class="form-label">Tên danh mục<span style="color:red">*</span></label>
+                    <input type="text" class="form-control" id="cat-name" th:field="*{catName}">
+                    <span id="nameError" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label th:for="parentId" class="form-label">Nằm trong danh mục<span style="color:red">*</span></label>
-                    <select class="form-control" th:id="parentId" th:field="${category.catParent}">
+                    <label th:for="parent-id" class="form-label">Nằm trong danh
+                        mục<span style="color:red">*</span></label>
+                    <select class="form-control" id="parent-id" th:field="*{catParent}">
                         <option value="">Không có</option>
                         <option th:each="cat : ${cat}" th:value="${cat.catId}"
                                 th:text="${cat.catId} + ' - ' + ${cat.catName}">
@@ -33,7 +37,7 @@
                     </select>
                 </div>
 
-                <button style="text-align: center" type="button" id="btn-submit" class="col-2 btn btn-primary">Thêm Danh
+                <button style="text-align: center" type="submit" id="btn-submit" class="col-2 btn btn-primary">Thêm Danh
                     Mục</button>
             </div>
         </form>

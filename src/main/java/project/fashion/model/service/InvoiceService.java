@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.Response.AccountResponse;
 import project.fashion.model.entity.*;
 import project.fashion.model.repository.InvoiceDetailRepo;
@@ -188,13 +189,48 @@ public class InvoiceService {
     }
 
     @Transactional
-    public ResponseEntity<String> addInvoice(Invoice invoice) {
+    public String addInvoice(Invoice invoice,String accountId, RedirectAttributes attributes) throws Exception {
         if (invoice.getNote() == null) {
             invoice.setNote("");
         }
 
         if (Objects.equals(invoice.getName(), "") ||
             Objects.equals(invoice.getPhone(), "") || !isNumeric(invoice.getPhone()) ||
+                (!isNumeric(String.valueOf(invoice.getShippingFee())) && invoice.getShippingFee() !=null)||
+                (!isNumeric(String.valueOf(invoice.getTotalPrice())) && invoice.getTotalPrice() !=null) ||
+                (!isNumeric(String.valueOf(invoice.getTotalBill())) && invoice.getTotalBill() !=null)
+        ) {
+            throw new Exception("Lỗi validate");
+        } else {
+            String randomId = RandomStringUtils.randomAlphanumeric(8).toUpperCase();
+            invoice.setInvoiceId(randomId);
+
+            InvoiceStatus status = new InvoiceStatus();
+            status.setStatusId(1);
+
+            if(invoice.getAccount() == null){
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+                Account account = accountService.findByUserName(authentication.getName());
+                invoice.setAccount(account);
+            }
+            invoice.setInvoiceStatus(status);
+            invoice.setCreatedAt(LocalDateTime.now());
+            // create history
+            historyService.setTriggerVariableForHistory();
+            invoiceRepo.save(invoice);
+            attributes.addFlashAttribute("alertMessage","Đã tạo đơn hàng, hãy thêm sản phẩm");
+            return "redirect:/admin/invoiceDetail?accountId=" + accountId + "&invoiceId=" + randomId;
+        }
+    }
+
+    @Transactional
+    public ResponseEntity<String> addInvoiceByCustomer(Invoice invoice) {
+        if (invoice.getNote() == null) {
+            invoice.setNote("");
+        }
+
+        if (Objects.equals(invoice.getName(), "") ||
+                Objects.equals(invoice.getPhone(), "") || !isNumeric(invoice.getPhone()) ||
                 (!isNumeric(String.valueOf(invoice.getShippingFee())) && invoice.getShippingFee() !=null)||
                 (!isNumeric(String.valueOf(invoice.getTotalPrice())) && invoice.getTotalPrice() !=null) ||
                 (!isNumeric(String.valueOf(invoice.getTotalBill())) && invoice.getTotalBill() !=null)

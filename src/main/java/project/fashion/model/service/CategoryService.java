@@ -58,16 +58,21 @@ public class CategoryService {
     }
 
     @Transactional
-    public ResponseEntity<String> addCat(Category category) {
+    public String addCat(Category category, String catParentId, RedirectAttributes attributes) throws Exception {
         if (Objects.equals(category.getCatId(), "") || category.getCatId() == null ||
                 Objects.equals(category.getCatName(), "") || category.getCatName() == null) {
-            return new ResponseEntity<>("Lỗi validate", HttpStatus.BAD_REQUEST);
+            throw new Exception("Lỗi validate");
         } else if (categoryRepo.existsById(category.getCatId())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Danh mục đã tồn tại");
+            attributes.addFlashAttribute("alertMessage", "Danh mục đã tồn tại");
+            return "redirect:/admin/category/add-category?catParentId=" + catParentId;
         } else {
             setCatActive(category.getCatId(), category.getIsCatActive());
             categoryRepo.save(category);
-            return ResponseEntity.ok(category.getCatParent().getCatId());
+            attributes.addFlashAttribute("alertMessage", "Đã tạo danh mục");
+            if (category.getCatParent() == null) {
+                return "redirect:/admin/category";
+            }
+            return "redirect:/admin/category?parent=" + category.getCatParent().getCatId();
         }
     }
 
@@ -80,11 +85,11 @@ public class CategoryService {
         return categories;
     }
 
-    public Page<Product> searchProductByCatId(String catId,int page,int size ) {
+    public Page<Product> searchProductByCatId(String catId, int page, int size) {
         if (page < 0)
             page = 0;
         if (Objects.equals(catId, "sale")) {
-            return productRepo.findAllByIsDiscountIsTrue(PageRequest.of(page,size));
+            return productRepo.findAllByIsDiscountIsTrue(PageRequest.of(page, size));
         } else {
             List<Product> products = productRepo.findByCategoryCatId(catId);
             List<Category> allCategory = new ArrayList<>();
@@ -95,9 +100,9 @@ public class CategoryService {
             }
 
             // Chuyển đổi danh sách sản phẩm thành một trang
-            int start = Math.toIntExact(PageRequest.of(page,size).getOffset());
-            int end = Math.min((start + PageRequest.of(page,size).getPageSize()), products.size());
-            return new PageImpl<>(products.subList(start, end), PageRequest.of(page,size), products.size());
+            int start = Math.toIntExact(PageRequest.of(page, size).getOffset());
+            int end = Math.min((start + PageRequest.of(page, size).getPageSize()), products.size());
+            return new PageImpl<>(products.subList(start, end), PageRequest.of(page, size), products.size());
         }
     }
 
@@ -146,14 +151,20 @@ public class CategoryService {
 
     public String deleteById(String catId, RedirectAttributes attributes) {
         Optional<Category> category = Optional.of(categoryRepo.findById(catId).orElse(new Category()));
-        var parentId = category.get().getCatParent().getCatId();
+        String parentId;
+        if (category.get().getCatParent() == null) {
+            parentId = "";
+        } else
+            parentId = category.get().getCatParent().getCatId();
+
         try {
             categoryRepo.deleteById(catId);
-            attributes.addFlashAttribute("alertMessage","Đã xóa");
+            attributes.addFlashAttribute("alertMessage", "Đã xóa");
             return "redirect:/admin/category?parent=" + parentId;
         } catch (Exception e) {
-            attributes.addFlashAttribute("alertMessage","Không thể xóa");
+            attributes.addFlashAttribute("alertMessage", "Không thể xóa");
             return "redirect:/admin/category?parent=" + parentId;
+
         }
 
     }

@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.Response.AccountResponse;
 import project.fashion.model.entity.City;
 import project.fashion.model.entity.Invoice;
@@ -53,14 +54,18 @@ public class CtlAdminInvoice {
     public String addInvoice(Model model) {
         accountService.getAccountResponse(model);
         List<AccountResponse> accountResponses = accountService.findAll();
+
+        model.addAttribute("invoice",new Invoice());
         model.addAttribute("title","Invoice");
         model.addAttribute("accountResponses",accountResponses);
         return "admin/AddInvoice";
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addInvoice(@ModelAttribute Invoice invoice) {
-        return invoiceService.addInvoice(invoice);
+    public String addInvoice(@ModelAttribute Invoice invoice,
+                             @RequestParam("accountId") String accountId,
+                             RedirectAttributes attributes) throws Exception {
+        return invoiceService.addInvoice(invoice,accountId,attributes);
     }
 
     @GetMapping("change-list-invoice")
