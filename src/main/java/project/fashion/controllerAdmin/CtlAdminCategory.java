@@ -6,6 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.model.entity.Category;
 import project.fashion.model.entity.Product;
 import project.fashion.model.service.AccountService;
@@ -57,8 +58,8 @@ public class CtlAdminCategory {
     }
 
     @DeleteMapping("/delete-cat")
-    public ResponseEntity<String> deleteCat(@RequestParam("catId") String catId) {
-        return categoryService.deleteById(catId);
+    public String deleteCat(@RequestParam("catId") String catId, RedirectAttributes attributes) {
+        return categoryService.deleteById(catId,attributes);
     }
 
     @GetMapping("/update-category/{catId}")

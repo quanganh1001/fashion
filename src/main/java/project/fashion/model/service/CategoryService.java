@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.model.entity.CartItem;
 import project.fashion.model.entity.Category;
 import project.fashion.model.entity.ImgProduct;
@@ -143,14 +144,16 @@ public class CategoryService {
         categoryRepo.setCatActive(cat_id, boo);
     }
 
-    public ResponseEntity<String> deleteById(String catId) {
+    public String deleteById(String catId, RedirectAttributes attributes) {
+        Optional<Category> category = Optional.of(categoryRepo.findById(catId).orElse(new Category()));
+        var parentId = category.get().getCatParent().getCatId();
         try {
-            Optional<Category> category = Optional.of(categoryRepo.findById(catId).orElse(new Category()));
-            var parentId = category.get().getCatParent().getCatId();
             categoryRepo.deleteById(catId);
-            return ResponseEntity.ok(parentId);
+            attributes.addFlashAttribute("alertMessage","Đã xóa");
+            return "redirect:/admin/category?parent=" + parentId;
         } catch (Exception e) {
-            return new ResponseEntity<>("Lỗi không thể xóa", HttpStatus.BAD_REQUEST);
+            attributes.addFlashAttribute("alertMessage","Không thể xóa");
+            return "redirect:/admin/category?parent=" + parentId;
         }
 
     }
