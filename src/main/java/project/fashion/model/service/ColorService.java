@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.model.entity.Color;
 import project.fashion.model.entity.ProductDetail;
 import project.fashion.model.repository.ColorRepo;
@@ -22,22 +23,20 @@ public class ColorService{
         return colorRepo.findAll();
     }
 
-    public ResponseEntity<String> addColor(Color cl){
+    public String addColor(Color cl, RedirectAttributes attributes){
         if (colorRepo.existsById(cl.getColorId())){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Sản phẩm đã tồn tại");
+            attributes.addFlashAttribute("alertMessage", "Mã màu đã tồn tại");
+            return "redirect:/admin/color/add-color";
         }else
             colorRepo.save(cl);
-            return ResponseEntity.ok("done");
+            attributes.addFlashAttribute("alertMessage", "Tạo thành công");
+            return "redirect:/admin/color";
     }
 
-    public ResponseEntity<String> deleteColor(String colorId){
-        try {
-            colorRepo.deleteById(colorId);
-            return ResponseEntity.ok("done");
-        }catch (Exception e){
-            return new ResponseEntity<>("Không thể xóa",HttpStatus.BAD_REQUEST);
-        }
+    public void deleteById(String colorId){
+        colorRepo.deleteById(colorId);
     }
+
 
 
     public List<Color> findColor(String productId){

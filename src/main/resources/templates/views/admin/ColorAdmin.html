@@ -23,17 +23,16 @@
         <div class="list-group col-6 border p-2">
             <ul th:each="cl:${color}">
                 <li>
-                    <button class="align-items-center btn btn-danger btn-sm" th:id="${cl.colorId}"
-                            onclick="confirmDelete(this.id)">
-                        <i class="fas fa-trash-alt"></i>Xóa
-                    </button>
-                    <span th:text="${cl.colorId} + ' - ' + ${cl.name}"></span>
+                    <form th:action="@{/admin/color/delete-color?colorId=__${cl.colorId}__}" th:method="delete">
+                        <button class="align-items-center btn btn-danger btn-sm" type="submit">
+                            <i class="fas fa-trash-alt"></i>Xóa
+                        </button>
+                        <span th:text="${cl.colorId} + ' - ' + ${cl.name}"></span>
+                    </form>
                 </li>
             </ul>
         </div>
     </div>
 </div>
-<script th:src="@{/script/AdminScript/ColorAdminScript.js}">
-</script>
 </body>
 </html>

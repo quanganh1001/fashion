@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.Response.AccountResponse;
 import project.fashion.model.entity.*;
@@ -87,9 +88,7 @@ public class InvoiceService {
                     return invoiceRepo.findInvoiceByKeyAndAccount_AccountId(key, selectAccount, PageRequest.of(page, 10));
         }
         // quyền nhân viên
-    } else
-
-    {
+    } else {
         // lọc theo trạng thái + quyền nhân viên
         if (filterStatus != -1) {
             return invoiceRepo.findInvoiceByKeyAndStatusAndAccount_AccountId(key, filterStatus, accountId, PageRequest.of(page, 10));
@@ -102,20 +101,20 @@ public class InvoiceService {
 }
 
     @Transactional
-    public ResponseEntity<String> updateInvoice(String invoiceId, Invoice i) {
+    public String updateInvoice(Invoice invoice, RedirectAttributes attributes) throws Exception {
 
-        Optional<Invoice> optionalInvoice = Optional.of(invoiceRepo.findById(invoiceId).orElse(new Invoice()));
+        Optional<Invoice> optionalInvoice = Optional.of(invoiceRepo.findById(invoice.getInvoiceId()).orElse(new Invoice()));
         var status = optionalInvoice.get().getInvoiceStatus().getStatusId();
-        var newStatus = i.getInvoiceStatus().getStatusId();
-        var newName = i.getName();
+        var newStatus = invoice.getInvoiceStatus().getStatusId();
+        var newName = invoice.getName();
         var oldName = optionalInvoice.get().getName();
-        var newPhone = i.getPhone();
+        var newPhone = invoice.getPhone();
         var oldPhone = optionalInvoice.get().getPhone();
-        var newAddress = i.getAddress();
+        var newAddress = invoice.getAddress();
         var oldAddress = optionalInvoice.get().getAddress();
-        var newId = i.getInvoiceId();
+        var newId = invoice.getInvoiceId();
         var oldId = optionalInvoice.get().getInvoiceId();
-        var newAccountId = i.getAccount().getAccountId();
+        var newAccountId = invoice.getAccount().getAccountId();
         Integer oldAccountId = null;
         if(optionalInvoice.get().getAccount() != null){
             oldAccountId = optionalInvoice.get().getAccount().getAccountId();
@@ -123,39 +122,27 @@ public class InvoiceService {
         if (Objects.equals(newPhone, "") || !isNumeric(newPhone) ||
                 Objects.equals(newName, "") || !isNumeric(newStatus.toString())||
                 Objects.equals(newStatus.toString(), "")|| newStatus < 0 || newStatus > 6) {
-            return new ResponseEntity<>("Nhập thông tin thiếu hoặc không đúng"
-                    , HttpStatus.BAD_REQUEST);
+            throw new Exception("Nhập thông tin thiếu hoặc không đúng");
         } else if (status == 4 && newStatus <= 3)
-            return new ResponseEntity<>("Đơn đã gửi thì không thể đổi trạng thái về lúc chưa gửi", HttpStatus.BAD_REQUEST);
+            throw new Exception("Đơn đã gửi thì không thể đổi trạng thái về lúc chưa gửi");
         else if (status <= 2 && newStatus >= 4) {
-            return new ResponseEntity<>("Đơn chưa gửi không thể cập nhập trạng thái đang chuyển, thành công hoặc hoàn"
-                    , HttpStatus.BAD_REQUEST);
+            throw new Exception("Đơn chưa gửi không thể cập nhập trạng thái đang chuyển, thành công hoặc hoàn");
         } else if ((status >= 5) && !newStatus.equals(status)) {
-            return new ResponseEntity<>(" Đơn đã thành công hoặc hoàn thì không thể thay đổi thay đổi thông tin"
-                    , HttpStatus.BAD_REQUEST);
+            throw new Exception(" Đơn đã thành công hoặc hoàn thì không thể thay đổi thay đổi thông tin");
         }else if ((newStatus >= 3) && (newAccountId == null)) {
-            return new ResponseEntity<>("Chưa chia nguồn thì không thể lên đơn"
-                    , HttpStatus.BAD_REQUEST);
-        }else if ((newStatus >= 3) && (newAccountId == null && oldAccountId == null)) {
-            return new ResponseEntity<>("Chưa chia nguồn thì không thể lên đơn"
-                    , HttpStatus.BAD_REQUEST);
-        } else if ((status >= 3) && (!Objects.equals(newAccountId, oldAccountId))) {
-            return new ResponseEntity<>("Đơn đã xác nhận hoặc gửi đi thì không thể thay nguồn"
-                    , HttpStatus.BAD_REQUEST);
+            throw new Exception("Chưa chia nguồn thì không thể lên đơn");
+        }else if ((status >= 3) && (!Objects.equals(newAccountId, oldAccountId))) {
+            throw new Exception("Đơn đã xác nhận hoặc gửi đi thì không thể thay nguồn");
         }else if ((status >= 3) && (!Objects.equals(oldName, newName))) {
-            return new ResponseEntity<>("Đơn đã xác nhận hoặc gửi đi thì không thể thay đổi tên"
-                    , HttpStatus.BAD_REQUEST);
+            throw new Exception("Đơn đã xác nhận hoặc gửi đi thì không thể thay đổi tên");
         }else if ((status >= 3) && (!Objects.equals(oldPhone, newPhone))) {
-            return new ResponseEntity<>("Đơn đã xác nhận hoặc gửi đi thì không thể thay đổi số điện thoại"
-                    , HttpStatus.BAD_REQUEST);
+            throw new Exception("Đơn đã xác nhận hoặc gửi đi thì không thể thay đổi số điện thoại");
         }else if ((status >= 3) && (!Objects.equals(oldAddress, newAddress))) {
-            return new ResponseEntity<>("Đơn đã xác nhận hoặc gửi đi thì không thể thay đổi địa chỉ"
-                    , HttpStatus.BAD_REQUEST);
+            throw new Exception("Đơn đã xác nhận hoặc gửi đi thì không thể thay đổi địa chỉ");
         }else if (!Objects.equals(newId, oldId)) {
-            return new ResponseEntity<>("Không thể thay đổi invoiceId"
-                    , HttpStatus.BAD_REQUEST);
+            throw new Exception("Không thể thay đổi invoiceId");
         }else {
-            List<InvoiceDetail> invoiceDetails = invoiceDetailRepo.findAllByInvoice_InvoiceId(invoiceId);
+            List<InvoiceDetail> invoiceDetails = invoiceDetailRepo.findAllByInvoice_InvoiceId(invoice.getInvoiceId());
             // chưa lên đơn -> đã lên đơn => giảm số lượng
             if (status != 3 && newStatus == 3) {
                 for (InvoiceDetail id : invoiceDetails) {
@@ -181,9 +168,13 @@ public class InvoiceService {
 
             // create history
             historyService.setTriggerVariableForHistory();
-
-            invoiceRepo.updateInvoice(invoiceId,i.getAccount().getAccountId(),newName,newPhone,newAddress,i.getNote(),newStatus);
-            return ResponseEntity.ok().build();
+            invoiceRepo.updateInvoice(invoice.getInvoiceId(),invoice.getAccount().getAccountId(),newName,newPhone,newAddress,
+                    invoice.getNote(),newStatus);
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            int accountId =
+                    AccountResponse.accountResponse(accountService.findByUserName(authentication.getName())).getAccountId();
+            attributes.addFlashAttribute("alertMessage","Đã cập nhập thành công");
+            return "redirect:/admin/invoiceDetail?invoiceId=" + invoice.getInvoiceId() + "&accountId=" + accountId;
         }
 
     }

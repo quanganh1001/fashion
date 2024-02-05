@@ -9,19 +9,22 @@
 
     <div class="container p-4">
         <h2>THÊM MỚI SẢN PHẨM</h2>
-        <form id="form" th:action="@{/admin/color/add-color}" method="post" th:object="${cl}">
+        <form id="form" th:action="@{/admin/color/add-color}" method="post" th:object="${color}">
             <div class="row">
                 <div class="mb-3 col-6">
-                    <label for="colorId" class="form-label">Mã màu<span style="color:red">*</span></label>
-                    <input type="text" class="form-control" id="colorId" th:field="${color.colorId}">
+                    <label for="color-id" class="form-label">Mã màu<span style="color:red">*</span></label>
+                    <input type="text" class="form-control" id="color-id" th:field="*{colorId}">
+                    <span id="idError" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3 col-6">
                     <label for="name" class="form-label">Tên màu<span style="color:red">*</span></label>
-                    <input type="text" class="form-control" id="name" th:field="${color.name}">
+                    <input type="text" class="form-control" id="name" th:field="*{name}">
+                    <span id="nameError" class="text-danger"></span>
                 </div>
 
-                <button style="text-align: center" type="button" id="btn-submit" class="col-2 btn btn-primary">Thêm mã màu</button>
+                <button style="text-align: center" type="submit" id="btn-submit" class="col-2 btn btn-primary">Thêm mã
+                    màu</button>
             </div>
         </form>
 

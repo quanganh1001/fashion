@@ -1,34 +1,53 @@
 $(document).ready(() => {
-    const csrfToken = $("meta[name='_csrf']").attr("content");
-    const csrfHeader = $("meta[name='_csrf_header']").attr("content");
-    $("#btn-submit").click(() => {
-        if ($("#name").val() === "" ||
-            $("#address").val() === "" ||
-            $("#time").val() === "" ||
-            $("#phone").val() === "" ||
-            $("#api").val() === "" ||
-            $("#city").val() === "")
-            alert("Nhập sai hoặc thiếu thông tin")
-        else {
-            const formData = $('#form').serialize();
-            const url = $('#form').attr('action');
+    $("#form").submit(() => {
+        let validation = true
 
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: formData,
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader(csrfHeader, csrfToken);
-                },
-                success: () => {
-                    alert('Đã thêm thành công!');
-                    window.location.reload();
-                },
-                error: (jqXHR) => {
-                    alert(jqXHR.responseText)
-                }
-            });
+        if ($("#name").val() === ""){
+            $("#nameError").text("Chưa nhập tên cửa hàng")
+            validation = false
+        }else {
+            $("#nameError").text("")
         }
-    })
 
+        if($("#address").val() === ""){
+            $("#addressError").text("Chưa nhập địa chỉ")
+            validation = false
+        }else {
+            $("#addressError").text("")
+        }
+
+
+        if($("#time").val() === ""){
+            $("#timeError").text("Chưa nhập thời gian hoạt động")
+            validation = false
+        }else {
+            $("#timeError").text("")
+        }
+
+        if ($("#phone").val() === "") {
+            $("#phoneError").text("Chưa nhập số điện thoại")
+            validation = false
+        }else if (!$("#phone").val().match(/^[0-9]{10}$/)){
+            $("#phoneError").text("Số không hợp lệ")
+            validation = false
+        } else {
+            $("#phoneError").text("");
+        }
+
+        if($("#api").val() === ""){
+            $("#apiError").text("Chưa nhập link google map")
+            validation = false
+        }else {
+            $("#apiError").text("")
+        }
+
+        if($("#city").val() === ""){
+            $("#cityError").text("Chưa chọn thành phố")
+            validation = false
+        }else {
+            $("#cityError").text("")
+        }
+
+        return validation;
+    })
 })

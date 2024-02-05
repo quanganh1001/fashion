@@ -1,11 +1,13 @@
 package project.fashion.controllerAdmin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.model.entity.City;
 import project.fashion.model.entity.Store;
 import project.fashion.model.service.AccountService;
@@ -46,18 +48,25 @@ public class CtlAdminStore {
 
         model.addAttribute("cities", cities);
         model.addAttribute("title","Store");
+        model.addAttribute("store",new Store());
         return "admin/AddStore";
     }
 
     @PostMapping("/add-store")
-    public ResponseEntity<String> addStore(@ModelAttribute Store newStore){
-         storeService.save(newStore);
-         return ResponseEntity.ok("done");
+    public String addStore(@ModelAttribute Store newStore, RedirectAttributes attributes){
+         return  storeService.save(newStore,attributes);
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<String> delete(@RequestParam("id") Integer id){
-        return storeService.delete(id);
+    @DeleteMapping("/delete-store")
+    public String delete(@RequestParam("id") Integer id,RedirectAttributes attributes){
+        try {
+            storeService.deleteById(id);
+            attributes.addFlashAttribute("alertMessage", "Đã xóa");
+            return "redirect:/admin/store";
+        }catch (Exception e){
+            attributes.addFlashAttribute("alertMessage", "Không thể xoá");
+            return "redirect:/admin/store";
+        }
     }
 
     @GetMapping("change-map")

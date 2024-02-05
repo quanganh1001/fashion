@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.Response.AccountResponse;
 import project.fashion.model.entity.*;
 import project.fashion.model.service.*;
@@ -105,10 +106,10 @@ public class CtlAdminInvoiceDetail {
         return invoiceDetailService.updateQuantityInvoiceDetail(model,newQuantity, invoiceDetailId,invoiceId);
     }
 
-    @PutMapping("/update-invoice/{invoiceId}")
-    public ResponseEntity<String> updateInvoice(@PathVariable("invoiceId") String invoiceId,
-                                                @ModelAttribute Invoice i) {
-        return invoiceService.updateInvoice(invoiceId, i);
+    @PutMapping("/update-invoice")
+    public String updateInvoice(@ModelAttribute Invoice invoice,
+                                RedirectAttributes attributes) throws Exception {
+        return invoiceService.updateInvoice(invoice,attributes);
     }
 
     @GetMapping("/update-total-bill")

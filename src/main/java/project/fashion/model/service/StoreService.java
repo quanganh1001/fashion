@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.model.entity.Store;
 import project.fashion.model.repository.StoreRepo;
 
@@ -25,17 +26,17 @@ public class StoreService {
         return storeOptional.get();
     }
 
-    public void save(Store newStore){
+    public String save(Store newStore, RedirectAttributes attributes) {
+        if (storeRepo.existsByName(newStore.getName())) {
+            attributes.addFlashAttribute("alertMessage", "Tên cửa hàng đã tồn tại");
+            return "redirect:/admin/store/add-store";
+        }
         storeRepo.save(newStore);
+        attributes.addFlashAttribute("alertMessage", "Tạo thành công");
+        return "redirect:/admin/store";
     }
 
-    @Transactional
-    public ResponseEntity<String> delete(Integer id){
-        try {
-            storeRepo.deleteById(id);
-            return ResponseEntity.ok("done");
-        }catch (Exception e){
-            return new ResponseEntity<>("Không thể xóa", HttpStatus.BAD_REQUEST);
-        }
+    public void deleteById(int id){
+        storeRepo.deleteById(id);
     }
 }

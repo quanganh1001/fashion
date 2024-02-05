@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th1 26, 2024 lúc 12:56 PM
+-- Thời gian đã tạo: Th2 05, 2024 lúc 03:09 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -1024,7 +1024,30 @@ INSERT INTO `history` (`id`, `invoice_id`, `content`, `time`, `time_ago`) VALUES
 (1022, 'T1VCKYYG', 'quanly đã thay đổi Ghi chú:                         dfs -> dfs', '2024-01-26 03:15:28', NULL),
 (1023, 'T1VCKYYG', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đã lên đơn', '2024-01-26 03:21:23', NULL),
 (1024, 'T1VCKYYG', 'quanly đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Đang xử lý', '2024-01-26 03:23:08', NULL),
-(1025, 'T1VCKYYG', 'quanly đã thay đổi Trạng thái đơn hàng: Đang xử lý -> Đã lên đơn', '2024-01-26 03:23:12', NULL);
+(1025, 'T1VCKYYG', 'quanly đã thay đổi Trạng thái đơn hàng: Đang xử lý -> Đã lên đơn', '2024-01-26 03:23:12', NULL),
+(1026, 'DMJHRKWM', 'Khách hàng đã tạo đơn hàng: <br>Mã đơn: DMJHRKWM,<br>Tên khách hàng: nguyễn quang anh,<br>Số điện thoại: 3222232,<br>Địa chỉ: số 18 ngõ 222 tựu liệt,thanh trì, hà nội,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-29 07:06:41', NULL),
+(1027, 'DMJHRKWM', 'Khách hàng đã thêm sản phẩm: DSTP90372CT32RB_WCB-S (giá = 290000)', '2024-01-29 07:06:42', NULL),
+(1028, 'DMJHRKWM', 'Khách hàng đã thêm sản phẩm: DSTP90372CT32RB_WCB-M (giá = 290000)', '2024-01-29 07:06:42', NULL),
+(1029, 'YK68ZX7R', 'quanly đã tạo đơn hàng: <br>Mã đơn: YK68ZX7R,<br>Tên khách hàng: nguyễn quang anh,<br>Số điện thoại: 3432224222,<br>Địa chỉ: số 18 ngõ 222 tựu liệt,thanh trì, hà nội,<br>Ghi chú: ,<br>Nguồn:  quanly', '2024-01-29 12:53:51', NULL),
+(1030, 'YK68ZX7R', 'quanly đã thêm sản phẩm: DWCT00161PE00RB_NV-S (giá = 990000)', '2024-01-29 12:53:51', NULL),
+(1031, 'TFWOAP9I', 'Khách hàng đã tạo đơn hàng: <br>Mã đơn: TFWOAP9I,<br>Tên khách hàng: nguyễn quang anh,<br>Số điện thoại: 4343222342,<br>Địa chỉ: số 18 ngõ 222 tựu liệt,thanh trì, hà nội,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-29 13:12:12', NULL),
+(1032, 'TFWOAP9I', 'Khách hàng đã thêm sản phẩm: EABT01901PE00SB_BL-29 (giá = 500000)', '2024-01-29 13:12:12', NULL);
+INSERT INTO `history` (`id`, `invoice_id`, `content`, `time`, `time_ago`) VALUES
+(1033, 'QIPTDMTO', 'Khách hàng đã tạo đơn hàng: <br>Mã đơn: QIPTDMTO,<br>Tên khách hàng: nguyễn quang anh,<br>Số điện thoại: 5342423432,<br>Địa chỉ: số 18 ngõ 222 tựu liệt,thanh trì, hà nội,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-29 13:15:40', NULL),
+(1034, 'QIPTDMTO', 'Khách hàng đã thêm sản phẩm: DWCT00161PE00RB_NV-S (giá = 990000)', '2024-01-29 13:15:40', NULL),
+(1035, '6LU8CYHS', 'Khách hàng đã tạo đơn hàng: <br>Mã đơn: 6LU8CYHS,<br>Tên khách hàng: nguyễn quang anh,<br>Số điện thoại: 3651518221,<br>Địa chỉ: số 18 ngõ 222 tựu liệt,thanh trì, hà nội,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-29 13:18:05', NULL),
+(1036, '6LU8CYHS', 'Khách hàng đã thêm sản phẩm: DWCT00161PE00RB_NV-S (giá = 990000)', '2024-01-29 13:18:05', NULL),
+(1037, 'VAZZJUMT', 'Khách hàng đã tạo đơn hàng: <br>Mã đơn: VAZZJUMT,<br>Tên khách hàng: nguyễn quang anh,<br>Số điện thoại: 3651518222,<br>Địa chỉ: số 18 ngõ 222 tựu liệt,thanh trì, hà nội,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-29 13:22:28', NULL),
+(1038, 'VAZZJUMT', 'Khách hàng đã thêm sản phẩm: DWCT00161PE00RB_NV-S (giá = 990000)', '2024-01-29 13:22:28', NULL),
+(1039, '8XVO3RJ8', 'Khách hàng đã tạo đơn hàng: <br>Mã đơn: 8XVO3RJ8,<br>Tên khách hàng: nguyễn quang anh,<br>Số điện thoại: 4553333542,<br>Địa chỉ: số 18 ngõ 222 tựu liệt,thanh trì, hà nội,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-01-29 13:31:30', NULL),
+(1040, '8XVO3RJ8', 'Khách hàng đã thêm sản phẩm: DWCT00161PE00RB_NV-S (giá = 990000)', '2024-01-29 13:31:30', NULL),
+(1041, '6RNPNRVM', 'quanly đã tạo đơn hàng: <br>Mã đơn: 6RNPNRVM,<br>Tên khách hàng: nguyễn quang anh,<br>Số điện thoại: 5423324222,<br>Địa chỉ: số 18 ngõ 222 tựu liệt,thanh trì, hà nội,<br>Ghi chú: ,<br>Nguồn:  quanly', '2024-02-01 13:35:59', NULL),
+(1042, '5FTZ8G2K', 'quanly đã thay đổi Số điện thoại: 365151822 -> 0365151822', '2024-02-02 02:26:04', NULL),
+(1043, '5FTZ8G2K', 'quanly đã thay đổi Số điện thoại: 0365151822 -> 0365151823', '2024-02-02 03:15:12', NULL),
+(1044, '5FTZ8G2K', 'quanly đã thay đổi Trạng thái đơn hàng: Đang xử lý -> Đã lên đơn', '2024-02-02 03:27:13', NULL),
+(1045, '5FTZ8G2K', 'quanly đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Đang giao hàng', '2024-02-02 03:27:21', NULL),
+(1046, '6LU8CYHS', 'quanly đã thêm sản phẩm: DSTP90372CT32RB_WCB-M (giá = 290000)', '2024-02-02 03:30:36', NULL),
+(1047, '6LU8CYHS', 'quanly đã xóa sản phẩm: DSTP90372CT32RB_WCB-M (giá = 290000)', '2024-02-02 03:30:38', NULL);
 
 -- --------------------------------------------------------
 
@@ -1573,9 +1596,9 @@ CREATE TABLE `invoices` (
   `customer_note` varchar(255) DEFAULT NULL,
   `account_id` int(11) DEFAULT NULL,
   `invoice_status` int(1) NOT NULL DEFAULT 1,
-  `total_price` int(20) DEFAULT NULL,
+  `total_price` int(20) DEFAULT 0,
   `shipping_fee` int(11) DEFAULT 0,
-  `total_bill` int(20) DEFAULT NULL
+  `total_bill` int(20) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -1583,10 +1606,14 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `created_at`, `note`, `customer_note`, `account_id`, `invoice_status`, `total_price`, `shipping_fee`, `total_bill`) VALUES
-('5FTZ8G2K', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-25 09:19:22', '', 'fsd', 4, 2, 1860000, 10000, 1870000),
+('5FTZ8G2K', 'nguyễn quang anh', '0365151823', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-02-02 03:27:21', '', 'fsd', 4, 4, 1860000, 10000, 1870000),
+('6LU8CYHS', 'nguyễn quang anh', '3651518221', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-02-02 03:30:38', '', 'ss', NULL, 1, 990000, 0, 990000),
+('6RNPNRVM', 'nguyễn quang anh', '5423324222', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-02-01 13:35:58', '', NULL, 1, 1, NULL, NULL, NULL),
 ('7MOJYIGO', 'vcxvx', '33333', 'fsd', '2024-01-21 16:42:11', '', 'sd', NULL, 0, 2350000, 20000, 2370000),
+('8XVO3RJ8', 'nguyễn quang anh', '4553333542', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-29 13:31:30', '', '', NULL, 1, 990000, 0, 990000),
 ('A5K1TOQE', 'gdfgfdg', '3423', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-21 16:02:42', '', 'vsd', 1, 2, 3060000, 30000, 3090000),
 ('AEAXIQS0', 'quang anh', '34232', 'ssd', '2024-01-21 16:42:11', '', 'x', NULL, 0, 990000, 0, NULL),
+('DMJHRKWM', 'nguyễn quang anh', '3222232', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-29 07:06:42', '', 'cs', NULL, 1, 580000, 0, 580000),
 ('EYCDR8PC', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-21 10:29:22', '                        fsd', NULL, 1, 1, 580000, 0, 580000),
 ('GB4ENHC1', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-21 16:42:11', '', 'dfs', NULL, 0, 1980000, 0, 1980000),
 ('I1TWS5QJ', 'quang anh', '423432', 'sdf', '2024-01-21 09:18:55', '', 'sd', 1, 1, 550000, 0, NULL),
@@ -1595,14 +1622,18 @@ INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `created_at`, 
 ('MSFDUEXY', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-22 05:29:08', '', 'sd', 1, 1, 840000, 0, 840000),
 ('MVNWRADX', 'nhanvien1', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-26 03:14:41', '                        ', NULL, 2, 5, NULL, NULL, NULL),
 ('OCFAOWMB', 'fsdfsd', '333333', 'vd', '2024-01-21 09:45:14', '', 'd', 1, 1, 1380000, 30000, 1410000),
+('QIPTDMTO', 'nguyễn quang anh', '5342423432', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-29 13:15:40', '', '', NULL, 1, 990000, NULL, NULL),
 ('SMMKHRU1', 'dfsd', '222222', 'sdf', '2024-01-21 09:17:25', '', 'fds', NULL, 1, 400000, 30000, 430000),
 ('T1VCKYYG', 'sser', '44343', 'f', '2024-01-26 03:23:12', 'dfs', NULL, 2, 3, NULL, NULL, NULL),
+('TFWOAP9I', 'nguyễn quang anh', '4343222342', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-29 13:12:12', '', '', NULL, 1, 500000, NULL, NULL),
 ('TLSY7TFT', 'dfgdf', '323233232', 'fds', '2024-01-20 08:38:59', '', 'f', NULL, 1, 750000, 0, 750000),
 ('UAEZV8YX', 'gdfgfdg', '3423', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 08:24:41', '', 'vsd', 1, 1, 550000, 30000, 410000),
 ('UZZHM3TR', 'nguyễn quang anh', '333322323', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 08:28:41', '', 'fs', NULL, 1, 480000, 30000, 510000),
+('VAZZJUMT', 'nguyễn quang anh', '3651518222', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-29 13:22:28', '', 'zcx', NULL, 1, 990000, NULL, NULL),
 ('X6JPOCJH', 'sdgsd', '345234532', 'cxgdf', '2024-01-21 10:22:04', '', 'df', NULL, 1, 1980000, 0, 1980000),
 ('XRAPWYJI', 'quang anh', '4534543', 'fđ', '2024-01-21 10:02:57', '', 'dgf', 1, 1, 990000, 0, NULL),
 ('YHNB0POU', 'dsfds', '2312312', 'f', '2024-01-20 08:48:58', '', 's', NULL, 1, 420000, 30000, 450000),
+('YK68ZX7R', 'nguyễn quang anh', '3432224222', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-29 12:53:51', '', '', 1, 1, 990000, 0, 990000),
 ('ZUI23NIT', 'nguyễn quang anh', '36515182222', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 07:42:26', '                        dsf', NULL, 1, 1, 290000, 20000, 890000);
 
 --
@@ -1734,7 +1765,15 @@ INSERT INTO `invoices_detail` (`detail_id`, `invoice_id`, `product_detail_id`, `
 (274, 'A5K1TOQE', 614, 380000, 1, 380000),
 (365, '5FTZ8G2K', 614, 380000, 2, 760000),
 (368, '5FTZ8G2K', 541, 550000, 1, 550000),
-(369, '5FTZ8G2K', 542, 550000, 1, 550000);
+(369, '5FTZ8G2K', 542, 550000, 1, 550000),
+(370, 'DMJHRKWM', 190, 290000, 1, 290000),
+(371, 'DMJHRKWM', 191, 290000, 1, 290000),
+(372, 'YK68ZX7R', 691, 990000, 1, 990000),
+(373, 'TFWOAP9I', 522, 500000, 1, 500000),
+(374, 'QIPTDMTO', 691, 990000, 1, 990000),
+(375, '6LU8CYHS', 691, 990000, 1, 990000),
+(376, 'VAZZJUMT', 691, 990000, 1, 990000),
+(377, '8XVO3RJ8', 691, 990000, 1, 990000);
 
 --
 -- Bẫy `invoices_detail`
@@ -2550,8 +2589,8 @@ INSERT INTO `products_detail` (`product_detail_id`, `product_id`, `code`, `color
 (538, 'DABJ903', 'DABJ90301CT16SB_NV-32', 'NV', '32', 999, b'1', b'1'),
 (539, 'DABJ903', 'DABJ90301CT16SB_NV-31', 'NV', '31', 999, b'1', b'1'),
 (540, 'DABJ903', 'DABJ90301CT16SB_NV-30', 'NV', '30', 999, b'1', b'1'),
-(541, 'DABJ903', 'DABJ90301CT16SB_NV-29', 'NV', '29', 998, b'1', b'1'),
-(542, 'DABJ908', 'DABJ90801CT19SB_DBU-29', 'DBU', '29', 998, b'1', b'1'),
+(541, 'DABJ903', 'DABJ90301CT16SB_NV-29', 'NV', '29', 997, b'1', b'1'),
+(542, 'DABJ908', 'DABJ90801CT19SB_DBU-29', 'DBU', '29', 997, b'1', b'1'),
 (543, 'DABJ908', 'DABJ90801CT19SB_DBU-30', 'DBU', '30', 999, b'1', b'1'),
 (544, 'DABJ908', 'DABJ90801CT19SB_DBU-31', 'DBU', '31', 999, b'1', b'1'),
 (545, 'DABJ908', 'DABJ90801CT19SB_DBU-32', 'DBU', '32', 999, b'1', b'1'),
@@ -2623,7 +2662,7 @@ INSERT INTO `products_detail` (`product_detail_id`, `product_id`, `code`, `color
 (611, 'ESBK002', 'ESBK00202CT00RB_BE-33', 'BE', '33', 999, b'1', b'1'),
 (612, 'BI013', 'DSBI01302LI00SB_BE-29', 'BE', '29', 996, b'1', b'1'),
 (613, 'BI013', 'DSBI01302LI00SB_BE-30', 'BE', '30', 999, b'1', b'1'),
-(614, 'BI013', 'DSBI01302LI00SB_BE-31', 'BE', '31', 993, b'1', b'1'),
+(614, 'BI013', 'DSBI01302LI00SB_BE-31', 'BE', '31', 991, b'1', b'1'),
 (615, 'BI013', 'DSBI01302LI00SB_BE-32', 'BE', '32', 999, b'1', b'1'),
 (616, 'BI013', 'DSBI01302LI00SB_BE-33', 'BE', '33', 999, b'1', b'1'),
 (617, 'BI013', 'DSBI01302LI00SB_WH-29', 'WH', '29', 999, b'1', b'1'),
@@ -2904,7 +2943,8 @@ INSERT INTO `stores` (`id`, `name`, `address`, `time`, `phone`, `api`, `city_id`
 (2, 'TORANO 425A SƯ VẠN HẠNH NỐI DÀI', '425A SƯ VẠN HẠNH NỐI DÀI, P.12, Q.10', '8h30 - 20h00 (kể cả CN và ngày lễ)', '096968696', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3919.509913521864!2d106.669631!3d10.772203!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f5b255f0b29%3A0x9c61555ce8088f5a!2zVE9SQU5PIDQyNUEgU8avIFbhuqBOIEjhuqBOSA!5e0!3m2!1svi!2sus!4v1705923884646!5m2!1svi!2sus', 2),
 (3, 'TORANO ĐÀ NẴNG', '281 Điện Biên Phủ, Q. Thanh Khê', '8h30 - 20h00 (kể cả CN và ngày lễ)', '0998999999‬', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3833.9981268069027!2d108.193418!3d16.065587!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3142191253cf72b3%3A0xd5167753b8ddac4f!2zVG9yYW5vIMSQw6AgTuG6tW5n!5e0!3m2!1svi!2sus!4v1705923998699!5m2!1svi!2sus', 3),
 (4, 'TORANO 35 NGUYỄN PHONG SẮC', 'Số 35 Nguyễn Phong Sắc, Cầu Giấy, Hà Nội', '8h30 - 22h00 (kể cả CN và ngày lễ)', '0978361786', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3723.8900233858894!2d105.789871!3d21.037086!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab23cb755bf9%3A0xf10ea9cb5e5101c4!2sTorano!5e0!3m2!1svi!2sus!4v1705924309896!5m2!1svi!2sus', 1),
-(5, 'TORANO VẠN PHÚC', 'Số 178 Vạn Phúc, Q. Hà Đông, Hà Nội', '8h30 - 22h00 (kể cả CN và ngày lễ)', '0989786959', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1862.6291204576075!2d105.770733!3d20.982283!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3134533079da2b41%3A0x3c0fb1a30fda48c!2zMTc4IMSQxrDhu51uZyBW4bqhbiBQaMO6YywgVuG6oW4gUGjDumMsIEjDoCDEkMO0bmcsIEjDoCBO4buZaSAxMDAwMDAsIFZp4buHdCBOYW0!5e0!3m2!1svi!2sus!4v1705924376967!5m2!1svi!2sus', 1);
+(5, 'TORANO VẠN PHÚC', 'Số 178 Vạn Phúc, Q. Hà Đông, Hà Nội', '8h30 - 22h00 (kể cả CN và ngày lễ)', '0989786959', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1862.6291204576075!2d105.770733!3d20.982283!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3134533079da2b41%3A0x3c0fb1a30fda48c!2zMTc4IMSQxrDhu51uZyBW4bqhbiBQaMO6YywgVuG6oW4gUGjDumMsIEjDoCDEkMO0bmcsIEjDoCBO4buZaSAxMDAwMDAsIFZp4buHdCBOYW0!5e0!3m2!1svi!2sus!4v1705924376967!5m2!1svi!2sus', 1),
+(14, 'd', 'fds', 'ds', '0365151822', 'fs', 3);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -3021,13 +3061,13 @@ ALTER TABLE `accounts`
 -- AUTO_INCREMENT cho bảng `city`
 --
 ALTER TABLE `city`
-  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT cho bảng `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1026;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1048;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_product`
@@ -3045,7 +3085,7 @@ ALTER TABLE `imgs_size`
 -- AUTO_INCREMENT cho bảng `invoices_detail`
 --
 ALTER TABLE `invoices_detail`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=370;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=379;
 
 --
 -- AUTO_INCREMENT cho bảng `invoices_status`
@@ -3057,13 +3097,13 @@ ALTER TABLE `invoices_status`
 -- AUTO_INCREMENT cho bảng `products_detail`
 --
 ALTER TABLE `products_detail`
-  MODIFY `product_detail_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=741;
+  MODIFY `product_detail_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=744;
 
 --
 -- AUTO_INCREMENT cho bảng `stores`
 --
 ALTER TABLE `stores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

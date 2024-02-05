@@ -14,8 +14,6 @@ function updateTotalBill(invoiceId) {
 
 
 $(document).ready(() => {
-    const csrfToken = $("meta[name='_csrf']").attr("content");
-    const csrfHeader = $("meta[name='_csrf_header']").attr("content");
     const invoiceId = $("#input-plus").attr("data-invoice-id");
 
     $("#changeStatus").change((select) => {
@@ -24,20 +22,54 @@ $(document).ready(() => {
         // kiểm tra nếu đơn đã gửi thì không thể chuyển trạng thái về chưa gửi
         if (oldStatus == 4 && newStatus <= 3) {
             $(select.currentTarget).val(oldStatus);
-            alert('Đơn đã gửi thì không thể đổi trạng thái về lúc chưa gửi');
+            $("#model-content").text('Đơn đã gửi thì không thể đổi trạng thái về lúc chưa gửi');
+            $('#myModal').modal('show');
         } else if (oldStatus == 3 && newStatus >= 5) {
             console.log(newStatus)
             $(select.currentTarget).val(oldStatus);
-            alert('Đơn chưa gửi thì không thể đổi trạng thái thành công hoặc hoàn');
+            $("#model-content").text('Đơn chưa gửi thì không thể đổi trạng thái thành công hoặc hoàn');
+            $('#myModal').modal('show');
         }
         // kiểm tra nếu đơn chưa gửi thì không thể chuyển trạng thái thành công hoặc hoàn
         else if (oldStatus <= 2 && newStatus >= 4) {
             $(select.currentTarget).val(oldStatus);
-            alert("Đơn chưa gửi không thể cập nhập trạng thái đang chuyển, thành công hoặc hoàn")
+            $("#model-content").text("Đơn chưa gửi không thể cập nhập trạng thái đang chuyển, thành công hoặc hoàn")
+            $('#myModal').modal('show');
         } else if (oldStatus == 5 || oldStatus == 6) {
             $(select.currentTarget).val(oldStatus);
-            alert("Đơn hàng đã thành công hoặc hoàn thì không thể cập nhập trạng thái")
+            $("#model-content").text("Đơn hàng đã thành công hoặc hoàn thì không thể cập nhập trạng thái")
+            $('#myModal').modal('show');
         }
+    })
+
+    $("#form").submit(() => {
+        let validation = true
+
+        if ($(".name").val() === ""){
+            $("#nameError").text("Chưa nhập tên khách hàng")
+            validation = false
+        }else {
+            $("#nameError").text("")
+        }
+
+        if($(".address").val() === ""){
+            $("#addressError").text("Chưa nhập địa chỉ")
+            validation = false
+        }else {
+            $("#addressError").text("")
+        }
+
+        if ($(".phone").val() === "") {
+            $("#phoneError").text("Chưa nhập số điện thoại")
+            validation = false
+        }else if (!$(".phone").val().match(/^[0-9]{10}$/)){
+            $("#phoneError").text("Số không hợp lệ")
+            validation = false
+        } else {
+            $("#phoneError").text("");
+        }
+
+        return validation;
     })
 
     $("#plus").click(() => {

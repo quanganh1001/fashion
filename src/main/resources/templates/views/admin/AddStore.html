@@ -14,31 +14,36 @@
 
     <div class="container p-4">
         <h2>THÊM MỚI CỬA HÀNG</h2>
-        <form id="form" th:action="@{/admin/store/add-store}" method="post" th:object="${cl}">
+        <form id="form" th:action="@{/admin/store/add-store}" method="post" th:object="${store}">
             <div class="row">
                 <div class="mb-3 col-6">
                     <label for="name" class="form-label">Tên cửa hàng<span style="color:red">*</span></label>
-                    <input type="text" class="form-control" id="name" name="name" >
+                    <input type="text" class="form-control" id="name" th:field="*{name}" >
+                    <span id="nameError" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3 col-6">
                     <label for="address" class="form-label">Tên địa chỉ<span style="color:red">*</span></label>
-                    <input type="text" class="form-control" id="address" name="address">
+                    <input type="text" class="form-control" id="address" th:field="*{address}">
+                    <span id="addressError" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3 col-6">
                     <label for="time" class="form-label">Thời gian mở cửa<span style="color:red">*</span></label>
-                    <input type="text" class="form-control" id="time" name="time">
+                    <input type="text" class="form-control" id="time" th:field="*{time}">
+                    <span id="timeError" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3 col-6">
                     <label for="phone" class="form-label">Số điện thoại<span style="color:red">*</span></label>
-                    <input type="text" class="form-control" id="phone" name="phone">
+                    <input type="text" class="form-control" id="phone" th:field="*{phone}">
+                    <span id="phoneError" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3 col-6">
                     <label for="api" class="form-label">Link google map<span style="color:red">*</span></label>
-                    <input type="text" class="form-control" id="api" name="api">
+                    <input type="text" class="form-control" id="api" th:field="*{api}">
+                    <span id="apiError" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3 col-6">
@@ -48,9 +53,12 @@
                             <i class="fa-regular fa-square-plus"></i>
                         </span>
                     </label>
-                    <select class="form-control" id="city" name="city.cityId" th:include="~{admin/component/ListCity::ListCity}"></select>
+                    <select class="form-control" id="city" th:field="*{city.cityId}"
+                            th:include="~{admin/component/ListCity::ListCity}"></select>
+                    <span id="cityError" class="text-danger"></span>
                 </div>
-                <button style="text-align: center" type="button" id="btn-submit" class="col-2 btn btn-primary">Thêm cửa hàng</button>
+                <button style="text-align: center" type="submit" id="btn-submit" class="col-2 btn btn-primary">Thêm cửa
+                    hàng</button>
             </div>
         </form>
     </div>
