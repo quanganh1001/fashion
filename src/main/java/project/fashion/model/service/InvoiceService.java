@@ -10,9 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.Response.AccountResponse;
+import project.fashion.model.DTO.CustomUserDetailDTO;
 import project.fashion.model.entity.*;
 import project.fashion.model.repository.InvoiceDetailRepo;
 import project.fashion.model.repository.InvoiceRepo;
@@ -53,8 +53,8 @@ public class InvoiceService {
         if (page < 0)
             page = 0;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomUserDetail customUserDetail = (CustomUserDetail) authentication.getPrincipal();
-        AccountResponse accountResponse = AccountResponse.accountResponse(customUserDetail.getUser());
+        CustomUserDetailDTO customUserDetailDTO = (CustomUserDetailDTO) authentication.getPrincipal();
+        AccountResponse accountResponse = AccountResponse.accountResponse(customUserDetailDTO.getUser());
 
         var accountLogging = accountResponse.getRole();
         var accountId = accountResponse.getAccountId();;

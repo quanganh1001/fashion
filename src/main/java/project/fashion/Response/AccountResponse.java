@@ -1,13 +1,12 @@
 package project.fashion.Response;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import project.fashion.model.entity.Account;
-import project.fashion.model.entity.RoleEnum;
+import project.fashion.model.DTO.RoleEnumDTO;
 
 @Data
 @AllArgsConstructor
@@ -18,7 +17,7 @@ public class AccountResponse {
     @Pattern(regexp = "\\S+", message = "Không được chứa khoảng trắng")
     private String userName;
     private Boolean enabled;
-    private RoleEnum role;
+    private RoleEnumDTO role;
 
     public static AccountResponse accountResponse(Account account) {
         AccountResponse accountResponse = new AccountResponse();

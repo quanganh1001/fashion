@@ -8,8 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import project.fashion.model.entity.Account;
-import project.fashion.model.entity.CustomUserDetail;
-import project.fashion.model.repository.AccountRepo;
+import project.fashion.model.DTO.CustomUserDetailDTO;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -28,6 +27,6 @@ public class CustomUserDetailService implements UserDetailsService {
 
         grantedAuthoritySet.add(new SimpleGrantedAuthority(role));
 
-        return new CustomUserDetail(account,grantedAuthoritySet);
+        return new CustomUserDetailDTO(account,grantedAuthoritySet);
     }
 }

@@ -1,14 +1,12 @@
 package project.fashion.model.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jetbrains.annotations.NotNull;
+import project.fashion.model.DTO.RoleEnumDTO;
 
 @Entity
 @Data
@@ -31,6 +29,6 @@ public class Account {
     private Boolean enabled;
 
     @Enumerated(EnumType.STRING)
-    private RoleEnum role;
+    private RoleEnumDTO role;
 
 }

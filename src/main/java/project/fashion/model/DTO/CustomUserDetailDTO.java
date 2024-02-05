@@ -1,16 +1,17 @@
-package project.fashion.model.entity;
+package project.fashion.model.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import project.fashion.model.entity.Account;
 
 import java.util.Collection;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomUserDetail implements UserDetails {
+public class CustomUserDetailDTO implements UserDetails {
     private Account user;
     private Collection<? extends  GrantedAuthority> authorities;
 

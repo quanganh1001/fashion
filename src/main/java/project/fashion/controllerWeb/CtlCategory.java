@@ -33,10 +33,10 @@ public class CtlCategory {
     @GetMapping("/{catId}")
     public String getCategory(Model model,
                               @PathVariable String catId,
-                              @RequestParam(value = "page",defaultValue = "0") int page){
+                              @RequestParam(value = "page",defaultValue = "1") int page){
 
         categoryService.listCategory(model);
-        Page<Product> products = categoryService.searchProductByCatId(catId, page, 15);
+        Page<Product> products = categoryService.searchProductByCatId(catId, page -1, 15);
         Optional<Category> cat = Optional.of(categoryService.findById(catId).orElse(new Category()));
 
         model.addAttribute("currentPage", page);

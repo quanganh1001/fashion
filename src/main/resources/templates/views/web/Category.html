@@ -75,22 +75,22 @@
                     </div>
                     <nav aria-label="Page navigation" class="col-12">
                         <ul class="pagination">
-                            <li class="page-item" th:class="${currentPage == 0} ? 'page-item disabled' : 'page-item'">
+                            <li class="page-item" th:class="${currentPage == 1} ? 'page-item disabled' : 'page-item'">
                                 <a class="page-link"
                                    th:href="@{/category/__${cat.catId}__(page=${currentPage}-1)}"
                                    aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
-                                <a class="page-link" th:href="@{/category/__${cat.catId}__(page=${i >= 0 ? i : 0})}"
-                                   th:text="${i + 1}"
+                            <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}">
+                                <a class="page-link" th:href="@{/category/__${cat.catId}__(page=${i >= 1 ? i : 1})}"
+                                   th:text="${i}"
                                    th:class="${currentPage == i} ? 'page-link active' : 'page-link'"
                                 ></a>
                             </li>
                             <li class="page-item"
-                                th:class="${currentPage == totalPages - 1} ? 'page-item disabled' : 'page-item'">
-                                <a class="page-link" th:href="@{/category/__${cat.catId}__(page=${currentPage+1})}"
+                                th:class="${currentPage == totalPages} ? 'page-item disabled' : 'page-item'">
+                                <a class="page-link" th:href="@{/category/__${cat.catId}__(page=${currentPage +1})}"
                                    aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>

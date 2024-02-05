@@ -77,10 +77,10 @@
         $(document).ready(() => {
             const filterStatus = $("#table").attr("data-filterStatus")
             const selectAccount = $("#table").attr("data-selectAccount")
-            const currentPage = $("#table").attr("data-currentPage")
+            const currentPage = parseInt($("#table").attr("data-currentPage"),10);
             const key = $("#table").attr("data-key")
             $("#previous").click(() => {
-                const page = currentPage - 1;
+                let page = currentPage - 1;
                 $.ajax({
                     type: 'GET',
                     url: "/admin/invoice/change-list-invoice",
@@ -94,7 +94,7 @@
                 });
             })
             $(".number").click((event) => {
-                const page = $(event.target).attr("data-page")
+                let page = $(event.target).attr("data-page")
                 $.ajax({
                     type: 'GET',
                     url: "/admin/invoice/change-list-invoice",
@@ -108,11 +108,11 @@
                 });
             })
             $("#next").click(() => {
-                console.log("sc")
+                let page = currentPage + 1;
                 $.ajax({
                     type: 'GET',
                     url: "/admin/invoice/change-list-invoice",
-                    data: {selectAccount: selectAccount, filterStatus: filterStatus, key: key},
+                    data: {selectAccount: selectAccount, filterStatus: filterStatus,page: page, key: key},
                     success: (data) => {
                         $("#list-invoice").html(data)
                     },

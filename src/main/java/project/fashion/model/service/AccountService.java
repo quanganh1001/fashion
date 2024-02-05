@@ -10,12 +10,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.Response.AccountResponse;
 import project.fashion.model.entity.Account;
-import project.fashion.model.entity.ChangePasswordDTO;
-import project.fashion.model.entity.RoleEnum;
+import project.fashion.model.DTO.ChangePasswordDTO;
+import project.fashion.model.DTO.RoleEnumDTO;
 import project.fashion.model.repository.AccountRepo;
 
 import java.util.Arrays;
@@ -45,7 +44,7 @@ public class AccountService {
     }
     public String addAccount(Account newAccount, BindingResult result, Model model, RedirectAttributes attributes){
         if(result.hasErrors()){
-            List<RoleEnum> roles = Arrays.asList(RoleEnum.values());
+            List<RoleEnumDTO> roles = Arrays.asList(RoleEnumDTO.values());
             getAccountResponse(model);
 
             model.addAttribute("newAccount",newAccount);
@@ -55,7 +54,7 @@ public class AccountService {
             return "/admin/AddAccount";
         }else if (accountRepo.existsByUserName(newAccount.getUserName())){
             result.rejectValue("userName", "Duplicate.account.userName", "Tên tài khoản đã tồn tại");
-            List<RoleEnum> roles = Arrays.asList(RoleEnum.values());
+            List<RoleEnumDTO> roles = Arrays.asList(RoleEnumDTO.values());
             getAccountResponse(model);
 
             model.addAttribute("newAccount",newAccount);
@@ -75,7 +74,7 @@ public class AccountService {
         Account account1 = findByUserName(account.getUserName());
        if (accountRepo.existsByUserName(account.getUserName()) && !Objects.equals(account1.getAccountId(), account.getAccountId())) {
            result.rejectValue("userName", "Duplicate.account.userName", "Tên tài khoản đã tồn tại");
-           List<RoleEnum> roles = Arrays.asList(RoleEnum.values());
+           List<RoleEnumDTO> roles = Arrays.asList(RoleEnumDTO.values());
            getAccountResponse(model);
 
            model.addAttribute("roles",roles);
@@ -84,7 +83,7 @@ public class AccountService {
            model.addAttribute("changePass",new ChangePasswordDTO());
            return "/admin/UpdateAccount";
        }else if(result.hasErrors()){
-           List<RoleEnum> roles = Arrays.asList(RoleEnum.values());
+           List<RoleEnumDTO> roles = Arrays.asList(RoleEnumDTO.values());
            getAccountResponse(model);
 
            model.addAttribute("roles",roles);

@@ -1,4 +1,4 @@
-package project.fashion.model.entity;
+package project.fashion.model.DTO;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

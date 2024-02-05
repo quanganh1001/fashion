@@ -1,25 +1,22 @@
 package project.fashion.controllerAdmin;
 
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.Response.AccountResponse;
 import project.fashion.model.entity.Account;
-import project.fashion.model.entity.ChangePasswordDTO;
-import project.fashion.model.entity.RoleEnum;
+import project.fashion.model.DTO.ChangePasswordDTO;
+import project.fashion.model.DTO.RoleEnumDTO;
 import project.fashion.model.service.AccountService;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 @Controller
 @RequestMapping("/admin/account")
@@ -43,7 +40,7 @@ public class CtlAdminAccount {
     @PreAuthorize("hasAnyRole('MANAGER')")
     @GetMapping("/add-account")
     public String addAccount(Model model,@ModelAttribute Account account) {
-        List<RoleEnum> roles = Arrays.asList(RoleEnum.values());
+        List<RoleEnumDTO> roles = Arrays.asList(RoleEnumDTO.values());
         accountService.getAccountResponse(model);
 
         model.addAttribute("newAccount",account);
@@ -65,7 +62,7 @@ public class CtlAdminAccount {
     @PreAuthorize("isAuthenticated() and (#accountId == (authentication.principal.user.accountId)) or hasAnyRole('MANAGER')")
     @GetMapping("/update-account")
     public String updateAccount(Model model,@RequestParam("accountId") Integer accountId) {
-        List<RoleEnum> roles = Arrays.asList(RoleEnum.values());
+        List<RoleEnumDTO> roles = Arrays.asList(RoleEnumDTO.values());
         accountService.getAccountResponse(model);
 
         model.addAttribute("roles",roles);

@@ -43,11 +43,10 @@ public class CtlAdminProduct {
     private AccountService accountService;
     @GetMapping()
     public String searchProduct(Model model,
-                                @RequestParam(defaultValue = "0") int page,
-                                @RequestParam(name = "key",
-            required = false) String key){
+                                @RequestParam(defaultValue = "1") int page,
+                                @RequestParam(name = "key", required = false) String key){
         Page<Product> searchResults =
-                productService.searchProduct(key,page,10);
+                productService.searchProduct(key,page -1,10);
 
         accountService.getAccountResponse(model);
 
