@@ -5,7 +5,7 @@
            type="number"
            th:data-invoice-id="${invoice.invoiceId}"
            th:value="${invoice.shippingFee}"/>
-    <span th:if="${invoice.invoiceStatus.statusId} >= 0 and ${invoice.invoiceStatus.statusId} <=2"
+    <span th:if="${invoice.invoiceStatus.statusId} >= 0 and ${invoice.invoiceStatus.statusId} <=2 and ${!invoice.isPaid}"
           id="edit-ship">
         <i class="fa-regular fa-pen-to-square" style="color: #0033ff;"></i>
     </span>

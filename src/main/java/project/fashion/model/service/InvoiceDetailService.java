@@ -58,7 +58,11 @@ public class InvoiceDetailService{
     }
 
     @Transactional
-    public void addProductInvoiceDetail(Integer productDetailId, String invoiceId) {
+    public void addProductInvoiceDetail(Integer productDetailId, String invoiceId) throws Exception {
+            Optional<Invoice> optionalInvoice = Optional.of(invoiceRepo.findById(invoiceId).orElse(new Invoice()));
+            if(optionalInvoice.get().getIsPaid()){
+                throw new Exception("Đơn hàng đã thanh toán không thể thêm sản phẩm");
+            }
             //kiểm tra sản phẩm đã tồn tại trong invoiceDetail chưa?
             //nếu chưa thì thêm mới, nếu có rồi thì +1
             InvoiceDetail newInvoiceDetail = new InvoiceDetail();
@@ -104,7 +108,12 @@ public class InvoiceDetailService{
     }
 
     @Transactional
-    public String updateQuantityInvoiceDetail(Model model,Integer newQuantity,Integer invoiceDetailId,String invoiceId){
+    public String updateQuantityInvoiceDetail(Model model,Integer newQuantity,Integer invoiceDetailId,String invoiceId) throws Exception {
+        Optional<Invoice> optionalInvoice = Optional.of(invoiceRepo.findById(invoiceId).orElse(new Invoice()));
+        if(optionalInvoice.get().getIsPaid()){
+            throw new Exception("Đơn hàng đã thanh toán không thể thêm sản phẩm");
+        }
+
         if(newQuantity >= 1){
             historyService.setTriggerVariableForHistory();
             invoiceDetailRepo.updateQuantityInvoiceDetail(newQuantity,invoiceDetailId);

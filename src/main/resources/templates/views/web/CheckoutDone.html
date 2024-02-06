@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head th:include="~{web/component/head::head}"></head>
+
+<body>
+
+<header th:include="~{web/component/header::header}"></header>
+<div class="col-12 d-flex justify-content-center">
+    <h1 style="color: red" class="bold">Thanh toán thành công! Đang tạo đơn hàng....</h1>
+    <form id="form" th:action="@{/checkout?name=__${invoice.name}__&phone=__${invoice.phone}__&address=__${invoice.address}__&customerNote=__${invoice.customerNote}__&isPaid=__${invoice.isPaid}__}" method="post"></form>
+</div>
+<script th:inline="javascript">
+    $("#form").submit()
+</script>
+</body>
+</html>

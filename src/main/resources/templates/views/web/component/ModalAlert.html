@@ -7,7 +7,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div th:text="${alertMessage}"></div>
+                    <div th:if="${alertMessage != null}" th:text="${alertMessage}"></div>
+                    <div id="modal-content"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class=" btn btn-primary" data-bs-dismiss="modal">Đóng</button>
@@ -17,8 +18,9 @@
     </div>
     <script th:inline="javascript">
         $(document).ready(function () {
+            if ([[${alertMessage}]] != null) {
                 $('#myModal').modal('show');
-            
+            }
         });
     </script>
 </div>

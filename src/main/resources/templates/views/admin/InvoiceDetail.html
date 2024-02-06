@@ -159,7 +159,7 @@
         </div>
 
         <div id="add" class="mt-2 d-flex justify-content-between align-items-center col-12">
-            <button th:if="${invoice.invoiceStatus.statusId} >= 0 and ${invoice.invoiceStatus.statusId} <=2"
+            <button th:if="${invoice.invoiceStatus.statusId} >= 0 and ${invoice.invoiceStatus.statusId} <=2 and ${!invoice.isPaid}"
                     id="plus" class="col-1 btn btn-primary "><i
                     class="fa-solid fa-plus" style="color: #ffffff;"></i>Thêm
             </button>
@@ -184,6 +184,7 @@
                     <span class="col-5">Tổng đơn hàng:</span>
                     <h4 id="totalBill" style="color:red"
                         th:text="${#numbers.formatDecimal(invoice.totalBill, 0, 'POINT', 0, 'POINT')} +'đ'"></h4>
+                    <span th:if="${invoice.isPaid}">(Đã thanh toán)</span>
                 </div>
             </div>
         </div>

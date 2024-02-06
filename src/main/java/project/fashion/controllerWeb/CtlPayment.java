@@ -1,14 +1,13 @@
 package project.fashion.controllerWeb;
 
 
-import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import project.fashion.config.VNPayConfig;
-import project.fashion.model.DTO.PaymentResDTO;
+import project.fashion.model.entity.CartItem;
+import project.fashion.model.entity.Invoice;
+import project.fashion.model.service.CartService;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -16,33 +15,38 @@ import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+@SessionAttributes("CARTS")
 @RestController
 @RequestMapping("/api/vnpay")
 public class CtlPayment {
+    @Autowired
+    private CartService cartService;
+
     @GetMapping("/create-payment")
-    public String createPayment(HttpServletRequest request) throws UnsupportedEncodingException {
+    public String createPayment(Model model,@ModelAttribute Invoice invoice) throws UnsupportedEncodingException {
         String orderType = "other";
-        long amount = 10000 * 100;
-        String bankCode = "NCB";
-
+        List<CartItem> cartItemList = (List<CartItem>) model.getAttribute("CARTS");
+        var totalPrice = cartService.getTotalPrice(cartItemList);
+        var shippingFee = cartService.getShippingFee(totalPrice);
+        var totalBill = totalPrice + shippingFee;
+        int amount = totalBill *100;
+        String isPaidParam = String.valueOf(true);
+        String vnp_ReturnUrl = "http://localhost:8080/checkout/done?name="+invoice.getName()+"&phone="+invoice.getPhone()+"&address="+invoice.getAddress()+"&customerNote="+invoice.getCustomerNote()+"&isPaid="+isPaidParam;
         String vnp_TxnRef = VNPayConfig.getRandomNumber(8);
-        String vnp_IpAddr = "127.0.0.1";
-
-        String vnp_TmnCode = VNPayConfig.vnp_TmnCode;
 
         Map<String, String> vnp_Params = new HashMap<>();
         vnp_Params.put("vnp_Version", VNPayConfig.vnp_Version);
         vnp_Params.put("vnp_Command", VNPayConfig.vnp_Command);
-        vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
+        vnp_Params.put("vnp_TmnCode", VNPayConfig.vnp_TmnCode);
         vnp_Params.put("vnp_Amount", String.valueOf(amount));
         vnp_Params.put("vnp_CurrCode", "VND");
-        vnp_Params.put("vnp_BankCode", bankCode);
+//        vnp_Params.put("vnp_BankCode", "NCB");
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
         vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + vnp_TxnRef);
         vnp_Params.put("vnp_OrderType", orderType);
         vnp_Params.put("vnp_Locale", "vn");
-        vnp_Params.put("vnp_ReturnUrl", VNPayConfig.vnp_ReturnUrl);
-        vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
+        vnp_Params.put("vnp_ReturnUrl", vnp_ReturnUrl);
+        vnp_Params.put("vnp_IpAddr", "127.0.0.1");
 
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -61,15 +65,15 @@ public class CtlPayment {
         while (itr.hasNext()) {
             String fieldName = (String) itr.next();
             String fieldValue = (String) vnp_Params.get(fieldName);
-            if ((fieldValue != null) && (fieldValue.length() > 0)) {
+            if ((fieldValue != null) && (!fieldValue.isEmpty())) {
                 //Build hash data
                 hashData.append(fieldName);
                 hashData.append('=');
-                hashData.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
+                hashData.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII));
                 //Build query
-                query.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII.toString()));
+                query.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII));
                 query.append('=');
-                query.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
+                query.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII));
                 if (itr.hasNext()) {
                     query.append('&');
                     hashData.append('&');

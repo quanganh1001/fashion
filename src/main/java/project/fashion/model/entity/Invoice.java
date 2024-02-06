@@ -33,6 +33,7 @@ public class Invoice {
     private Integer shippingFee;
 
     private Integer totalBill;
+    private Boolean isPaid;
 
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt;

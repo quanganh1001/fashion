@@ -215,20 +215,20 @@ public class InvoiceService {
     }
 
     @Transactional
-    public ResponseEntity<String> addInvoiceByCustomer(Invoice invoice) {
+    public ResponseEntity<String> addInvoiceByCustomer(Invoice invoice) throws Exception {
         if (invoice.getNote() == null) {
             invoice.setNote("");
         }
 
         if (Objects.equals(invoice.getName(), "") ||
-                Objects.equals(invoice.getPhone(), "") || !isNumeric(invoice.getPhone()) ||
-                (!isNumeric(String.valueOf(invoice.getShippingFee())) && invoice.getShippingFee() !=null)||
-                (!isNumeric(String.valueOf(invoice.getTotalPrice())) && invoice.getTotalPrice() !=null) ||
-                (!isNumeric(String.valueOf(invoice.getTotalBill())) && invoice.getTotalBill() !=null)
-        ) {
-            System.out.println("Lỗi");
-            return new ResponseEntity<>("Lỗi sai hoặc thiếu dữ liệu", HttpStatus.BAD_REQUEST);
+                Objects.equals(invoice.getPhone(), "") || !isNumeric(invoice.getPhone())||
+                Objects.equals(invoice.getAddress(), ""))
+         {
+            throw new Exception("Lỗi thiếu dữ liệu");
         } else {
+            if (invoice.getIsPaid()==null){
+                invoice.setIsPaid(false);
+            }
             String randomId = RandomStringUtils.randomAlphanumeric(8).toUpperCase();
             invoice.setInvoiceId(randomId);
 
@@ -251,12 +251,16 @@ public class InvoiceService {
 
     @Transactional
     public void updateShippingFee(String invoiceId,int newShippingFee) throws Exception {
+
         try {
             if(newShippingFee <0) {
                 newShippingFee = 0;
             }
             invoiceRepo.updateShippingFee(invoiceId,newShippingFee);
-
+            Optional<Invoice> optionalInvoice = Optional.of(invoiceRepo.findById(invoiceId).orElse(new Invoice()));
+            if(optionalInvoice.get().getIsPaid()){
+                throw new Exception("Đơn hàng đã thanh toán không thể thêm sản phẩm");
+            }
         }catch (Exception e){
             throw new Exception(e);
         }

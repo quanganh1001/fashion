@@ -29,7 +29,7 @@
                        type="text"
                        style="width:30px"
                        th:value="${id.quantity}"/>
-                <span th:if="${id.invoice.invoiceStatus.statusId} >= 0 and ${id.invoice.invoiceStatus.statusId} <=2"
+                <span th:if="${id.invoice.invoiceStatus.statusId} >= 0 and ${id.invoice.invoiceStatus.statusId} <=2 and ${!id.invoice.isPaid}"
                       th:id="'edit' + ${id.detailId}"
                       th:data-detail-id="${id.detailId}"
                       class="edit">
@@ -49,7 +49,7 @@
         </td>
         <td th:text="${#numbers.formatDecimal(id.totalPrice, 0, 'POINT', 0, 'POINT')}"></td>
         <td class="button"
-            th:if="${id.invoice.invoiceStatus.statusId} >= 0 and ${id.invoice.invoiceStatus.statusId} <= 2">
+            th:if="${id.invoice.invoiceStatus.statusId} >= 0 and ${id.invoice.invoiceStatus.statusId} <= 2 and ${!id.invoice.isPaid}">
             <button class="delete btn btn-danger btn-sm" th:data-id="${id.detailId}">
                 <i class="fas fa-trash-alt"></i> Delete
             </button>
@@ -112,7 +112,7 @@
 
                 $.ajax({
                     type: 'PUT',
-                    url: '/admin/invoiceDetail/update-quantity', // Replace with your actual endpoint-->
+                    url: '/admin/invoiceDetail/update-quantity',
                     data: {newQuantity: newQuantity, invoiceDetailId: invoiceDetailId,invoiceId:invoiceId},
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader(csrfHeader, csrfToken);

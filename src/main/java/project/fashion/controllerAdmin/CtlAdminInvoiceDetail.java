@@ -89,7 +89,7 @@ public class CtlAdminInvoiceDetail {
     @PostMapping("/addProductInvoiceDetail")
     public String addProduct(Model model,
                              @RequestParam("productDetailId") Integer productDetailId,
-                             @RequestParam("invoiceId") String invoiceId) {
+                             @RequestParam("invoiceId") String invoiceId) throws Exception {
         invoiceDetailService.addProductInvoiceDetail(productDetailId, invoiceId);
         List<InvoiceDetail> invoiceDetails = invoiceDetailService.findAllByInvoice_InvoiceId(invoiceId);
 
@@ -102,7 +102,7 @@ public class CtlAdminInvoiceDetail {
     public String updateQuantityInvoiceDetail(Model model,
                                               @RequestParam("newQuantity") Integer newQuantity,
                                               @RequestParam("invoiceDetailId") Integer invoiceDetailId,
-                                              @RequestParam("invoiceId") String invoiceId) {
+                                              @RequestParam("invoiceId") String invoiceId) throws Exception {
         return invoiceDetailService.updateQuantityInvoiceDetail(model,newQuantity, invoiceDetailId,invoiceId);
     }
 
