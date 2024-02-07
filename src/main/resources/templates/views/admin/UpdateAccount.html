@@ -38,6 +38,7 @@
                 <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}">
                     <label for="enabled" class="form-label">Trạng thái<span style="color:red">*</span></label>
                     <input id="enabled" type="checkbox"
+                           class="form-check-input"
                            th:field="*{enabled}">Hoạt động/Không kích hoạt
                 </div>
             </div>

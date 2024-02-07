@@ -2,7 +2,12 @@
 <html lang="en">
 
 <head th:include="~{admin/component/head::head}"></head>
-
+<style>
+    #table {
+        max-height: 50vh;
+        overflow-y: auto;
+    }
+</style>
 <body>
 <div class="ui-menu-item-wrapper">
     <div th:include="~{admin/component/Menu::menu}"></div>
@@ -37,10 +42,13 @@
 
                 <div class="mb-3">
                     <label for="isActive" class="form-label">Trạng thái<span style="color:red">*</span></label>
-                    <input id="isActive" type="checkbox" th:field="${cat.isCatActive}">Hoạt động/Ẩn
+                    <input class="form-check-input" id="isActive" type="checkbox" th:field="${cat.isCatActive}">Hoạt
+                    động/Ẩn
                 </div>
 
-                <button style="text-align: center" type="button" id="btn-submit"  class="col-2 btn btn-primary">Sửa danh mục</button>
+                <button style="text-align: center" type="button" id="btn-submit" class="col-2 btn btn-primary">Sửa danh
+                    mục
+                </button>
             </div>
         </form>
 
@@ -52,39 +60,41 @@
                 </a>
             </div>
 
-            <table>
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Tên sản phâm</th>
-                    <th>Danh mục</th>
-                    <th>Trạng thái</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="p:${products}">
-                    <td th:text="${p.productId}"></td>
-                    <td th:text="${p.productName}"></td>
-                    <td th:text="${p.category.catName}">
-                    <td th:text="${p.isProductActive}==true ? 'Hoạt động' :'Đã ẩn'"></td>
+            <div id="table">
+                <table class="table table-striped table-hover table-bordered border">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên sản phâm</th>
+                        <th>Danh mục</th>
+                        <th>Trạng thái</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="p:${products}">
+                        <td th:text="${p.productId}"></td>
+                        <td th:text="${p.productName}"></td>
+                        <td th:text="${p.category.catName}">
+                        <td th:text="${p.isProductActive}==true ? 'Hoạt động' :'Đã ẩn'"></td>
 
-                    <td class="button"><a th:href="@{/admin/product/update-product/__${p.productId}__}">
-                        <button class="btn btn-primary">Sửa
-                        </button>
-                    </a>
+                        <td class="button"><a th:href="@{/admin/product/update-product/__${p.productId}__}">
+                            <button class="btn btn-primary">Sửa
+                            </button>
+                        </a>
 
-                    </td>
-                    <td class="button">
-                        <button class="btn btn-danger btn-sm" th:id="${p.productId}"
-                                onclick="confirmDelete(this.id)">
-                            <i class="fas fa-trash-alt"></i> Delete
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                        </td>
+                        <td class="button">
+                            <button class="btn btn-danger btn-sm" th:id="${p.productId}"
+                                    onclick="confirmDelete(this.id)">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

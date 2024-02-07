@@ -1,4 +1,6 @@
-
+body{
+    background-color: whitesmoke;
+}
 .ui-menu-item-wrapper{
     display: flex;
 }
@@ -6,15 +8,6 @@
 .active{
     background-color: #5b5bd4;
     color: white;
-}
-table{
-    border-collapse: collapse;
-    width: 100%;
-}
-th,td{
-    text-align: center;
-    width: auto;
-    border: 1px solid black;
 }
 
 h2{

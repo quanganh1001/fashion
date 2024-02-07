@@ -46,14 +46,16 @@
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
-            <div class="m-2" id="position">
-                <a href="/carts">
-                    <i class=" p-2 border border-primary fa-solid fa-cart-shopping">
-                    </i>
-                </a>
-                <span th:if="${number == 0}"></span>
-                <span th:unless="${number == 0}" id="number" th:text="${number}"></span>
-            </div>
+
+            <a class="position-relative btn btn-outline-success m-2" href="/carts">
+                <i class="fa-solid fa-cart-shopping">
+                    <span th:if="${number == 0}"></span>
+                    <span th:unless="${number == 0}" th:text="${number}"
+                          class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"></span>
+                </i>
+            </a>
+
+
         </div>
     </nav>
 </header>

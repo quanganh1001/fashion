@@ -24,24 +24,16 @@ $(document).ready(function () {
 
     $('.color').click(function (event) {
         $("#quantity").val(1)
-        const productDetail = $("#productDetail-code").val()
-        const quantity = $("#quantity").val();
 
-        if (quantity > 0 && productDetail != null) {
-            $("#submit").removeClass("hidden")
-            $("#no-submit").addClass("hidden")
-        } else {
-            $("#no-submit").removeClass("hidden")
-            $("#submit").addClass("hidden")
-        }
 
-        // Loại bỏ lớp 'bg-success' từ tất cả các label
+        $("#no-submit").removeClass("hidden")
+        $("#submit").addClass("hidden")
+
         $('.color').removeClass('bg-success text-light checkedColor');
 
-        // Thêm lớp 'bg-success' cho label được bấm vào
         $(this).addClass('bg-success text-light checkedColor');
 
-        // Tìm input con và thay đổi trạng thái checked
+
         var input = $(this).find('input[name="color"]');
         input.prop('checked', true);
 

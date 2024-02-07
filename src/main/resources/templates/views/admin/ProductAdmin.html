@@ -9,19 +9,21 @@
 
     <div class="container p-4 ">
         <h2>Danh sách sản phẩm</h2>
-        <div class="mt-5 mb-3 d-flex flex-wrap justify-content-between">
+        <div class="mt-5 d-flex align-items-center flex-wrap justify-content-between">
             <a href="/admin/product/add-product">
                 <button type="button" class="btn btn-primary">Thêm sản phẩm</button>
             </a>
             <form th:action="@{/admin/product}" method="get">
-                <label for="key">Tìm kiếm:</label>
-                <input type="text" id="key" name="key" th:value="${#strings.isEmpty(searchKey) ? '' : searchKey}"
-                       placeholder="Nhập mã sản phẩm hoặc tên sản phẩm...">
-                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                <div class="input-group" style="width: 400px">
+                    <input class="form-control" type="text" id="key" name="key"
+                           th:value="${#strings.isEmpty(searchKey) ? '' : searchKey}"
+                           placeholder="Nhập mã sản phẩm hoặc tên sản phẩm...">
+                    <button type="submit" class="btn btn-outline-primary">Tìm kiếm</button>
+                </div>
             </form>
 
-            <div>Tổng: <span th:text="${totalItems}" style="color:red"></span> sản phẩm</div>
             <nav aria-label="Page navigation">
+                <div>Tổng: <span th:text="${totalItems}" style="color:red"></span> sản phẩm</div>
                 <ul class="pagination">
                     <li class="page-item" th:class="${currentPage == 1} ? 'page-item disabled' : 'page-item'">
                         <a class="page-link" th:href="@{/admin/product(page=${currentPage}-1,key=${key})}"
@@ -45,7 +47,7 @@
                 </ul>
             </nav>
         </div>
-        <table>
+        <table class="table table-striped table-hover table-bordered border">
             <thead>
             <tr>
                 <th>ID</th>

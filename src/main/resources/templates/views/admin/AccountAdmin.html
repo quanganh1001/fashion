@@ -2,7 +2,12 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head th:include="~{admin/component/head::head}"></head>
-
+<style>
+    .table {
+        max-height: 100vh;
+        overflow-y: auto;
+    }
+</style>
 <body>
 <div class="ui-menu-item-wrapper">
     <div th:include="~{admin/component/Menu::menu}"></div>
@@ -15,41 +20,44 @@
             </a>
         </div>
 
-        <table>
-            <thead>
-            <tr>
-                <th>Tên tài khoản</th>
-                <th>Quyền</th>
-                <th>Trạng thái</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="ac:${accounts}">
-                <td th:text="${ac.userName}"></td>
-                <td th:text="${ac.role}"></td>
-                <td th:text="${ac.enabled}==true ? 'Hoạt động' :'Không kích hoạt'"></td>
+        <div id="table">
+            <table class="table table-striped table-hover table-bordered border">
+                <thead>
+                <tr>
+                    <th>Tên tài khoản</th>
+                    <th>Quyền</th>
+                    <th>Trạng thái</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="ac:${accounts}">
+                    <td th:text="${ac.userName}"></td>
+                    <td th:text="${ac.role}"></td>
+                    <td th:text="${ac.enabled}==true ? 'Hoạt động' :'Không kích hoạt'"></td>
 
-                <td>
-                    <div class="d-flex justify-content-center">
-                        <a th:href="@{/admin/account/update-account?accountId=__${ac.accountId}__}">
-                            <button class="align-items-center btn btn-primary">Sửa
-                            </button>
-                        </a>
-                    </div>
-                </td>
-                <td>
-                    <div class="d-flex justify-content-center">
-                        <form th:action="@{/admin/account/delete-account?accountId=__${ac.accountId}__}"
-                              th:method="delete">
-                        <button class="align-items-center btn btn-danger btn-sm" th:data-accountId="${ac.accountId}" type="submit">
-                            <i class="fas fa-trash-alt"></i>Xóa
-                        </button>
-                        </form>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                    <td>
+                        <div class="d-flex justify-content-center">
+                            <a th:href="@{/admin/account/update-account?accountId=__${ac.accountId}__}">
+                                <button class="align-items-center btn btn-primary">Sửa
+                                </button>
+                            </a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-center">
+                            <form th:action="@{/admin/account/delete-account?accountId=__${ac.accountId}__}"
+                                  th:method="delete">
+                                <button class="align-items-center btn btn-danger btn-sm"
+                                        th:data-accountId="${ac.accountId}" type="submit">
+                                    <i class="fas fa-trash-alt"></i>Xóa
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

@@ -100,8 +100,8 @@
                         <textarea class="form-control" id="customerNote" name="customerNote"></textarea>
                     </div>
 
-                    <button th:if="${number == 0}" style="text-align: center;font-size: 2rem" disabled
-                            class="col-6 btn btn-secondary">Đặt hàng</button>
+                    <button th:if="${number == 0}" style="text-align: center;font-size: 2rem"
+                            class="col-6 btn btn-primary disabled">Đặt hàng</button>
                     <button th:unless="${number == 0}" style="text-align: center;font-size: 2rem" type="submit"
                             id="btn-submit"
                             class="col-6 btn btn-primary">Đặt

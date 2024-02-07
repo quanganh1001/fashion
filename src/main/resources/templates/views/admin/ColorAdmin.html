@@ -20,9 +20,9 @@
             </a>
         </div>
 
-        <div class="list-group col-6 border p-2">
+        <div class="list-group col-6">
             <ul th:each="cl:${color}">
-                <li>
+                <li class="list-group-item ">
                     <form th:action="@{/admin/color/delete-color?colorId=__${cl.colorId}__}" th:method="delete">
                         <button class="align-items-center btn btn-danger btn-sm" type="submit">
                             <i class="fas fa-trash-alt"></i>Xóa
