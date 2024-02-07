@@ -89,14 +89,14 @@ public class CategoryService {
         if (page < 0)
             page = 0;
         if (Objects.equals(catId, "sale")) {
-            return productRepo.findAllByIsDiscountIsTrue(PageRequest.of(page, size));
+            return productRepo.findAllByIsDiscountIsTrueAndIsProductActiveIsTrue(PageRequest.of(page, size));
         } else {
-            List<Product> products = productRepo.findByCategoryCatId(catId);
+            List<Product> products = productRepo.findByCategoryCatIdAndIsProductActiveIsTrue(catId);
             List<Category> allCategory = new ArrayList<>();
             CatDescendants(catId, allCategory);
 
             for (Category c : allCategory) {
-                products.addAll(productRepo.findByCategoryCatId(c.getCatId()));
+                products.addAll(productRepo.findByCategoryCatIdAndIsProductActiveIsTrue(c.getCatId()));
             }
 
             // Chuyển đổi danh sách sản phẩm thành một trang
@@ -107,11 +107,11 @@ public class CategoryService {
     }
 
     public List<Product> searchProductByCatId(String catId) {
-        List<Product> products = productRepo.findByCategoryCatId(catId);
+        List<Product> products = productRepo.findByCategoryCatIdAndIsProductActiveIsTrue(catId);
         List<Category> allCategory = new ArrayList<>();
         CatDescendants(catId, allCategory);
         for (Category c : allCategory) {
-            products.addAll(productRepo.findByCategoryCatId(c.getCatId()));
+            products.addAll(productRepo.findByCategoryCatIdAndIsProductActiveIsTrue(c.getCatId()));
         }
 
         return products;

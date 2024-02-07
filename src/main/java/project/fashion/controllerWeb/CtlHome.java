@@ -20,7 +20,7 @@ public class CtlHome {
     @GetMapping("")
     public String getHome(Model model){
         categoryService.listCategory(model);
-        model.addAttribute("title","Home");
+        model.addAttribute("title","Trang chủ");
         return "web/Home";
     }
 

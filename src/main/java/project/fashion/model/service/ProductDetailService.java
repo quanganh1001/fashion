@@ -79,7 +79,7 @@ public class ProductDetailService {
     }
 
     public List<ProductDetail> findAllByProductAndColor(String productId, String colorId) {
-        return productDetailRepo.findAllByProductProductIdAndColor_ColorId(productId, colorId);
+        return productDetailRepo.findAllByProductProductIdAndColor_ColorIdAndProductDetailActiveIsTrue(productId, colorId);
     }
 
     public ProductDetail findProductDetail(String productId, String colorId, String sizeId) {

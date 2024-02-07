@@ -41,6 +41,7 @@ public class CtlCart {
         model.addAttribute("newInvoice",new Invoice());
         model.addAttribute("shippingFee",shippingFee);
         model.addAttribute("totalPrice",totalPrice);
+        model.addAttribute("title","Giỏ hàng");
         return "web/Cart";
     }
 

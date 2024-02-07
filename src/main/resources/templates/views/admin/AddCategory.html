@@ -6,41 +6,46 @@
 <body>
 <div class="ui-menu-item-wrapper">
 
-    <div th:include="~{admin/component/Menu::menu}"></div>
+    <div class="bg-dark sidebar col-2" th:include="~{admin/component/Menu::menu}"
+         style="min-height: 100vh;overflow-y: auto;"></div>
 
-    <div class="container p-4">
+    <div class="content-admin p-4">
 
         <h2>THÊM MỚI DANH MỤC</h2>
-        <form id="form" th:action="@{/admin/category/add-category?parent=__${catParentId}__}" method="post"
-              th:object="${category}">
-            <div class="row">
-                <div class="mb-3">
-                    <label for="cat-id" class="form-label">Mã danh mục<span style="color:red">*</span></label>
-                    <input type="text" class="form-control" id="cat-id" th:field="*{catId}"/>
-                    <span id="idError" class="text-danger"></span>
-                </div>
+        <div class="mt-5 bg-white p-5 shadow border">
+            <form id="form" th:action="@{/admin/category/add-category?parent=__${catParentId}__}" method="post"
+                  th:object="${category}">
+                <div class="row">
+                    <div class="mb-3">
+                        <label for="cat-id" class="form-label">Mã danh mục<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="cat-id" th:field="*{catId}"/>
+                        <span id="idError" class="text-danger"></span>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="cat-name" class="form-label">Tên danh mục<span style="color:red">*</span></label>
-                    <input type="text" class="form-control" id="cat-name" th:field="*{catName}">
-                    <span id="nameError" class="text-danger"></span>
-                </div>
+                    <div class="mb-3">
+                        <label for="cat-name" class="form-label">Tên danh mục<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="cat-name" th:field="*{catName}">
+                        <span id="nameError" class="text-danger"></span>
+                    </div>
 
-                <div class="mb-3">
-                    <label th:for="parent-id" class="form-label">Nằm trong danh
-                        mục<span style="color:red">*</span></label>
-                    <select class="form-control" id="parent-id" th:field="*{catParent}">
-                        <option value="">Không có</option>
-                        <option th:each="cat : ${cat}" th:value="${cat.catId}"
-                                th:text="${cat.catId} + ' - ' + ${cat.catName}">
-                        </option>
-                    </select>
-                </div>
+                    <div class="mb-3">
+                        <label th:for="parent-id" class="form-label">Nằm trong danh
+                            mục<span style="color:red">*</span></label>
+                        <select class="form-control" id="parent-id" th:field="*{catParent}">
+                            <option value="">Không có</option>
+                            <option th:each="cat : ${cat}" th:value="${cat.catId}"
+                                    th:text="${cat.catId} + ' - ' + ${cat.catName}">
+                            </option>
+                        </select>
+                    </div>
 
-                <button style="text-align: center" type="submit" id="btn-submit" class="col-2 btn btn-primary">Thêm Danh
-                    Mục</button>
-            </div>
-        </form>
+                    <button style="text-align: center" type="submit" id="btn-submit" class="col-2 btn btn-primary">Thêm
+                        Danh
+                        Mục
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 <script th:src="@{/script/AdminScript/AddCategoryScript.js}"></script>

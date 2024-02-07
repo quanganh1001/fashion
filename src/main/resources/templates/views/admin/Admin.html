@@ -6,9 +6,9 @@
 <body>
 <div class="ui-menu-item-wrapper">
 
-    <div th:include="~{admin/component/Menu::menu}"></div>
+    <div class="bg-dark sidebar col-2" th:include="~{admin/component/Menu::menu}" style="min-height: 100vh;overflow-y: auto;"></div>
 
-    <div class="container p-4 content">
+    <div class="content-admin p-4">
         <h1>WELCOME ADMIN MANAGER PAGE</h1>
     </div>
 </div>

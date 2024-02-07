@@ -5,60 +5,65 @@
 
 <body>
 <div class="ui-menu-item-wrapper">
-    <div th:include="~{admin/component/Menu::menu}"></div>
+    <div class="bg-dark sidebar col-2" th:include="~{admin/component/Menu::menu}"
+         style="min-height: 100vh;overflow-y: auto;"></div>
 
-    <div class="container p-4">
+    <div class="content-admin p-4">
         <h2>SỬA CHI TIẾT SẢN PHẨM</h2>
-        <form id="form" th:action="@{/admin/productDetail/update-detail}" th:method="put"
-              th:object="${pd}">
-            <input type="hidden" th:field="*{product.productId}">
-            <div class="row">
-                <div class="mb-3">
-                    <label for="product-detail-id" class="form-label">Mã chi tiết sản
-                        phẩm<span style="color:red">*</span></label>
-                    <input readonly type="text" class="readonly form-control" id="product-detail-id"
-                           th:field="*{productDetailId}"/>
-                </div>
+        <div class="mt-5 bg-white p-5 shadow border">
+            <form id="form" th:action="@{/admin/productDetail/update-detail}" th:method="put"
+                  th:object="${pd}">
+                <input type="hidden" th:field="*{product.productId}">
+                <div class="row">
+                    <div class="mb-3">
+                        <label for="product-detail-id" class="form-label">Mã chi tiết sản
+                            phẩm<span style="color:red">*</span></label>
+                        <input readonly type="text" class="readonly form-control" id="product-detail-id"
+                               th:field="*{productDetailId}"/>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="code" class="form-label">Code<span style="color:red">*</span></label>
-                    <input type="text" class="form-control" id="code"
-                           th:field="*{code}">
-                    <span id="codeError" class="text-danger"></span>
-                </div>
+                    <div class="mb-3">
+                        <label for="code" class="form-label">Code<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="code"
+                               th:field="*{code}">
+                        <span id="codeError" class="text-danger"></span>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="quantity" class="form-label">Số lượng<span>*</span></label>
-                    <input type="text" class="form-control" id="quantity" th:field="*{quantity}">
-                    <span id="quantityError" class="text-danger"></span>
-                </div>
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Số lượng<span>*</span></label>
+                        <input type="text" class="form-control" id="quantity" th:field="*{quantity}">
+                        <span id="quantityError" class="text-danger"></span>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="color" class="form-label">Màu<span
-                            style="color:red">*</span></label>
-                    <select class="form-control" id="color" th:field="*{color.colorId}">
-                        <option th:each="cl : ${color}" th:value="${cl.colorId}"
-                                th:text="${cl.name} + ' - ' + ${cl.colorId}"></option>
-                    </select>
-                </div>
+                    <div class="mb-3">
+                        <label for="color" class="form-label">Màu<span
+                                style="color:red">*</span></label>
+                        <select class="form-control" id="color" th:field="*{color.colorId}">
+                            <option th:each="cl : ${color}" th:value="${cl.colorId}"
+                                    th:text="${cl.name} + ' - ' + ${cl.colorId}"></option>
+                        </select>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="size" class="form-label">Size<span
-                            style="color:red">*</span></label>
-                    <select class="form-control" id="size" th:field="*{size.sizeId}">
-                        <option th:each="s : ${size}" th:value="${s.sizeId}"
-                                th:text="${s.name}"></option>
-                    </select>
-                </div>
+                    <div class="mb-3">
+                        <label for="size" class="form-label">Size<span
+                                style="color:red">*</span></label>
+                        <select class="form-control" id="size" th:field="*{size.sizeId}">
+                            <option th:each="s : ${size}" th:value="${s.sizeId}"
+                                    th:text="${s.name}"></option>
+                        </select>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="isActive" class="form-label">Trạng thái<span style="color:red">*</span></label>
-                    <input class="form-check-input" id="isActive" type="checkbox" th:field="*{productDetailActive}">Hoạt động/Ẩn
-                </div>
+                    <div class="mb-3">
+                        <label for="isActive" class="form-label">Trạng thái<span style="color:red">*</span></label>
+                        <input class="form-check-input" id="isActive" type="checkbox" th:field="*{productDetailActive}">Hoạt
+                        động/Ẩn
+                    </div>
 
-                <button style="text-align: center" type="submit" id="button"  class="col-4 btn btn-primary">Sửa</button>
-            </div>
-        </form>
+                    <button style="text-align: center" type="submit" id="button" class="col-4 btn btn-primary">Sửa
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 <script th:src="@{/script/AdminScript/UpdateProductDetaiScript.js}"></script>

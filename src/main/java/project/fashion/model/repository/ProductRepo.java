@@ -16,6 +16,8 @@ public interface ProductRepo extends JpaRepository<Product, String> {
             nativeQuery = true)
     void setProductActive(@Param("cat_id") String cat_id, @Param("boo") Boolean boo);
 
+    List<Product> findByCategoryCatIdAndIsProductActiveIsTrue(String cat_id);
+
     List<Product> findByCategoryCatId(String cat_id);
 
 
@@ -23,6 +25,6 @@ public interface ProductRepo extends JpaRepository<Product, String> {
                                                                                        String key2,
                                                                                        Pageable pageable);
 
-    Page<Product> findAllByIsDiscountIsTrue(Pageable pageable);
+    Page<Product> findAllByIsDiscountIsTrueAndIsProductActiveIsTrue(Pageable pageable);
 
 }

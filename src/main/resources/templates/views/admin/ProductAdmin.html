@@ -5,88 +5,91 @@
 
 <body>
 <div class="ui-menu-item-wrapper">
-    <div th:include="~{admin/component/Menu::menu}"></div>
+    <div class="bg-dark sidebar col-2" th:include="~{admin/component/Menu::menu}"
+         style="min-height: 100vh;overflow-y: auto;"></div>
 
-    <div class="container p-4 ">
+    <div class="content-admin p-4">
         <h2>Danh sách sản phẩm</h2>
-        <div class="mt-5 d-flex align-items-center flex-wrap justify-content-between">
-            <a href="/admin/product/add-product">
-                <button type="button" class="btn btn-primary">Thêm sản phẩm</button>
-            </a>
-            <form th:action="@{/admin/product}" method="get">
-                <div class="input-group" style="width: 400px">
-                    <input class="form-control" type="text" id="key" name="key"
-                           th:value="${#strings.isEmpty(searchKey) ? '' : searchKey}"
-                           placeholder="Nhập mã sản phẩm hoặc tên sản phẩm...">
-                    <button type="submit" class="btn btn-outline-primary">Tìm kiếm</button>
-                </div>
-            </form>
+        <div class="mt-5 bg-white p-5 shadow border">
+            <div class="mt-5 d-flex align-items-center flex-wrap justify-content-between">
+                <a href="/admin/product/add-product">
+                    <button type="button" class="btn btn-primary">Thêm sản phẩm</button>
+                </a>
+                <form th:action="@{/admin/product}" method="get">
+                    <div class="input-group" style="width: 400px">
+                        <input class="form-control" type="text" id="key" name="key"
+                               th:value="${#strings.isEmpty(searchKey) ? '' : searchKey}"
+                               placeholder="Nhập mã sản phẩm hoặc tên sản phẩm...">
+                        <button type="submit" class="btn btn-outline-primary">Tìm kiếm</button>
+                    </div>
+                </form>
 
-            <nav aria-label="Page navigation">
-                <div>Tổng: <span th:text="${totalItems}" style="color:red"></span> sản phẩm</div>
-                <ul class="pagination">
-                    <li class="page-item" th:class="${currentPage == 1} ? 'page-item disabled' : 'page-item'">
-                        <a class="page-link" th:href="@{/admin/product(page=${currentPage}-1,key=${key})}"
-                           aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}">
-                        <a class="page-link" th:href="@{/admin/product(page=${i >= 1 ? i : 1},key=${key})}"
-                           th:text="${i}"
-                           th:class="${currentPage == i} ? 'page-link active' : 'page-link'"
-                        ></a>
-                    </li>
-                    <li class="page-item"
-                        th:class="${currentPage == totalPages} ? 'page-item disabled' : 'page-item'">
-                        <a class="page-link" th:href="@{/admin/product(page=${currentPage+1},key=${key})}"
-                           aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+                <nav aria-label="Page navigation">
+                    <div>Tổng: <span th:text="${totalItems}" style="color:red"></span> sản phẩm</div>
+                    <ul class="pagination">
+                        <li class="page-item" th:class="${currentPage == 1} ? 'page-item disabled' : 'page-item'">
+                            <a class="page-link" th:href="@{/admin/product(page=${currentPage}-1,key=${key})}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}">
+                            <a class="page-link" th:href="@{/admin/product(page=${i >= 1 ? i : 1},key=${key})}"
+                               th:text="${i}"
+                               th:class="${currentPage == i} ? 'page-link active' : 'page-link'"
+                            ></a>
+                        </li>
+                        <li class="page-item"
+                            th:class="${currentPage == totalPages} ? 'page-item disabled' : 'page-item'">
+                            <a class="page-link" th:href="@{/admin/product(page=${currentPage+1},key=${key})}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <table class="table table-striped table-hover table-bordered border">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên sản phâm</th>
+                    <th>Danh mục</th>
+                    <th>Trạng thái</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p:${products}">
+                    <td th:text="${p.productId}"></td>
+                    <td th:text="${p.productName}"></td>
+                    <td th:text="${p.category.catName}">
+                    <td th:text="${p.isProductActive}==true ? 'Hoạt động' :'Đã ẩn'"></td>
+                    <td>
+                        <div class="d-flex justify-content-center">
+                            <a th:href="@{/admin/product/update-product/__${p.productId}__}">
+                                <button class="align-items-center btn btn-primary">Sửa
+                                </button>
+                            </a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-center">
+                            <form id="form-delete-product"
+                                  th:action="@{/admin/product/delete-product/__${p.productId}__}"
+                                  th:method="delete"
+                                  onsubmit="return confirm('Bạn có muốn xóa sản phẩm này?')">
+                                <button class="btn btn-danger btn-sm" type="submit">
+                                    <i class="fas fa-trash-alt"></i>Xóa
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-        <table class="table table-striped table-hover table-bordered border">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Tên sản phâm</th>
-                <th>Danh mục</th>
-                <th>Trạng thái</th>
-                <th></th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="p:${products}">
-                <td th:text="${p.productId}"></td>
-                <td th:text="${p.productName}"></td>
-                <td th:text="${p.category.catName}">
-                <td th:text="${p.isProductActive}==true ? 'Hoạt động' :'Đã ẩn'"></td>
-                <td>
-                    <div class="d-flex justify-content-center">
-                        <a th:href="@{/admin/product/update-product/__${p.productId}__}">
-                            <button class="align-items-center btn btn-primary">Sửa
-                            </button>
-                        </a>
-                    </div>
-                </td>
-                <td>
-                    <div class="d-flex justify-content-center">
-                        <form id="form-delete-product"
-                              th:action="@{/admin/product/delete-product/__${p.productId}__}"
-                              th:method="delete"
-                              onsubmit="return confirm('Bạn có muốn xóa sản phẩm này?')">
-                            <button class="btn btn-danger btn-sm" type="submit">
-                                <i class="fas fa-trash-alt"></i>Xóa
-                            </button>
-                        </form>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
     </div>
 </div>
 

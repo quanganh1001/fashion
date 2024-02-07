@@ -127,8 +127,7 @@ public class ProductService{
 
     public Product findById(String productId){
         Optional<Product> productOptional = Optional.of(productRepo.findById(productId).orElse(new Product()));
-        Product product = productOptional.get();
-        return product;
+        return productOptional.get();
     }
 
 

@@ -1,79 +1,77 @@
+<div th:fragment="menu">
+        <ul class="fixed-top list-group col-2 p-3 menu">
+            <li class="p-3 text-light " id="home">Trang chủ</li>
+            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light" id="product">Quản
+                lý Sản phẩm
+            </li>
+            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light" id="category">
+                Quản lý danh mục Sản phẩm
+            </li>
+            <li class="p-3 text-light" id="invoice" th:data-accountId="${account.accountId}">Quản lý đơn hàng</li>
+            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light" id="color">Quản
+                lý mã màu
+            </li>
+            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light" id="account">Quản
+                lý tài khoản
+            </li>
+            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light" id="store">Quản
+                lý cửa hàng
+            </li>
 
-<div th:fragment="menu"
-     xmlns:sec="http://www.thymeleaf.org/extras/spring-security" class="col-4">
-    <ul class="list-group">
-        <li class="list-group-item list-group-item-action" id="home" >Trang chủ</li>
-        <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class=" list-group-item list-group-item-action" id="product">Quản lý Sản phẩm</li>
-        <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class=" list-group-item list-group-item-action" id="category">Quản lý danh mục Sản phẩm</li>
-        <li  class=" list-group-item" id="invoice" th:data-accountId="${account.accountId}">Quản lý đơn hàng</li>
-        <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class=" list-group-item list-group-item-action" id="color">Quản lý mã màu</li>
-        <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}"  class=" list-group-item list-group-item-action" id="account">Quản lý tài khoản</li>
-        <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}"  class=" list-group-item list-group-item-action" id="store">Quản lý cửa hàng</li>
-        <div class="m-3" th:if="${account != null}">
-            <div class="mb-3">
-                Xin chào, <span th:text="${account.userName}"></span>! <a th:href="@{'/admin/account/update-account?accountId=' + ${account.accountId}}" ><i class="fa-regular fa-eye"></i></a>
+            <div class="m-3" th:if="${account != null}">
+                <div class="mb-3" style="color:white">
+                    Xin chào, <span th:text="${account.userName}"></span>! <a
+                        th:href="@{'/admin/account/update-account?accountId=' + ${account.accountId}}"><i
+                        class="fa-regular fa-eye" style="color:white"></i></a>
+                </div>
+                <form th:action="@{/logout}" method="post">
+                    <input class="btn btn-danger" type="submit" value="Đăng xuất">
+                </form>
             </div>
-            <form th:action="@{/logout}" method="post">
-                <input class="btn btn-primary" type="submit" value="Đăng xuất">
-            </form>
-        </div>
-    </ul>
+        </ul>
     <div th:include="~{admin/component/ModalAlert::ModalAlert}"></div>
 
 
     <script th:inline="javascript">
-        $(document).ready(()=>{
+        $(document).ready(() => {
 
             $("#home").click(() => {
-                window.location.href= "/admin"
+                window.location.href = "/admin"
             })
             $("#product").click(() => {
-                window.location.href= "/admin/product"
+                window.location.href = "/admin/product"
             })
             $("#category").click(() => {
-                window.location.href= "/admin/category?parent="
+                window.location.href = "/admin/category?parent="
             })
             $("#invoice").click(() => {
-                window.location.href= "/admin/invoice?accountId="+ [[${account.accountId}]];
+                window.location.href = "/admin/invoice?accountId=" + [[${account.accountId}]];
             })
             $("#color").click(() => {
-                window.location.href= "/admin/color"
+                window.location.href = "/admin/color"
             })
             $("#account").click(() => {
-                window.location.href= "/admin/account"
+                window.location.href = "/admin/account"
             })
             $("#store").click(() => {
-                window.location.href= "/admin/store"
+                window.location.href = "/admin/store"
             })
 
 
-            if([[${title}]] === "Home"){
-                $("#home").addClass("active");
-                $("#home a").addClass("text-light")
-            }
-            else if([[${title}]] === "Product"){
-                $("#product").addClass("active");
-                $("#product a").addClass("text-light")
-            }
-            else if([[${title}]] === "Category"){
-                $("#category").addClass("active");
-                $("#category a").addClass("text-light")
-            }
-            else if([[${title}]] === "Invoice"){
-                $("#invoice").addClass("active");
-                $("#invoice a").addClass("text-light")
-            }
-            else if([[${title}]] === "Color"){
-                $("#color").addClass("active");
-                $("#color a").addClass("text-light")
-            }
-            else if([[${title}]] === "Account"){
-                $("#account").addClass("active");
-                $("#account a").addClass("text-light")
-            }
-            else if([[${title}]] === "Store"){
-                $("#store").addClass("active");
-                $("#store a").addClass("text-light")
+            if ([[${title}]] === "Home") {
+                $("#home").addClass("bg-dark-subtle text-dark");
+            } else if ([[${title}]] === "Product") {
+                $("#product").addClass("bg-dark-subtle text-dark");
+            } else if ([[${title}]] === "Category") {
+                $("#category").addClass("bg-dark-subtle text-dark rounded-4");
+            } else if ([[${title}]] === "Invoice") {
+                $("#invoice").addClass("bg-dark-subtle text-dark rounded-4");
+            } else if ([[${title}]] === "Color") {
+                $("#color").addClass("bg-dark-subtle text-dark rounded-4");
+            } else if ([[${title}]] === "Account") {
+                $("#account").addClass("bg-dark-subtle text-dark rounded-4");
+            } else if ([[${title}]] === "Store") {
+                $("#store").addClass("bg-dark-subtle text-dark rounded-4");
             }
         })
     </script>

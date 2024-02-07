@@ -19,7 +19,7 @@ public interface ProductDetailRepo extends JpaRepository<ProductDetail,Integer> 
 
     List<ProductDetail> findAllByProductProductId(String productId);
 
-    List<ProductDetail> findAllByProductProductIdAndColor_ColorId(String productId,String colorId);
+    List<ProductDetail> findAllByProductProductIdAndColor_ColorIdAndProductDetailActiveIsTrue(String productId,String colorId);
 
     List<ProductDetail> searchProductDetailByProductProductNameContainingIgnoreCase(String key);
 

@@ -10,95 +10,98 @@
 </style>
 <body>
 <div class="ui-menu-item-wrapper">
-    <div th:include="~{admin/component/Menu::menu}"></div>
+    <div class="bg-dark sidebar col-2" th:include="~{admin/component/Menu::menu}"
+         style="min-height: 100vh;overflow-y: auto;"></div>
 
-    <div class="container p-4">
+    <div class="content-admin p-4">
         <h2>SỬA DANH MỤC</h2>
-        <form id="form" th:action="@{/admin/category/update-category}" method="POST"
-              th:object="${cat}">
-            <input type="hidden" name="_method" value="put"/>
-            <div class="row">
-                <div class="mb-3 col-6">
-                    <label for="catId" class="form-label">Mã danh mục<span style="color:red">*</span></label>
-                    <input type="text" class=" form-control" id="catId"
-                           th:field="${cat.catId}"/>
+        <div class="mt-5 bg-white p-5 shadow border">
+            <form id="form" th:action="@{/admin/category/update-category}" method="POST"
+                  th:object="${cat}">
+                <input type="hidden" name="_method" value="put"/>
+                <div class="row">
+                    <div class="mb-3 col-6">
+                        <label for="catId" class="form-label">Mã danh mục<span style="color:red">*</span></label>
+                        <input type="text" class=" form-control" id="catId"
+                               th:field="${cat.catId}"/>
+                    </div>
+
+                    <div class="mb-3 col-6">
+                        <label for="catName" class="form-label">Tên danh mục<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="catName"
+                               th:field="${cat.catName}">
+                    </div>
+
+
+                    <div class="mb-3 col-6">
+                        <label for="catParent" class="form-label">Danh mục sản phẩm<span
+                                style="color:red">*</span></label>
+                        <select class="form-control" id="catParent" th:field="${cat.catParent}">
+                            <option th:value=null>Không có</option>
+                            <option th:each="c : ${c}" th:value="${c.catId}"
+                                    th:text="${c.catName}+' - '+${c.catId}"></option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="isActive" class="form-label">Trạng thái<span style="color:red">*</span></label>
+                        <input class="form-check-input" id="isActive" type="checkbox" th:field="${cat.isCatActive}">Hoạt
+                        động/Ẩn
+                    </div>
+
+                    <button style="text-align: center" type="button" id="btn-submit" class="col-2 btn btn-primary">Sửa
+                        danh
+                        mục
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-5 col-12">
+                <h4>Danh sách sản phẩm</h4>
+                <div class="mb-3 mt-3">
+                    <a th:href="@{/admin/product/add-product?catId=__${cat.catId}__}">
+                        <button type="button" class="btn btn-primary">Thêm sản phẩm</button>
+                    </a>
                 </div>
 
-                <div class="mb-3 col-6">
-                    <label for="catName" class="form-label">Tên danh mục<span style="color:red">*</span></label>
-                    <input type="text" class="form-control" id="catName"
-                           th:field="${cat.catName}">
+                <div id="table">
+                    <table class="table table-striped table-hover table-bordered border">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên sản phâm</th>
+                            <th>Danh mục</th>
+                            <th>Trạng thái</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="p:${products}">
+                            <td th:text="${p.productId}"></td>
+                            <td th:text="${p.productName}"></td>
+                            <td th:text="${p.category.catName}">
+                            <td th:text="${p.isProductActive}==true ? 'Hoạt động' :'Đã ẩn'"></td>
+
+                            <td class="button"><a th:href="@{/admin/product/update-product/__${p.productId}__}">
+                                <button class="btn btn-primary">Sửa
+                                </button>
+                            </a>
+
+                            </td>
+                            <td class="button">
+                                <button class="btn btn-danger btn-sm" th:id="${p.productId}"
+                                        onclick="confirmDelete(this.id)">
+                                    <i class="fas fa-trash-alt"></i> Delete
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-
-
-                <div class="mb-3 col-6">
-                    <label for="catParent" class="form-label">Danh mục sản phẩm<span style="color:red">*</span></label>
-                    <select class="form-control" id="catParent" th:field="${cat.catParent}">
-                        <option th:value=null>Không có</option>
-                        <option th:each="c : ${c}" th:value="${c.catId}"
-                                th:text="${c.catName}+' - '+${c.catId}"></option>
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label for="isActive" class="form-label">Trạng thái<span style="color:red">*</span></label>
-                    <input class="form-check-input" id="isActive" type="checkbox" th:field="${cat.isCatActive}">Hoạt
-                    động/Ẩn
-                </div>
-
-                <button style="text-align: center" type="button" id="btn-submit" class="col-2 btn btn-primary">Sửa danh
-                    mục
-                </button>
-            </div>
-        </form>
-
-        <div class="mt-5 col-12">
-            <h4>Danh sách sản phẩm</h4>
-            <div class="mb-3 mt-3">
-                <a th:href="@{/admin/product/add-product?catId=__${cat.catId}__}">
-                    <button type="button" class="btn btn-primary">Thêm sản phẩm</button>
-                </a>
-            </div>
-
-            <div id="table">
-                <table class="table table-striped table-hover table-bordered border">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Tên sản phâm</th>
-                        <th>Danh mục</th>
-                        <th>Trạng thái</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="p:${products}">
-                        <td th:text="${p.productId}"></td>
-                        <td th:text="${p.productName}"></td>
-                        <td th:text="${p.category.catName}">
-                        <td th:text="${p.isProductActive}==true ? 'Hoạt động' :'Đã ẩn'"></td>
-
-                        <td class="button"><a th:href="@{/admin/product/update-product/__${p.productId}__}">
-                            <button class="btn btn-primary">Sửa
-                            </button>
-                        </a>
-
-                        </td>
-                        <td class="button">
-                            <button class="btn btn-danger btn-sm" th:id="${p.productId}"
-                                    onclick="confirmDelete(this.id)">
-                                <i class="fas fa-trash-alt"></i> Delete
-                            </button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
-
-
 </div>
 <script th:src="@{/script/AdminScript/UpdateCategoryScript.js}"></script>
 </body>

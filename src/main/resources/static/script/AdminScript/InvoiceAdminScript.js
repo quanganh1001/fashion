@@ -5,8 +5,8 @@ $(document).ready(() => {
         $.ajax({
             type: 'GET',
             url: "/admin/invoice/change-list-invoice",
-            data: {selectAccount : newSelectAccount, filterStatus: filterStatus},
-            success:  (data) => {
+            data: {selectAccount: newSelectAccount, filterStatus: filterStatus},
+            success: (data) => {
                 $("#list-invoice").html(data)
             },
             error: (jqXHR) => {
@@ -15,15 +15,20 @@ $(document).ready(() => {
         });
     })
 
-    $(".filter").click( (event) => {
+    $(".filter").click(function (event) {
         const newFilterStatus = $(event.target).attr("data-filter-status")
         const selectAccount = $("#table").attr("data-selectAccount");
         $.ajax({
             type: 'GET',
             url: "/admin/invoice/change-list-invoice",
-            data: { selectAccount : selectAccount, filterStatus: newFilterStatus},
-            success:  (data) => {
+            data: {selectAccount: selectAccount, filterStatus: newFilterStatus},
+            success: (data) => {
                 $("#list-invoice").html(data)
+                const id = $(this).attr("id");
+                $(".filter").removeClass("active text-white ")
+                if (newFilterStatus === id) {
+                    $(this).addClass("active text-white");
+                }
             },
             error: (jqXHR) => {
                 alert(jqXHR.responseText)

@@ -1,11 +1,11 @@
 <div th:fragment="SelectSize">
     <div class="d-flex align-items-center" id="selectSize">
-        <div th:each="pd, status : ${productDetails}">
+        <div th:each="pd : ${productDetails}">
             <label th:if="${pd.quantity > 0}"
                    th:text="${pd.size.name}"
                    th:data-size-id="${pd.size.sizeId}"
                    th:data-product-id="${productId}"
-                   class="size m-2 border p-2">
+                   class="size m-2 border p-2 ">
             </label>
             <label th:unless="${pd.quantity > 0}"
                    th:text="${pd.size.name}"

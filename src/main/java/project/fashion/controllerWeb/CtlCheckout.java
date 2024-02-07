@@ -48,6 +48,7 @@ public class CtlCheckout {
             List<InvoiceDetail> invoiceDetails = invoiceDetailService.findAllByInvoice_InvoiceId(invoiceId);
             model.addAttribute("invoice", invoice);
             model.addAttribute("invoiceDetails", invoiceDetails);
+            model.addAttribute("title", "Thanh toán");
             cartItemList.clear();
             return "web/Checkout";
         } else

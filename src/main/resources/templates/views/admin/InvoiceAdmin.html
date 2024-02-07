@@ -5,75 +5,78 @@
 
 <body>
 <div class="ui-menu-item-wrapper">
-    <div th:include="~{admin/component/Menu::menu}"></div>
+    <div class="bg-dark sidebar col-2" th:include="~{admin/component/Menu::menu}"
+         style="min-height: 100vh;overflow-y: auto;"></div>
 
-    <div class="container p-4">
+    <div class="content-admin p-4">
         <h2>DANH SÁCH ĐƠN HÀNG</h2>
-        <div class="col-2 mt-2 mb-2" th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}">
-            <span>Chọn người lên đơn</span>
-            <select id="changeAccount" class="form-control">
-                <option value=-1 th:selected="${selectAccount == -1}">Tất cả</option>
-                <option value=0 th:selected="${selectAccount == 0}">Chưa chia</option>
-                <option th:each="a : ${accountResponses}"
-                        th:value="${a.accountId}"
-                        th:text="${a.userName}"
-                        th:selected="${a.accountId == selectAccount}">
-                </option>
-            </select>
+        <div class="mt-5 bg-white p-5 shadow border">
+            <div class="col-2 mt-2 mb-2" th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}">
+                <span>Chọn người lên đơn</span>
+                <select id="changeAccount" class="form-control">
+                    <option value=-1 th:selected="${selectAccount == -1}">Tất cả</option>
+                    <option value=0 th:selected="${selectAccount == 0}">Chưa chia</option>
+                    <option th:each="a : ${accountResponses}"
+                            th:value="${a.accountId}"
+                            th:text="${a.userName}"
+                            th:selected="${a.accountId == selectAccount}">
+                    </option>
+                </select>
+            </div>
+            <div class=" d-flex flex-wrap justify-content-start">
+                <div class="filter btn-outline-primary text-dark m-3 btn col-2 d-flex align-items-center justify-content-around p-3"
+                     id="-1" th:data-filter-status="-1">
+                    <i th:data-filter-status="-1" class=" fa-2xl fa-solid fa-file-invoice-dollar"></i>
+                    Tất cả đơn hàng
+                </div>
+
+
+                <div class="filter btn-outline-primary text-dark  m-3 btn col-2 d-flex align-items-center justify-content-around p-3"
+                     id="0" th:data-filter-status="0">
+                    <i th:data-filter-status="0" class=" fa-2xl fa-solid fa-file-invoice-dollar"></i>
+                    Đơn đã hủy
+                </div>
+
+                <div class="filter btn-outline-primary text-dark m-3 btn col-2 d-flex align-items-center justify-content-around p-3"
+                     id="1" th:data-filter-status="1">
+                    <i th:data-filter-status="1" class=" fa-2xl fa-solid fa-file-invoice-dollar"></i>
+                    Đơn mới
+                </div>
+
+                <div class="filter btn-outline-primary text-dark m-3 btn col-2 d-flex align-items-center justify-content-around p-3"
+                     id="2" th:data-filter-status="2">
+                    <i th:data-filter-status="2" class=" fa-2xl fa-solid fa-file-invoice-dollar"></i>
+                    Đơn đang xử lý
+                </div>
+
+                <div class="filter btn-outline-primary text-dark m-3 btn col-2 d-flex align-items-center justify-content-around p-3"
+                     id="3" th:data-filter-status="3">
+                    <i th:data-filter-status="3" class=" fa-2xl fa-solid fa-file-invoice-dollar"></i>
+                    Đã lên đơn
+                </div>
+
+                <div class="filter btn-outline-primary text-dark m-3 btn col-2 d-flex align-items-center justify-content-around p-3"
+                     id="4" th:data-filter-status="4">
+                    <i th:data-filter-status="4" class=" fa-2xl fa-solid fa-file-invoice-dollar"></i>
+                    Đơn dang giao
+                </div>
+
+                <div class="filter btn-outline-primary text-dark m-3 btn col-2 d-flex align-items-center justify-content-around p-3"
+                     id="5" th:data-filter-status="5">
+                    <i th:data-filter-status="5" class=" fa-2xl fa-solid fa-file-invoice-dollar"></i>
+                    Đơn thành công
+                </div>
+
+                <div class="filter btn-outline-primary text-dark m-3 btn col-2 d-flex align-items-center justify-content-around p-3"
+                     id="6" th:data-filter-status="6">
+                    <i th:data-filter-status="6" class=" fa-2xl fa-solid fa-file-invoice-dollar"></i>
+                    Đơn hoàn
+                </div>
+
+            </div>
+
+            <div id="list-invoice" th:include="~{admin/component/ListInvoice::ListInvoice}"></div>
         </div>
-        <div class=" d-flex flex-wrap justify-content-start">
-            <div class="filter btn-outline-primary m-3 btn col-2 d-flex align-items-center justify-content-around p-3"
-                 id="-1" th:data-filter-status="-1">
-                <i th:data-filter-status="-1" class=" fa-2xl fa-solid fa-file-invoice-dollar" style="color: #000000;"></i>
-                Tất cả đơn hàng
-            </div>
-
-
-            <div class="filter btn-outline-primary m-3 btn col-2 d-flex align-items-center justify-content-around p-3"
-                 id="0" th:data-filter-status="0">
-                <i th:data-filter-status="0" class=" fa-2xl fa-solid fa-file-invoice-dollar" style="color: #ff0000;"></i>
-                Đơn đã hủy
-            </div>
-
-            <div class="filter btn-outline-primary m-3 btn col-2 d-flex align-items-center justify-content-around p-3"
-                 id="1" th:data-filter-status="1">
-                <i th:data-filter-status="1" class=" fa-2xl fa-solid fa-file-invoice-dollar" style="color: #005eff;"></i>
-                Đơn mới
-            </div>
-
-            <div class="filter btn-outline-primary m-3 btn col-2 d-flex align-items-center justify-content-around p-3"
-                 id="2" th:data-filter-status="2">
-                <i th:data-filter-status="2" class=" fa-2xl fa-solid fa-file-invoice-dollar" style="color: yellow;"></i>
-                Đơn đang xử lý
-            </div>
-
-            <div class="filter btn-outline-primary m-3 btn col-2 d-flex align-items-center justify-content-around p-3"
-                 id="3" th:data-filter-status="3">
-                <i th:data-filter-status="3" class=" fa-2xl fa-solid fa-file-invoice-dollar" style="color: #00800f;"></i>
-                Đã lên đơn
-            </div>
-
-            <div class="filter btn-outline-primary m-3 btn col-2 d-flex align-items-center justify-content-around p-3"
-                 id="4" th:data-filter-status="4">
-                <i th:data-filter-status="4" class=" fa-2xl fa-solid fa-file-invoice-dollar" style="color: #ffc800;"></i>
-                Đơn dang giao
-            </div>
-
-            <div class="filter btn-outline-primary m-3 btn col-2 d-flex align-items-center justify-content-around p-3"
-                 id="5" th:data-filter-status="5">
-                <i th:data-filter-status="5" class=" fa-2xl fa-solid fa-file-invoice-dollar" style="color: #0045bd;"></i>
-                Đơn thành công
-            </div>
-
-            <div class="filter btn-outline-primary m-3 btn col-2 d-flex align-items-center justify-content-around p-3"
-                 id="6" th:data-filter-status="6">
-                <i th:data-filter-status="6" class=" fa-2xl fa-solid fa-file-invoice-dollar" style="color: #ff0000;"></i>
-                Đơn hoàn
-            </div>
-
-        </div>
-
-        <div id="list-invoice" th:include="~{admin/component/ListInvoice::ListInvoice}"></div>
     </div>
 </div>
 <script th:src="@{/script/AdminScript/InvoiceAdminScript.js}"></script>

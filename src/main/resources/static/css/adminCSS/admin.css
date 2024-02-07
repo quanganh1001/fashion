@@ -1,18 +1,17 @@
-body{
+.content-admin{
     background-color: whitesmoke;
+    width: 100%;
+    min-height: 100vh;
+}
+.menu{
+    max-height: 100vh;
+    overflow-y: auto;
 }
 .ui-menu-item-wrapper{
     display: flex;
 }
 
-.active{
-    background-color: #5b5bd4;
-    color: white;
-}
-
 h2{
-    width: 100%;
-    text-align: center;
     color: darkmagenta;
 }
 

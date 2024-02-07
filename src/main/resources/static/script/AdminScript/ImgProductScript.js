@@ -31,13 +31,13 @@ $(document).ready(function () {
         if(selectedImage.endsWith(".jpg")){
             $('#vdbg2').addClass('hidden')
             $('#imgbg2').removeClass('hidden')
-            $('#imgbg2').attr('src', '/admin/imgProduct/imgbg/' + selectedImage + '?imbg=1&productId=' +
+            $('#imgbg2').attr('src', '/admin/imgProduct/imgbg/' + selectedImage + '?imbg=2&productId=' +
                 productId);
         }else if(selectedImage.endsWith(".mp4")){
             console.log("ay"+selectedImage)
             $('#imgbg2').addClass('hidden')
             $('#vdbg2').removeClass('hidden')
-            $('#vdbg2').attr('src', '/admin/imgProduct/imgbg/' + selectedImage + '?imbg=1&productId=' +
+            $('#vdbg2').attr('src', '/admin/imgProduct/imgbg/' + selectedImage + '?imbg=2&productId=' +
                 productId);
         }
         alert("Đổi thành công")

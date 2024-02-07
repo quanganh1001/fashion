@@ -33,6 +33,7 @@ public class CtlStore {
         model.addAttribute("cities",cities);
         model.addAttribute("stores",stores);
         model.addAttribute("api",api);
+        model.addAttribute("title","Hệ thống cửa hàng");
         return "web/Store";
     }
 

@@ -37,6 +37,9 @@ public class CtlProduct {
                           @PathVariable String productId
                           ) throws Exception {
         Product product = productService.findById(productId);
+        if(!product.getIsProductActive()){
+            return "redirect:/";
+        }
         categoryService.listCategory(model);
         List<ImgProduct> imgProducts = imgProductService.findAllImgByProduct(productId);
         List<Color> colors = colorService.findColor(productId);
@@ -49,6 +52,8 @@ public class CtlProduct {
         model.addAttribute("colors",colors);
         model.addAttribute("sizes",sizes );
         model.addAttribute("productDetails",productDetails );
+        model.addAttribute("title", product.getProductName());
+
         return "web/Product";
     }
 

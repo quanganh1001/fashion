@@ -13,8 +13,8 @@
 
     #list-result {
         position: absolute;
-        top: 50px;
-        max-height: 300px;
+        bottom: 50px;
+        max-height: 70vh;
         overflow-y: auto;
     }
 
@@ -30,167 +30,172 @@
 </style>
 <body>
 <div class="ui-menu-item-wrapper">
-    <div th:include="~{admin/component/Menu::menu}"></div>
+    <div class="bg-dark sidebar col-2" th:include="~{admin/component/Menu::menu}"
+         style="min-height: 100vh;overflow-y: auto;"></div>
 
-    <div class="container p-4">
+    <div class="content-admin p-4">
         <h2>CHI TIẾT ĐƠN HÀNG</h2>
+        <div class="mt-5 bg-white p-5 shadow border">
+            <div class="mt-3 mb-5 col-12">
+                <form id="form" th:action="@{/admin/invoiceDetail/update-invoice}"
+                      th:method="put"
+                      th:object="${invoice}">
+                    <div>Ngày đặt hàng: <span th:text="${invoice.createdAt}"></span></div>
+                    <div class="row">
+                        <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-12">
+                            <label class="form-label">Nguồn: <span style="color:red">*</span></label>
+                            <label>
+                                <select class="form-control"
+                                        th:if="${invoice.invoiceStatus.statusId < 3}"
+                                        id="account-id"
+                                        th:field="*{account.accountId}">
+                                    <option value="" th:selected="${invoice.account.accountId == null}">Chưa chọn
+                                    </option>
+                                    <option th:each="acc : ${accountResponses}"
+                                            th:value="${acc.accountId}"
+                                            th:text="${acc.userName}"
+                                            th:selected="${acc.accountId == invoice.account.accountId}">
+                                    </option>
+                                </select>
+                                <input th:unless="${invoice.invoiceStatus.statusId < 3}"
+                                       readonly type="text" class="hidden readonly form-control"
+                                       th:field="*{account.accountId}"
+                                       th:text="${invoice.account.userName}"/>
+                            </label>
+                        </div>
 
-        <div class="mt-3 mb-5 col-12">
-            <form id="form" th:action="@{/admin/invoiceDetail/update-invoice}"
-                  th:method="put"
-                  th:object="${invoice}">
-                <div>Ngày đặt hàng: <span th:text="${invoice.createdAt}"></span></div>
-                <div class="row">
-                    <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-12">
-                        <label class="form-label">Nguồn: <span style="color:red">*</span></label>
-                        <label>
+                        <div th:unless="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-12">
+                            <div class="col-2 d-flex">
+                                <label class="form-label">Nguồn: </label>
+                                <input type="text" class="hidden"
+                                       th:field="*{account.accountId}"
+                                       th:text="${invoice.account.userName}"/>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 col-6">
+                            <label for="invoice_id" class="form-label">Mã đơn hàng<span
+                                    style="color:red">*</span></label>
+                            <input readonly type="text" class="readonly form-control"
+                                   id="invoice_id"
+                                   th:field="*{invoiceId}"/>
+                        </div>
+
+                        <div class="mb-3 col-6">
+                            <label th:for="name" class="form-label">Tên khách hàng<span
+                                    style="color:red">*</span></label>
+                            <input th:if="${invoice.invoiceStatus.statusId < 3}" type="text" class="name form-control"
+                                   th:id="name"
+                                   th:field="*{name}">
+                            <input th:unless="${invoice.invoiceStatus.statusId < 3}" readonly type="text"
+                                   class="name readonly form-control"
+                                   th:id="name"
+                                   th:field="*{name}">
+                            <span id="nameError" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3 col-6">
+                            <label th:for="phone" class="form-label">Số điện thoại<span
+                                    style="color:red">*</span></label>
+                            <input th:if="${invoice.invoiceStatus.statusId < 3}" type="text" class="phone form-control"
+                                   th:id="phone"
+                                   th:field="*{phone}">
+                            <input th:unless="${invoice.invoiceStatus.statusId < 3}" readonly type="text"
+                                   class="phone readonly form-control"
+                                   th:id="phone"
+                                   th:field="*{phone}">
+                            <span id="phoneError" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3 col-6">
+                            <label th:for="address" class="form-label">Địa chỉ<span
+                                    style="color:red">*</span></label>
+                            <input th:if="${invoice.invoiceStatus.statusId < 3}" class="address form-control"
+                                   th:id="address"
+                                   th:field="*{address}">
+                            <input th:unless="${invoice.invoiceStatus.statusId < 3}" readonly
+                                   class="address readonly form-control"
+                                   id="address"
+                                   th:field="*{address}">
+                            <span id="addressError" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3 col-6">
+                            <label for="note" class="form-label">Ghi chú nội bộ</label>
+                            <textarea class="form-control" id="note" rows="4" cols="50"
+                                      th:field="*{note}">
+                        </textarea>
+                        </div>
+
+                        <div class="mb-3 col-2">
+                            <p>Trạng thái đơn hàng:</p>
                             <select class="form-control"
-                                    th:if="${invoice.invoiceStatus.statusId < 3}"
-                                    id="account-id"
-                                    th:field="*{account.accountId}">
-                                <option value="" th:selected="${invoice.account.accountId == null}">Chưa chọn</option>
-                                <option th:each="acc : ${accountResponses}"
-                                        th:value="${acc.accountId}"
-                                        th:text="${acc.userName}"
-                                        th:selected="${acc.accountId == invoice.account.accountId}">
+                                    th:field="*{invoiceStatus.statusId}"
+                                    th:data-invoice-id="${invoice.invoiceId}"
+                                    th:data-old-status="${invoice.invoiceStatus.statusId}"
+                                    id="changeStatus">
+                                <option th:each="s : ${status}"
+                                        th:value="${s.statusId}"
+                                        th:text="${s.status}"
+                                        th:selected="${s.statusId == invoice.invoiceStatus.statusId}">
                                 </option>
                             </select>
-                            <input th:unless="${invoice.invoiceStatus.statusId < 3}"
-                                   readonly type="text" class="hidden readonly form-control"
-                                   th:field="*{account.accountId}"
-                                   th:text="${invoice.account.userName}"/>
-                        </label>
-                    </div>
-
-                    <div th:unless="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-12">
-                        <div class="col-2 d-flex">
-                            <label class="form-label">Nguồn: </label>
-                            <input type="text" class="hidden"
-                                   th:field="*{account.accountId}"
-                                   th:text="${invoice.account.userName}"/>
+                        </div>
+                        <div th:if="${invoice.customerNote} != null" class="mb-3 col-6">
+                            <span>Ghi chú của khách: </span>
+                            <span class="bg-warning" th:text="${invoice.customerNote}">
+                        </span>
                         </div>
                     </div>
 
-                    <div class="mb-3 col-6">
-                        <label for="invoice_id" class="form-label">Mã đơn hàng<span style="color:red">*</span></label>
-                        <input readonly type="text" class="readonly form-control"
-                               id="invoice_id"
-                               th:field="*{invoiceId}"/>
-                    </div>
+                    <button style="text-align: center" type="submit" id="btn-submit" class="col-2 btn btn-primary">
+                        Cập nhập đơn hàng
+                    </button>
+                </form>
 
-                    <div class="mb-3 col-6">
-                        <label th:for="name" class="form-label">Tên khách hàng<span style="color:red">*</span></label>
-                        <input th:if="${invoice.invoiceStatus.statusId < 3}" type="text" class="name form-control"
-                               th:id="name"
-                               th:field="*{name}">
-                        <input th:unless="${invoice.invoiceStatus.statusId < 3}" readonly type="text"
-                               class="name readonly form-control"
-                               th:id="name"
-                               th:field="*{name}">
-                        <span id="nameError" class="text-danger"></span>
-                    </div>
-
-                    <div class="mb-3 col-6">
-                        <label th:for="phone" class="form-label">Số điện thoại<span style="color:red">*</span></label>
-                        <input th:if="${invoice.invoiceStatus.statusId < 3}" type="text" class="phone form-control"
-                               th:id="phone"
-                               th:field="*{phone}">
-                        <input th:unless="${invoice.invoiceStatus.statusId < 3}" readonly type="text"
-                               class="phone readonly form-control"
-                               th:id="phone"
-                               th:field="*{phone}">
-                        <span id="phoneError" class="text-danger"></span>
-                    </div>
-
-                    <div class="mb-3 col-6">
-                        <label th:for="address" class="form-label">Địa chỉ<span
-                                style="color:red">*</span></label>
-                        <input th:if="${invoice.invoiceStatus.statusId < 3}" class="address form-control"
-                               th:id="address"
-                               th:field="*{address}">
-                        <input th:unless="${invoice.invoiceStatus.statusId < 3}" readonly
-                               class="address readonly form-control"
-                               id="address"
-                               th:field="*{address}">
-                        <span id="addressError" class="text-danger"></span>
-                    </div>
-
-                    <div class="mb-3 col-6">
-                        <label for="note" class="form-label">Ghi chú nội bộ</label>
-                        <textarea class="form-control" id="note" rows="4" cols="50"
-                                  th:field="*{note}">
-                        </textarea>
-                    </div>
-
-                    <div class="mb-3 col-2">
-                        <p>Trạng thái đơn hàng:</p>
-                        <select class="form-control"
-                                th:field="*{invoiceStatus.statusId}"
-                                th:data-invoice-id="${invoice.invoiceId}"
-                                th:data-old-status="${invoice.invoiceStatus.statusId}"
-                                id="changeStatus">
-                            <option th:each="s : ${status}"
-                                    th:value="${s.statusId}"
-                                    th:text="${s.status}"
-                                    th:selected="${s.statusId == invoice.invoiceStatus.statusId}">
-                            </option>
-                        </select>
-                    </div>
-                    <div th:if="${invoice.customerNote} != null" class="mb-3 col-6">
-                        <span>Ghi chú của khách: </span>
-                        <span class="bg-warning" th:text="${invoice.customerNote}">
-                        </span>
-                    </div>
+                <div data-bs-toggle="modal"
+                     data-bs-target="#exampleModal" class="history mt-2 col-2">
+                    Xem lịch sử đơn hàng
                 </div>
+            </div>
 
-                <button style="text-align: center" type="submit" id="btn-submit" class="col-2 btn btn-primary">
-                    Cập nhập đơn hàng
+            <div id="table">
+                <div th:replace="~{admin/component/ListProduct::ListProduct}"></div>
+            </div>
+
+            <div id="add" class="mt-2 d-flex justify-content-between align-items-center col-12">
+                <button th:if="${invoice.invoiceStatus.statusId} >= 0 and ${invoice.invoiceStatus.statusId} <=2 and ${!invoice.isPaid}"
+                        id="plus" class="col-1 btn btn-primary "><i
+                        class="fa-solid fa-plus" style="color: #ffffff;"></i>Thêm
                 </button>
-            </form>
 
-            <div data-bs-toggle="modal"
-                 data-bs-target="#exampleModal" class="history mt-2 col-2">
-                Xem lịch sử đơn hàng
-            </div>
-        </div>
-
-        <div id="table" >
-            <div th:replace="~{admin/component/ListProduct::ListProduct}"></div>
-        </div>
-
-        <div id="add" class="mt-2 d-flex justify-content-between align-items-center col-12">
-            <button th:if="${invoice.invoiceStatus.statusId} >= 0 and ${invoice.invoiceStatus.statusId} <=2 and ${!invoice.isPaid}"
-                    id="plus" class="col-1 btn btn-primary "><i
-                    class="fa-solid fa-plus" style="color: #ffffff;"></i>Thêm
-            </button>
-
-            <button id="plus-cancel" class="col-1 btn-close hidden">
-            </button>
-            <div id="search" class="col-6">
-                <input th:data-invoice-id="${invoice.invoiceId}" type="text"
-                       placeholder="Nhập mã sản phẩm hoặc tên sản phẩm..." id="input-plus"
-                       class="col-6 hidden form-control">
-                <div id="list-result" class="col-12 hidden"></div>
-            </div>
-
-            <div class="col-4 mt-3">
-                <div class="d-flex">
-                    <span class="col-5">Phí ship:</span>
-                    <div id="ship" >
-                        <div th:replace="~{admin/component/ShippingFee::ShippingFee}"></div>
-                    </div>
+                <button id="plus-cancel" class="col-1 btn-close hidden">
+                </button>
+                <div id="search" class="col-6">
+                    <input th:data-invoice-id="${invoice.invoiceId}" type="text"
+                           placeholder="Nhập mã sản phẩm hoặc tên sản phẩm..." id="input-plus"
+                           class="col-6 hidden form-control">
+                    <div id="list-result" class="col-12 hidden border"></div>
                 </div>
-                <div class="d-flex">
-                    <span class="col-5">Tổng đơn hàng:</span>
-                    <h4 id="totalBill" style="color:red"
-                        th:text="${#numbers.formatDecimal(invoice.totalBill, 0, 'POINT', 0, 'POINT')} +'đ'"></h4>
-                    <span th:if="${invoice.isPaid}">(Đã thanh toán)</span>
+
+                <div class="col-4 mt-3">
+                    <div class="d-flex">
+                        <span class="col-5">Phí ship:</span>
+                        <div id="ship">
+                            <div th:replace="~{admin/component/ShippingFee::ShippingFee}"></div>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <span class="col-5">Tổng đơn hàng:</span>
+                        <h4 id="totalBill" style="color:red"
+                            th:text="${#numbers.formatDecimal(invoice.totalBill, 0, 'POINT', 0, 'POINT')} +'đ'"></h4>
+                        <span th:if="${invoice.isPaid}">(Đã thanh toán)</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <!--     Modal-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

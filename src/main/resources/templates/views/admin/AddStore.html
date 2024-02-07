@@ -1,72 +1,76 @@
-
 <html lang="en">
 
 <head th:include="~{admin/component/head::head}"></head>
 <style>
-    #list-city{
+    #list-city {
         max-height: 100px;
         overflow-y: auto;
     }
 </style>
 <body>
 <div class="ui-menu-item-wrapper">
-    <div th:include="~{admin/component/Menu::menu}"></div>
+    <div class="bg-dark sidebar col-2" th:include="~{admin/component/Menu::menu}"
+         style="min-height: 100vh;overflow-y: auto;"></div>
 
-    <div class="container p-4">
+    <div class="content-admin p-4">
         <h2>THÊM MỚI CỬA HÀNG</h2>
-        <form id="form" th:action="@{/admin/store/add-store}" method="post" th:object="${store}">
-            <div class="row">
-                <div class="mb-3 col-6">
-                    <label for="name" class="form-label">Tên cửa hàng<span style="color:red">*</span></label>
-                    <input type="text" class="form-control" id="name" th:field="*{name}" >
-                    <span id="nameError" class="text-danger"></span>
-                </div>
+        <div class="mt-5 bg-white p-5 shadow border">
+            <form id="form" th:action="@{/admin/store/add-store}" method="post" th:object="${store}">
+                <div class="row">
+                    <div class="mb-3 col-6">
+                        <label for="name" class="form-label">Tên cửa hàng<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="name" th:field="*{name}">
+                        <span id="nameError" class="text-danger"></span>
+                    </div>
 
-                <div class="mb-3 col-6">
-                    <label for="address" class="form-label">Tên địa chỉ<span style="color:red">*</span></label>
-                    <input type="text" class="form-control" id="address" th:field="*{address}">
-                    <span id="addressError" class="text-danger"></span>
-                </div>
+                    <div class="mb-3 col-6">
+                        <label for="address" class="form-label">Tên địa chỉ<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="address" th:field="*{address}">
+                        <span id="addressError" class="text-danger"></span>
+                    </div>
 
-                <div class="mb-3 col-6">
-                    <label for="time" class="form-label">Thời gian mở cửa<span style="color:red">*</span></label>
-                    <input type="text" class="form-control" id="time" th:field="*{time}">
-                    <span id="timeError" class="text-danger"></span>
-                </div>
+                    <div class="mb-3 col-6">
+                        <label for="time" class="form-label">Thời gian mở cửa<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="time" th:field="*{time}">
+                        <span id="timeError" class="text-danger"></span>
+                    </div>
 
-                <div class="mb-3 col-6">
-                    <label for="phone" class="form-label">Số điện thoại<span style="color:red">*</span></label>
-                    <input type="text" class="form-control" id="phone" th:field="*{phone}">
-                    <span id="phoneError" class="text-danger"></span>
-                </div>
+                    <div class="mb-3 col-6">
+                        <label for="phone" class="form-label">Số điện thoại<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="phone" th:field="*{phone}">
+                        <span id="phoneError" class="text-danger"></span>
+                    </div>
 
-                <div class="mb-3 col-6">
-                    <label for="api" class="form-label">Link google map<span style="color:red">*</span></label>
-                    <input type="text" class="form-control" id="api" th:field="*{api}">
-                    <span id="apiError" class="text-danger"></span>
-                </div>
+                    <div class="mb-3 col-6">
+                        <label for="api" class="form-label">Link google map<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="api" th:field="*{api}">
+                        <span id="apiError" class="text-danger"></span>
+                    </div>
 
-                <div class="mb-3 col-6">
-                    <label for="city"  class="form-label">Thành phố<span style="color:red">*</span>
-                        <span data-bs-toggle="modal"
-                              data-bs-target="#exampleModal">
+                    <div class="mb-3 col-6">
+                        <label for="city" class="form-label">Thành phố<span style="color:red">*</span>
+                            <span data-bs-toggle="modal"
+                                  data-bs-target="#exampleModal">
                             <i class="fa-regular fa-square-plus"></i>
                         </span>
-                    </label>
-                    <select class="form-control" id="city" th:field="*{city.cityId}"
-                            th:include="~{admin/component/ListCity::ListCity}"></select>
-                    <span id="cityError" class="text-danger"></span>
+                        </label>
+                        <select class="form-control" id="city" th:field="*{city.cityId}"
+                                th:include="~{admin/component/ListCity::ListCity}"></select>
+                        <span id="cityError" class="text-danger"></span>
+                    </div>
+                    <button style="text-align: center" type="submit" id="btn-submit" class="col-2 btn btn-primary">Thêm
+                        cửa
+                        hàng
+                    </button>
                 </div>
-                <button style="text-align: center" type="submit" id="btn-submit" class="col-2 btn btn-primary">Thêm cửa
-                    hàng</button>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 <!--     Modal-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div id="modal">
-        <div  th:include="~{admin/component/ModalCity::ModalCity}"></div>
+        <div th:include="~{admin/component/ModalCity::ModalCity}"></div>
     </div>
 </div>
 <script th:src="@{/script/AdminScript/AddStoreScript.js}"></script>

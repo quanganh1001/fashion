@@ -20,6 +20,7 @@ import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -44,7 +45,7 @@ public class CtlCategory {
         model.addAttribute("products", products.getContent());
         model.addAttribute("totalPages", products.getTotalPages());
         model.addAttribute("cat",cat.get());
-        model.addAttribute("title","Category");
+        model.addAttribute("title",(Objects.equals(catId, "sale") ?"SALE":cat.get().getCatName()));
         return "web/Category";
     }
 

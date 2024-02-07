@@ -5,59 +5,61 @@
 
 <body>
 <div class="ui-menu-item-wrapper">
-    <div th:include="~{admin/component/Menu::menu}"></div>
+    <div class="bg-dark sidebar col-2" th:include="~{admin/component/Menu::menu}"
+         style="min-height: 100vh;overflow-y: auto;"></div>
 
-    <div class="container p-4">
+    <div class="content-admin p-4">
         <h2>Cập nhập tài khoản</h2>
-        <form th:action="@{/admin/account/update-account}"
-              th:object="${acc}" th:method="put">
-            <input type="hidden" th:field="*{accountId}">
-            <div class="row">
-                <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3">
-                    <label for="userName" class="form-label">Tài khoản<span style="color:red">*</span></label>
-                    <input type="text" class="form-control" id="userName"
-                           th:field="*{userName}">
-                    <p th:if="${#fields.hasErrors('userName')}" class="text-danger" th:errors="*{userName}"></p>
+        <div class="mt-5 bg-white p-5 shadow border">
+            <form th:action="@{/admin/account/update-account}"
+                  th:object="${acc}" th:method="put">
+                <input type="hidden" th:field="*{accountId}">
+                <div class="row">
+                    <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3">
+                        <label for="userName" class="form-label">Tài khoản<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="userName"
+                               th:field="*{userName}">
+                        <p th:if="${#fields.hasErrors('userName')}" class="text-danger" th:errors="*{userName}"></p>
+                    </div>
+
+                    <div th:unless="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3">
+                        <label class="form-label">Tài khoản<span style="color:red">*</span></label>
+                        <input readonly type="text" class="readonly form-control"
+                               th:field="*{userName}">
+                    </div>
+
+                    <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3">
+                        <label for="role" class="form-label">Quyền<span
+                                style="color:red">*</span></label>
+                        <select class="form-control" id="role" th:field="*{role}">
+                            <option th:each="role : ${roles}" th:value="${role}"
+                                    th:text="${role}"></option>
+                        </select>
+                    </div>
+
+                    <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}">
+                        <label for="enabled" class="form-label">Trạng thái<span style="color:red">*</span></label>
+                        <input id="enabled" type="checkbox"
+                               class="form-check-input"
+                               th:field="*{enabled}">Hoạt động/Không kích hoạt
+                    </div>
                 </div>
 
-                <div th:unless="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3">
-                    <label class="form-label">Tài khoản<span style="color:red">*</span></label>
-                    <input readonly type="text" class="readonly form-control"
-                           th:field="*{userName}">
+                <div class="col-6 d-flex justify-content-between">
+                    <button th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" style="text-align: center"
+                            type="submit" id="button" class="col-2 btn btn-primary">Lưu
+                    </button>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            class=" btn btn-warning">Đổi mật khẩu
+                    </button>
+                    <button th:data-account-id="${account.accountId}"
+                            id="reset-button"
+                            class="btn btn-warning">Đặt lại mật khẩu
+                    </button>
                 </div>
+            </form>
 
-                <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3">
-                    <label for="role" class="form-label">Quyền<span
-                            style="color:red">*</span></label>
-                    <select class="form-control" id="role" th:field="*{role}">
-                        <option th:each="role : ${roles}" th:value="${role}"
-                                th:text="${role}"></option>
-                    </select>
-                </div>
-
-                <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}">
-                    <label for="enabled" class="form-label">Trạng thái<span style="color:red">*</span></label>
-                    <input id="enabled" type="checkbox"
-                           class="form-check-input"
-                           th:field="*{enabled}">Hoạt động/Không kích hoạt
-                </div>
-            </div>
-
-            <div class="col-6 d-flex justify-content-between">
-                <button th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" style="text-align: center"
-                        type="submit" id="button" class="col-2 btn btn-primary">Lưu
-                </button>
-                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                        class=" btn btn-warning">Đổi mật khẩu
-                </button>
-                <button th:data-account-id="${account.accountId}"
-                        id="reset-button"
-                        class="btn btn-warning">Đặt lại mật khẩu
-                </button>
-            </div>
-        </form>
-
-
+        </div>
     </div>
 
     <!-- Modal -->
@@ -89,7 +91,8 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                     <button id="change-pw-btn" th:data-account-id="${account.accountId}" type="button"
                             class="btn btn-primary">Lưu thay
-                        đổi</button>
+                        đổi
+                    </button>
                 </div>
             </div>
         </div>

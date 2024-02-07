@@ -36,3 +36,7 @@ a{
     text-decoration-line: none;
     color: black;
 }
+
+.disable{
+    background-color: grey;
+}
