@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/login")
 public class CtlAdminLogin {
     @GetMapping
-    public String getHome(Model model){
+    public String getHome(@RequestParam(value = "success",required = false) String success, Model model){
+        if (success != null){
+            model.addAttribute("error","Sai tài khoản hoặc mật khẩu");
+        }
         return "admin/Login";
     }
 
