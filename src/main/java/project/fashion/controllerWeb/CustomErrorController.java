@@ -1,28 +1,43 @@
 package project.fashion.controllerWeb;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import project.fashion.model.service.CategoryService;
 
 @Controller
 public class CustomErrorController implements ErrorController {
+    @Autowired
+    CategoryService categoryService;
 
     @RequestMapping("/error-404")
     public String handleError404(Model model) {
-        model.addAttribute("message","Trang này không tìm thấy, vui lòng quay trở lại trang chủ");
+        categoryService.listCategory(model);
+
+        model.addAttribute("title","Trang này không tìm thấy, vui lòng quay trở lại trang chủ");
         return "web/Error";
     }
 
     @RequestMapping("/error-400")
     public String handleError400(Model model) {
-        model.addAttribute("message","Gửi yêu cầu không hợp lệ");
+        categoryService.listCategory(model);
+        model.addAttribute("title","Gửi yêu cầu không hợp lệ");
         return "web/Error";
     }
 
     @RequestMapping("/error-500")
     public String handleError500(Model model) {
-        model.addAttribute("message","Xảy ra lỗi từ phía máy chủ");
+        categoryService.listCategory(model);
+        model.addAttribute("title","Xảy ra lỗi từ phía máy chủ");
+        return "web/Error";
+    }
+
+    @RequestMapping("/error-403")
+    public String handleError403(Model model) {
+        categoryService.listCategory(model);
+        model.addAttribute("title","Bạn không có quyền truy cập trang này");
         return "web/Error";
     }
 

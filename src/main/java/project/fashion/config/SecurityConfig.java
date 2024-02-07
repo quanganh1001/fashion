@@ -43,13 +43,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/login")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
-                )
-
-                // Chuyển hướng khi không có quyền
-                .exceptionHandling(exceptionHandling -> exceptionHandling
-                        .accessDeniedPage("/error/403")
-                )
-                ;
+                );
         return http.build();
     }
 }
