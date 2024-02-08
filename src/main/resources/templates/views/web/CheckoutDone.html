@@ -6,10 +6,12 @@
 <body>
 
 <header th:include="~{web/component/header::header}"></header>
-<div class="col-12 d-flex justify-content-center">
+<div class="col-12 d-flex justify-content-center" style="min-height: 30vh">
     <h1 style="color: red" class="bold">Thanh toán thành công! Đang tạo đơn hàng....</h1>
     <form id="form" th:action="@{/checkout?name=__${invoice.name}__&phone=__${invoice.phone}__&address=__${invoice.address}__&customerNote=__${invoice.customerNote}__&isPaid=__${invoice.isPaid}__}" method="post"></form>
 </div>
+<div th:replace="~{web/component/Footer::Footer}"></div>
+
 <script th:inline="javascript">
     $("#form").submit()
 </script>

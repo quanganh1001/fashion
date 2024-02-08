@@ -1,4 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Quicksand:wght@300..700&display=swap');
 
+*{
+    font-family: "Quicksand", sans-serif;
+}
+body{
+    min-height: 100vh;
+}
 .ui-menu-item-wrapper{
     display: flex;
 }

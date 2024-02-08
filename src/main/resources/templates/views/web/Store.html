@@ -11,20 +11,16 @@
 </style>
 <body>
 <header th:include="~{web/component/header::header}"></header>
-<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-        <li class="breadcrumb-item">Hệ thống cửa hàng</li>
-    </ol>
-</nav>
 
+<div th:replace="~{web/component/Breadcrumb::Breadcrumb}"></div>
 
 <h2 class=" col-12 d-flex justify-content-center">Hệ thống cửa hàng</h2>
 
-<div  id="map">
+<div id="map" class="container" style="min-height: 30vh">
     <div th:replace="~{web/component/Map::Map}"></div>
 </div>
 
+<div th:replace="~{web/component/Footer::Footer}"></div>
 
 </body>
 </html>

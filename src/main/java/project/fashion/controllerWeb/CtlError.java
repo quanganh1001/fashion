@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import project.fashion.model.service.CategoryService;
 
 @Controller
-public class CustomErrorController implements ErrorController {
+public class CtlError implements ErrorController {
     @Autowired
     CategoryService categoryService;
 

@@ -4,10 +4,13 @@
 
 <body>
 <header th:include="~{web/component/header::header}"></header>
-<div class="col-12 border d-flex flex-column align-items-center justify-content-center" style="min-height: 70vh">
+<div th:replace="~{web/component/Breadcrumb::Breadcrumb}"></div>
+<div class="container col-12 d-flex flex-column align-items-center justify-content-center" style="min-height: 30vh">
 <h1>Đã xảy ra lỗi</h1>
 <p th:text="${title}"></p>
 <a href="/" class="btn btn-warning">Về trang chủ</a>
 </div>
+<div th:replace="~{web/component/Footer::Footer}"></div>
+
 </body>
 </html>
