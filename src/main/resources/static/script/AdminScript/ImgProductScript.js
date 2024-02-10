@@ -43,30 +43,3 @@ $(document).ready(function () {
         alert("Đổi thành công")
     });
 });
-
-function confirmDelete(button) {
-    var imageName = button.getAttribute("data-image-name");
-    var productId = button.getAttribute("data-product-id");
-    console.log(imageName)
-    var result = confirm("Bạn có muốn xóa ảnh này này?");
-    if (result) {
-        var csrfToken = $("meta[name='_csrf']").attr("content");
-        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-        $.ajax({
-            type: 'DELETE',
-            url: '/admin/imgProduct/delete',
-            data:{imageName:imageName},
-            beforeSend: function (xhr) {
-                // Sử dụng tên HTTP header chuẩn và giá trị token
-                xhr.setRequestHeader(csrfHeader, csrfToken);
-            },
-            success: function () {
-                alert("Đã xóa ảnh")
-                window.location.href="/admin/imgProduct/add-img?productId="+productId;
-            },
-            error: (jqXHR) => {
-                alert(jqXHR.responseText)
-            }
-        });
-    }
-}

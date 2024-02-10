@@ -1,31 +1,26 @@
 package project.fashion.model.service;
 
-import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.fashion.model.entity.CartItem;
+import project.fashion.model.DTO.CartItem;
 import project.fashion.model.entity.Category;
-import project.fashion.model.entity.ImgProduct;
 import project.fashion.model.entity.Product;
 import project.fashion.model.repository.CategoryRepo;
-import project.fashion.model.repository.ImgProductRepo;
 import project.fashion.model.repository.ProductRepo;
 
-import java.net.MalformedURLException;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -46,14 +41,31 @@ public class CategoryService {
     private ProductService productService;
 
     @Transactional
-    public ResponseEntity<String> saveCategory(Category category) {
+    public ResponseEntity<String> saveCategory(Category category) throws Exception {
+
         if (Objects.equals(category.getCatId(), "") || category.getCatId() == null ||
                 Objects.equals(category.getCatName(), "") || category.getCatName() == null) {
-            return new ResponseEntity<>("Lỗi validate", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Nhập dữ liệu không hợp lệ",HttpStatus.BAD_REQUEST);
+        } else if (category.getCatParent()!=null && category.getCatId().equals(category.getCatParent().getCatId())) {
+
+            return new ResponseEntity<>("Mã danh mục và danh mục cha không được trùng nhau",HttpStatus.BAD_REQUEST);
         } else {
+
+            if(category.getCatBackground() == null || category.getCatBackground().equals("no")){
+                Optional<Category> categoryOptional = Optional.of(findById(category.getCatId()).orElse(new Category()));
+                String catBg = categoryOptional.get().getCatBackground();
+                category.setCatBackground(catBg);
+                System.out.println(category);
+            }else {
+                String fileName = System.currentTimeMillis() + "_" + category.getCatBackground();
+                category.setCatBackground(fileName);
+            }
+
             setCatActive(category.getCatId(), category.getIsCatActive());
+
+
             categoryRepo.save(category);
-            return ResponseEntity.ok(category.getCatParent().getCatId());
+            return ResponseEntity.ok(category.getCatBackground());
         }
     }
 
@@ -76,6 +88,14 @@ public class CategoryService {
         }
     }
 
+    public void deleteFile(String catBackground) throws IOException {
+        //           xóa file ảnh cũ
+        String filePath = "src/main/uploads/images/" + catBackground;
+        Path path = Paths.get(filePath);
+        if (Files.exists(path)) {
+            Files.delete(path);
+        }
+    }
     public List<Category> getCategoriesByCatParentCatId(String parent) {
         List<Category> categories;
         if (parent.isEmpty()) {
@@ -203,5 +223,9 @@ public class CategoryService {
         model.addAttribute("categoriesF3", categoriesF3);
         model.addAttribute("number", number);
 
+    }
+
+    public Category findByCatBackground(String catBackground){
+        return categoryRepo.findByCatBackground(catBackground);
     }
 }

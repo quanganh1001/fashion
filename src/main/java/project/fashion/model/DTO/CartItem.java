@@ -1,4 +1,4 @@
-package project.fashion.model.entity;
+package project.fashion.model.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

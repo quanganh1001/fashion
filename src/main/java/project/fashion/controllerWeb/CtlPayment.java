@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.fashion.config.VNPayConfig;
-import project.fashion.model.entity.CartItem;
+import project.fashion.model.DTO.CartItem;
 import project.fashion.model.entity.Invoice;
 import project.fashion.model.service.CartService;
 

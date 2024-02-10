@@ -1,0 +1,31 @@
+.add-to-cart-btn {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 100%;
+    left: 50%;
+    transition: all 0.3s;
+    opacity: 0;
+}
+
+.card:hover .add-to-cart-btn {
+    opacity: 1;
+    transition: all 0.3s;
+    top: 80%;
+}
+.product-image-bg1 {
+    transition: opacity 0.5s; /* Thêm hiệu ứng chuyển đổi cho opacity */
+    opacity: 1;
+}
+
+.product-image-bg1:hover {
+    opacity: 0; /* Ẩn ảnh mặc định khi hover vào */
+}
+.product-image-bg2 {
+    transition: opacity 0.5s; /* Thêm hiệu ứng chuyển đổi cho opacity */
+    opacity: 0;
+}
+
+.product-image-bg2:hover {
+    opacity: 1; /* Ẩn ảnh mặc định khi hover vào */
+}
+

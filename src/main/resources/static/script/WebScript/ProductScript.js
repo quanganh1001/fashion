@@ -1,26 +1,27 @@
 $(document).ready(function () {
-    $('.a-product-slider').slick({
+    $('#slider').slick({
+        infinite: false,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 5000,
-        infinite: true,
-        arrows: false,
-        responsive: [
-            {
-                breakpoint: 800,
-                settings: {
-                    slidesToShow: 3
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 3
-                }
-            }
-        ]
+        touchMove: true,
+        autoplaySpeed: 3000,
+        prevArrow: '.slick-prev',
+        nextArrow: '.slick-next',
+        asNavFor: "#thumbnail_slider"
     });
+    $("#thumbnail_slider").slick({
+        infinite: false,
+        slidesToShow: 4,
+        slidesToScroll: 3,
+        touchMove: true,
+        autoplaySpeed: 3000,
+        prevArrow: '.slick-prev-thumb',
+        nextArrow: '.slick-next-thumb',
+        asNavFor: "#slider",
+        focusOnSelect: true,
+        centerPadding :'50%'
+    });
+
 
     $('.color').click(function (event) {
         $("#quantity").val(1)

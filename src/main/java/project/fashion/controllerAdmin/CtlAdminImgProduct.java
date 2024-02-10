@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.model.entity.ImgProduct;
 import project.fashion.model.service.AccountService;
 import project.fashion.model.service.ImgProductService;
@@ -51,11 +52,20 @@ public class CtlAdminImgProduct {
     }
 
     @PostMapping("/add-img")
-    public String addImgPr(@ModelAttribute("img") ImgProduct img, @RequestParam("productId") String productId,
-                           @RequestParam(value = "file", required = false) MultipartFile[] files) {
-        imgProductService.addImg(files, img, productId);
+    public String addImgPr(@ModelAttribute("img") ImgProduct img,
+                           @RequestParam("productId") String productId,
+                           @RequestParam(value = "file", required = false) MultipartFile[] files,
+                           RedirectAttributes attributes) {
+        try{
+            imgProductService.addImg(files, img, productId);
+            attributes.addFlashAttribute("alertMessage", "Đã thêm thành công");
+            return "redirect:/admin/imgProduct/add-img?productId=" + productId;
+        }catch (Exception e){
+            attributes.addFlashAttribute("alertMessage", "Có lỗi xảy ra");
+            return "redirect:/admin/imgProduct/add-img?productId=" + productId;
+        }
 
-        return "redirect:/admin/imgProduct/add-img?productId=" + productId;
+
     }
 
     @GetMapping("/imgbg/{imageName}")
@@ -67,10 +77,16 @@ public class CtlAdminImgProduct {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<Void> delelteImg(@RequestParam String imageName) throws IOException {
-
-        imgProductService.deleteByFileImg(imageName);
-
-        return ResponseEntity.ok().build();
+    public String deleteImg(@RequestParam("imageName") String imageName,
+                            @RequestParam("productId") String productId,
+                            RedirectAttributes attributes) throws IOException {
+        try {
+            imgProductService.deleteByFileImg(imageName);
+            attributes.addFlashAttribute("alertMessage", "Đã xóa thành công");
+            return "redirect:/admin/imgProduct/add-img?productId=" +productId;
+        } catch (Exception e) {
+            attributes.addFlashAttribute("alertMessage", "Có lỗi không thể xóa");
+            return "redirect:/admin/banner";
+        }
     }
 }

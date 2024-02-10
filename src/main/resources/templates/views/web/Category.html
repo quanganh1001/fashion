@@ -2,21 +2,8 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head th:include="~{web/component/head::head}"></head>
-<style>
-    .add-to-cart-btn {
-        position: absolute;
-        transform: translate(-50%, -50%);
-        top: 100%;
-        left: 50%;
-        transition: all 0.3s ease-in-out;
-    }
+<link rel="stylesheet" th:href="@{/css/webCSS/category.css}"/>
 
-    .card:hover .add-to-cart-btn {
-        transition: all 0.3s ease-in-out;
-        top: 80%;
-    }
-
-</style>
 <body>
 
 <header th:include="~{web/component/header::header}"></header>
@@ -28,12 +15,15 @@
     <div class="d-flex flex-wrap container justify-content-between">
         <div th:each="pr : ${products}" class="shadow card hover col-3 m-3" >
             <div class="card  position-relative">
-                <img th:src="@{'/img?productId='+${pr.productId}+'&bg=1'}" alt="..." class="product-image"
-                     th:data-default-src="@{'/img?productId='+${pr.productId}+'&bg=1'}"
-                     th:data-hover-src="@{'/img?productId='+${pr.productId}+'&bg=2'}" style="height: 50vh">
+                <img th:src="@{'/img?productId='+${pr.productId}+'&bg=1'}" alt="..." class="product-image-bg1"
+                     th:data-product-id="${pr.productId}"
+                     style="height: 50vh">
+                <img th:src="@{'/img?productId='+${pr.productId}+'&bg=2'}" alt="..." class="product-image-bg2 hidden"
+                     th:data-product-id="${pr.productId}"
+                     style="height: 50vh">
                 <a th:href="@{/products/__${pr.productId}__}">
                     <button
-                            class="btn btn-primary add-to-cart-btn hidden">Chi tiết sản phẩm
+                            class="btn btn-primary add-to-cart-btn">Chi tiết sản phẩm
                     </button>
                 </a>
             </div>

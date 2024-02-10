@@ -1,6 +1,13 @@
+.f2{
+    opacity: 0;
+    transition: margin-top 0.3s,opacity 0.3s;
+    margin-top: 20px;
+    z-index: -1;
+}
 .f1:hover .f2 {
-    display: flex;
-    flex-wrap: wrap;
+    margin-top: 0;
+    opacity: 1;
+    z-index: 1000!important;
 }
 
 #navbarSupportedContent{

@@ -10,6 +10,7 @@ public class Category {
     @Id
     private String catId;
     private String catName;
+    private String catBackground;
     private Boolean isCatActive;
 
     @ManyToOne

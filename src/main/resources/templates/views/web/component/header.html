@@ -1,8 +1,7 @@
 <header th:fragment="header">
 
     <div th:include="~{web/component/ModalAlert::ModalAlert}"></div>
-
-    <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm d-flex mb-5">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm d-flex">
         <div class="container">
             <a class="navbar-brand" href="/"><img src="/image/logo.png" style="width: 200px" alt=""></a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -17,11 +16,10 @@
                             <a class="text-dark nav-link fw-bold" aria-current="page"
                                th:href="@{/category/__${c1.catId}__}"
                                th:text="${c1.catName}"></a>
-                            <div class="pb-5 hidden f2 position-absolute start-50 translate-middle-x col-8"
+                            <div class="pb-5 f2 position-absolute start-50 translate-middle-x col-8"
                                  style="z-index: 999">
                             </div>
-                            <div class="hidden f2 border bg-white position-absolute start-50 top-100 translate-middle-x col-8 rounded shadow justify-content-around"
-                                 style="z-index: 999">
+                            <div class="d-flex flex-wrap f2 pt-3 pb-3 border bg-white position-absolute start-50 top-100 translate-middle-x col-12 rounded-bottom shadow justify-content-around">
                                 <div th:if="${categoriesF2 != null} and ${c2.catParent.catId == c1.catId}"
                                      th:each="c2:${categoriesF2}">
                                     <a th:href="@{/category/__${c2.catId}__}" th:text="${c2.catName}"
@@ -48,8 +46,8 @@
                 </ul>
             </div>
             <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <input class="form-control me-2" type="search" placeholder="Nhập từ khóa" aria-label="Search">
+                <button class="btn btn-outline-success col-4" type="submit" >Tìm kiếm</button>
             </form>
 
             <a class="position-relative btn btn-outline-success m-2" href="/carts">

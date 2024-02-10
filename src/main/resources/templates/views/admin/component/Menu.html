@@ -1,21 +1,24 @@
 <div th:fragment="menu">
         <ul class="fixed-top list-group col-2 p-3 menu">
             <li class="p-3 text-light " id="home">Trang chủ</li>
-            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light" id="product">Quản
+            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" id="product">Quản
                 lý Sản phẩm
             </li>
-            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light" id="category">
+            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" id="category">
                 Quản lý danh mục Sản phẩm
             </li>
-            <li class="p-3 text-light" id="invoice" th:data-accountId="${account.accountId}">Quản lý đơn hàng</li>
-            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light" id="color">Quản
+            <li class="p-3 text-light menu-item" id="invoice" th:data-accountId="${account.accountId}">Quản lý đơn hàng</li>
+            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" id="color">Quản
                 lý mã màu
             </li>
-            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light" id="account">Quản
+            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" id="account">Quản
                 lý tài khoản
             </li>
-            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light" id="store">Quản
+            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" id="store">Quản
                 lý cửa hàng
+            </li>
+            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" id="banner">Quản
+                lý ảnh banner
             </li>
 
             <div class="m-3" th:if="${account != null}">
@@ -56,23 +59,16 @@
             $("#store").click(() => {
                 window.location.href = "/admin/store"
             })
+            $("#banner").click(() => {
+                window.location.href = "/admin/banner"
+            })
 
-
-            if ([[${title}]] === "Home") {
-                $("#home").addClass("bg-dark-subtle text-dark rounded-4");
-            } else if ([[${title}]] === "Product") {
-                $("#product").addClass("bg-dark-subtle text-dark rounded-4");
-            } else if ([[${title}]] === "Category") {
-                $("#category").addClass("bg-dark-subtle text-dark rounded-4");
-            } else if ([[${title}]] === "Invoice") {
-                $("#invoice").addClass("bg-dark-subtle text-dark rounded-4");
-            } else if ([[${title}]] === "Color") {
-                $("#color").addClass("bg-dark-subtle text-dark rounded-4");
-            } else if ([[${title}]] === "Account") {
-                $("#account").addClass("bg-dark-subtle text-dark rounded-4");
-            } else if ([[${title}]] === "Store") {
-                $("#store").addClass("bg-dark-subtle text-dark rounded-4");
-            }
+            const title = [[${title}]]
+            $(".menu-item").each((index,item) =>{
+                if (title.toLocaleString().toLowerCase() === $(item).attr("id")){
+                    $(item).addClass("bg-dark-subtle text-dark rounded-4");
+                }
+            })
         })
     </script>
 

@@ -1,0 +1,54 @@
+.slick-dots {
+    position: absolute;
+    bottom: 5px;
+    width: 100%;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+}
+
+.slick-dots li {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.slick-dots li button {
+    font-size: 0;
+    line-height: 0;
+    display: block;
+    width: 10px;
+    height: 10px;
+    padding: 10px;
+    cursor: pointer;
+    color: transparent;
+    border: 0;
+    outline: none;
+    background: whitesmoke;
+    border-radius: 50%;
+    opacity: 0.5;
+}
+
+.slick-dots li.slick-active button {
+    background: #000; /* Màu của dấu chấm khi được chọn */
+    opacity: 1;
+}
+
+.slick-prev:hover, .slick-next:hover {
+    background-color: black !important;
+    color: white;
+}
+
+.slick-prev,
+.slick-next {
+    opacity: 0;
+    transition: all 0.3s; /* Thêm hiệu ứng chuyển đổi cho background-color và color */
+}
+
+.position-relative:hover .slick-prev {
+    left: 50px!important;
+    opacity: 1;
+}
+.position-relative:hover .slick-next{
+    right: 50px!important;
+    opacity: 1;
+}

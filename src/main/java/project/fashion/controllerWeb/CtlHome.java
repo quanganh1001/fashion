@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.fashion.model.entity.Category;
 import project.fashion.model.service.AccountService;
+import project.fashion.model.service.BannerService;
 import project.fashion.model.service.CategoryService;
 
 import java.util.List;
@@ -16,10 +17,15 @@ import java.util.List;
 public class CtlHome {
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private BannerService bannerService;
 
     @GetMapping("")
     public String getHome(Model model){
         categoryService.listCategory(model);
+
+
+        model.addAttribute("banner",bannerService.getAllBanner());
         model.addAttribute("title","Trang chủ");
         return "web/Home";
     }

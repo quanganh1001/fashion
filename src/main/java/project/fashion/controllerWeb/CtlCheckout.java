@@ -1,18 +1,12 @@
 package project.fashion.controllerWeb;
 
-import jakarta.servlet.http.HttpSession;
-import org.apache.catalina.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import project.fashion.model.DTO.CartItem;
 import project.fashion.model.entity.*;
 import project.fashion.model.service.*;
 
