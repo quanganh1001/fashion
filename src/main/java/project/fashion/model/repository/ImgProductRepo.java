@@ -10,11 +10,15 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ImgProductRepo extends JpaRepository<ImgProduct,Integer> {
+
+    @Query(value = "SELECT * FROM imgs_product WHERE product_id = :productId ORDER BY background_1 DESC, background_2 DESC", nativeQuery = true)
     List<ImgProduct> findAllByProductProductId(String productId);
 
+    List<ImgProduct> findAllByBackground1IsTrue();
+    List<ImgProduct> findAllByBackground2IsTrue();
     @Modifying
     @Query(value = "UPDATE imgs_product SET background_1 = false WHERE product_id = :productId", nativeQuery = true)
-    void setBackgound1Off(@Param("productId") String productId);
+    void setBackground1Off(@Param("productId") String productId);
 
     @Modifying
     @Query(value = "UPDATE imgs_product SET background_1 = true WHERE file_img = :imgName", nativeQuery = true)
@@ -22,7 +26,7 @@ public interface ImgProductRepo extends JpaRepository<ImgProduct,Integer> {
 
     @Modifying
     @Query(value = "UPDATE imgs_product SET background_2 = false WHERE product_id = :productId", nativeQuery = true)
-    void setBackgound2Off(@Param("productId") String productId);
+    void setBackground2Off(@Param("productId") String productId);
 
     @Modifying
     @Query(value = "UPDATE imgs_product SET background_2 = true WHERE file_img = :imgName", nativeQuery = true)

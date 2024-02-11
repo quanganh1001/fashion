@@ -1,3 +1,4 @@
+
 function confirmDelete(button) {
     var catId = button.getAttribute('data-catId')
     var parentId = button.getAttribute('data-parentId')

@@ -9,65 +9,75 @@ $(document).ready(() => {
             $("#cat-name-error").text("")
         }
 
+        if($("#cat-id").val() === $("#parent-id").val()){
+            $("#parent-cat-error").text("Mã sản phẩm và danh mục cha không được trùng nhau")
+            validation = false
+        }else {
+            $("#parent-cat-error").text("")
+        }
+
         if(validation){
             const catBg =  $("#btn-submit").attr("data-cat-bg")
+            const parentId = $("#parent-id").val() == null ? "" : $("#parent-id").val();
+            const fileInput = $("#fileInput")
+            const url = $("#form").attr("action")
+            const formData = $("#form").serializeArray()
+            const catBackground = fileInput[0].files[0]==null? null :fileInput[0].files[0].name
 
+            formData.push({name:"catBackground", value:catBackground});
+            console.log(formData)
             // Lấy mã CSRF từ thẻ meta
             const csrfToken = $("meta[name='_csrf']").attr("content");
             const csrfHeader = $("meta[name='_csrf_header']").attr("content");
-
             // Thêm mã CSRF vào headers của yêu cầu AJAX
             const headers = {};
             headers[csrfHeader] = csrfToken;
 
-            const url = $("#form").attr("action")
-
-            const catBackground = $("#fileInput")[0].files[0]==null? "no" : $("#fileInput")[0].files[0].name
-            console.log(catBackground)
             $.ajax({
                 url: url,
                 type: 'PUT',
-                data: {catId: $("#cat-id").val(),catName: $("#cat-name").val(),catParent: $("#catParent").val(),isCatActive:$("#isActive").val(),catBackground:catBackground},
+                data: formData,
                 headers:headers,
                 success: function (response) {
-                    console.log(response)
-                    if($("#fileInput")[0].files[0]==null){
-                        $.ajax({
-                            url: '/admin/category/delete-file',
-                            type: 'POST',
-                            data: {catBackground:catBackground},
-                            headers:headers,
-                            success: function (response) {
-                            },
-                            error: function (xhr, status, error) {
-                                // Xử lý lỗi
-                            }
-                        });
-                        const form = new FormData();
-                        const fileInput = document.getElementById('fileInput');
-                        const file = fileInput.files[0] == null? catBg:fileInput.files[0];
-                        // console.log(file)
-                        if (file != null){
-                            form.append('file', file, response);
-                            $.ajax({
-                                url: '/admin/category/update-file',
-                                type: 'POST',
-                                data: form,
-                                headers:headers,
-                                processData: false,
-                                contentType: false,
-                                success: function (response) {
-                                    const parentId = $("#parent-id").val() == null ? "" : $("#parent-id").val();
+                    if (response === "no"){
+                        window.location.href = "/admin/category?parent=" + parentId + "&success=success";
+                    }
+                    else{
+                            if(catBackground != null) {
+                                //xóa file cũ
+                                    $.ajax({
+                                        url: '/admin/category/delete-file',
+                                        type: 'POST',
+                                        data: {catBackground:catBg},
+                                        headers:headers,
+                                        success: function () {
+                                        },
+                                        error: function (xhr, status, error) {
+                                            // Xử lý lỗi
+                                        }
+                                    });
+                                    // tạo file mới
+                                    const form = new FormData();
+                                    const file = fileInput[0].files[0] == null? null:fileInput[0].files[0];
+                                    if (file != null){
+                                        form.append('file', file, response);
+                                        $.ajax({
+                                            url: '/admin/category/update-file',
+                                            type: 'POST',
+                                            data: form,
+                                            headers:headers,
+                                            processData: false,
+                                            contentType: false,
+                                            success: function (response) {
+                                                window.location.href = "/admin/category?parent=" + parentId + "&success=success";
 
-                                    // Chuyển hướng trang
-                                    window.location.href = "/admin/category?parent=" + parentId + "&success=success";
-
-                                },
-                                error: function (xhr, status, error) {
-                                    // Xử lý lỗi
-                                }
-                            });
-                        }
+                                            },
+                                            error: function (xhr, status, error) {
+                                                // Xử lý lỗi
+                                            }
+                                        });
+                                    }
+                                }else return window.location.href = "/admin/category?parent=" + parentId + "&success=success";
 
                     }
 

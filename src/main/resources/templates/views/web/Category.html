@@ -13,14 +13,30 @@
 <div class="col-12 d-flex justify-content-center" style="min-height: 30vh">
 
     <div class="d-flex flex-wrap container justify-content-between">
-        <div th:each="pr : ${products}" class="shadow card hover col-3 m-3" >
+        <div th:each="pr : ${products}" class="shadow card hover col-3 m-3">
             <div class="card  position-relative">
-                <img th:src="@{'/img?productId='+${pr.productId}+'&bg=1'}" alt="..." class="product-image-bg1"
+                <div th:each="img : ${imgBackground1List}"
+                     class="product-image-bg1"
+                     th:data-product-id="${pr.productId}">
+                    <img th:if="${img.product.productId == pr.productId and !img.fileImg.endsWith('.mp4')}"
+                         th:src="@{'/img?productId='+${pr.productId}+'&bg=1'}" alt="..."
+                         style="height: 400px;width: 100%">
+                    <video th:if="${img.product.productId == pr.productId and img.fileImg.endsWith('.mp4')}"
+                           style="height: 400px;width: 100%" controls
+                           th:src="@{'/img/list?fileImg='+${img.fileImg}}"
+                           ></video>
+                </div>
+
+                <div th:each="img : ${imgBackground2List}"
                      th:data-product-id="${pr.productId}"
-                     style="height: 50vh">
-                <img th:src="@{'/img?productId='+${pr.productId}+'&bg=2'}" alt="..." class="product-image-bg2 hidden"
-                     th:data-product-id="${pr.productId}"
-                     style="height: 50vh">
+                     class="product-image-bg2 hidden">
+                    <img th:if="${img.product.productId == pr.productId and !img.fileImg.endsWith('.mp4')}"
+                         th:src="@{'/img?productId='+${pr.productId}+'&bg=2'}" alt="..."
+                         style="height: 400px;width: 100%">
+                    <video th:if="${img.product.productId == pr.productId and img.fileImg.endsWith('.mp4')}"
+                           style="height: 400px;width: 100%" controls
+                           th:src="@{'/img/list?fileImg='+${img.fileImg}}"></video>
+                </div>
                 <a th:href="@{/products/__${pr.productId}__}">
                     <button
                             class="btn btn-primary add-to-cart-btn">Chi tiết sản phẩm

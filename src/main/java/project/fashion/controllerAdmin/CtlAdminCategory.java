@@ -63,10 +63,8 @@ public class CtlAdminCategory {
 
 
     @PostMapping("/add-category")
-    public String addCat(@ModelAttribute Category category,
-                         @RequestParam(value = "catParentId",defaultValue = "")String catParentId,
-                         RedirectAttributes attributes) throws Exception {
-        return categoryService.addCat(category,catParentId,attributes);
+    public ResponseEntity<String> addCat(@ModelAttribute Category category) throws Exception {
+        return categoryService.addCat(category);
     }
 
     @DeleteMapping("/delete-cat")
@@ -109,8 +107,14 @@ public class CtlAdminCategory {
     }
 
     @PostMapping("/delete-file")
-    public ResponseEntity<String> deleteFile(@RequestParam("catBackground") String catBackground) throws IOException {
-        categoryService.deleteFile(catBackground);
-        return ResponseEntity.ok("ok");
+    public ResponseEntity<String> deleteFile(@RequestParam(value = "catBackground",required = false) String catBackground) throws IOException {
+        if (catBackground == null){
+            return ResponseEntity.ok("ok");
+        }else {
+            categoryService.deleteFile(catBackground);
+            return ResponseEntity.ok("ok");
+        }
+
+
     }
 }

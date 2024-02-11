@@ -35,7 +35,7 @@ public class ImgProductService {
         Optional<ImgProduct> OptimalImgProduct2 = imgProductRepo.findByBackground2TrueAndProductProductId(productId);
 
         Path path1 = Paths.get("src/main/uploads/images");
-        Path path2 = Paths.get("src/main/resources/static/web/image");
+        Path path2 = Paths.get("src/main/resources/static/image");
         if (bg == 1) {
             if (OptimalImgProduct1.isEmpty()) {
                 if (OptimalImgProduct2.isEmpty()) {
@@ -126,25 +126,21 @@ public class ImgProductService {
         }
     }
 
-    public List<ImgProduct> findAllByProductProductId(String productId) {
-        return imgProductRepo.findAllByProductProductId(productId);
-    }
-
     @Transactional
-    public ResponseEntity<Resource> setBackground(String productId, String imageName, int imbg) throws MalformedURLException {
+    public void setBackground(String productId, String imageName, int imbg) throws MalformedURLException {
         if (imbg == 1) {
-            imgProductRepo.setBackgound1Off(productId);
+            imgProductRepo.setBackground1Off(productId);
             imgProductRepo.setBackground1On(imageName);
         }
         if (imbg == 2) {
-            imgProductRepo.setBackgound2Off(productId);
+            imgProductRepo.setBackground2Off(productId);
             imgProductRepo.setBackground2On(imageName);
         }
 
-        Path imagePath = Paths.get("src/main/uploads/images").resolve(imageName);
-        Resource imageResource = new UrlResource(imagePath.toUri());
-        // Trả về phản hồi với hình ảnh
-        return ResponseEntity.ok().body(imageResource);
+//        Path imagePath = Paths.get("src/main/uploads/images").resolve(imageName);
+//        Resource imageResource = new UrlResource(imagePath.toUri());
+//        // Trả về phản hồi với hình ảnh
+//        return ResponseEntity.ok().body(imageResource);
     }
 
     @Transactional
@@ -222,5 +218,12 @@ public class ImgProductService {
 
     public List<ImgProduct> findAllImgByProduct(String productId) {
         return imgProductRepo.findAllByProductProductId(productId);
+    }
+
+    public List<ImgProduct> findAllBackground(int number){
+        if (number ==1){
+            return imgProductRepo.findAllByBackground1IsTrue();
+        }else
+            return imgProductRepo.findAllByBackground2IsTrue();
     }
 }

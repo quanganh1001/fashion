@@ -41,50 +41,49 @@ public class CategoryService {
     private ProductService productService;
 
     @Transactional
-    public ResponseEntity<String> saveCategory(Category category) throws Exception {
+    public ResponseEntity<String> saveCategory(Category category) {
 
         if (Objects.equals(category.getCatId(), "") || category.getCatId() == null ||
                 Objects.equals(category.getCatName(), "") || category.getCatName() == null) {
             return new ResponseEntity<>("Nhập dữ liệu không hợp lệ",HttpStatus.BAD_REQUEST);
         } else if (category.getCatParent()!=null && category.getCatId().equals(category.getCatParent().getCatId())) {
-
             return new ResponseEntity<>("Mã danh mục và danh mục cha không được trùng nhau",HttpStatus.BAD_REQUEST);
-        } else {
-
-            if(category.getCatBackground() == null || category.getCatBackground().equals("no")){
+        }else {
+            if(Objects.equals(category.getCatBackground(), "")||(category.getCatBackground()==null)){
                 Optional<Category> categoryOptional = Optional.of(findById(category.getCatId()).orElse(new Category()));
                 String catBg = categoryOptional.get().getCatBackground();
                 category.setCatBackground(catBg);
-                System.out.println(category);
+            }else {
+                String fileName = System.currentTimeMillis() + "_" + category.getCatBackground();
+                category.setCatBackground(fileName);
+            }
+            setCatActive(category.getCatId(), category.getIsCatActive());
+
+            categoryRepo.save(category);
+            return ResponseEntity.ok(category.getCatBackground()==null?"no":category.getCatBackground());
+        }
+    }
+
+    @Transactional
+    public ResponseEntity<String> addCat(Category category) throws Exception {
+
+        if (Objects.equals(category.getCatId(), "") || category.getCatId() == null ||
+                Objects.equals(category.getCatName(), "") || category.getCatName() == null) {
+            return new ResponseEntity<>("Lỗi nhập dữ liệu",HttpStatus.BAD_REQUEST);
+        } else if (categoryRepo.existsById(category.getCatId())) {
+            return new ResponseEntity<>("Danh mục đã tồn tại",HttpStatus.BAD_REQUEST);
+        } else {
+            setCatActive(category.getCatId(), category.getIsCatActive());
+            if (Objects.equals(category.getCatBackground(), "")){
+                category.setCatBackground(null);
             }else {
                 String fileName = System.currentTimeMillis() + "_" + category.getCatBackground();
                 category.setCatBackground(fileName);
             }
 
-            setCatActive(category.getCatId(), category.getIsCatActive());
-
-
             categoryRepo.save(category);
-            return ResponseEntity.ok(category.getCatBackground());
-        }
-    }
+            return ResponseEntity.ok(category.getCatBackground()==null?"no":category.getCatBackground());
 
-    @Transactional
-    public String addCat(Category category, String catParentId, RedirectAttributes attributes) throws Exception {
-        if (Objects.equals(category.getCatId(), "") || category.getCatId() == null ||
-                Objects.equals(category.getCatName(), "") || category.getCatName() == null) {
-            throw new Exception("Lỗi validate");
-        } else if (categoryRepo.existsById(category.getCatId())) {
-            attributes.addFlashAttribute("alertMessage", "Danh mục đã tồn tại");
-            return "redirect:/admin/category/add-category?catParentId=" + catParentId;
-        } else {
-            setCatActive(category.getCatId(), category.getIsCatActive());
-            categoryRepo.save(category);
-            attributes.addFlashAttribute("alertMessage", "Đã tạo danh mục");
-            if (category.getCatParent() == null) {
-                return "redirect:/admin/category";
-            }
-            return "redirect:/admin/category?parent=" + category.getCatParent().getCatId();
         }
     }
 

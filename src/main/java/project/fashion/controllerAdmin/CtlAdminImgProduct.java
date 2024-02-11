@@ -32,21 +32,18 @@ public class CtlAdminImgProduct {
 
     @GetMapping("/add-img")
     public String addImg(Model model, @RequestParam("productId") String productId) {
-        List<ImgProduct> imgProducts = imgProductService.findAllByProductProductId(productId);
+        List<ImgProduct> imgProducts = imgProductService.findAllImgByProduct(productId);
 
         imgProductService.getImgBg(model,1, productId);
         imgProductService.getImgBg(model,2, productId);
 
         ImgProduct img = new ImgProduct();
-        var pathRoot = System.getProperty("user.dir");
-        var path = pathRoot + "/src/main/uploads/images/";
 
         accountService.getAccountResponse(model);
 
         model.addAttribute("productId", productId);
         model.addAttribute("img", img);
         model.addAttribute("imgProducts", imgProducts);
-        model.addAttribute("path", path);
         model.addAttribute("title","Product");
         return "admin/ImgProduct";
     }
@@ -68,11 +65,20 @@ public class CtlAdminImgProduct {
 
     }
 
-    @GetMapping("/imgbg/{imageName}")
-    public ResponseEntity<Resource> changeImg(@PathVariable String imageName, @RequestParam("imbg") int imbg,
-                                              @RequestParam("productId") String productId)
-            throws IOException {
-        return imgProductService.setBackground(productId, imageName, imbg);
+    @PostMapping ("/img-bg")
+    public String changeImg(Model model,
+                            @RequestParam("imageName") String imageName,
+                            @RequestParam("numberBackground") int numberBackground,
+                            @RequestParam("productId") String productId) throws IOException {
+        List<ImgProduct> imgProducts = imgProductService.findAllImgByProduct(productId);
+        imgProductService.setBackground(productId, imageName, numberBackground);
+        imgProductService.getImgBg(model,1, productId);
+        imgProductService.getImgBg(model,2, productId);
+        accountService.getAccountResponse(model);
+
+        model.addAttribute("imgProducts",imgProducts);
+        model.addAttribute("productId",productId);
+        return "admin/component/SelectBackground";
 
     }
 

@@ -1,0 +1,73 @@
+<div th:fragment="SelectBackground">
+
+    <h4>Chọn nền 1</h4>
+    <select id="bg1" class="form-select" th:data-product-id="${productId}">
+        <option th:selected="${i.imgId} == ${imgbg1}"
+                th:each="i : ${imgProducts}"
+                th:value="${i.fileImg}"
+                th:text="${i.fileImg}">
+        </option>
+    </select>
+
+    <div th:unless="${imgbg1Name.endsWith('.mp4')}  ">
+        <img width="50px" th:id="imgbg1"
+             th:src="@{'/admin/imgProduct/'+${imgbg1Name}}" alt="">
+
+        <video class="hidden" width="50px" th:id="vdbg1" controls
+               th:src="@{'/admin/imgProduct/'+${imgbg1Name}}">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div th:if="${imgbg1Name.endsWith('.mp4')}">
+        <img class="hidden" width="50px" th:id="imgbg1"
+             th:src="@{'/admin/imgProduct/'+${imgbg1Name}}" alt="">
+
+        <video width="50px" th:id="vdbg1" controls
+               th:src="@{'/admin/imgProduct/'+${imgbg1Name}}">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div th:if="${imgbg1Name == null}">
+        <img class="hidden" width="50px" th:id="imgbg1"
+             th:src="@{'/admin/imgProduct/no-image.jpg'}" alt="">
+    </div>
+
+
+    <h4 class="mt-3">Chọn nền 2</h4>
+    <select id="bg2" class="form-select">
+        <option th:selected="${i.imgId == imgbg2}"
+                th:each="i : ${imgProducts}"
+                th:value="${i.fileImg}"
+                th:text="${i.fileImg}">
+        </option>
+    </select>
+
+    <div th:unless="${imgbg2Name.endsWith('.mp4')}">
+        <img width="50px" th:id="imgbg2"
+             th:src="@{'/admin/imgProduct/'+${imgbg2Name}}" alt="">
+
+        <video class="hidden" width="50px" th:id="vdbg2" controls
+               th:src="@{'/admin/imgProduct/'+${imgbg2Name}}">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div th:if="${imgbg2Name.endsWith('.mp4')}">
+        <img class="hidden" width="50px" th:id="imgbg2"
+             th:src="@{'/admin/imgProduct/'+${imgbg2Name}}" alt="">
+
+        <video width="50px" th:id="vdbg2" controls
+               th:src="@{'/admin/imgProduct/'+${imgbg2Name}}">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div th:if="${imgbg2Name == null}">
+        <img class="hidden" width="50px" th:id="imgbg2"
+             th:src="@{'/admin/imgProduct/no-image.jpg'}" alt="">
+    </div>
+
+    <script th:src="@{/script/AdminScript/SelectBackgroundScript.js}"></script>
+</div>
