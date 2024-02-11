@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th2 06, 2024 lúc 07:55 PM
+-- Thời gian đã tạo: Th2 11, 2024 lúc 02:58 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.0.28
 
@@ -40,10 +40,31 @@ CREATE TABLE `accounts` (
 --
 
 INSERT INTO `accounts` (`account_id`, `password`, `user_name`, `role`, `enabled`) VALUES
-(1, '$2a$10$2ZYXkyXJ504frJtNhx55CuJJ.uIOfbMMBflCr7Y.R2de7xCMBrO3y', 'quanly', 'ROLE_MANAGER', b'1'),
+(1, '$2a$10$g1JN5WmvkPTAUdA9t8BfueIQlGlHzANIWylCYY4ICsMpACPuZRC/K', 'quanly', 'ROLE_MANAGER', b'1'),
 (2, '$2a$10$ghYBZtTkVUweDOIyd8XD.uDEC30KF54.GG4/yt9ydXQcUhUzHxUt.', 'nhanvien1', 'ROLE_EMPLOYEE', b'1'),
 (4, '$2a$10$tpaoi/izGUSiZJlapt.s7uPSHbw4eUB0JlPFnqlb7yHXaVJsj0FHG', 'nhanvien2', 'ROLE_EMPLOYEE', b'1'),
 (8, '$2a$10$o1Jl1nTZq7O0CuynH5KPEu10MA46VbD/J5fsAsukT35H9KyJow7lu', 'nhanvien3', 'ROLE_EMPLOYEE', b'1');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `banner_imgs`
+--
+
+CREATE TABLE `banner_imgs` (
+  `id` int(11) NOT NULL,
+  `file_name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `banner_imgs`
+--
+
+INSERT INTO `banner_imgs` (`id`, `file_name`) VALUES
+(24, '1707589631031_slide_1_img.jpg'),
+(25, '1707589659083_slide_4_img.jpg'),
+(26, '1707589659361_slide_3_img.jpg'),
+(27, '1707589659861_slide_2_img.jpg');
 
 -- --------------------------------------------------------
 
@@ -55,6 +76,7 @@ CREATE TABLE `categories` (
   `cat_id` varchar(10) NOT NULL,
   `cat_name` varchar(30) DEFAULT NULL,
   `parent_id` varchar(10) DEFAULT NULL,
+  `cat_background` varchar(255),
   `is_cat_active` bit(1) NOT NULL DEFAULT b'1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -62,40 +84,40 @@ CREATE TABLE `categories` (
 -- Đang đổ dữ liệu cho bảng `categories`
 --
 
-INSERT INTO `categories` (`cat_id`, `cat_name`, `parent_id`, `is_cat_active`) VALUES
-('AK', 'Áo khoác', 'AO', b'1'),
-('ANL', 'Áo nỉ - len', 'AO', b'1'),
-('AO', 'Áo nam', NULL, b'1'),
-('BN', 'Bộ nỉ', 'SET', b'1'),
-('PLBK', 'Polo Bo Kẻ', 'POLO', b'1'),
-('PLCP', 'Polo can phối', 'POLO', b'1'),
-('PLHT', 'Polo họa tiết', 'POLO', b'1'),
-('PLK', 'Polo kẻ', 'POLO', b'1'),
-('PLT', 'Polo trơn', 'POLO', b'1'),
-('POLO', 'Áo polo', 'AO', b'1'),
-('QA', 'Quần âu', 'QUAN', b'1'),
-('QAPTC', 'Quần âu phối thun cạp', 'QA', b'1'),
-('QDK', 'Quần dài kaki', 'QUAN', b'1'),
-('QJ', 'Quần jeans', 'QUAN', b'1'),
-('QJB', 'Quần jeans basic', 'QJ', b'1'),
-('QJR', 'Quần jeans rách', 'QJ', b'1'),
-('QKB', 'Quần kaki basic', 'QDK', b'1'),
-('QN', 'Quần nỉ', 'QUAN', b'1'),
-('QS', 'Quần short', 'QUAN', b'1'),
-('QUAN', 'Quần nam', NULL, b'1'),
-('SD', 'Short đũi', 'QS', b'1'),
-('SET', 'Set', NULL, b'1'),
-('SG', 'Short gió', 'QS', b'1'),
-('SKK', 'Short kaki', 'QS', b'1'),
-('SM', 'Sơ mi', 'AO', b'1'),
-('SMD', 'Sơ mi đũi', 'SM', b'1'),
-('SMDM', 'Sơ mi Demin', 'SM', b'1'),
-('SMHT', 'Sơ mi họa tiết', 'SMD', b'1'),
-('SMK', 'Sơ mi kẻ', 'SM', b'1'),
-('SMT', 'Sơ mi trơn', 'SM', b'1'),
-('THUN', 'Áo thun', 'AO', b'1'),
-('TIH', 'Thun in hình', 'THUN', b'1'),
-('TT', 'Tank top', 'THUN', b'1');
+INSERT INTO `categories` (`cat_id`, `cat_name`, `parent_id`, `cat_background`, `is_cat_active`) VALUES
+('AK', 'Áo khoác', 'AO', '1707657052035_home_category_1_img.jpg', b'1'),
+('ANL', 'Áo nỉ - len', 'AO', '1707658036306_tw003-bs001-6_53291471625_o_1f620c3d758e41d696fb128d159744a2_master.jpg', b'1'),
+('AO', 'Áo nam', NULL, '1707659268353_309472437_1159489334948483_878248476891481358_n.mp4', b'1'),
+('BN', 'Bộ nỉ', 'SET', '1707659802887_home_category_2_img.jpg', b'1'),
+('PLBK', 'Polo Bo Kẻ', 'POLO', NULL, b'1'),
+('PLCP', 'Polo can phối', 'POLO', NULL, b'1'),
+('PLHT', 'Polo họa tiết', 'POLO', '1707659794400_home_category_7_img.jpg', b'1'),
+('PLK', 'Polo kẻ', 'POLO', NULL, b'1'),
+('PLT', 'Polo trơn', 'POLO', NULL, b'1'),
+('POLO', 'Áo polo', 'AO', '1707658054393_home_category_7_img.jpg', b'1'),
+('QA', 'Quần âu', 'QUAN', '1707658508920_home_category_4_img.jpg', b'1'),
+('QAPTC', 'Quần âu phối thun cạp', 'QA', NULL, b'1'),
+('QDK', 'Quần dài kaki', 'QUAN', '1707658730194_20220616_imo73m42sdzgttoxblnoitdk_731b47cd880d4329ae353df413fa9712_master.jpg', b'1'),
+('QJ', 'Quần jeans', 'QUAN', '1707658789144_home_category_3_img.jpg', b'1'),
+('QJB', 'Quần jeans basic', 'QJ', NULL, b'1'),
+('QJR', 'Quần jeans rách', 'QJ', NULL, b'1'),
+('QKB', 'Quần kaki basic', 'QDK', NULL, b'1'),
+('QN', 'Quần nỉ', 'QUAN', '1707658851456_list.jpg', b'1'),
+('QS', 'Quần short', 'QUAN', NULL, b'1'),
+('QUAN', 'Quần nam', NULL, NULL, b'1'),
+('SD', 'Short đũi', 'QS', NULL, b'1'),
+('SET', 'Set', NULL, '1707658980103_home_category_2_img.jpg', b'1'),
+('SG', 'Short gió', 'QS', NULL, b'1'),
+('SKK', 'Short kaki', 'QS', NULL, b'1'),
+('SM', 'Sơ mi', 'AO', '1707658088128_home_category_5_img.jpg', b'1'),
+('SMD', 'Sơ mi đũi', 'SM', NULL, b'1'),
+('SMDM', 'Sơ mi Demin', 'SM', NULL, b'1'),
+('SMHT', 'Sơ mi họa tiết', 'SMD', NULL, b'1'),
+('SMK', 'Sơ mi kẻ', 'SM', NULL, b'1'),
+('SMT', 'Sơ mi trơn', 'SM', NULL, b'1'),
+('THUN', 'Áo thun', 'AO', '1707658099690_home_category_8_img.jpg', b'1'),
+('TIH', 'Thun in hình', 'THUN', NULL, b'1'),
+('TT', 'Tank top', 'THUN', NULL, b'1');
 
 -- --------------------------------------------------------
 
@@ -1139,7 +1161,16 @@ INSERT INTO `history` (`id`, `invoice_id`, `content`, `time`, `time_ago`) VALUES
 (1137, 'YFJBR6YE', 'Khách hàng đã tạo đơn hàng: <br>Mã đơn: YFJBR6YE,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 0365151822,<br>Địa chỉ: 4dvsdsf,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-02-06 18:52:13', NULL),
 (1138, 'YFJBR6YE', 'Khách hàng đã thêm sản phẩm: DSTP61172CX00SB_WH-S (giá = 333333)', '2024-02-06 18:52:13', NULL),
 (1139, 'GWW0LOZ8', 'Khách hàng đã tạo đơn hàng: <br>Mã đơn: GWW0LOZ8,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 0365151822,<br>Địa chỉ: 4dvsdsf,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-02-06 18:52:29', NULL),
-(1140, 'GWW0LOZ8', 'Khách hàng đã thêm sản phẩm: DWCT00431PE32SB_BL-S (giá = 750000)', '2024-02-06 18:52:29', NULL);
+(1140, 'GWW0LOZ8', 'Khách hàng đã thêm sản phẩm: DWCT00431PE32SB_BL-S (giá = 750000)', '2024-02-06 18:52:29', NULL),
+(1141, '5RH2CLWH', 'quanly đã thêm sản phẩm: DABJ00401CT00SB_NV-29 (giá = 550000)', '2024-02-07 09:07:28', NULL),
+(1142, '41ZSPBHA', 'quanly đã thêm sản phẩm: ESTP07472CT00SB_WH-M (giá = 420000)', '2024-02-07 12:13:48', NULL),
+(1143, 'WDVTINII', 'quanly đã tạo đơn hàng: <br>Mã đơn: WDVTINII,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 0365151822,<br>Địa chỉ: 4dvsdsf,<br>Ghi chú: ,<br>Nguồn:  quanly', '2024-02-08 15:37:52', NULL),
+(1144, 'WDVTINII', 'quanly đã thêm sản phẩm: DWCT00431PE32SB_BL-S (giá = 750000)', '2024-02-08 15:37:52', NULL),
+(1145, 'WDVTINII', 'quanly đã thêm sản phẩm: EABT01901PE00SB_BL-29 (giá = 500000)', '2024-02-08 15:37:52', NULL),
+(1146, 'SNGWGR4V', 'quanly đã tạo đơn hàng: <br>Mã đơn: SNGWGR4V,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 0365151822,<br>Địa chỉ: 4dvsdsf,<br>Ghi chú: ,<br>Nguồn:  quanly', '2024-02-08 15:38:43', NULL),
+(1147, 'SNGWGR4V', 'quanly đã thêm sản phẩm: DWCT00431PE32SB_BL-S (giá = 750000)', '2024-02-08 15:38:43', NULL),
+(1148, 'U7DZUREO', 'quanly đã tạo đơn hàng: <br>Mã đơn: U7DZUREO,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 0365151822,<br>Địa chỉ: 4dvsdsf,<br>Ghi chú: ,<br>Nguồn:  quanly', '2024-02-08 15:39:21', NULL),
+(1149, 'U7DZUREO', 'quanly đã thêm sản phẩm: EABT01901PE00SB_BL-29 (giá = 500000)', '2024-02-08 15:39:21', NULL);
 
 -- --------------------------------------------------------
 
@@ -1257,11 +1288,11 @@ INSERT INTO `imgs_product` (`img_id`, `product_id`, `file_img`, `background_1`, 
 (118, 'ESTP001', '3_d899896ff01a4adeb430b83c94dc2483_master.jpg', b'0', b'0'),
 (119, 'ESTP001', '4_fe228fc01afa43a082ef4bda0d636e20_master.jpg', b'0', b'0'),
 (120, 'ESTP001', '7_9bc29d0a14064c70aca802cc201f2750_master.jpg', b'0', b'0'),
-(121, 'ESTP060', '3_a6cdb2c46dd543fd9507418aef06c558_master.jpg', b'0', b'0'),
-(122, 'ESTP060', '2_d527cf7f226e40c9bdf647d7cfcdb73d_master.jpg', b'0', b'0'),
+(121, 'ESTP060', '3_a6cdb2c46dd543fd9507418aef06c558_master.jpg', b'1', b'0'),
+(122, 'ESTP060', '2_d527cf7f226e40c9bdf647d7cfcdb73d_master.jpg', b'0', b'1'),
 (123, 'ESTP060', '52951329992_50ac43f695_o_0d0d415fa295462dbb496e1cda501bad_master.jpg', b'0', b'0'),
-(124, 'ESTP060', 'estp060-1_eb469e85967d44e3a36e4dc8ca9ae0ea_master.jpg', b'1', b'0'),
-(125, 'ESTP060', 'estp060-4_3fbb20aa4c1b4ff1b054225ad070a6f9_master.jpg', b'0', b'1'),
+(124, 'ESTP060', 'estp060-1_eb469e85967d44e3a36e4dc8ca9ae0ea_master.jpg', b'0', b'0'),
+(125, 'ESTP060', 'estp060-4_3fbb20aa4c1b4ff1b054225ad070a6f9_master.jpg', b'0', b'0'),
 (126, 'ESTP060', 'estp060-2_322d5e5eab9a4de399752a3783025240_master.jpg', b'0', b'0'),
 (127, 'ESTP060', 'estp060-3_326826ec287a49b58f66324c764a15fe_master.jpg', b'0', b'0'),
 (142, 'ESTP007', 'estp007-1_9cd4cd6e34ac4041bb7e96da2d1eeb22_master.jpg', b'1', b'0'),
@@ -1298,10 +1329,10 @@ INSERT INTO `imgs_product` (`img_id`, `product_id`, `file_img`, `background_1`, 
 (185, 'DSTP903', 'dstp903-2_52899647325_o_d2a330409f00496ea82d68f220729469_master.jpg', b'0', b'0'),
 (186, 'DSTP903', 'dstp903-3_52899414579_o_48d0f7660d7648f18f998fa3f52cd042_master.jpg', b'0', b'0'),
 (187, 'DSTP903', 'dstp903-4_52899252121_o_ae557b13c3e54659beab9355b85ac6e1_master.jpg', b'0', b'0'),
-(189, 'ESTP017', '52984841597_c4f0a17882_o_537cdc00b2124e288af5d94002fba114_master.jpg', b'1', b'0'),
-(190, 'ESTP017', '52984841637_be878f2e96_o_b2155ec1c2c6425a94b240f852a798d4_master.jpg', b'0', b'1'),
-(191, 'ESTP017', '52985816615_83d5e68a16_o_a38ee4423e9a4d9e9a719237c6aa6f52_master.jpg', b'0', b'0'),
-(192, 'ESTP017', '52985905053_bdeffa314e_o_aa67bed06deb439399cc2046790f8c59_master.jpg', b'0', b'0'),
+(189, 'ESTP017', '52984841597_c4f0a17882_o_537cdc00b2124e288af5d94002fba114_master.jpg', b'0', b'0'),
+(190, 'ESTP017', '52984841637_be878f2e96_o_b2155ec1c2c6425a94b240f852a798d4_master.jpg', b'0', b'0'),
+(191, 'ESTP017', '52985816615_83d5e68a16_o_a38ee4423e9a4d9e9a719237c6aa6f52_master.jpg', b'0', b'1'),
+(192, 'ESTP017', '52985905053_bdeffa314e_o_aa67bed06deb439399cc2046790f8c59_master.jpg', b'1', b'0'),
 (193, 'ESTP022', '52901478774_f103d7180e_o_6ec337721b6d4a8bae3c2626bca7d037_master.jpg', b'1', b'0'),
 (194, 'ESTP022', '52900747392_3bd87b9424_o_ef4fd5e38ee643538ccbfa25af4daa72_master.jpg', b'0', b'1'),
 (195, 'ESTP022', '52900747527_b5ba3ab3a3_o_c0e500d9ecf04e648a5b4eadafa8c56d_master.jpg', b'0', b'0'),
@@ -1356,8 +1387,8 @@ INSERT INTO `imgs_product` (`img_id`, `product_id`, `file_img`, `background_1`, 
 (302, 'ESTP074', '1701361255440_5_5bf4a94b5b19485199441c580dae0f6a_master.jpg', b'0', b'0'),
 (303, 'ESTP074', '1701361255443_4_aaa0fd53411a441e85605a458aab67f7_master.jpg', b'0', b'0'),
 (304, 'ESTP074', '1701361255445_3_e2f6d02236ac4e0397a15b372c85bfb2_master.jpg', b'0', b'0'),
-(305, 'ESTP074', '1701361255449_2_5933a603e4074662bfe7cc6b5fe1e44b_master.jpg', b'1', b'0'),
-(306, 'ESTP074', '1701361255452_1_50f16dbd5df34aa3acc99865b4820084_master.jpg', b'0', b'1'),
+(305, 'ESTP074', '1701361255449_2_5933a603e4074662bfe7cc6b5fe1e44b_master.jpg', b'0', b'1'),
+(306, 'ESTP074', '1701361255452_1_50f16dbd5df34aa3acc99865b4820084_master.jpg', b'1', b'0'),
 (308, 'ESTA010', '1702537484257_esta010-5_2ba1b356efe4495cab57f32d9d25091c_master.jpg', b'0', b'0'),
 (309, 'ESTA010', '1702537484260_esta010-4_270b822eb48441a1a53f5546346ddd40_master.jpg', b'0', b'0'),
 (310, 'ESTA010', '1702537484263_esta010-3_0ba6357a968c46e0affaf07666b9c01b_master.jpg', b'0', b'0'),
@@ -1576,8 +1607,8 @@ INSERT INTO `imgs_product` (`img_id`, `product_id`, `file_img`, `background_1`, 
 (546, 'ESBK002', '1702813549148_52933853176_7967f42e52_o_208bdabebdb14986a84a5ed6be961474_master.jpg', b'1', b'0'),
 (547, 'BI013', '1702814188800_20220214_rqmdfbzelhqp14kvbyjdov8e_4adea06d26014521b26f886e16175c5d_master.jpg', b'0', b'0'),
 (548, 'BI013', '1702814188803_20220214_aa2dxth7npokvdt73rxflrsg_e686cb6ec1be4f309c5a8b1305f8769c_master.jpg', b'0', b'0'),
-(549, 'BI013', '1702814188807_20220214_cmjadhbvnqgvj2dl8qxlmkst_18dfb5a80b834f6d826e7b7918365b27_master.jpg', b'0', b'1'),
-(550, 'BI013', '1702814188816_20220214_yzxa3v6zuawe6zcbvw47ty0t_a101bd2336ef4b7091c1a97ed5734b09_master.jpg', b'1', b'0'),
+(549, 'BI013', '1702814188807_20220214_cmjadhbvnqgvj2dl8qxlmkst_18dfb5a80b834f6d826e7b7918365b27_master.jpg', b'0', b'0'),
+(550, 'BI013', '1702814188816_20220214_yzxa3v6zuawe6zcbvw47ty0t_a101bd2336ef4b7091c1a97ed5734b09_master.jpg', b'0', b'0'),
 (551, 'BI013', '1702814188820_20220214_9sqxfrp87yzcgtfw5gnv103y_ec5fec57d7f44d14819f71329d391d4d_master.jpg', b'0', b'0'),
 (552, 'BI013', '1702814188823_20220214_zquxm0k25vusrzskw8qojnex_d0321582dc3342f4bb38d89f5c134a84_master.jpg', b'0', b'0'),
 (553, 'BI013', '1702814188826_51988114534_238cde3543_o_7883ded929414df59b56b76e9a22e117_master.jpg', b'0', b'0'),
@@ -1585,7 +1616,7 @@ INSERT INTO `imgs_product` (`img_id`, `product_id`, `file_img`, `background_1`, 
 (555, 'BI013', '1702814188831_51988114499_06741b197e_o_0ee210085cda4f85bc007c830526c361_master.jpg', b'0', b'0'),
 (556, 'BI013', '1702814188835_51987823711_a1e404ba0d_o_075443e0b38240cd9b55ff269537bc67_master.jpg', b'0', b'0'),
 (557, 'BI013', '1702814188838_tp038---bi013-_19__8e5d8348310741e48649ae329ee3e014_master.jpg', b'0', b'0'),
-(558, 'BI013', '1702814188840_tp038---bi013-_20__790f72cbd3d34a918920b73579e72ea5_master.jpg', b'0', b'0'),
+(558, 'BI013', '1702814188840_tp038---bi013-_20__790f72cbd3d34a918920b73579e72ea5_master.jpg', b'1', b'0'),
 (559, 'ESBI006', '1702815216156_esbi006-9_95f00d733aba478891e327cea219dafb_master.jpg', b'0', b'0'),
 (560, 'ESBI006', '1702815216161_esbi006-8_efa8504febac44bc85dd73720a522e65_master.jpg', b'0', b'0'),
 (561, 'ESBI006', '1702815216164_esbi006-7_e98b77784d774dc686f70e02e792fa68_master.jpg', b'0', b'0'),
@@ -1600,26 +1631,26 @@ INSERT INTO `imgs_product` (`img_id`, `product_id`, `file_img`, `background_1`, 
 (609, 'DWBS012', '1703928526192_bs012-7_52616063791_o_b73fd2ba1d004e6e9b6e00056a74a633_master.jpg', b'0', b'0'),
 (610, 'DWBS012', '1703928526208_bs012-4_52616554758_o_2d13878e693346e18cfb465e5e5d92aa_master.jpg', b'0', b'0'),
 (611, 'DWBS012', '1703928526215_bs012-3_52615554827_o_cdf36ab14e2948ab984bbfe0c18c72ed_master.jpg', b'0', b'0'),
-(612, 'DWBS012', '1703928526222_bs012-2_52616064151_o_3574494468a940998f25c86d6f815504_master.jpg', b'0', b'0'),
+(612, 'DWBS012', '1703928526222_bs012-2_52616064151_o_3574494468a940998f25c86d6f815504_master.jpg', b'0', b'1'),
 (613, 'DWBS012', '1703928526228_bs012-1_52615553322_o_0d15a75065ed4bf59b9e03ecded5d334_master.jpg', b'1', b'0'),
-(615, 'EWCW007', '1704189991759_ewcw007-5_53a856c3e86b422d975b1323eb87e578_master.jpg', b'1', b'0'),
-(616, 'EWCW007', '1704189991824_ewcw007-4_73d717aacbbb49539e8941f53860fb81_master.jpg', b'0', b'0'),
+(615, 'EWCW007', '1704189991759_ewcw007-5_53a856c3e86b422d975b1323eb87e578_master.jpg', b'0', b'1'),
+(616, 'EWCW007', '1704189991824_ewcw007-4_73d717aacbbb49539e8941f53860fb81_master.jpg', b'1', b'0'),
 (617, 'EWCW007', '1704189991831_ewcw007-3_309fb3d06ea84910af0060f7178ba85c_master.jpg', b'0', b'0'),
 (618, 'EWCW007', '1704189991836_ewcw007-2_91d0cfce3d134bb4b72cc3086067df2f_master.jpg', b'0', b'0'),
 (619, 'EWCW007', '1704189991841_ewcw007-1_c8b1f230ddb2408daa72728d0ecee531_master.jpg', b'0', b'0'),
 (620, 'DWCT001', '1704190979892_ct001_51763349788_o_786e5178773a4a1fb56f1bfee2157e9b_master.jpg', b'0', b'0'),
 (621, 'DWCT001', '1704190979915_ct001_51763349443_o_c46a7b646c5741ca865598fe0249b69b_master.jpg', b'0', b'0'),
 (622, 'DWCT001', '1704190979920_ct001_51762271912_o_1e27b353ce35445b98aa64a0c024c655_master.jpg', b'0', b'0'),
-(623, 'DWCT001', '1704190979924_ct001_51762269147_o_09bc5494840e48feb5ad0b9b16c3d37b_master.jpg', b'0', b'0'),
+(623, 'DWCT001', '1704190979924_ct001_51762269147_o_09bc5494840e48feb5ad0b9b16c3d37b_master.jpg', b'0', b'1'),
 (624, 'DWCT001', '1704190979928_ct001_51762266972_o_9bee17ad6de44acca391c7ad9847bf08_master.jpg', b'1', b'0'),
 (625, 'DWCT004', '1704191300141_ct004-5_52410247588_o_e018274348ee4e508c3bcd3e45191163_master.jpg', b'0', b'0'),
 (626, 'DWCT004', '1704191300155_ct004-4_52409234072_o_c1cc144681a64b2da46f4a881600383c_master.jpg', b'0', b'0'),
 (627, 'DWCT004', '1704191300165_ct004-3_52409738056_o_03e4212ea4ec4b85a89193a2233e3f29_master.jpg', b'0', b'0'),
 (628, 'DWCT004', '1704191300171_ct004-13_52409234777_o_e7c882ac09994daaa3ef8a4b92a5614b_master.jpg', b'1', b'0'),
-(629, 'DWCT004', '1704191300176_ct004-2_52410023919_o_fe0e3f9c03f642cf9309596415dc2278_master.jpg', b'0', b'0'),
-(630, 'DWCU007', '1704191606458_20220929_3dshbpb0pecj63dcrkmah5yc_85f0fa938a844dc2a433bc82c3147ad4_master.jpg', b'0', b'0'),
+(629, 'DWCT004', '1704191300176_ct004-2_52410023919_o_fe0e3f9c03f642cf9309596415dc2278_master.jpg', b'0', b'1'),
+(630, 'DWCU007', '1704191606458_20220929_3dshbpb0pecj63dcrkmah5yc_85f0fa938a844dc2a433bc82c3147ad4_master.jpg', b'0', b'1'),
 (631, 'DWCU007', '1704191606465_20220929_eflqusorg4g4ku3umeps5z9r_389f739d70b645d8a1d6a49d9b745c7b_compact.jpg', b'1', b'0'),
-(632, 'EWCL003', '1704250844847_ewcl003-3_53375595102_o_0f63b002aa3c4f57bc06d9ac92da343d_master.jpg', b'0', b'0'),
+(632, 'EWCL003', '1704250844847_ewcl003-3_53375595102_o_0f63b002aa3c4f57bc06d9ac92da343d_master.jpg', b'0', b'1'),
 (633, 'EWCL003', '1704250844861_ewcl003-2_53376963630_o_d253bb8cf4404fd18f7fb241c31b57eb_master.jpg', b'0', b'0'),
 (634, 'EWCL003', '1704250844866_ewcl003-1_53375595057_o_fbf3267675b14c9780e1db57c53ea93c_master.jpg', b'0', b'0'),
 (635, 'EWCL003', '1704250844871_ewcl003-4_53376696493_o_f4e0d55389724e0cbab7cc411b7e7c0c_master.jpg', b'0', b'0'),
@@ -1632,22 +1663,31 @@ INSERT INTO `imgs_product` (`img_id`, `product_id`, `file_img`, `background_1`, 
 (642, 'EWCP002', '1704251255826_ewcp002-11_53376521661_o_7b2fbf44c1f142a3ba2bc974def12378_master.jpg', b'0', b'0'),
 (643, 'EWCP002', '1704251255829_ewcp002-3_53376520886_o_84a65b23bbfb4c54952d7d289b6e1ea8_master.jpg', b'0', b'0'),
 (644, 'EWCP002', '1704251255834_ewcp002_53375619402_o_d0011756fdc646f79c7a39698e026fb8_master.jpg', b'1', b'0'),
-(645, 'EWCP002', '1704251255837_ewcp002-30_53376967025_o_d452a9fe67ca4f9b9803a72fa15b64fd_master.jpg', b'0', b'0'),
+(645, 'EWCP002', '1704251255837_ewcp002-30_53376967025_o_d452a9fe67ca4f9b9803a72fa15b64fd_master.jpg', b'0', b'1'),
 (646, 'EWBS001', '1704251897974_fds.jpg', b'0', b'0'),
 (647, 'EWBS001', '1704251897979_tw003-bs001-16_53290120977_o_cb4dfe2b55f74902ac3f0f64b38f6938_master.jpg', b'0', b'0'),
 (648, 'EWBS001', '1704251897983_tw003-bs001-15_53291378099_o_66f09820de5a4e4f831b38eea4352fd5_master.jpg', b'0', b'0'),
 (649, 'EWBS001', '1704251897988_tw003-bs001-11_53290121042_o_3786274e4f1c4ab88f1f015c551df7db_master.jpg', b'0', b'0'),
 (650, 'EWBS001', '1704251897992_tw003-bs001-1_53291249648_o_e56244e6c0dc497e81cf8ca94a772493_master.jpg', b'0', b'0'),
-(651, 'EWBS001', '1704251897996_tw003-bs001-2_53291377864_o_a93a2eb880cc4107a3a360378ed056fb_master.jpg', b'0', b'0'),
+(651, 'EWBS001', '1704251897996_tw003-bs001-2_53291377864_o_a93a2eb880cc4107a3a360378ed056fb_master.jpg', b'0', b'1'),
 (652, 'EWBS001', '1704251898000_tw003-bs001-3_53291377849_o_110158d740fc40de9fceb818bda1132b_master.jpg', b'1', b'0'),
 (653, 'ESTB030', '1704715289463_eatb030-7_782d228809784ac3865f80fc627aca89_master.jpg', b'0', b'0'),
 (654, 'ESTB030', '1704715289509_eatb030-6_aafbbad5453d4849876c636b5e4eaafa_master.jpg', b'0', b'0'),
 (655, 'ESTB030', '1704715289513_eatb030-5_1cfb4bdeccc14e5e8a4bb2d2eb22b2ee_master.jpg', b'0', b'0'),
 (656, 'ESTB030', '1704715289516_eatb030-4_736d2c9b503b4c02abae3f66998470f2_master.jpg', b'0', b'0'),
-(657, 'ESTB030', '1704715289522_eatb030-2_035426c852274f5881fe4cdbe7b7b137_master.jpg', b'0', b'0'),
+(657, 'ESTB030', '1704715289522_eatb030-2_035426c852274f5881fe4cdbe7b7b137_master.jpg', b'0', b'1'),
 (658, 'ESTB030', '1704715289525_eatb030-1_994ff9e272a742e5af8ec9612e29cc73_master.jpg', b'0', b'0'),
 (659, 'ESTB030', '1704715289529_eatb030-8_a93e54fb6b5a467dbeaa6d051fedcab2_master.jpg', b'0', b'0'),
-(660, 'ESTB030', '1704715289535_eatb030-3_f4f3649109194318999a3e984bbd30f3_master.jpg', b'1', b'0');
+(660, 'ESTB030', '1704715289535_eatb030-3_f4f3649109194318999a3e984bbd30f3_master.jpg', b'1', b'0'),
+(667, 'BI013', '1707648349107_309472437_1159489334948483_878248476891481358_n.mp4', b'0', b'1'),
+(668, 'EWTW003', '1707657567733_tw003-bs001-7_53291006361_o_23d925c5d5fa4a95a81b830c4d783545_master.jpg', b'0', b'0'),
+(669, 'EWTW003', '1707657567754_tw003-bs001-4_53291249503_o_ef651bccfb984910b8e975fc3ad7beb3_master.jpg', b'0', b'0'),
+(670, 'EWTW003', '1707657567757_tw003-bs001-2_53291377864_o_46e46bd906e8427199e10879f20aeec4_master.jpg', b'0', b'0'),
+(671, 'EWTW003', '1707657567761_tw003-bs001-8_53291006896_o_3d92c51738cc4ce3a9aa8a2200de966c_master.jpg', b'0', b'0'),
+(672, 'EWTW003', '1707657567765_tw003-bs001-5_53291006421_o_4c146c1d885147f3a8b19ce1a8bffbc1_master.jpg', b'0', b'1');
+INSERT INTO `imgs_product` (`img_id`, `product_id`, `file_img`, `background_1`, `background_2`) VALUES
+(673, 'EWTW003', '1707657567769_tw003-bs001-3_53291377849_o_b80f1bc8d383439fb26263361ce7d0b9_master.jpg', b'0', b'0'),
+(674, 'EWTW003', '1707657567773_tw003-bs001-6_53291471625_o_1f620c3d758e41d696fb128d159744a2_master.jpg', b'1', b'0');
 
 -- --------------------------------------------------------
 
@@ -1699,12 +1739,12 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `created_at`, `note`, `customer_note`, `account_id`, `invoice_status`, `total_price`, `shipping_fee`, `total_bill`, `is_paid`) VALUES
-('41ZSPBHA', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 17:05:50', '', 'd', NULL, 1, 990000, 0, 990000, b'0'),
+('41ZSPBHA', 'quang anh', '0365151822', '4dvsdsf', '2024-02-07 12:13:48', '', 'd', NULL, 1, 1410000, 0, 1410000, b'0'),
 ('4LFFMS9V', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 17:31:56', '', 'd', NULL, 1, 50000, 30000, 80000, b'0'),
 ('56BKIMXY', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 17:36:03', '', 'f', NULL, 1, 990000, 0, 990000, b'0'),
 ('5FTZ8G2K', 'nguyễn quang anh', '0365151823', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-02-06 16:58:41', '', 'fsd', 4, 4, 1860000, 10000, 1870000, b'1'),
 ('5J8RUFRZ', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 17:11:44', '', 'fs', NULL, 1, 890000, 0, 890000, b'0'),
-('5RH2CLWH', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 17:04:44', '', 'sa', 1, 1, 990000, 0, 990000, b'0'),
+('5RH2CLWH', 'quang anh', '0365151822', '4dvsdsf', '2024-02-07 09:07:28', '', 'sa', 1, 1, 1540000, 0, 1540000, b'0'),
 ('6LU8CYHS', 'nguyễn quang anh', '3651518221', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-02-02 03:30:38', '', 'ss', NULL, 1, 990000, 0, 990000, b'0'),
 ('6RNPNRVM', 'nguyễn quang anh', '5423324222', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-02-01 13:35:58', '', NULL, 1, 1, NULL, NULL, NULL, b'0'),
 ('7MOJYIGO', 'vcxvx', '33333', 'fsd', '2024-02-06 18:25:48', '', 'sd', NULL, 1, 2350000, 20000, 2370000, b'0'),
@@ -1749,17 +1789,20 @@ INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `created_at`, 
 ('S9BQOPOP', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 17:26:23', '', 'f', NULL, 1, 750000, 0, 750000, b'0'),
 ('SGVWGKLQ', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 15:22:22', '', 'd', NULL, 1, 990000, 0, 990000, b'0'),
 ('SMMKHRU1', 'dfsd', '222222', 'sdf', '2024-01-21 09:17:25', '', 'fds', NULL, 1, 400000, 30000, 430000, b'0'),
+('SNGWGR4V', 'quang anh', '0365151822', '4dvsdsf', '2024-02-08 15:38:43', '', 'd', 1, 1, 750000, 0, 750000, b'0'),
 ('SRXO1SSG', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 17:33:37', '', 'h', NULL, 1, 400000, 30000, 430000, b'0'),
 ('T1VCKYYG', 'sser', '44343', 'f', '2024-01-26 03:23:12', 'dfs', NULL, 2, 3, NULL, NULL, NULL, b'0'),
 ('TFWOAP9I', 'nguyễn quang anh', '4343222342', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-29 13:12:12', '', '', NULL, 1, 500000, NULL, NULL, b'0'),
 ('TGPIGVXB', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 17:16:29', '', 'd', NULL, 1, 990000, 0, 990000, b'0'),
 ('TLSY7TFT', 'dfgdf', '323233232', 'fds', '2024-01-20 08:38:59', '', 'f', NULL, 1, 750000, 0, 750000, b'0'),
 ('U0F7TYG1', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 17:12:03', '', 'vs', NULL, 1, 890000, 0, 890000, b'0'),
+('U7DZUREO', 'quang anh', '0365151822', '4dvsdsf', '2024-02-08 15:39:21', '', 'gd', 1, 1, 500000, 0, 500000, b'0'),
 ('UAEZV8YX', 'gdfgfdg', '3423', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 08:24:41', '', 'vsd', 1, 1, 550000, 30000, 410000, b'0'),
 ('UAGHYL6A', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 17:44:28', '', 'd', NULL, 1, 750000, 0, 750000, b'0'),
 ('UZZHM3TR', 'nguyễn quang anh', '333322323', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-20 08:28:41', '', 'fs', NULL, 1, 480000, 30000, 510000, b'0'),
 ('VAZZJUMT', 'nguyễn quang anh', '3651518222', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-29 13:22:28', '', 'zcx', NULL, 1, 990000, NULL, NULL, b'0'),
 ('VWQKIORR', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 18:01:00', '', 's', NULL, 1, 750000, 0, 750000, b'0'),
+('WDVTINII', 'quang anh', '0365151822', '4dvsdsf', '2024-02-08 15:37:52', '', 'sda', 1, 1, 1250000, 0, 1250000, b'0'),
 ('WVHNNQAC', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 13:28:02', '', 'gfd', NULL, 1, 500000, 999999, 1499999, b'0'),
 ('X6JPOCJH', 'sdgsd', '345234532', 'cxgdf', '2024-01-21 10:22:04', '', 'df', NULL, 1, 1980000, 0, 1980000, b'0'),
 ('XNLM5KBW', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 17:26:42', '', 'f', NULL, 1, 750000, 0, 750000, b'0'),
@@ -1953,7 +1996,13 @@ INSERT INTO `invoices_detail` (`detail_id`, `invoice_id`, `product_detail_id`, `
 (420, '98ZCL96V', 697, 750000, 1, 750000),
 (421, 'PPKY3TZA', 691, 990000, 1, 990000),
 (422, 'YFJBR6YE', 46, 333333, 1, 333333),
-(423, 'GWW0LOZ8', 697, 750000, 1, 750000);
+(423, 'GWW0LOZ8', 697, 750000, 1, 750000),
+(424, '5RH2CLWH', 527, 550000, 1, 550000),
+(425, '41ZSPBHA', 82, 420000, 1, 420000),
+(426, 'WDVTINII', 697, 750000, 1, 750000),
+(427, 'WDVTINII', 522, 500000, 1, 500000),
+(428, 'SNGWGR4V', 697, 750000, 1, 750000),
+(429, 'U7DZUREO', 522, 500000, 1, 500000);
 
 --
 -- Bẫy `invoices_detail`
@@ -2135,8 +2184,8 @@ INSERT INTO `products` (`product_id`, `product_name`, `cat_id`, `price`, `discou
 ('DWCT001', 'Áo khoác 2 lớp dạ cổ bomber 3.DWCT001', 'AK', 990000, NULL, NULL, b'0', 'TORANO', '', 5, 4, 2, b'1'),
 ('DWCT004', 'Áo khoác 2 lớp dạ cổ cao 2.DWCT004', 'AK', 750000, NULL, NULL, b'0', 'TORANO', '', 5, 4, 2, b'1'),
 ('DWCU007', 'Áo khoác 2 lớp lót lông cổ bomber 2.DWCU007', 'AK', 750000, NULL, NULL, b'0', 'TORANO', '', 5, 4, 2, b'1'),
-('EABT019', 'Quần âu slim-fit cạp trơn EABT019', 'QAPTC', 500000, NULL, NULL, b'0', 'TORANO', '', 3, 5, 4, b'0'),
-('EABT021', 'Quần âu slim-fit điều chỉnh cạp trơn 1.EABT021', 'QAPTC', 480000, NULL, NULL, b'0', 'TORANO', '', 3, 5, 1, b'0'),
+('EABT019', 'Quần âu slim-fit cạp trơn EABT019', 'QAPTC', 500000, NULL, NULL, b'0', 'TORANO', '', 3, 5, 4, b'1'),
+('EABT021', 'Quần âu slim-fit điều chỉnh cạp trơn 1.EABT021', 'QAPTC', 480000, NULL, NULL, b'0', 'TORANO', '', 3, 5, 1, b'1'),
 ('EATB003', 'Sơ mi dài tay kẻ Checkerboard 3.EATB003', 'SMK', 520000, NULL, NULL, b'0', 'TORANO', '', 2, 5, 3, b'1'),
 ('EATB006', 'Sơ mi dài tay đũi 5.EATB006', 'SMD', 480000, NULL, NULL, b'0', 'TORANO', 'Sơ mi dài tay nam vải đũi cao cấp thấm hút mồ hôi và thoáng mát\r\n', 2, 5, 4, b'1'),
 ('ESBI006', 'Quần short đũi basic phối dây dệt gấu quần ESBI006', 'SD', 380000, NULL, NULL, b'0', 'TORANO', 'Quần short đũi nam basic phối dây dệt gấu quần. Chất đũi cao cấp mềm mịn, không bai xù và hạn chế nhăn nhàu. Vải thoáng mát thấm hút mồ hôi tốt và nhanh khô.\r\n', 4, 5, 5, b'1'),
@@ -2184,6 +2233,7 @@ INSERT INTO `products` (`product_id`, `product_name`, `cat_id`, `price`, `discou
 ('EWCL003', 'Áo khoác 2 lớp da lộn basic 1.EWCL003', 'AK', 890000, NULL, NULL, b'0', 'TORANO', '', 5, 4, 1, b'1'),
 ('EWCP002', 'Áo khoác Hooded Puffer 4.EWCP002', 'AK', 1200000, NULL, NULL, b'0', 'TORANO', '', 5, 4, 3, b'1'),
 ('EWCW007', 'Áo khoác gió 1 lớp mũ liền EWCW007', 'AK', 50000, NULL, NULL, b'0', 'TORANO', 'Áo khoác gió 1 lớp mũ liền chống nước giá siêu tốt của nhà Torano đã cập bến.\r\n', 5, 4, 3, b'1'),
+('EWTW003', 'Áo nỉ trơn basic vải hiệu ứng 3.EWTW003', 'ANL', 380000, NULL, NULL, b'0', 'TORANO', '', 1, 5, 3, b'1'),
 ('TP004', 'Áo polo phối màu color-block 1.TP004', 'PLHT', 450000, NULL, NULL, b'0', 'TORANO', 'Áo polo phối màu color-block TP004', 1, 4, 1, b'1');
 
 --
@@ -2730,31 +2780,31 @@ INSERT INTO `products_detail` (`product_detail_id`, `product_id`, `code`, `color
 (499, 'DABK908', 'DABK90801CT00SB_BL-31', 'BL', '31', 999, b'1', b'1'),
 (500, 'DABK908', 'DABK90801CT00SB_BL-32', 'BL', '32', 999, b'1', b'1'),
 (501, 'DABK908', 'DABK90801CT00SB_BL-33', 'BL', '33', 0, b'0', b'1'),
-(502, 'EABT021', 'EABT02101PE00SB_BL-29', 'BL', '29', 999, b'1', b'0'),
-(503, 'EABT021', 'EABT02101PE00SB_BL-30', 'BL', '30', 999, b'1', b'0'),
-(504, 'EABT021', 'EABT02101PE00SB_BL-31', 'BL', '31', 999, b'1', b'0'),
-(505, 'EABT021', 'EABT02101PE00SB_BL-32', 'BL', '32', 999, b'1', b'0'),
-(506, 'EABT021', 'EABT02101PE00SB_BL-33', 'BL', '33', 999, b'1', b'0'),
-(507, 'EABT019', 'EABT01901PE00SB_DNV-29', 'DNV', '29', 999, b'1', b'0'),
-(508, 'EABT019', 'EABT01901PE00SB_DNV-30', 'DNV', '30', 999, b'1', b'0'),
-(509, 'EABT019', 'EABT01901PE00SB_DNV-31', 'DNV', '31', 999, b'1', b'0'),
-(510, 'EABT019', 'EABT01901PE00SB_DNV-32', 'DNV', '32', 999, b'1', b'0'),
-(511, 'EABT019', 'EABT01901PE00SB_DNV-33', 'DNV', '33', 999, b'1', b'0'),
-(512, 'EABT019', 'EABT01901PE00SB_LBL-29', 'LBL', '29', 999, b'1', b'0'),
-(513, 'EABT019', 'EABT01901PE00SB_LBL-30', 'LBL', '30', 999, b'1', b'0'),
-(514, 'EABT019', 'EABT01901PE00SB_LBL-31', 'LBL', '31', 999, b'1', b'0'),
-(515, 'EABT019', 'EABT01901PE00SB_LBL-32', 'LBL', '32', 0, b'0', b'0'),
-(516, 'EABT019', 'EABT01901PE00SB_LBL-33', 'LBL', '33', 999, b'1', b'0'),
-(517, 'EABT019', 'EABT01901PE00SB_GR-29', 'GR', '29', 999, b'1', b'0'),
-(518, 'EABT019', 'EABT01901PE00SB_GR-30', 'GR', '30', 0, b'0', b'0'),
-(519, 'EABT019', 'EABT01901PE00SB_GR-31', 'GR', '31', 999, b'1', b'0'),
-(520, 'EABT019', 'EABT01901PE00SB_GR-32', 'GR', '32', 999, b'1', b'0'),
-(521, 'EABT019', 'EABT01901PE00SB_GR-33', 'GR', '33', 999, b'1', b'0'),
-(522, 'EABT019', 'EABT01901PE00SB_BL-29', 'BL', '29', 999, b'1', b'0'),
-(523, 'EABT019', 'EABT01901PE00SB_BL-30', 'BL', '30', 999, b'1', b'0'),
-(524, 'EABT019', 'EABT01901PE00SB_BL-31', 'BL', '31', 999, b'1', b'0'),
-(525, 'EABT019', 'EABT01901PE00SB_BL-32', 'BL', '32', 0, b'0', b'0'),
-(526, 'EABT019', 'EABT01901PE00SB_BL-33', 'BL', '33', 999, b'1', b'0'),
+(502, 'EABT021', 'EABT02101PE00SB_BL-29', 'BL', '29', 999, b'1', b'1'),
+(503, 'EABT021', 'EABT02101PE00SB_BL-30', 'BL', '30', 999, b'1', b'1'),
+(504, 'EABT021', 'EABT02101PE00SB_BL-31', 'BL', '31', 999, b'1', b'1'),
+(505, 'EABT021', 'EABT02101PE00SB_BL-32', 'BL', '32', 999, b'1', b'1'),
+(506, 'EABT021', 'EABT02101PE00SB_BL-33', 'BL', '33', 999, b'1', b'1'),
+(507, 'EABT019', 'EABT01901PE00SB_DNV-29', 'DNV', '29', 999, b'1', b'1'),
+(508, 'EABT019', 'EABT01901PE00SB_DNV-30', 'DNV', '30', 999, b'1', b'1'),
+(509, 'EABT019', 'EABT01901PE00SB_DNV-31', 'DNV', '31', 999, b'1', b'1'),
+(510, 'EABT019', 'EABT01901PE00SB_DNV-32', 'DNV', '32', 999, b'1', b'1'),
+(511, 'EABT019', 'EABT01901PE00SB_DNV-33', 'DNV', '33', 999, b'1', b'1'),
+(512, 'EABT019', 'EABT01901PE00SB_LBL-29', 'LBL', '29', 999, b'1', b'1'),
+(513, 'EABT019', 'EABT01901PE00SB_LBL-30', 'LBL', '30', 999, b'1', b'1'),
+(514, 'EABT019', 'EABT01901PE00SB_LBL-31', 'LBL', '31', 999, b'1', b'1'),
+(515, 'EABT019', 'EABT01901PE00SB_LBL-32', 'LBL', '32', 0, b'0', b'1'),
+(516, 'EABT019', 'EABT01901PE00SB_LBL-33', 'LBL', '33', 999, b'1', b'1'),
+(517, 'EABT019', 'EABT01901PE00SB_GR-29', 'GR', '29', 999, b'1', b'1'),
+(518, 'EABT019', 'EABT01901PE00SB_GR-30', 'GR', '30', 0, b'0', b'1'),
+(519, 'EABT019', 'EABT01901PE00SB_GR-31', 'GR', '31', 999, b'1', b'1'),
+(520, 'EABT019', 'EABT01901PE00SB_GR-32', 'GR', '32', 999, b'1', b'1'),
+(521, 'EABT019', 'EABT01901PE00SB_GR-33', 'GR', '33', 999, b'1', b'1'),
+(522, 'EABT019', 'EABT01901PE00SB_BL-29', 'BL', '29', 999, b'1', b'1'),
+(523, 'EABT019', 'EABT01901PE00SB_BL-30', 'BL', '30', 999, b'1', b'1'),
+(524, 'EABT019', 'EABT01901PE00SB_BL-31', 'BL', '31', 999, b'1', b'1'),
+(525, 'EABT019', 'EABT01901PE00SB_BL-32', 'BL', '32', 0, b'0', b'1'),
+(526, 'EABT019', 'EABT01901PE00SB_BL-33', 'BL', '33', 999, b'1', b'1'),
 (527, 'DABJ004', 'DABJ00401CT00SB_NV-29', 'NV', '29', 999, b'1', b'1'),
 (528, 'DABJ004', 'DABJ00401CT00SB_NV-30', 'NV', '30', 999, b'1', b'1'),
 (529, 'DABJ004', 'DABJ00401CT00SB_NV-31', 'NV', '31', 999, b'1', b'1'),
@@ -2968,7 +3018,22 @@ INSERT INTO `products_detail` (`product_detail_id`, `product_id`, `code`, `color
 (737, 'EWBS001', 'EWBS00103TC00RB_LG-S', 'LG', 'S', 999, b'1', b'1'),
 (738, 'EWBS001', 'EWBS00103TC00RB_LG-M', 'LG', 'M', 999, b'1', b'1'),
 (739, 'EWBS001', 'EWBS00103TC00RB_LG-L', 'LG', 'L', 999, b'1', b'1'),
-(740, 'EWBS001', 'EWBS00103TC00RB_LG-XL', 'LG', 'XL', 999, b'1', b'1');
+(740, 'EWBS001', 'EWBS00103TC00RB_LG-XL', 'LG', 'XL', 999, b'1', b'1'),
+(744, 'EWTW003', 'EWTW00311TC00RB_BL-S', 'BL', 'S', 999, b'1', b'1'),
+(745, 'EWTW003', 'EWTW00311TC00RB_BL-M', 'BL', 'M', 999, b'1', b'1'),
+(746, 'EWTW003', 'EWTW00311TC00RB_BL-L', 'BL', 'L', 999, b'1', b'1'),
+(747, 'EWTW003', 'EWTW00311TC00RB_BL-XL', 'BL', 'XL', 999, b'1', b'1'),
+(748, 'EWTW003', 'EWTW00311TC00RB_BE-L', 'BE', 'S', 999, b'1', b'1'),
+(749, 'EWTW003', 'EWTW00311TC00RB_BE-S', 'BE', 'S', 999, b'1', b'1'),
+(750, 'EWTW003', 'EWTW00311TC00RB_BE-M', 'BE', 'M', 0, b'0', b'1'),
+(751, 'EWTW003', 'EWTW00311TC00RB_BE-XL', 'BE', 'XL', 0, b'0', b'1'),
+(752, 'EWTW003', 'EWTW00311TC00RB_BE-XXL', 'BE', 'XXL', 999, b'1', b'1'),
+(753, 'EWTW003', 'EWTW00311TC00RB_BL-XXL', 'BL', 'XXL', 999, b'1', b'1'),
+(754, 'EWTW003', 'EWTW00311TC00RB_LG-M', 'LG', 'M', 0, b'0', b'1'),
+(755, 'EWTW003', 'EWTW00311TC00RB_LG-L', 'LG', 'L', 0, b'0', b'1'),
+(756, 'EWTW003', 'EWTW00311TC00RB_LG-S', 'LG', 'S', 999, b'1', b'1'),
+(757, 'EWTW003', 'EWTW00311TC00RB_LG-XL', 'LG', 'XL', 999, b'1', b'1'),
+(758, 'EWTW003', 'EWTW00311TC00RB_LG-XXL', 'LG', 'XXL', 999, b'1', b'1');
 
 --
 -- Bẫy `products_detail`
@@ -3137,6 +3202,12 @@ ALTER TABLE `accounts`
   ADD PRIMARY KEY (`account_id`);
 
 --
+-- Chỉ mục cho bảng `banner_imgs`
+--
+ALTER TABLE `banner_imgs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `categories`
 --
 ALTER TABLE `categories`
@@ -3238,6 +3309,12 @@ ALTER TABLE `accounts`
   MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
+-- AUTO_INCREMENT cho bảng `banner_imgs`
+--
+ALTER TABLE `banner_imgs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
 -- AUTO_INCREMENT cho bảng `city`
 --
 ALTER TABLE `city`
@@ -3247,13 +3324,13 @@ ALTER TABLE `city`
 -- AUTO_INCREMENT cho bảng `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1141;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1150;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_product`
 --
 ALTER TABLE `imgs_product`
-  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=661;
+  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=675;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_size`
@@ -3265,7 +3342,7 @@ ALTER TABLE `imgs_size`
 -- AUTO_INCREMENT cho bảng `invoices_detail`
 --
 ALTER TABLE `invoices_detail`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=424;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=430;
 
 --
 -- AUTO_INCREMENT cho bảng `invoices_status`
@@ -3277,7 +3354,7 @@ ALTER TABLE `invoices_status`
 -- AUTO_INCREMENT cho bảng `products_detail`
 --
 ALTER TABLE `products_detail`
-  MODIFY `product_detail_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=744;
+  MODIFY `product_detail_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=759;
 
 --
 -- AUTO_INCREMENT cho bảng `stores`
