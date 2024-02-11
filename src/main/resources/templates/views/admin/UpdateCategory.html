@@ -34,8 +34,8 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="catParent" class="form-label">Danh mục sản phẩm</label>
-                        <select class="form-control" id="catParent" th:field="*{catParent}">
+                        <label for="cat-parent" class="form-label">Danh mục sản phẩm</label>
+                        <select class="form-control" id="cat-parent" th:field="*{catParent}">
                             <option th:value=null>Không có</option>
                             <option th:each="c : ${categoryList}" th:value="${c.catId}"
                                     th:text="${c.catName}+' - '+${c.catId}"></option>
@@ -49,14 +49,28 @@
                         động/Ẩn
                     </div>
 
-                    <button style="text-align: center" type="button" id="btn-submit" class="btn btn-primary" th:data-cat-bg="${cat.catBackground}">Sửa danh mục
+                    <button style="text-align: center" type="button" id="btn-submit" class="btn btn-primary"
+                            th:data-cat-bg="${cat.catBackground}">Sửa danh mục
                     </button>
                 </div>
 
                 <div class="mb-3 col-6 ps-5 ">
                     <label class="form-label" for="fileInput">Ảnh bìa danh mục</label>
                     <input type="file" id="fileInput" th:field="*{catBackground}" class="form-control">
-                    <img th:if="${cat.catBackground != ''}" width="150px" class="border border-2 mt-3" th:src="@{'/admin/imgProduct/'+${cat.catBackground}}" alt="Image">
+
+
+                    <img th:unless="${cat.catBackground != null and cat.catBackground.endsWith('.mp4')}  "
+                         width="150px" class="border border-2 mt-3"
+                         th:src="@{'/admin/imgProduct/'+${cat.catBackground}}" alt="Image">
+
+
+                    <video th:if="${cat.catBackground != null and cat.catBackground.endsWith('.mp4')}"
+                           width="150px"
+                           th:id="vdbg1" controls
+                           class="border border-2 mt-3"
+                           th:src="@{'/admin/imgProduct/'+${cat.catBackground}}">
+                    </video>
+
                 </div>
 
             </form>

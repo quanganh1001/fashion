@@ -9,13 +9,13 @@
          style="min-height: 100vh;overflow-y: auto;"></div>
 
     <div class="content-admin p-4">
-        <h2>THÊM MỚI SẢN PHẨM</h2>
+        <h2>THÊM MỚI CHI TIẾT SẢN PHẨM</h2>
         <div class="mt-5 bg-white p-5 shadow border">
             <form id="form" th:action="@{/admin/productDetail/add-prDetail?productId=__${productId}__}" method="post"
                   th:object="${pd}">
                 <div class="row">
                     <div class="mb-3 col-6">
-                        <label for="code" class="form-label">Code - tên chi tiết<span style="color:red">*</span></label>
+                        <label for="code" class="form-label">Mã code chi tiết sản phẩm<span style="color:red">*</span></label>
                         <input type="text" class="form-control" id="code" th:field="*{code}">
                         <span id="codeError" class="text-danger"></span>
                     </div>
