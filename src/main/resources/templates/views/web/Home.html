@@ -7,28 +7,108 @@
 <header th:include="~{web/component/header::header}"></header>
 
 <!-------------------------slide banner---------------------->
-<div class="position-relative">
-    <div class="slide">
+<section class="position-relative">
+    <div id="banner-slider">
         <div th:each="banner : ${banner}">
-            <img th:src="@{'/img/list?fileImg='+${banner.fileName}}" alt="Image">
+            <img th:src="@{'/img?fileImg='+${banner.fileName}}" alt="Image">
         </div>
     </div>
-    <div class="slick-prev p-3 ps-4 pe-4 rounded-circle bg-white position-absolute translate-middle-y start-0 top-50">
+    <div class="slick-prev slick-prev-slide p-3 ps-4 pe-4 rounded-circle bg-white position-absolute translate-middle-y start-0 top-50">
         <i class=" fa-solid fa-chevron-left "></i>
     </div>
-    <div class="slick-next position-absolute translate-middle-y end-0 top-50 p-3 ps-4 pe-4 rounded-circle bg-white">
+    <div class="slick-next slick-next-slide position-absolute translate-middle-y end-0 top-50 p-3 ps-4 pe-4 rounded-circle bg-white">
         <i class=" fa-solid fa-chevron-right "></i>
     </div>
-</div>
+</section>
 
-<div class="container" style="margin-top:100px">
-    <h2 class="fw-bold">DANH MỤC SẢN PHẨM</h2>
+<!-------------------------Category---------------------->
+<section style="margin-top:100px">
+    <div class="container-xl ">
+        <h2 class="fw-bold mb-5">DANH MỤC SẢN PHẨM</h2>
+        <div class="position-relative">
+            <div id="category-slider">
+                <div th:each="cat : ${categoryF2}" class="shadow-sm me-3 position-relative">
+                    <img th:src="@{'/img?fileImg='+${cat.catBackground}}" style="width: 100%;height: 450px"
+                         alt="Image">
+                    <div class=" col-12 p-3 bg-white position-absolute bottom-0 bg-opacity-50 d-flex justify-content-between align-items-center">
+                        <h4 th:text="${cat.catName}"></h4>
+                        <i class="bg-white rounded-circle p-2 fa-solid fa-arrow-right-to-bracket fa-1x"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="slick-prev slick-prev-cat position-absolute" style="top:-50px;right: 50px; cursor: pointer;">
+                <i class="fa-solid fa-arrow-left fa-1x"></i>
+            </div>
+            <div class="slick-next slick-next-cat  position-absolute end-0" style="top:-50px; cursor: pointer">
+                <i class="fa-solid fa-arrow-right fa-1x"></i>
+            </div>
+        </div>
+    </div>
+</section>
 
-</div>
+<!-------------------------SALE---------------------->
+<section class="mt-5 pt-5" style="background-color: #faefec">
+    <h2 class="fw-bold title-sale container-xl"><a href="/collections/onsale">TẾT NHẤT SALE TẤT</a></h2>
+    <div class="position-relative container-xl">
+        <div id="sale-slider">
+            <div th:each="pr : ${productSale}" class="shadow card hover col-3 m-3 position-relative">
+                <div class="card  position-relative">
 
+                    <img th:unless="${pr.imageBackground1.endsWith('.mp4')}"
+                         th:src="@{'/img?fileImg='+ ${pr.imageBackground1 }}" alt="..."
+                         style="height: 400px;width: 100%"
+                         class="product-image-bg1"
+                         th:data-product-id="${pr.productId}">
+                    <video th:if="${pr.imageBackground1.endsWith('.mp4')}"
+                           style="height: 400px;width: 100%" controls
+                           th:src="@{'/img?fileImg='+ ${pr.imageBackground1}}"
+                           class="product-image-bg1"
+                           th:data-product-id="${pr.productId}"></video>
 
+                    <img th:unless="${pr.imageBackground2.endsWith('.mp4')}"
+                         th:src="@{'/img?fileImg='+ ${pr.imageBackground2 }}" alt="..."
+                         style="height: 400px;width: 100%"
+                         th:data-product-id="${pr.productId}"
+                         class="product-image-bg2 hidden">
+                    <video th:if="${pr.imageBackground2.endsWith('.mp4')}"
+                           style="height: 400px;width: 100%" controls
+                           th:src="@{'/img?fileImg='+ ${pr.imageBackground2}}"
+                           th:data-product-id="${pr.productId}"
+                           class="product-image-bg2 hidden"></video>
 
+                    <a th:href="@{/products/__${pr.productId}__}" class="btn btn-primary add-to-cart-btn">Chi tiết sản phẩm
+                    </a>
+                </div>
 
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                                <span th:text="'+'+ ${pr.totalColor}+' Màu sắc'" class="fw-light"
+                                      style="font-size:14px"></span>
+                        <span th:text="'+' +${pr.totalSize}+ ' Kích thước'" class="fw-light"
+                              style="font-size:14px"></span>
+                    </div>
+                    <h5 class="card-title mt-2" th:text="${pr.productName}"></h5>
+                    <div th:if="${pr.isDiscount == true}">
+                        <span th:text="${#numbers.formatDecimal(pr.price, 0, 'POINT', 0, 'POINT')} +' đ'"
+                              style="text-decoration-line: line-through"></span>
+                        <span th:text="${#numbers.formatDecimal(pr.discountPrice, 0, 'POINT', 0, 'POINT')} +' đ'"
+                              style="color: red;font-weight: bold"></span>
+                    </div>
+                    <div th:unless="${pr.isDiscount == true}">
+                        <span th:text="${#numbers.formatDecimal(pr.price, 0, 'POINT', 0, 'POINT')} +' đ'"
+                              style="color: red;font-weight: bold"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slick-prev slick-prev-sale position-absolute" style="top:-50px;right: 50px; cursor: pointer;">
+            <i class="fa-solid fa-arrow-left fa-1x"></i>
+        </div>
+        <div class="slick-next slick-next-sale  position-absolute end-0" style="top:-50px; cursor: pointer">
+            <i class="fa-solid fa-arrow-right fa-1x"></i>
+        </div>
+    </div>
+</section>
 
 
 <div th:replace="~{web/component/Footer::Footer}"></div>

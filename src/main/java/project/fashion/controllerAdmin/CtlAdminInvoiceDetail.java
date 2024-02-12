@@ -68,12 +68,6 @@ public class CtlAdminInvoiceDetail {
         return invoiceDetailService.deleteByDetailId(model,detailId,invoiceId);
     }
 
-
-    @GetMapping("/img/{productId}")
-    public ResponseEntity<Resource> serveImage(@PathVariable String productId) throws IOException {
-        return imgProductService.getBackground(productId,1);
-    }
-
     @GetMapping("/searchProduct")
     public String searchProduct(Model model, @RequestParam("key") String key, @RequestParam("invoiceId") String invoiceId) {
         List<ProductDetail> search =

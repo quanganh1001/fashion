@@ -7,7 +7,7 @@
 <header th:include="~{web/component/header::header}"></header>
 <div th:replace="~{web/component/Breadcrumb::Breadcrumb}"></div>
 
-<div class="container" style="min-height: 30vh">
+<div class="container-xl" style="min-height: 30vh">
     <div class="col-12 d-flex justify-content-center">
         <h1 style="color: red" class="bold">Cám ơn bạn đã đặt hàng!</h1>
     </div>
@@ -16,10 +16,16 @@
         <div class="col-6 p-2">
             <div th:each="invoiceDetail : ${invoiceDetails}">
                 <div class="border border-light-subtle p-2 d-flex align-items-center col-11 m-2">
-                    <img th:src="@{'/img?productId='+${invoiceDetail.productDetail.product.productId}+'&bg=1'}"
-                         alt="..."
-                         style="max-height: 150px"
+
+                    <img th:unless="${invoiceDetail.productDetail.product.imageBackground1.endsWith('.mp4')}"
+                         th:src="@{'/img?fileImg='+ ${invoiceDetail.productDetail.product.imageBackground1}}" alt="..." style="max-height: 150px"
                          class="img-thumbnail col-2">
+
+                    <video th:if="${invoiceDetail.productDetail.product.imageBackground1.endsWith('.mp4')}"
+                           controls
+                           th:src="@{'/img?fileImg='+ ${invoiceDetail.productDetail.product.imageBackground1}}"
+                           style="max-height: 150px"
+                           class="img-thumbnail col-2"></video>
 
                     <div class=" m-3 w-100">
                         <div class="d-flex justify-content-between ">

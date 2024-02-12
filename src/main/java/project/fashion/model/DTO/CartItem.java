@@ -16,4 +16,5 @@ public class CartItem {
     private String productName;
     private String color;
     private String size;
+    private String imgBackground;
 }

@@ -33,22 +33,52 @@
     opacity: 1;
 }
 
-.slick-prev:hover, .slick-next:hover {
+.slick-prev-slide:hover, .slick-next-slide:hover {
     background-color: black !important;
     color: white;
 }
 
-.slick-prev,
-.slick-next {
+.slick-prev-slide,
+.slick-next-slide {
     opacity: 0;
     transition: all 0.3s; /* Thêm hiệu ứng chuyển đổi cho background-color và color */
 }
 
-.position-relative:hover .slick-prev {
+.position-relative:hover .slick-prev-slide {
     left: 50px!important;
     opacity: 1;
 }
-.position-relative:hover .slick-next{
+.position-relative:hover .slick-next-slide{
     right: 50px!important;
     opacity: 1;
+}
+.add-to-cart-btn {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 100%;
+    left: 50%;
+    transition: all 0.3s;
+    opacity: 0;
+}
+
+.card:hover .add-to-cart-btn {
+    opacity: 1;
+    transition: all 0.3s;
+    top: 80%;
+}
+.product-image-bg1 {
+    transition: opacity 0.5s; /* Thêm hiệu ứng chuyển đổi cho opacity */
+    opacity: 1;
+}
+
+.product-image-bg1:hover {
+    opacity: 0; /* Ẩn ảnh mặc định khi hover vào */
+}
+.product-image-bg2 {
+    transition: opacity 0.5s; /* Thêm hiệu ứng chuyển đổi cho opacity */
+    opacity: 0;
+}
+
+.product-image-bg2:hover {
+    opacity: 1; /* Ẩn ảnh mặc định khi hover vào */
 }

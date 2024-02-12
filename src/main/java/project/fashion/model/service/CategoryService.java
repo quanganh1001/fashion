@@ -227,4 +227,14 @@ public class CategoryService {
     public Category findByCatBackground(String catBackground){
         return categoryRepo.findByCatBackground(catBackground);
     }
+
+    public List<Category> getCategoryF2(){
+        List<Category> categoryF2 = new ArrayList<>();
+        List<Category> categoryF1 = categoryRepo.findCategoriesByCatParentCatIdAndIsCatActiveTrue(null);
+        for (Category catF1:categoryF1){
+            categoryF2.addAll(categoryRepo.findCategoriesByCatParentCatIdAndIsCatActiveTrue(catF1.getCatId()));
+        }
+        return categoryF2;
+    }
+
 }

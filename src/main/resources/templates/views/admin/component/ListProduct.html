@@ -14,7 +14,11 @@
     <tbody>
 
     <tr th:each="id:${invoiceDetails}">
-        <td><img width="50px" th:src="@{'/admin/invoiceDetail/img/'+${id.productDetail.product.productId}}">
+        <td>
+            <img th:unless="${id.productDetail.product.imageBackground1.endsWith('.mp4')}" width="50px"
+                 th:src="@{'/admin/imgProduct?imageName='+${id.productDetail.product.imageBackground1}}">
+            <video th:if="${id.productDetail.product.imageBackground1.endsWith('.mp4')}" controls width="50px"
+                   th:src="@{'/admin/imgProduct?imageName='+${id.productDetail.product.imageBackground1}}"></video>
         </td>
         <td th:text="${id.productDetail.code}"></td>
         <td th:text="${id.productDetail.product.productName}"></td>

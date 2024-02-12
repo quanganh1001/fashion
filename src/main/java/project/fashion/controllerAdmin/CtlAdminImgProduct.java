@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.model.entity.ImgProduct;
+import project.fashion.model.entity.Product;
 import project.fashion.model.service.AccountService;
 import project.fashion.model.service.ImgProductService;
+import project.fashion.model.service.ProductService;
 
 import java.io.*;
 import java.util.List;
@@ -24,9 +26,11 @@ public class CtlAdminImgProduct {
     private ImgProductService imgProductService;
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private ProductService productService;
 
-    @GetMapping("/{imageName}")
-    public ResponseEntity<Resource> serveImage(@PathVariable String imageName) throws IOException {
+    @GetMapping()
+    public ResponseEntity<Resource> serveImage(@RequestParam("imageName") String imageName) throws IOException {
         return imgProductService.getImg(imageName);
     }
 
@@ -34,17 +38,15 @@ public class CtlAdminImgProduct {
     public String addImg(Model model, @RequestParam("productId") String productId) {
         List<ImgProduct> imgProducts = imgProductService.findAllImgByProduct(productId);
 
-        imgProductService.getImgBg(model,1, productId);
-        imgProductService.getImgBg(model,2, productId);
-
         ImgProduct img = new ImgProduct();
 
         accountService.getAccountResponse(model);
-
+        Product product = productService.findById(productId);
         model.addAttribute("productId", productId);
         model.addAttribute("img", img);
         model.addAttribute("imgProducts", imgProducts);
         model.addAttribute("title","Product");
+        model.addAttribute("product", product);
         return "admin/ImgProduct";
     }
 
@@ -66,19 +68,14 @@ public class CtlAdminImgProduct {
     }
 
     @PostMapping ("/img-bg")
-    public String changeImg(Model model,
+    public ResponseEntity<String> changeImg(Model model,
                             @RequestParam("imageName") String imageName,
                             @RequestParam("numberBackground") int numberBackground,
-                            @RequestParam("productId") String productId) throws IOException {
-        List<ImgProduct> imgProducts = imgProductService.findAllImgByProduct(productId);
-        imgProductService.setBackground(productId, imageName, numberBackground);
-        imgProductService.getImgBg(model,1, productId);
-        imgProductService.getImgBg(model,2, productId);
+                            @RequestParam("productId") String productId) {
+        productService.setBackground(productId, imageName, numberBackground);
         accountService.getAccountResponse(model);
 
-        model.addAttribute("imgProducts",imgProducts);
-        model.addAttribute("productId",productId);
-        return "admin/component/SelectBackground";
+        return ResponseEntity.ok(imageName);
 
     }
 

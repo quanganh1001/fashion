@@ -3,9 +3,6 @@
 *{
     font-family: "Quicksand", sans-serif;
 }
-body{
-    min-height: 100vh;
-}
 .ui-menu-item-wrapper{
     display: flex;
 }
@@ -25,7 +22,7 @@ th,td{
 }
 
 .hidden{
-    display: none;
+    display: none!important;
 }
 
 .readonly{

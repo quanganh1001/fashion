@@ -8,12 +8,12 @@
 <header id="header" th:include="~{web/component/header::header}"></header>
 <div th:replace="~{web/component/Breadcrumb::Breadcrumb}"></div>
 
-<div class="d-flex container" style="min-height: 30vh">
-    <div class="col-4 position-relative img">
+<div class="d-flex container-xl" style="min-height: 30vh">
+    <div class="col-4 position-relative ">
         <div id="slider">
             <div th:each="img : ${imgProducts}" class="border border-4">
-                <img th:unless="${img.fileImg.endsWith('.mp4')}" th:src="@{'/img/list?fileImg='+${img.fileImg}}" alt="Image" style="width:100%;height: 500px">
-                <video th:if="${img.fileImg.endsWith('.mp4')}" style="width:100%;height: 500px" controls autoplay th:src="@{'/img/list?fileImg='+${img.fileImg}}"></video>
+                <img th:unless="${img.fileImg.endsWith('.mp4')}" th:src="@{'/img?fileImg='+${img.fileImg}}" alt="Image" style="width:100%;height: 500px">
+                <video th:if="${img.fileImg.endsWith('.mp4')}" style="width:100%;height: 500px" controls autoplay th:src="@{'/img?fileImg='+${img.fileImg}}"></video>
             </div>
         </div>
         <div class="slick-prev slick-prev-img p-2 ps-3 pe-3 rounded-circle bg-white position-absolute translate-middle-y start-0 top-50">
@@ -25,8 +25,8 @@
         <div class="thumb position-relative">
             <div id="thumbnail_slider">
                 <div th:each="img : ${imgProducts}" class="border border-4">
-                    <img th:unless="${img.fileImg.endsWith('.mp4')}" th:src="@{'/img/list?fileImg='+${img.fileImg}}" alt="Image" style="width:100%">
-                    <video th:if="${img.fileImg.endsWith('.mp4')}" style="width:100%" controls th:src="@{'/img/list?fileImg='+${img.fileImg}}"></video>
+                    <img th:unless="${img.fileImg.endsWith('.mp4')}" th:src="@{'/img?fileImg='+${img.fileImg}}" alt="Image" style="width:100%">
+                    <video th:if="${img.fileImg.endsWith('.mp4')}" style="width:100%" controls th:src="@{'/img?fileImg='+${img.fileImg}}"></video>
                 </div>
             </div>
             <div class="slick-prev-thumb slick-prev rounded-circle bg-white position-absolute translate-middle-y start-0 top-50 p-1 ps-2 pe-2">
@@ -41,21 +41,22 @@
 
     <div class="col-9 p-3">
         <h4 id="productName" th:text="${product.productName}" class="mb-4"></h4>
-        <div id="detail" th:include="~{web/component/ProductDetail::ProductDetail}" class="mb-3"></div>
-        <div style="background-color: #d9d7d7" class="p-3">
-                    <span>Giá:
+        <div id="detail" class="mb-3">Hãy chọn size</div>
+        <div style="background-color: #d9d7d7" class="p-3 ">
+                    <div class="d-flex">
+                        <span>Giá: </span>
                         <span id="price" th:if="${!product.isDiscount}"
-                              th:text="${#numbers.formatDecimal(product.price, 0, 'POINT', 0, 'POINT')} +' đ'"
-                              class="text-danger fw-bold"></span>
+                              th:text="' ' +${ #numbers.formatDecimal(product.price, 0, 'POINT', 0, 'POINT')} +' đ'"
+                              class="text-danger fw-bold ms-2"></span>
                         <div th:unless="${!product.isDiscount}">
-                            <span th:text="${#numbers.formatDecimal(product.price, 0, 'POINT', 0, 'POINT')} +' đ'"
-                                  style="text-decoration: line-through;"></span>
+                            <span th:text="' ' +${ #numbers.formatDecimal(product.price, 0, 'POINT', 0, 'POINT')} +' đ'"
+                                  style="text-decoration: line-through;" class="ms-2"></span>
 
                             <span id="discountPrice"
-                                  th:text="${#numbers.formatDecimal(product.discountPrice, 0, 'POINT', 0, 'POINT')} +' đ'"
-                                  class="text-danger fw-bold"></span>
+                                  th:text="${ #numbers.formatDecimal(product.discountPrice, 0, 'POINT', 0, 'POINT')} +' đ'"
+                                  class="text-danger fw-bold ms-2"></span>
                         </div>
-                    </span>
+                    </div>
         </div>
         <div class="p-3">
             <form action="" id="form">

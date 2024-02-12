@@ -10,7 +10,6 @@ import java.util.List;
 
 
 public interface CategoryRepo extends JpaRepository<Category,String> {
-
     List<Category> findCategoriesByCatParentCatIdAndIsCatActiveTrue(String catId);
 
     List<Category> findCategoriesByCatParentCatId(String catId);
@@ -21,4 +20,6 @@ public interface CategoryRepo extends JpaRepository<Category,String> {
     void setCatActive(@Param("cat_id") String cat_id, @Param("boo") Boolean boo);
 
     Category findByCatBackground(String catBackground);
+
+
 }

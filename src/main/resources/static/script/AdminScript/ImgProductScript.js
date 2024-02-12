@@ -13,7 +13,7 @@ $(document).ready(() =>{
             data: {imageName: $('#bg1').val(),numberBackground:1,productId:productId},
             headers:headers,
             success: function (response) {
-                $("#SelectBackground").html(response)
+                $("#imgbg1").prop("src","/admin/imgProduct?imageName="+response)
                 $("#modal-content").text("Thành công")
                 $("#myModal").modal('show')
             },
@@ -37,7 +37,7 @@ $(document).ready(() =>{
             data: {imageName: $('#bg2').val(),numberBackground:2,productId:productId},
             headers:headers,
             success: function (response) {
-                $("#SelectBackground").html(response)
+                $("#imgbg2").prop("src","/admin/imgProduct?imageName="+response)
                 $("#modal-content").text("Thành công")
                 $("#myModal").modal('show')
             },

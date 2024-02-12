@@ -6,9 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import project.fashion.model.entity.ImgProduct;
 import project.fashion.model.entity.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductRepo extends JpaRepository<Product, String> {
     @Modifying
@@ -26,5 +28,17 @@ public interface ProductRepo extends JpaRepository<Product, String> {
                                                                                        Pageable pageable);
 
     Page<Product> findAllByIsDiscountIsTrueAndIsProductActiveIsTrue(Pageable pageable);
+
+    List<Product> findProductByIsDiscountTrueAndIsProductActiveTrue();
+
+    @Modifying
+    @Query(value = "UPDATE products SET image_background_1 = :imageName WHERE product_id = :productId",
+            nativeQuery = true)
+    void setProductImgBackground1(@Param("productId") String productId, @Param("imageName") String imageName);
+
+    @Modifying
+    @Query(value = "UPDATE products SET image_background_2 = :imageName WHERE product_id = :productId",
+            nativeQuery = true)
+    void setProductImgBackground2(@Param("productId") String productId, @Param("imageName") String imageName);
 
 }

@@ -40,11 +40,7 @@ public class CtlCategory {
         categoryService.listCategory(model);
         Page<Product> products = categoryService.searchProductByCatId(catId, page - 1, 15);
         Optional<Category> cat = Optional.of(categoryService.findById(catId).orElse(new Category()));
-        List<ImgProduct> imgBackground1List = imgProductService.findAllBackground(1);
-        List<ImgProduct> imgBackground2List = imgProductService.findAllBackground(2);
 
-        model.addAttribute("imgBackground1List",imgBackground1List);
-        model.addAttribute("imgBackground2List",imgBackground2List);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalItems", products.getTotalElements());
         model.addAttribute("products", products.getContent());

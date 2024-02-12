@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.model.entity.*;
 import project.fashion.model.service.*;
 
@@ -34,10 +35,12 @@ public class CtlProduct {
 
     @GetMapping("/{productId}")
     public String product(Model model, 
-                          @PathVariable String productId
+                          @PathVariable String productId,
+                          RedirectAttributes attributes
                           ) throws Exception {
         Product product = productService.findById(productId);
         if(!product.getIsProductActive()){
+            attributes.addFlashAttribute("alertMessage", "Sản phẩm không tồn tại");
             return "redirect:/";
         }
         categoryService.listCategory(model);

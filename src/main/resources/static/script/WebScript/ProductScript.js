@@ -7,7 +7,7 @@ $(document).ready(function () {
         autoplaySpeed: 3000,
         prevArrow: '.slick-prev',
         nextArrow: '.slick-next',
-        asNavFor: "#thumbnail_slider"
+        asNavFor: "#thumbnail_slider",
     });
     $("#thumbnail_slider").slick({
         infinite: false,

@@ -11,29 +11,9 @@ import java.util.Optional;
 
 public interface ImgProductRepo extends JpaRepository<ImgProduct,Integer> {
 
-    @Query(value = "SELECT * FROM imgs_product WHERE product_id = :productId ORDER BY background_1 DESC, background_2 DESC", nativeQuery = true)
     List<ImgProduct> findAllByProductProductId(String productId);
-
-    List<ImgProduct> findAllByBackground1IsTrue();
-    List<ImgProduct> findAllByBackground2IsTrue();
-    @Modifying
-    @Query(value = "UPDATE imgs_product SET background_1 = false WHERE product_id = :productId", nativeQuery = true)
-    void setBackground1Off(@Param("productId") String productId);
-
-    @Modifying
-    @Query(value = "UPDATE imgs_product SET background_1 = true WHERE file_img = :imgName", nativeQuery = true)
-    void setBackground1On(@Param("imgName") String imgName);
-
-    @Modifying
-    @Query(value = "UPDATE imgs_product SET background_2 = false WHERE product_id = :productId", nativeQuery = true)
-    void setBackground2Off(@Param("productId") String productId);
-
-    @Modifying
-    @Query(value = "UPDATE imgs_product SET background_2 = true WHERE file_img = :imgName", nativeQuery = true)
-    void setBackground2On(@Param("imgName") String imgName);
 
     void deleteByFileImg(String fileName);
 
-    Optional<ImgProduct> findByBackground1TrueAndProductProductId( String productId);
-    Optional<ImgProduct> findByBackground2TrueAndProductProductId(String productId);
+
 }

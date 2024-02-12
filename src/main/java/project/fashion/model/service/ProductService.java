@@ -7,7 +7,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import project.fashion.model.entity.ImgProduct;
 import project.fashion.model.entity.Product;
 import project.fashion.model.repository.ProductDetailRepo;
 import project.fashion.model.repository.ProductRepo;
@@ -126,5 +128,18 @@ public class ProductService{
         return productOptional.get();
     }
 
+    public List<Product> findProductByIsDiscountTrue(){
+        return productRepo.findProductByIsDiscountTrueAndIsProductActiveTrue();
+    }
+
+    @Transactional
+    public void setBackground(String productId, String imageName, int imbg)  {
+        if (imbg == 1) {
+            productRepo.setProductImgBackground1(productId,imageName);
+        }
+        if (imbg == 2) {
+            productRepo.setProductImgBackground2(productId,imageName);
+        }
+    }
 
 }
