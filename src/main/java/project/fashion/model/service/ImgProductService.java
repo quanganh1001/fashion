@@ -104,6 +104,6 @@ public class ImgProductService {
     }
 
     public List<ImgProduct> findAllImgByProduct(String productId) {
-        return imgProductRepo.findAllByProductProductId(productId);
+        return imgProductRepo.findAllByProductProductIdOrderByImgIdDesc(productId);
     }
 }

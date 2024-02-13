@@ -38,10 +38,21 @@
                     <div th:unless="${product.imageBackground1.endsWith('.mp4')}  ">
                         <img width="50px" th:id="imgbg1"
                              th:src="@{'/admin/imgProduct?imageName='+${product.imageBackground1}}" alt="">
+                        <video width="50px" th:id="vdbg1" controls
+                               class="hidden"
+                               th:src="@{'/admin/imgProduct?imageName='+${product.imageBackground2}}">
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
+
                     <div th:if="${product.imageBackground1.endsWith('.mp4')}">
-                        <img class="hidden" width="50px" th:id="imgbg1"
+                        <img width="50px" th:id="imgbg1"
+                             class="hidden"
                              th:src="@{'/admin/imgProduct?imageName='+${product.imageBackground1}}" alt="">
+                        <video width="50px" th:id="vdbg1" controls
+                               th:src="@{'/admin/imgProduct?imageName='+${product.imageBackground2}}">
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
                     <div th:if="${product.imageBackground1 == null}">
                         <img class="hidden" width="50px" th:id="imgbg1"
@@ -61,8 +72,14 @@
                     <div th:unless="${product.imageBackground2.endsWith('.mp4')}">
                         <img width="50px" th:id="imgbg2"
                              th:src="@{'/admin/imgProduct?imageName='+${product.imageBackground2}}" alt="">
+                        <video width="50px" th:id="vdbg2" controls class="hidden"
+                               th:src="@{'/admin/imgProduct?imageName='+${product.imageBackground2}}">
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
                     <div th:if="${product.imageBackground2.endsWith('.mp4')}">
+                        <img width="50px" th:id="imgbg2" class="hidden"
+                             th:src="@{'/admin/imgProduct?imageName='+${product.imageBackground2}}" alt="">
                         <video width="50px" th:id="vdbg2" controls
                                th:src="@{'/admin/imgProduct?imageName='+${product.imageBackground2}}">
                             Your browser does not support the video tag.

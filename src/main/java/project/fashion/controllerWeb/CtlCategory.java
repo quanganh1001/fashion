@@ -19,9 +19,7 @@ import project.fashion.model.service.ProductService;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @SessionAttributes("CARTS")
@@ -29,22 +27,23 @@ import java.util.Optional;
 public class CtlCategory {
     @Autowired
     private CategoryService categoryService;
-    @Autowired
-    private ImgProductService imgProductService;
+
 
     @GetMapping("/{catId}")
     public String getCategory(Model model,
                               @PathVariable String catId,
-                              @RequestParam(value = "page", defaultValue = "1") int page) {
+                              @RequestParam(value = "page", defaultValue = "1") int page,
+                              @RequestParam(value = "filter",required = false) String filter,
+                              @RequestParam(value = "minPrice",defaultValue = "0") int minPrice,
+                              @RequestParam(value = "maxPrice",defaultValue = "9999999") int maxPrice) {
 
         categoryService.listCategory(model);
-        Page<Product> products = categoryService.searchProductByCatId(catId, page - 1, 15);
+        List<Product> products = categoryService.searchProductByCatId(catId );
         Optional<Category> cat = Optional.of(categoryService.findById(catId).orElse(new Category()));
 
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalItems", products.getTotalElements());
-        model.addAttribute("products", products.getContent());
-        model.addAttribute("totalPages", products.getTotalPages());
+        categoryService.filterCategory(model,products,filter,page,minPrice,maxPrice);
+
+
         model.addAttribute("cat", cat.get());
         model.addAttribute("title", (Objects.equals(catId, "sale") ? "SALE" : cat.get().getCatName()));
         return "web/Category";

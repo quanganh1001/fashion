@@ -82,3 +82,11 @@
 .product-image-bg2:hover {
     opacity: 1; /* Ẩn ảnh mặc định khi hover vào */
 }
+
+.btn-sale{
+    transition: all 0.5s;
+}
+.btn-sale:hover{
+    background-color: black!important;
+    color: white;
+}

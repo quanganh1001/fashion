@@ -29,11 +29,11 @@
                     <div>
                         <li th:if="${img.fileName.endsWith('.jpg')}">
                             <!-- Nếu là hình ảnh -->
-                            <img width="250px" th:src="@{'/admin/imgProduct/'+${img.fileName}}" alt="Image">
+                            <img width="250px" th:src="@{'/admin/imgProduct?imageName='+${img.fileName}}" alt="Image">
                         </li>
                         <li th:if="${img.fileName.endsWith('.mp4')}">
                             <!-- Nếu là video -->
-                            <video width="250px" controls th:src="@{'/admin/imgProduct/'+${img.fileName}}"></video>
+                            <video width="250px" controls th:src="@{'/admin/imgProduct?imageName='+${img.fileName}}"></video>
                         </li>
                         <form th:action="@{/admin/banner/delete?fileName=__${img.fileName}__}" th:method="delete">
                             <button class="btn btn-danger btn-sm delete" type="submit">

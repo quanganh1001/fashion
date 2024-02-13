@@ -129,7 +129,7 @@ public class ProductService{
     }
 
     public List<Product> findProductByIsDiscountTrue(){
-        return productRepo.findProductByIsDiscountTrueAndIsProductActiveTrue();
+        return productRepo.findProductByIsDiscountTrueAndIsProductActiveTrueOrderByDiscountPercentDesc();
     }
 
     @Transactional

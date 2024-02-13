@@ -15,6 +15,11 @@
     <div class="d-flex flex-wrap container-xl justify-content-between">
         <div th:each="pr : ${products}" class="shadow card hover col-3 m-3">
             <div class="card  position-relative">
+                <div th:if="${pr.isDiscount}"
+                     style="z-index: 2;background-color: red;width:50px"
+                     class="position-absolute top-0 start-0 text-white rounded-pill m-2 fw-bold d-flex justify-content-center"
+                     th:text="'-'+${pr.discountPercent} +'%'" >
+                </div>
 
                 <img th:unless="${pr.imageBackground1.endsWith('.mp4')}"
                      th:src="@{'/img?fileImg='+ ${pr.imageBackground1}}" alt="..."
@@ -22,7 +27,7 @@
                      class="product-image-bg1"
                      th:data-product-id="${pr.productId}">
                 <video th:if="${pr.imageBackground1.endsWith('.mp4')}"
-                       style="height: 400px;width: 100%" controls
+                       style="height: 400px;width: 100%" controls autoplay muted
                        th:src="@{'/img?fileImg='+  ${pr.imageBackground1}}"
                        class="product-image-bg1"
                        th:data-product-id="${pr.productId}"></video>
@@ -34,7 +39,7 @@
                      th:data-product-id="${pr.productId}"
                      class="product-image-bg2 hidden">
                 <video th:if="${pr.imageBackground2.endsWith('.mp4')}"
-                       style="height: 400px;width: 100%" controls
+                       style="height: 400px;width: 100%" controls autoplay muted
                        th:src="@{'/img?fileImg='+ ${pr.imageBackground2}}"
                        th:data-product-id="${pr.productId}"
                        class="product-image-bg2 hidden"></video>

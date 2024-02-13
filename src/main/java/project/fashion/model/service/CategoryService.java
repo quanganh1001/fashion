@@ -23,10 +23,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @SessionAttributes("CARTS")
@@ -104,11 +101,11 @@ public class CategoryService {
         return categories;
     }
 
-    public Page<Product> searchProductByCatId(String catId, int page, int size) {
-        if (page < 0)
-            page = 0;
+    public List<Product> searchProductByCatId(String catId) {
+//        if (page < 0)
+//            page = 0;
         if (Objects.equals(catId, "sale")) {
-            return productRepo.findAllByIsDiscountIsTrueAndIsProductActiveIsTrue(PageRequest.of(page, size));
+            return productRepo.findProductByIsDiscountTrueAndIsProductActiveTrueOrderByDiscountPercentDesc();
         } else {
             List<Product> products = productRepo.findByCategoryCatIdAndIsProductActiveIsTrue(catId);
             List<Category> allCategory = new ArrayList<>();
@@ -118,23 +115,21 @@ public class CategoryService {
                 products.addAll(productRepo.findByCategoryCatIdAndIsProductActiveIsTrue(c.getCatId()));
             }
 
+            return products;
             // Chuyển đổi danh sách sản phẩm thành một trang
-            int start = Math.toIntExact(PageRequest.of(page, size).getOffset());
-            int end = Math.min((start + PageRequest.of(page, size).getPageSize()), products.size());
-            return new PageImpl<>(products.subList(start, end), PageRequest.of(page, size), products.size());
+//            int start = Math.toIntExact(PageRequest.of(page, size).getOffset());
+//            int end = Math.min((start + PageRequest.of(page, size).getPageSize()), products.size());
+//            return new PageImpl<>(products.subList(start, end), PageRequest.of(page, size), products.size());
         }
     }
-
-    public List<Product> searchProductByCatId(String catId) {
-        List<Product> products = productRepo.findByCategoryCatIdAndIsProductActiveIsTrue(catId);
-        List<Category> allCategory = new ArrayList<>();
-        CatDescendants(catId, allCategory);
-        for (Category c : allCategory) {
-            products.addAll(productRepo.findByCategoryCatIdAndIsProductActiveIsTrue(c.getCatId()));
-        }
-
-        return products;
+    public Page<Product> convertToPageProduct(List<Product> products, int page, int size){
+        if (page < 0)
+            page = 0;
+        int start = Math.toIntExact(PageRequest.of(page, size).getOffset());
+        int end = Math.min((start + PageRequest.of(page, size).getPageSize()), products.size());
+        return new PageImpl<>(products.subList(start, end), PageRequest.of(page, size), products.size());
     }
+
 
 
     public void CatDescendants(String catId, List<Category> allCategory) {
@@ -237,4 +232,56 @@ public class CategoryService {
         return categoryF2;
     }
 
+    public void filterCategory(Model model,List<Product> products,String filter,int page,int minPrice, int maxPrice){
+        if (Objects.equals(filter, "name-up")){
+            products.sort(Comparator.comparing(Product::getProductName));
+            products.removeIf(product -> product.getPrice() < minPrice || product.getPrice() > maxPrice);
+
+            Page<Product> productPage = convertToPageProduct(products,page - 1, 15);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalItems", productPage.getTotalElements());
+            model.addAttribute("products", productPage.getContent());
+            model.addAttribute("totalPages", productPage.getTotalPages());
+
+        }
+        else if(Objects.equals(filter, "name-down")){
+            products.sort(Comparator.comparing(Product::getProductName).reversed());
+            products.removeIf(product -> product.getPrice() < minPrice || product.getPrice() > maxPrice);
+
+            Page<Product> productPage = convertToPageProduct(products,page - 1, 15);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalItems", productPage.getTotalElements());
+            model.addAttribute("products", productPage.getContent());
+            model.addAttribute("totalPages", productPage.getTotalPages());
+        }else if (Objects.equals(filter, "price-up")){
+            products.sort(Comparator.comparing(product -> {
+                if (product.getIsDiscount()) {
+                    return product.getDiscountPrice();
+                } else {
+                    return product.getPrice();
+                }}));
+            products.removeIf(product -> product.getPrice() < minPrice || product.getPrice() > maxPrice);
+
+            Page<Product> productPage = convertToPageProduct(products,page - 1, 15);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalItems", productPage.getTotalElements());
+            model.addAttribute("products", productPage.getContent());
+            model.addAttribute("totalPages", productPage.getTotalPages());
+        }else if (Objects.equals(filter, "price-down")){
+            products.sort(Comparator.comparing(Product::getPrice).reversed());
+            products.removeIf(product -> product.getPrice() < minPrice || product.getPrice() > maxPrice);
+
+            Page<Product> productPage = convertToPageProduct(products,page - 1, 15);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalItems", productPage.getTotalElements());
+            model.addAttribute("products", productPage.getContent());
+            model.addAttribute("totalPages", productPage.getTotalPages());
+        }else {
+            Page<Product> productPage = convertToPageProduct(products,page - 1, 15);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalItems", productPage.getTotalElements());
+            model.addAttribute("products", productPage.getContent());
+            model.addAttribute("totalPages", productPage.getTotalPages());
+        }
+    }
 }

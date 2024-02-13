@@ -27,9 +27,9 @@ public interface ProductRepo extends JpaRepository<Product, String> {
                                                                                        String key2,
                                                                                        Pageable pageable);
 
-    Page<Product> findAllByIsDiscountIsTrueAndIsProductActiveIsTrue(Pageable pageable);
+//    List<Product> findAllByIsDiscountIsTrueAndIsProductActiveIsTrueOrderByDiscountPercentDesc(Pageable pageable);
 
-    List<Product> findProductByIsDiscountTrueAndIsProductActiveTrue();
+    List<Product> findProductByIsDiscountTrueAndIsProductActiveTrueOrderByDiscountPercentDesc();
 
     @Modifying
     @Query(value = "UPDATE products SET image_background_1 = :imageName WHERE product_id = :productId",

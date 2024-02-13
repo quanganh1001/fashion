@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface ImgProductRepo extends JpaRepository<ImgProduct,Integer> {
 
-    List<ImgProduct> findAllByProductProductId(String productId);
+    List<ImgProduct> findAllByProductProductIdOrderByImgIdDesc(String productId);
 
     void deleteByFileImg(String fileName);
 

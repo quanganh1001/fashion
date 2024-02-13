@@ -13,7 +13,15 @@ $(document).ready(() =>{
             data: {imageName: $('#bg1').val(),numberBackground:1,productId:productId},
             headers:headers,
             success: function (response) {
-                $("#imgbg1").prop("src","/admin/imgProduct?imageName="+response)
+                if(response.endsWith('.mp4')){
+                    $("#vdbg1").removeClass("hidden")
+                    $("#vdbg1").prop("src","/admin/imgProduct?imageName="+response)
+                    $("#imgbg1").addClass("hidden")
+                }else {
+                    $("#imgbg1").removeClass("hidden")
+                    $("#imgbg1").prop("src","/admin/imgProduct?imageName="+response)
+                    $("#vdbg1").addClass("hidden")
+                }
                 $("#modal-content").text("Thành công")
                 $("#myModal").modal('show')
             },

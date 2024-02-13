@@ -22,7 +22,7 @@
                          class="img-thumbnail col-2">
 
                     <video th:if="${invoiceDetail.productDetail.product.imageBackground1.endsWith('.mp4')}"
-                           controls
+                           controls autoplay muted
                            th:src="@{'/img?fileImg='+ ${invoiceDetail.productDetail.product.imageBackground1}}"
                            style="max-height: 150px"
                            class="img-thumbnail col-2"></video>

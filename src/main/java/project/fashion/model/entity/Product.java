@@ -39,5 +39,12 @@ public class Product {
             isProductActive = true;
     }
 
+    public String toString() {
+        return "Product{" +
+                "productName='" + productName + '\'' +
+                ", price=" + price +
+                ", discountPrice=" + discountPrice +
+                '}';
+    }
 }
 

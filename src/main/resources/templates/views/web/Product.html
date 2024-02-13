@@ -10,10 +10,18 @@
 
 <div class="d-flex container-xl" style="min-height: 30vh">
     <div class="col-4 position-relative ">
+
         <div id="slider">
-            <div th:each="img : ${imgProducts}" class="border border-4">
+            <div th:each="img : ${imgProducts}" class="border border-4 position-relative">
+
+                <div th:if="${product.isDiscount}"
+                     style="z-index: 2;background-color: red;width:50px"
+                     class="position-absolute top-0 start-0 text-white rounded-pill m-2 fw-bold d-flex justify-content-center"
+                     th:text="'-'+${product.discountPercent} +'%'" >
+                </div>
+
                 <img th:unless="${img.fileImg.endsWith('.mp4')}" th:src="@{'/img?fileImg='+${img.fileImg}}" alt="Image" style="width:100%;height: 500px">
-                <video th:if="${img.fileImg.endsWith('.mp4')}" style="width:100%;height: 500px" controls autoplay th:src="@{'/img?fileImg='+${img.fileImg}}"></video>
+                <video th:if="${img.fileImg.endsWith('.mp4')}" style="width:100%;height: 500px" controls autoplay muted th:src="@{'/img?fileImg='+${img.fileImg}}"></video>
             </div>
         </div>
         <div class="slick-prev slick-prev-img p-2 ps-3 pe-3 rounded-circle bg-white position-absolute translate-middle-y start-0 top-50">
@@ -26,7 +34,7 @@
             <div id="thumbnail_slider">
                 <div th:each="img : ${imgProducts}" class="border border-4">
                     <img th:unless="${img.fileImg.endsWith('.mp4')}" th:src="@{'/img?fileImg='+${img.fileImg}}" alt="Image" style="width:100%">
-                    <video th:if="${img.fileImg.endsWith('.mp4')}" style="width:100%" controls th:src="@{'/img?fileImg='+${img.fileImg}}"></video>
+                    <video th:if="${img.fileImg.endsWith('.mp4')}" style="width:100%" controls autoplay muted th:src="@{'/img?fileImg='+${img.fileImg}}"></video>
                 </div>
             </div>
             <div class="slick-prev-thumb slick-prev rounded-circle bg-white position-absolute translate-middle-y start-0 top-50 p-1 ps-2 pe-2">

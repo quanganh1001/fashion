@@ -48,11 +48,21 @@
 
 <!-------------------------SALE---------------------->
 <section class="mt-5 pt-5" style="background-color: #faefec">
-    <h2 class="fw-bold title-sale container-xl"><a href="/collections/onsale">TẾT NHẤT SALE TẤT</a></h2>
+    <div class=" container-xl d-flex align-items-center">
+        <img src="/image/fire-icon-new.png" alt="" width="40px">
+
+        <h2 class="ms-3 border fw-bold text-danger">TẾT NHẤT SALE TẤT</h2>
+    </div>
     <div class="position-relative container-xl">
         <div id="sale-slider">
             <div th:each="pr : ${productSale}" class="shadow card hover col-3 m-3 position-relative">
-                <div class="card  position-relative">
+                <div class="card  position-relative" style="height: 400px">
+
+                    <div th:if="${pr.isDiscount}"
+                         style="z-index: 2;background-color: red;width:50px"
+                         class="position-absolute top-0 start-0 text-white rounded-pill m-2 fw-bold d-flex justify-content-center"
+                         th:text="'-'+${pr.discountPercent} +'%'" >
+                    </div>
 
                     <img th:unless="${pr.imageBackground1.endsWith('.mp4')}"
                          th:src="@{'/img?fileImg='+ ${pr.imageBackground1 }}" alt="..."
@@ -60,7 +70,7 @@
                          class="product-image-bg1"
                          th:data-product-id="${pr.productId}">
                     <video th:if="${pr.imageBackground1.endsWith('.mp4')}"
-                           style="height: 400px;width: 100%" controls
+                           style="height: 400px;width: 100%" controls autoplay muted
                            th:src="@{'/img?fileImg='+ ${pr.imageBackground1}}"
                            class="product-image-bg1"
                            th:data-product-id="${pr.productId}"></video>
@@ -71,7 +81,7 @@
                          th:data-product-id="${pr.productId}"
                          class="product-image-bg2 hidden">
                     <video th:if="${pr.imageBackground2.endsWith('.mp4')}"
-                           style="height: 400px;width: 100%" controls
+                           style="height: 400px;width: 100%" controls autoplay muted
                            th:src="@{'/img?fileImg='+ ${pr.imageBackground2}}"
                            th:data-product-id="${pr.productId}"
                            class="product-image-bg2 hidden"></video>
@@ -82,7 +92,7 @@
 
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
-                                <span th:text="'+'+ ${pr.totalColor}+' Màu sắc'" class="fw-light"
+                        <span th:text="'+'+ ${pr.totalColor}+' Màu sắc'" class="fw-light"
                                       style="font-size:14px"></span>
                         <span th:text="'+' +${pr.totalSize}+ ' Kích thước'" class="fw-light"
                               style="font-size:14px"></span>
@@ -107,6 +117,10 @@
         <div class="slick-next slick-next-sale  position-absolute end-0" style="top:-50px; cursor: pointer">
             <i class="fa-solid fa-arrow-right fa-1x"></i>
         </div>
+    </div>
+
+    <div class=" d-flex justify-content-center">
+        <a href="/category/sale" class="btn-sale btn mt-5 mb-5 pt-2 pb-2 col-2 bg-white border border-black rounded d-flex justify-content-center"><span>Xem tất cả</span><span class="fw-bold" style="margin-left: 3px">TẾT NHẤT SALE TẤT</span>  </a>
     </div>
 </section>
 

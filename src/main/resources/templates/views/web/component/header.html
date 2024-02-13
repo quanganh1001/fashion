@@ -5,49 +5,49 @@
         <div class="container-xl">
             <a class="navbar-brand col-2" href="/"><img src="/image/logo.png" style="width: 100%" alt=""></a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
-                    <ul class="list-group list-group-horizontal">
-                        <li class="nav-item f1">
-                            <a class="text-dark nav-link fw-bold" aria-current="page" th:href="@{/category/sale}"
-                               th:text="Sale"></a>
-                        </li>
-                        <th:block th:with="f3Displayed=false"></th:block>
-                        <li th:each="c1:${categoriesF1}" class="f1 nav-item justify-content-around">
-                            <a class="text-dark nav-link fw-bold" aria-current="page"
-                               th:href="@{/category/__${c1.catId}__}"
-                               th:text="${c1.catName}"></a>
-                            <div class="pb-5 f2 position-absolute start-50 translate-middle-x col-8"
-                                 style="z-index: 999">
-                            </div>
-                            <div class="d-flex flex-wrap f2 pt-3 pb-3 border bg-white position-absolute start-50 top-100 translate-middle-x col-12 rounded-bottom shadow justify-content-around">
-                                <div th:if="${categoriesF2 != null} and ${c2.catParent.catId == c1.catId}"
-                                     th:each="c2:${categoriesF2}">
-                                    <a th:href="@{/category/__${c2.catId}__}" th:text="${c2.catName}"
-                                       class="text-dark nav-link fw-bold"></a>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 list-group list-group-horizontal">
 
-                                    <div th:each="c3:${categoriesF3}"
-                                         th:if="${c3.catParent.catId == c2.catId} ">
-                                        <th:block th:unless="${f3Displayed}">
-                                            <a th:href="@{/category/__${c3.catId}__}" th:text="${c3.catName}"
-                                               class="text-dark nav-link"></a>
-                                            <th:block th:with="f3Displayed=true"></th:block>
-                                        </th:block>
-                                    </div>
+                    <li class="nav-item f1">
+                        <a class="text-dark nav-link fw-bold" aria-current="page" th:href="@{/category/sale}"
+                           th:text="Sale"></a>
+                    </li>
+                    <th:block th:with="f3Displayed=false"></th:block>
+                    <li th:each="c1:${categoriesF1}" class="f1 nav-item justify-content-around">
+                        <a class="text-dark nav-link fw-bold" aria-current="page"
+                           th:href="@{/category/__${c1.catId}__}"
+                           th:text="${c1.catName}"></a>
+                        <div class="pb-4 f2 position-absolute start-50 translate-middle-x col-8"
+                             style="z-index: 999">
+                        </div>
+                        <div class="d-flex flex-wrap f2 pt-3 pb-3 border bg-white position-absolute start-50 top-100 translate-middle-x col-12 rounded-bottom shadow justify-content-around">
+                            <div th:if="${categoriesF2 != null} and ${c2.catParent.catId == c1.catId}"
+                                 th:each="c2:${categoriesF2}">
+                                <a th:href="@{/category/__${c2.catId}__}" th:text="${c2.catName}"
+                                   class="text-dark nav-link fw-bold"></a>
+
+                                <div th:each="c3:${categoriesF3}"
+                                     th:if="${c3.catParent.catId == c2.catId} ">
+                                    <th:block th:unless="${f3Displayed}">
+                                        <a th:href="@{/category/__${c3.catId}__}" th:text="${c3.catName}"
+                                           class="text-dark nav-link"></a>
+                                        <th:block th:with="f3Displayed=true"></th:block>
+                                    </th:block>
                                 </div>
                             </div>
+                        </div>
 
-                        </li>
+                    </li>
 
-                        <li class="nav-item f1">
-                            <a class="text-dark nav-link fw-bold" aria-current="page" th:href="@{/store}">Hệ thống
-                                cửa hàng</a>
-                        </li>
-                    </ul>
+                    <li class="nav-item f1">
+                        <a class="text-dark nav-link fw-bold" aria-current="page" th:href="@{/store}">Hệ thống
+                            cửa hàng</a>
+                    </li>
                 </ul>
+
             </div>
             <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Nhập từ khóa" aria-label="Search">
-                <button class="btn btn-outline-success col-4" type="submit" >Tìm kiếm</button>
+                <button class="btn btn-outline-success col-4" type="submit">Tìm kiếm</button>
             </form>
 
             <a class="position-relative btn btn-outline-success m-2" href="/carts">
