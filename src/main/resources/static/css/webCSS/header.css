@@ -10,6 +10,13 @@
     z-index: 1000!important;
 }
 
+.f1:hover #f2{
+    display: block!important;
+    margin-top: 0;
+    opacity: 1;
+    z-index: 1000!important;
+}
+
 #navbarSupportedContent{
     display: flex;
     justify-content: start;
