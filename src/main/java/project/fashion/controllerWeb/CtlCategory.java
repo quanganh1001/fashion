@@ -39,23 +39,11 @@ public class CtlCategory {
                               @RequestParam(value = "maxPrice",defaultValue = "3000000") int maxPrice) {
 
         categoryService.listCategory(model);
+        categoryService.filterCategory(model,filter,page,minPrice,maxPrice,key,catId);
 
-        if(!Objects.equals(key, "")){
-            List<Product> products = categoryService.searchProductByKey(key);
-            categoryService.filterCategory(model,products,filter,page,minPrice,maxPrice);
-        }else {
-            List<Product> products = categoryService.searchProductByCatId(catId);
-            categoryService.filterCategory(model,products,filter,page,minPrice,maxPrice);
-        }
 
         Optional<Category> cat = Optional.of(categoryService.findById(catId).orElse(new Category()));
         model.addAttribute("title", (Objects.equals(catId, "sale") ? "SALE" : cat.get().getCatName()));
-        model.addAttribute("key",key);
-        model.addAttribute("filter",filter);
-        model.addAttribute("minPrice",minPrice);
-        model.addAttribute("maxPrice",maxPrice);
-        model.addAttribute("catId", catId);
-
         return "web/Category";
     }
 
@@ -68,19 +56,8 @@ public class CtlCategory {
                                  @RequestParam(value = "minPrice",defaultValue = "0") int minPrice,
                                  @RequestParam(value = "maxPrice",defaultValue = "3000000") int maxPrice){
 
-        if(!Objects.equals(key, "")){
-            List<Product> products = categoryService.searchProductByKey(key);
-            categoryService.filterCategory(model,products,filter,page,minPrice,maxPrice);
-        }else {
-            List<Product> products = categoryService.searchProductByCatId(catId);
-            categoryService.filterCategory(model,products,filter,page,minPrice,maxPrice);
-        }
+        categoryService.filterCategory(model,filter,page,minPrice,maxPrice,key,catId);
 
-        model.addAttribute("key",key);
-        model.addAttribute("filter",filter);
-        model.addAttribute("minPrice",minPrice);
-        model.addAttribute("maxPrice",maxPrice);
-        model.addAttribute("catId", catId);
         return "web/component/ListProduct";
     }
 }

@@ -227,27 +227,23 @@ public class CategoryService {
         return categoryF2;
     }
 
-    public void filterCategory(Model model,List<Product> products,String filter,int page,int minPrice, int maxPrice){
+    public void filterCategory(Model model,String filter,int page,int minPrice, int maxPrice,String key,String catId){
+        List<Product> products = new ArrayList<>();
+        if(!Objects.equals(key, "")){
+            products.addAll(searchProductByKey(key));
+        }else {
+            products.addAll(searchProductByCatId(catId));
+        }
+
+        // lọc theo giá
+        products.removeIf(product -> product.getPrice() < minPrice || product.getPrice() > maxPrice);
+
+        // lọc theo filter
         if (Objects.equals(filter, "name-up")){
             products.sort(Comparator.comparing(Product::getProductName));
-            products.removeIf(product -> product.getPrice() < minPrice || product.getPrice() > maxPrice);
-
-            Page<Product> productPage = convertToPageProduct(products,page - 1, 15);
-            model.addAttribute("currentPage", page);
-            model.addAttribute("totalItems", productPage.getTotalElements());
-            model.addAttribute("products", productPage.getContent());
-            model.addAttribute("totalPages", productPage.getTotalPages());
-
         }
         else if(Objects.equals(filter, "name-down")){
             products.sort(Comparator.comparing(Product::getProductName).reversed());
-            products.removeIf(product -> product.getPrice() < minPrice || product.getPrice() > maxPrice);
-
-            Page<Product> productPage = convertToPageProduct(products,page - 1, 15);
-            model.addAttribute("currentPage", page);
-            model.addAttribute("totalItems", productPage.getTotalElements());
-            model.addAttribute("products", productPage.getContent());
-            model.addAttribute("totalPages", productPage.getTotalPages());
         }else if (Objects.equals(filter, "price-up")){
             products.sort(Comparator.comparing(product -> {
                 if (product.getIsDiscount()) {
@@ -256,29 +252,21 @@ public class CategoryService {
                     return product.getPrice();
                 }}));
 
-            products.removeIf(product -> product.getPrice() < minPrice || product.getPrice() > maxPrice);
-
-            Page<Product> productPage = convertToPageProduct(products,page - 1, 15);
-            model.addAttribute("currentPage", page);
-            model.addAttribute("totalItems", productPage.getTotalElements());
-            model.addAttribute("products", productPage.getContent());
-            model.addAttribute("totalPages", productPage.getTotalPages());
         }else if (Objects.equals(filter, "price-down")){
             products.sort(Comparator.comparing(Product::getPrice).reversed());
-            products.removeIf(product -> product.getPrice() < minPrice || product.getPrice() > maxPrice);
 
-            Page<Product> productPage = convertToPageProduct(products,page - 1, 15);
-            model.addAttribute("currentPage", page);
-            model.addAttribute("totalItems", productPage.getTotalElements());
-            model.addAttribute("products", productPage.getContent());
-            model.addAttribute("totalPages", productPage.getTotalPages());
-        }else {
-            Page<Product> productPage = convertToPageProduct(products,page - 1, 15);
-            model.addAttribute("currentPage", page);
-            model.addAttribute("totalItems", productPage.getTotalElements());
-            model.addAttribute("products", productPage.getContent());
-            model.addAttribute("totalPages", productPage.getTotalPages());
         }
+
+        Page<Product> productPage = convertToPageProduct(products,page - 1, 15);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalItems", productPage.getTotalElements());
+        model.addAttribute("products", productPage.getContent());
+        model.addAttribute("totalPages", productPage.getTotalPages());
+        model.addAttribute("key",key);
+        model.addAttribute("filter",filter);
+        model.addAttribute("minPrice",minPrice);
+        model.addAttribute("maxPrice",maxPrice);
+        model.addAttribute("catId", catId);
     }
 
     public List<Product> searchProductByKey(String key){
