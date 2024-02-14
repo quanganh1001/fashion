@@ -45,9 +45,11 @@
                 </ul>
 
             </div>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Nhập từ khóa" aria-label="Search">
-                <button class="btn btn-outline-success col-4" type="submit">Tìm kiếm</button>
+            <form id="search-form" th:action="@{/category/search}" class="d-flex ">
+                <div class="input-group ">
+                    <input type="text" class="form-control" id="search-input" name="key"  placeholder="Nhập từ khóa">
+                </div>
+                <button class="btn btn-outline-success col-4 ms-3" type="submit">Tìm kiếm</button>
             </form>
 
             <a class="position-relative btn btn-outline-success m-2" href="/carts">
@@ -59,4 +61,16 @@
             </a>
         </div>
     </nav>
+    <script>
+        $(document).ready(()=> {
+            $("#search-form").submit(()=>{
+                let validation = true
+                if ($("#search-input").val() === "") {
+                    $("#search-input").addClass("border-danger")
+                    validation = false
+                }
+                return validation;
+            })
+        })
+    </script>
 </header>

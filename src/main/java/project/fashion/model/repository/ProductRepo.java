@@ -27,7 +27,8 @@ public interface ProductRepo extends JpaRepository<Product, String> {
                                                                                        String key2,
                                                                                        Pageable pageable);
 
-//    List<Product> findAllByIsDiscountIsTrueAndIsProductActiveIsTrueOrderByDiscountPercentDesc(Pageable pageable);
+    List<Product> searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase(String key1,
+                                                                                                 String key2);
 
     List<Product> findProductByIsDiscountTrueAndIsProductActiveTrueOrderByDiscountPercentDesc();
 

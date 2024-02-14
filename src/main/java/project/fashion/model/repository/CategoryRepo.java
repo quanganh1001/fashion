@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import project.fashion.model.entity.Category;
+import project.fashion.model.entity.Product;
 
 import java.util.List;
 
@@ -20,6 +21,5 @@ public interface CategoryRepo extends JpaRepository<Category,String> {
     void setCatActive(@Param("cat_id") String cat_id, @Param("boo") Boolean boo);
 
     Category findByCatBackground(String catBackground);
-
 
 }

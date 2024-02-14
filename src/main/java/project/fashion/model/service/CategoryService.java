@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -102,8 +103,6 @@ public class CategoryService {
     }
 
     public List<Product> searchProductByCatId(String catId) {
-//        if (page < 0)
-//            page = 0;
         if (Objects.equals(catId, "sale")) {
             return productRepo.findProductByIsDiscountTrueAndIsProductActiveTrueOrderByDiscountPercentDesc();
         } else {
@@ -116,10 +115,6 @@ public class CategoryService {
             }
 
             return products;
-            // Chuyển đổi danh sách sản phẩm thành một trang
-//            int start = Math.toIntExact(PageRequest.of(page, size).getOffset());
-//            int end = Math.min((start + PageRequest.of(page, size).getPageSize()), products.size());
-//            return new PageImpl<>(products.subList(start, end), PageRequest.of(page, size), products.size());
         }
     }
     public Page<Product> convertToPageProduct(List<Product> products, int page, int size){
@@ -260,6 +255,7 @@ public class CategoryService {
                 } else {
                     return product.getPrice();
                 }}));
+
             products.removeIf(product -> product.getPrice() < minPrice || product.getPrice() > maxPrice);
 
             Page<Product> productPage = convertToPageProduct(products,page - 1, 15);
@@ -283,5 +279,9 @@ public class CategoryService {
             model.addAttribute("products", productPage.getContent());
             model.addAttribute("totalPages", productPage.getTotalPages());
         }
+    }
+
+    public List<Product> searchProductByKey(String key){
+        return productRepo.searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase(key,key);
     }
 }
