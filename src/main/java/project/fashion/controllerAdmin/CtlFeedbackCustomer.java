@@ -40,7 +40,7 @@ public class CtlFeedbackCustomer {
         feedbackCustomerService.countUnread(model);
 
         model.addAttribute("listFeedback",feedbackCustomerService.findAll());
-        model.addAttribute("title","FeedbackCustomer");
+        model.addAttribute("title","feedback");
         return "admin/FeedbackCustomerAdmin";
     }
 

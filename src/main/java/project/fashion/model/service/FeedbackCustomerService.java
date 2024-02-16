@@ -29,7 +29,7 @@ public class FeedbackCustomerService {
 
             String subject = "Torano - Tiếp nhận phản hồi";
             String text = "Chúng tôi sẽ liên hệ lại với bạn";
-            emailService.sendEmail(feedbackCustomer,subject,text);
+            emailService.sendEmail(feedbackCustomer.getEmail(),subject,text);
     }
 
     @Transactional
@@ -42,6 +42,6 @@ public class FeedbackCustomerService {
     }
 
     public void countUnread(Model model){
-        model.addAttribute("countUnread",feedbackCustomerRepo.countByStatusIsTrue());
+        model.addAttribute("countUnread",feedbackCustomerRepo.countByStatusIsFalse());
     }
 }

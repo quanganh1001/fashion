@@ -12,6 +12,7 @@ import project.fashion.model.entity.City;
 import project.fashion.model.entity.Store;
 import project.fashion.model.service.AccountService;
 import project.fashion.model.service.CityService;
+import project.fashion.model.service.FeedbackCustomerService;
 import project.fashion.model.service.StoreService;
 
 import java.util.List;
@@ -26,6 +27,8 @@ public class CtlAdminStore {
     private CityService cityService;
     @Autowired
     private AccountService accountService;
+    @Autowired
+    FeedbackCustomerService feedbackCustomerService;
 
     @GetMapping("")
     public String address(Model model, @RequestParam(value = "cityId", defaultValue = "1") Integer cityId) {
@@ -33,6 +36,8 @@ public class CtlAdminStore {
         List<Store> stores = storeService.findAllByCity(cityId);
         var api = stores.get(0).getApi();
         accountService.getAccountResponse(model);
+        feedbackCustomerService.countUnread(model);
+
 
         model.addAttribute("cities", cities);
         model.addAttribute("stores", stores);
@@ -45,6 +50,7 @@ public class CtlAdminStore {
     public String add(Model model){
         accountService.getAccountResponse(model);
         List<City> cities = cityService.findAll();
+        feedbackCustomerService.countUnread(model);
 
         model.addAttribute("cities", cities);
         model.addAttribute("title","Store");
@@ -73,6 +79,7 @@ public class CtlAdminStore {
     public String changeMap(Model model,@RequestParam("cityId") Integer cityId) {
         List<City> cities = cityService.findAll();
         List<Store> stores = storeService.findAllByCity(cityId);
+        feedbackCustomerService.countUnread(model);
 
         model.addAttribute("api", stores.get(0).getApi());
         model.addAttribute("stores", stores);

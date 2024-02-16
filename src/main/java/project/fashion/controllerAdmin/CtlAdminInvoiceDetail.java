@@ -32,7 +32,8 @@ public class CtlAdminInvoiceDetail {
     @Autowired
     private AccountService accountService;
     @Autowired
-    private ImgProductService imgProductService;
+    private FeedbackCustomerService feedbackCustomerService;
+
     @GetMapping()
     @PreAuthorize("isAuthenticated() and ((#accountId == (authentication.principal.user.accountId)) or hasAnyRole('MANAGER'))")
     public String getInvoiceDetail(Model model,
@@ -48,6 +49,8 @@ public class CtlAdminInvoiceDetail {
         List<History> histories = historyService.findByInvoiceId(invoiceId);
 
         accountService.getAccountResponse(model);
+        feedbackCustomerService.countUnread(model);
+
         List<AccountResponse> accountResponses = accountService.findAll();
 
         model.addAttribute("accountResponses",accountResponses);

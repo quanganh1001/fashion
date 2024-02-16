@@ -17,6 +17,7 @@ import project.fashion.model.entity.ProductDetail;
 import project.fashion.model.repository.CategoryRepo;
 import project.fashion.model.repository.ImgSizeRepo;
 import project.fashion.model.service.AccountService;
+import project.fashion.model.service.FeedbackCustomerService;
 import project.fashion.model.service.ProductDetailService;
 import project.fashion.model.service.ProductService;
 
@@ -29,18 +30,17 @@ import java.util.List;
 public class CtlAdminProduct {
     @Autowired
     private ProductDetailService productDetailService;
-
     @Autowired
     private ProductService productService;
-
     @Autowired
     private CategoryRepo categoryRepo;
-
     @Autowired
     private ImgSizeRepo imgSizeRepo;
-
     @Autowired
     private AccountService accountService;
+    @Autowired
+    FeedbackCustomerService feedbackCustomerService;
+
     @GetMapping()
     public String searchProduct(Model model,
                                 @RequestParam(defaultValue = "1") int page,
@@ -49,6 +49,7 @@ public class CtlAdminProduct {
                 productService.searchProduct(key,page -1,10);
 
         accountService.getAccountResponse(model);
+        feedbackCustomerService.countUnread(model);
 
         model.addAttribute("key",key);
         model.addAttribute("currentPage", page);
@@ -64,6 +65,7 @@ public class CtlAdminProduct {
         List<Category> cat = categoryRepo.findAll();
         List<ImgSize> img = imgSizeRepo.findAll();
         accountService.getAccountResponse(model);
+        feedbackCustomerService.countUnread(model);
 
         model.addAttribute("catId",catId);
         model.addAttribute("product", new Product());
@@ -99,6 +101,7 @@ public class CtlAdminProduct {
         List<ProductDetail> prDetail =  productDetailService.findAllByProductProductId(productId);
         Product p = productService.findById(productId);
         accountService.getAccountResponse(model);
+        feedbackCustomerService.countUnread(model);
 
         model.addAttribute("cat", cat);
         model.addAttribute("img", img);

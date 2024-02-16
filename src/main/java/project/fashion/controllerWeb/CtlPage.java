@@ -59,4 +59,9 @@ public class CtlPage {
         return "redirect:/page/lien-he";
     }
 
+    @PostMapping("/send-mail")
+    public String sendMail(@RequestParam("email") String email) {
+        return "redirect:/page/lien-he";
+    }
+
 }

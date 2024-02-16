@@ -1,33 +1,35 @@
 <div th:fragment="menu">
         <ul class="fixed-top list-group col-2 p-3 menu">
-            <li class="p-3 text-light " id="home">Trang chủ</li>
-            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" id="product">Quản
+            <li class="p-3 text-light menu-item" th:data-id="home">Trang chủ</li>
+            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" th:data-id="product">Quản
                 lý Sản phẩm
             </li>
-            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" id="category">
+            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" th:data-id="category">
                 Quản lý danh mục Sản phẩm
             </li>
-            <li class="p-3 text-light menu-item" id="invoice" th:data-accountId="${account.accountId}">Quản lý đơn hàng</li>
-            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" id="color">Quản
+            <li class="p-3 text-light menu-item" th:data-id="invoice">Quản lý đơn hàng</li>
+            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" th:data-id="color">Quản
                 lý mã màu
             </li>
-            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" id="account">Quản
+            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" th:data-id="account">Quản
                 lý tài khoản
             </li>
-            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" id="store">Quản
+            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" th:data-id="store">Quản
                 lý cửa hàng
             </li>
-            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" id="banner">Quản
+            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" th:data-id="banner">Quản
                 lý ảnh banner
             </li>
             <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}"
-                class="position-relative p-3 text-light menu-item"
-                id="feedback" >Phản hồi khách hàng
-                <span th:if="${countUnread != null}"
-                      class="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-danger"
-                      th:text="${countUnread}"></span>
-            </li>
+                class=" p-3 text-light menu-item"
+                th:data-id="feedback" >
+                <div class="position-relative">Phản hồi khách hàng<span th:if="${countUnread > 0}"
+                                              class="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-danger"
+                                              th:text="${countUnread}"></span></div>
 
+            </li>
+            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" th:data-id="email">Gửi email cho khách hàng
+            </li>
             <div class="m-3" th:if="${account != null}">
                 <div class="mb-3" style="color:white">
                     Xin chào, <span th:text="${account.userName}"></span>! <a
@@ -44,38 +46,19 @@
 
     <script th:inline="javascript">
         $(document).ready(() => {
+            $(".menu-item").click(function() {
 
-            $("#home").click(() => {
-                window.location.href = "/admin"
-            })
-            $("#product").click(() => {
-                window.location.href = "/admin/product"
-            })
-            $("#category").click(() => {
-                window.location.href = "/admin/category?parent="
-            })
-            $("#invoice").click(() => {
-                window.location.href = "/admin/invoice?accountId=" + [[${account.accountId}]];
-            })
-            $("#color").click(() => {
-                window.location.href = "/admin/color"
-            })
-            $("#account").click(() => {
-                window.location.href = "/admin/account"
-            })
-            $("#store").click(() => {
-                window.location.href = "/admin/store"
-            })
-            $("#banner").click(() => {
-                window.location.href = "/admin/banner"
-            })
-            $("#feedback").click(() => {
-                window.location.href = "/admin/feedback"
+                const id = $(this).attr("data-id")
+                if (id === "account") {
+                    window.location.href = "/admin/invoice?accountId=" + [[${account.accountId}]];
+                }else {
+                    window.location.href = "/admin/" + id;
+                }
             })
 
-            const title = [[${title}]]
-            $(".menu-item").each((index,item) =>{
-                if (title.toLocaleString().toLowerCase() === $(item).attr("id")){
+            $(".menu-item").each((index, item) => {
+                const title = [[${title}]]
+                if (title.toLocaleString().toLowerCase() === $(item).attr("data-id")) {
                     $(item).addClass("bg-dark-subtle text-dark rounded-4");
                 }
             })

@@ -12,14 +12,15 @@ public class EmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public void sendEmail(FeedbackCustomer feedbackCustomer,String subject,String text){
+    public void sendEmail(String email,String subject,String text){
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setFrom("quanganhnguyen100196@gmail.com");
-        message.setTo(feedbackCustomer.getEmail());
+        message.setTo(email);
         message.setSubject(subject);
         message.setText(text);
 
         javaMailSender.send(message);
     }
+
 }

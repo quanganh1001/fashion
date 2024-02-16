@@ -10,6 +10,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.model.entity.Color;
 import project.fashion.model.service.AccountService;
 import project.fashion.model.service.ColorService;
+import project.fashion.model.service.FeedbackCustomerService;
 
 import java.util.List;
 
@@ -21,11 +22,15 @@ public class CtlAdminColor {
     private ColorService colorService;
     @Autowired
     private AccountService accountService;
+    @Autowired
+    FeedbackCustomerService feedbackCustomerService;
+
     @GetMapping()
     public String getAllColor(Model model){
         List<Color> color = colorService.findAll();
 
         accountService.getAccountResponse(model);
+        feedbackCustomerService.countUnread(model);
 
         model.addAttribute("color",color);
         model.addAttribute("title","Color");
@@ -35,6 +40,7 @@ public class CtlAdminColor {
     @GetMapping("/add-color")
     public String addColor(Model model) {
         accountService.getAccountResponse(model);
+        feedbackCustomerService.countUnread(model);
 
         model.addAttribute("color",new Color());
         model.addAttribute("title","Color");

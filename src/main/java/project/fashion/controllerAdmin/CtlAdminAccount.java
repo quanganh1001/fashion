@@ -14,6 +14,7 @@ import project.fashion.model.entity.Account;
 import project.fashion.model.DTO.ChangePasswordDTO;
 import project.fashion.model.DTO.RoleEnumDTO;
 import project.fashion.model.service.AccountService;
+import project.fashion.model.service.FeedbackCustomerService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,6 +25,8 @@ import java.util.List;
 public class CtlAdminAccount {
     @Autowired
     private AccountService accountService;
+    @Autowired
+    FeedbackCustomerService feedbackCustomerService;
 
     @PreAuthorize("hasAnyRole('MANAGER')")
     @GetMapping()
@@ -31,6 +34,7 @@ public class CtlAdminAccount {
         List<AccountResponse> accounts = accountService.findAll();
 
         accountService.getAccountResponse(model);
+        feedbackCustomerService.countUnread(model);
 
         model.addAttribute("accounts", accounts);
         model.addAttribute("title","Account");
@@ -42,6 +46,7 @@ public class CtlAdminAccount {
     public String addAccount(Model model,@ModelAttribute Account account) {
         List<RoleEnumDTO> roles = Arrays.asList(RoleEnumDTO.values());
         accountService.getAccountResponse(model);
+        feedbackCustomerService.countUnread(model);
 
         model.addAttribute("newAccount",account);
         model.addAttribute("roles",roles);
@@ -64,6 +69,7 @@ public class CtlAdminAccount {
     public String updateAccount(Model model,@RequestParam("accountId") Integer accountId) {
         List<RoleEnumDTO> roles = Arrays.asList(RoleEnumDTO.values());
         accountService.getAccountResponse(model);
+        feedbackCustomerService.countUnread(model);
 
         model.addAttribute("roles",roles);
         model.addAttribute("acc",accountService.findById(accountId));

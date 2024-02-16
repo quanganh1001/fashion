@@ -21,24 +21,23 @@ import java.util.List;
 public class CtlAdminProductDetail {
     @Autowired
     private ProductDetailService productDetailService;
-
     @Autowired
     private SizeService sizeService;
-
     @Autowired
     private ColorService colorService;
-
     @Autowired
     private ProductService productService;
-
     @Autowired
     private AccountService accountService;
+    @Autowired
+    FeedbackCustomerService feedbackCustomerService;
 
     @GetMapping("/add-prDetail")
     public String addProductDetail(Model model,@RequestParam("productId") String productId) {
         List<Size> s = sizeService.findAll();
         List<Color> cl = colorService.findAll();
         accountService.getAccountResponse(model);
+        feedbackCustomerService.countUnread(model);
 
         model.addAttribute("productId", productId);
         model.addAttribute("s", s);
@@ -61,6 +60,7 @@ public class CtlAdminProductDetail {
         List<Size> size = sizeService.findAll();
         List<Product> product =  productService.findAll();
         ProductDetail pd = productDetailService.getById(prDetailId);
+        feedbackCustomerService.countUnread(model);
 
         accountService.getAccountResponse(model);
 

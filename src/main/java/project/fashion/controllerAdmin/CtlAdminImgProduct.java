@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.model.entity.ImgProduct;
 import project.fashion.model.entity.Product;
 import project.fashion.model.service.AccountService;
+import project.fashion.model.service.FeedbackCustomerService;
 import project.fashion.model.service.ImgProductService;
 import project.fashion.model.service.ProductService;
 
@@ -28,6 +29,8 @@ public class CtlAdminImgProduct {
     private AccountService accountService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    FeedbackCustomerService feedbackCustomerService;
 
     @GetMapping()
     public ResponseEntity<Resource> serveImage(@RequestParam("imageName") String imageName) throws IOException {
@@ -41,6 +44,8 @@ public class CtlAdminImgProduct {
         ImgProduct img = new ImgProduct();
 
         accountService.getAccountResponse(model);
+        feedbackCustomerService.countUnread(model);
+
         Product product = productService.findById(productId);
         model.addAttribute("productId", productId);
         model.addAttribute("img", img);

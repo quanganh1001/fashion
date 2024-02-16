@@ -32,12 +32,18 @@ public class CtlAdminCategory {
     private CategoryService categoryService;
     @Autowired
     AccountService accountService;
+    @Autowired
+    FeedbackCustomerService feedbackCustomerService;
 
     @GetMapping()
     public String getCat(Model model,
-                         @RequestParam(name = "parent", defaultValue = "") String parent,
+                         @RequestParam(name = "parent", required = false) String parent,
                          @RequestParam(value = "success",required = false) String success){
+        if (parent == null){
+            parent = "";
+        }
         accountService.getAccountResponse(model);
+        feedbackCustomerService.countUnread(model);
         Optional<Category> category = Optional.of(categoryService.findById(parent).orElse(new Category()));
         var cat = category.get();
         List<Category> categories = categoryService.getCategoriesByCatParentCatId(parent);
@@ -56,6 +62,8 @@ public class CtlAdminCategory {
         categoryService.addCategory(model,catParentId);
 
         accountService.getAccountResponse(model);
+        feedbackCustomerService.countUnread(model);
+
 
         model.addAttribute("catParentId",catParentId);
         model.addAttribute("title","Category");
@@ -82,6 +90,7 @@ public class CtlAdminCategory {
         List<Product> products = categoryService.searchProductByCatId(catId);
 
         accountService.getAccountResponse(model);
+        feedbackCustomerService.countUnread(model);
 
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("cat", cat);

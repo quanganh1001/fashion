@@ -12,6 +12,7 @@ import project.fashion.Response.AccountResponse;
 import project.fashion.model.entity.City;
 import project.fashion.model.entity.Invoice;
 import project.fashion.model.service.AccountService;
+import project.fashion.model.service.FeedbackCustomerService;
 import project.fashion.model.service.InvoiceService;
 
 import java.util.List;
@@ -24,6 +25,8 @@ public class CtlAdminInvoice {
     private InvoiceService invoiceService;
     @Autowired
     private AccountService accountService;
+    @Autowired
+    FeedbackCustomerService feedbackCustomerService;
 
     @GetMapping("")
     public String filterStatus(Model model,
@@ -34,6 +37,7 @@ public class CtlAdminInvoice {
 
         Page<Invoice> searchInvoice = invoiceService.findInvoiceByKeyAndStatus(selectAccount,key, filterStatus, page);
         accountService.getAccountResponse(model);
+        feedbackCustomerService.countUnread(model);
 
         List<AccountResponse> accountResponses = accountService.findAll();
 
@@ -53,6 +57,8 @@ public class CtlAdminInvoice {
     @GetMapping("/add")
     public String addInvoice(Model model) {
         accountService.getAccountResponse(model);
+        feedbackCustomerService.countUnread(model);
+
         List<AccountResponse> accountResponses = accountService.findAll();
 
         model.addAttribute("invoice",new Invoice());

@@ -12,6 +12,7 @@ import project.fashion.model.entity.BannerImg;
 import project.fashion.model.entity.ImgProduct;
 import project.fashion.model.service.AccountService;
 import project.fashion.model.service.BannerService;
+import project.fashion.model.service.FeedbackCustomerService;
 import project.fashion.model.service.ImgProductService;
 
 import java.io.IOException;
@@ -26,10 +27,14 @@ public class CtlAdminBanner {
     AccountService accountService;
     @Autowired
     BannerService bannerService;
+    @Autowired
+    FeedbackCustomerService feedbackCustomerService;
 
     @GetMapping()
     public String getBanner(Model model) {
         accountService.getAccountResponse(model);
+        feedbackCustomerService.countUnread(model);
+
         List<BannerImg> bannerImgList = bannerService.getAllBanner();
 
 

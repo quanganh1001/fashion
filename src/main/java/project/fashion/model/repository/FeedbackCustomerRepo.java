@@ -8,9 +8,9 @@ import project.fashion.model.entity.FeedbackCustomer;
 
 public interface FeedbackCustomerRepo extends JpaRepository<FeedbackCustomer,Integer> {
     @Modifying
-    @Query(value = "UPDATE feedback_customer SET status = 1 WHERE id = :id",
+    @Query(value = "UPDATE feedback_customer SET status = true WHERE id = :id",
             nativeQuery = true)
     void setStatus(@Param("id") int id);
 
-    int countByStatusIsTrue();
+    int countByStatusIsFalse();
 }

@@ -1,10 +1,12 @@
 package project.fashion.controllerWeb;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.fashion.model.entity.Category;
+import project.fashion.model.entity.CustomerMail;
 import project.fashion.model.entity.ImgProduct;
 import project.fashion.model.entity.Product;
 import project.fashion.model.service.*;
@@ -21,7 +23,8 @@ public class CtlHome {
     private BannerService bannerService;
     @Autowired
     private ProductService productService;
-
+    @Autowired
+    CustomerMailService customerMailService;
 
     @GetMapping("")
     public String getHome(Model model){
@@ -34,6 +37,12 @@ public class CtlHome {
         model.addAttribute("categoryF2",categoryF2);
         model.addAttribute("title","Trang chủ");
         return "web/Home";
+    }
+
+    @PostMapping("/send-email")
+    public ResponseEntity<String> sendMail(@RequestParam("email") String email) {
+        customerMailService.save(email);
+        return ResponseEntity.ok("Đăng ký thành công");
     }
 
 }

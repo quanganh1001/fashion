@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.fashion.model.service.AccountService;
+import project.fashion.model.service.FeedbackCustomerService;
 
 @Controller
 @RequestMapping("/admin")
@@ -13,9 +14,13 @@ import project.fashion.model.service.AccountService;
 public class CtlAdmin {
     @Autowired
     AccountService accountService;
+    @Autowired
+    FeedbackCustomerService feedbackCustomerService;
+
     @GetMapping
     public String getHome(Model model){
         accountService.getAccountResponse(model);
+        feedbackCustomerService.countUnread(model);
 
         model.addAttribute("title","Home");
         return "admin/Admin";
