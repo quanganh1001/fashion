@@ -1,0 +1,39 @@
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head th:include="~{admin/component/head::head}"></head>
+
+<body>
+<div class="ui-menu-item-wrapper">
+    <div class="bg-dark sidebar col-2" th:include="~{admin/component/Menu::menu}"
+         style="min-height: 100vh;overflow-y: auto;"></div>
+
+    <div class="content-admin p-4">
+        <h2>Phản hồi khách hàng</h2>
+        <table class="table table-striped table-hover table-bordered border mt-5">
+            <thead>
+            <tr>
+                <th>Tên khách hàng</th>
+                <th>Số điện thoại khách hàng</th>
+                <th>Email khách hàng</th>
+                <th>Nội dung phản hồi</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="feedback:${listFeedback}">
+                <td th:text="${feedback.name}"></td>
+                <td th:text="${feedback.phone}">
+                <td th:text="${feedback.email}"></td>
+                <td th:id="'feedback-column-'+${feedback.id}">
+                    <span th:if="${feedback.status == 1}" th:text="${feedback.feedback}"></span>
+                    <span class="unread fw-bold" th:data-id="${feedback.id}"
+                          th:unless="${feedback.status == 1}">Phản hồi mới <i class="fa-regular fa-eye"></i></span>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script th:src="@{/script/AdminScript/FeedbackCustomerAdminScript.js}"></script>
+</body>
+</html>

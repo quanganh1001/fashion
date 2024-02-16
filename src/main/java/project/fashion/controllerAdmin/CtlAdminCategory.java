@@ -12,6 +12,7 @@ import project.fashion.model.entity.Category;
 import project.fashion.model.entity.Product;
 import project.fashion.model.service.AccountService;
 import project.fashion.model.service.CategoryService;
+import project.fashion.model.service.FeedbackCustomerService;
 import project.fashion.model.service.ProductService;
 
 import java.io.File;
@@ -36,11 +37,11 @@ public class CtlAdminCategory {
     public String getCat(Model model,
                          @RequestParam(name = "parent", defaultValue = "") String parent,
                          @RequestParam(value = "success",required = false) String success){
+        accountService.getAccountResponse(model);
         Optional<Category> category = Optional.of(categoryService.findById(parent).orElse(new Category()));
         var cat = category.get();
         List<Category> categories = categoryService.getCategoriesByCatParentCatId(parent);
 
-        accountService.getAccountResponse(model);
         if(Objects.equals(success, "success")){
             model.addAttribute("alertMessage", "Cập nhập thành công");
         }

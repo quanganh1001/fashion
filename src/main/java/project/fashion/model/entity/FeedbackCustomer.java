@@ -23,4 +23,6 @@ public class FeedbackCustomer {
 
     @Column(name="feedback")
     private String feedback;
+
+    private Boolean status;
 }

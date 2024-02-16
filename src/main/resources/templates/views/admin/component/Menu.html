@@ -20,6 +20,13 @@
             <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" id="banner">Quản
                 lý ảnh banner
             </li>
+            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}"
+                class="position-relative p-3 text-light menu-item"
+                id="feedback" >Phản hồi khách hàng
+                <span th:if="${countUnread != null}"
+                      class="position-absolute top-0 end-0 translate-middle badge rounded-pill bg-danger"
+                      th:text="${countUnread}"></span>
+            </li>
 
             <div class="m-3" th:if="${account != null}">
                 <div class="mb-3" style="color:white">
@@ -61,6 +68,9 @@
             })
             $("#banner").click(() => {
                 window.location.href = "/admin/banner"
+            })
+            $("#feedback").click(() => {
+                window.location.href = "/admin/feedback"
             })
 
             const title = [[${title}]]
