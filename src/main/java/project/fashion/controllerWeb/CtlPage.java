@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.model.entity.FeedbackCustomer;
+import project.fashion.model.service.AccountService;
 import project.fashion.model.service.CategoryService;
 import project.fashion.model.service.FeedbackCustomerService;
 
@@ -18,6 +19,8 @@ import project.fashion.model.service.FeedbackCustomerService;
 public class CtlPage {
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    AccountService accountService;
 
     @Autowired
     private FeedbackCustomerService feedbackCustomerService;
@@ -25,6 +28,7 @@ public class CtlPage {
     @GetMapping("/gioi-thieu")
     public String getIntroduce(Model model) {
         categoryService.listCategory(model);
+        accountService.getAccountResponse(model);
         model.addAttribute("title", "Giới thiệu");
         return "web/Introduce";
     }
@@ -32,6 +36,7 @@ public class CtlPage {
     @GetMapping("/chinh-sach-doi-tra")
     public String getReturnPolicy(Model model) {
         categoryService.listCategory(model);
+        accountService.getAccountResponse(model);
         model.addAttribute("title", "Chính sách đổi trả");
         return "web/ReturnPolicy";
     }
@@ -39,6 +44,7 @@ public class CtlPage {
     @GetMapping("/chinh-sach-bao-mat")
     public String getPrivacyPolicy(Model model) {
         categoryService.listCategory(model);
+        accountService.getAccountResponse(model);
         model.addAttribute("title", "Chính sách bảo mật");
         return "web/PrivacyPolicy";
     }
@@ -46,6 +52,7 @@ public class CtlPage {
     @GetMapping("/lien-he")
     public String getContact(Model model) {
         categoryService.listCategory(model);
+        accountService.getAccountResponse(model);
         model.addAttribute("feedback", new FeedbackCustomer());
         model.addAttribute("title", "Liên hệ với chúng tôi");
         return "web/ContactUs";

@@ -147,7 +147,10 @@ public class AccountService {
 
     public void getAccountResponse(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("account",AccountResponse.accountResponse(findByUserName(authentication.getName())));
+        if (authentication != null && authentication.isAuthenticated() && authentication.getName() != "anonymousUser") {
+            model.addAttribute("account",AccountResponse.accountResponse(findByUserName(authentication.getName())));
+        }
+
     }
 
     public Account findByUserName(String username){

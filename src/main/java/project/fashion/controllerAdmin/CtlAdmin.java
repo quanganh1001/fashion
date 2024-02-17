@@ -26,4 +26,9 @@ public class CtlAdmin {
         return "admin/Admin";
     }
 
+    @GetMapping("/home")
+    public String getHome2(){
+
+        return "redirect:/admin";
+    }
 }

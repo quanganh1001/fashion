@@ -16,7 +16,8 @@ import java.util.Objects;
 @SessionAttributes("CARTS")
 @RequestMapping("/carts")
 public class CtlCart {
-
+    @Autowired
+    AccountService accountService;
     @Autowired
     private CategoryService categoryService;
     @Autowired
@@ -32,6 +33,7 @@ public class CtlCart {
         categoryService.listCategory(model);
         var totalPrice = cartService.getTotalPrice(cartItemList);
         var shippingFee = cartService.getShippingFee(totalPrice);
+        accountService.getAccountResponse(model);
 
         model.addAttribute("newInvoice",new Invoice());
         model.addAttribute("shippingFee",shippingFee);

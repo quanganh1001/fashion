@@ -28,16 +28,20 @@ public class CtlCheckout {
     private CategoryService categoryService;
     @Autowired
     private CartService cartService;
+    @Autowired
+    AccountService accountService;
 
     @GetMapping("")
     public String getCheckout(Model model,
                               ModelMap modelMap,
                               @RequestParam("invoiceId") String invoiceId,
                               @ModelAttribute("CARTS") List<CartItem> cartItemList) {
+
         String message = (String) modelMap.get("alertMessage");
         if (message != null) {
 
             categoryService.listCategory(model);
+            accountService.getAccountResponse(model);
             Invoice invoice = invoiceService.findById(invoiceId);
             List<InvoiceDetail> invoiceDetails = invoiceDetailService.findAllByInvoice_InvoiceId(invoiceId);
             model.addAttribute("invoice", invoice);

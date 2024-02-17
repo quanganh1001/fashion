@@ -32,6 +32,8 @@ public class CtlProduct {
     public ColorService colorService;
     @Autowired
     public SizeService sizeService;
+    @Autowired
+    AccountService accountService;
 
     @GetMapping("/{productId}")
     public String product(Model model, 
@@ -44,6 +46,7 @@ public class CtlProduct {
             return "redirect:/";
         }
         categoryService.listCategory(model);
+        accountService.getAccountResponse(model);
         List<ImgProduct> imgProducts = imgProductService.findAllImgByProduct(productId);
         List<Color> colors = colorService.findColor(productId);
         List<Size> sizes = sizeService.findSize(productId);

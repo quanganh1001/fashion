@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping("/admin/login")
 public class CtlAdminLogin {
     @GetMapping
     public String getHome(@RequestParam(value = "success",required = false) String success, Model model){

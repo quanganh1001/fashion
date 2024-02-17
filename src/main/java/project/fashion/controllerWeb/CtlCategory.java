@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import project.fashion.model.entity.Category;
 import project.fashion.model.entity.ImgProduct;
 import project.fashion.model.entity.Product;
+import project.fashion.model.service.AccountService;
 import project.fashion.model.service.CategoryService;
 import project.fashion.model.service.ImgProductService;
 import project.fashion.model.service.ProductService;
@@ -27,7 +28,8 @@ import java.util.*;
 public class CtlCategory {
     @Autowired
     private CategoryService categoryService;
-
+    @Autowired
+    AccountService accountService;
 
     @GetMapping("/{catId}")
     public String getCategory(Model model,
@@ -37,7 +39,7 @@ public class CtlCategory {
                               @RequestParam(value = "filter",defaultValue = "") String filter,
                               @RequestParam(value = "minPrice",defaultValue = "0") int minPrice,
                               @RequestParam(value = "maxPrice",defaultValue = "3000000") int maxPrice) {
-
+        accountService.getAccountResponse(model);
         categoryService.listCategory(model);
         categoryService.filterCategory(model,filter,page,minPrice,maxPrice,key,catId);
 

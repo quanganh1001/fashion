@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:include="~{web/component/head::head}"></head>
+<body>
+<header th:include="~{web/component/header::header}"></header>
+
+<div class="container-xl" style="min-height: 30vh">
+    <div class="login-box">
+
+        <div class="card card-outline card-primary">
+
+            <div class="card-body">
+                <p class="login-box-msg">Đăng nhập khách hàng</p>
+                <form id="form" th:action="@{/j_spring_security_check}" method="post">
+                    <div class=" mb-3">
+                        <input id="username" type="text" class="form-control" placeholder="Tên đăng nhập"
+                               name="username">
+                        <div id="usernameError" class="text-danger"></div>
+                    </div>
+                    <div class=" mb-3">
+                        <input id="password" type="password" class="form-control" placeholder="Mật khẩu"
+                               name="password">
+                        <div id="passwordError" class="text-danger"></div>
+                    </div>
+                    <span th:if="${error}" th:text="${error}" id="error" style="color: red"></span>
+                    <div class="row">
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{web/component/Footer::Footer}"></div>
+
+</body>
+</html>

@@ -25,10 +25,13 @@ public class CtlHome {
     private ProductService productService;
     @Autowired
     CustomerMailService customerMailService;
+    @Autowired
+    AccountService accountService;
 
     @GetMapping("")
     public String getHome(Model model){
         categoryService.listCategory(model);
+        accountService.getAccountResponse(model);
         List<Category> categoryF2 = categoryService.getCategoryF2();
         List<Product> productSale = productService.findProductByIsDiscountTrue();
 

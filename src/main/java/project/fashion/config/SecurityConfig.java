@@ -8,12 +8,15 @@ import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.RememberMeConfigurer;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import java.util.Collection;
 
 
 @Configuration
@@ -31,16 +34,41 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
                 )
                 .formLogin(login -> login
+                        .loginPage("/admin/login")
+                        .loginProcessingUrl("/j_spring_security_check")
+                        .usernameParameter("username")
+                        .passwordParameter("password")
+                        .defaultSuccessUrl("/admin", true)
+                        .failureUrl("/admin/login?success=fail")
+                        .successHandler((request, response, authentication) -> {
+                            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+                            if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_CUSTOMER"))) {
+                                response.sendRedirect("/");
+                            } else {
+                                response.sendRedirect("/admin");
+                            }
+                        })
+                )
+                .formLogin(login -> login
                         .loginPage("/login")
                         .loginProcessingUrl("/j_spring_security_check")
                         .usernameParameter("username")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/admin", true)
-                        .failureUrl("/login?success=fail"))
+                        .failureUrl("/admin/login?success=fail")
+                        .successHandler((request, response, authentication) -> {
+                            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+                            if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_CUSTOMER"))) {
+                                response.sendRedirect("/");
+                            } else {
+                                response.sendRedirect("/admin");
+                            }
+                        })
+                )
 
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login")
+                        .logoutSuccessUrl("/admin/login")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                 );

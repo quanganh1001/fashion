@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.fashion.model.entity.City;
 import project.fashion.model.entity.Store;
+import project.fashion.model.service.AccountService;
 import project.fashion.model.service.CategoryService;
 import project.fashion.model.service.CityService;
 import project.fashion.model.service.StoreService;
@@ -22,12 +23,15 @@ public class CtlStore {
     private StoreService storeService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    AccountService accountService;
 
     @GetMapping("")
     public String address(Model model,@RequestParam(value = "cityId",defaultValue = "1") Integer cityId){
         List<City> cities = cityService.findAll();
         List<Store> stores = storeService.findAllByCity(cityId);
         categoryService.listCategory(model);
+        accountService.getAccountResponse(model);
         var api = stores.get(0).getApi();
 
         model.addAttribute("cities",cities);

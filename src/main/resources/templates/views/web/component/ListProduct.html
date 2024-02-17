@@ -10,11 +10,11 @@
 
             <img th:unless="${pr.imageBackground1.endsWith('.mp4')}"
                  th:src="@{'/img?fileImg='+ ${pr.imageBackground1}}" alt="..."
-                 style="height: 330px;width: 100%"
+                 style="height: 350px;width: 100%"
                  class="product-image-bg1"
                  th:data-product-id="${pr.productId}">
             <video th:if="${pr.imageBackground1.endsWith('.mp4')}"
-                   style="height: 330px;width: 100%" controls autoplay muted
+                   style="height: 350px;width: 100%" controls autoplay muted
                    th:src="@{'/img?fileImg='+  ${pr.imageBackground1}}"
                    class="product-image-bg1"
                    th:data-product-id="${pr.productId}"></video>
@@ -22,11 +22,11 @@
 
             <img th:unless="${pr.imageBackground2.endsWith('.mp4')}"
                  th:src="@{'/img?fileImg='+  ${pr.imageBackground2}}" alt="..."
-                 style="height: 330px;width: 100%"
+                 style="height: 350px;width: 100%"
                  th:data-product-id="${pr.productId}"
                  class="product-image-bg2 hidden">
             <video th:if="${pr.imageBackground2.endsWith('.mp4')}"
-                   style="height: 330px;width: 100%" controls autoplay muted
+                   style="height: 350px;width: 100%" controls autoplay muted
                    th:src="@{'/img?fileImg='+ ${pr.imageBackground2}}"
                    th:data-product-id="${pr.productId}"
                    class="product-image-bg2 hidden"></video>

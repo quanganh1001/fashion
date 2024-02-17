@@ -49,7 +49,7 @@
             $(".menu-item").click(function() {
 
                 const id = $(this).attr("data-id")
-                if (id === "account") {
+                if (id === "invoice") {
                     window.location.href = "/admin/invoice?accountId=" + [[${account.accountId}]];
                 }else {
                     window.location.href = "/admin/" + id;
