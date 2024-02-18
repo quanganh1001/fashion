@@ -37,62 +37,56 @@ public class AccountService {
                  .collect(Collectors.toList());
     }
 
+    public List<AccountResponse> findAllNotCustomer(){
+        return accountRepo.findAll().stream()
+                .filter(account -> account.getRole() != RoleEnumDTO.ROLE_CUSTOMER) // Lọc ra các tài khoản có vai trò khác "CUSTOMER"
+                .map(AccountResponse::accountResponse)
+                .collect(Collectors.toList());
+    }
+
     public Account findById(Integer id){
          Optional<Account> accountOptional = Optional.of(accountRepo.findById(id).orElse(new Account()));
          return accountOptional.get();
 
     }
-    public String addAccount(Account newAccount, BindingResult result, Model model, RedirectAttributes attributes){
-        if(result.hasErrors()){
-            List<RoleEnumDTO> roles = Arrays.asList(RoleEnumDTO.values());
-            getAccountResponse(model);
-
-            model.addAttribute("newAccount",newAccount);
-            model.addAttribute("roles",roles);
-            model.addAttribute("title","Account");
-
-            return "/admin/AddAccount";
-        }else if (accountRepo.existsByUserName(newAccount.getUserName())){
-            result.rejectValue("userName", "Duplicate.account.userName", "Tên tài khoản đã tồn tại");
-            List<RoleEnumDTO> roles = Arrays.asList(RoleEnumDTO.values());
-            getAccountResponse(model);
-
-            model.addAttribute("newAccount",newAccount);
-            model.addAttribute("roles",roles);
-            model.addAttribute("title","Account");
-            return "/admin/AddAccount";
+    public String addAccount(Account newAccount, RedirectAttributes attributes){
+        if (accountRepo.existsByUserName(newAccount.getUserName())) {
+            attributes.addFlashAttribute("alertMessage", "Tài khoản đã tồn tại");
+            return "redirect:/admin/account/add-account";
+        }else if(accountRepo.existsByPhone(newAccount.getPhone())){
+            attributes.addFlashAttribute("alertMessage", "Số điện thoại đã tồn tại");
+            return "redirect:/admin/account/add-account";
+        } else if (accountRepo.existsByEmail(newAccount.getEmail())) {
+            attributes.addFlashAttribute("alertMessage", "Email đã tồn tại");
+            return "redirect:/admin/account/add-account";
         }else {
             newAccount.setPassword(passwordEncoder.encode("123456"));
             newAccount.setEnabled(true);
-            accountRepo.save(newAccount);
+            Account savedAccount = accountRepo.save(newAccount);
+            int accountId = savedAccount.getAccountId();
             attributes.addFlashAttribute("alertMessage", "Tạo thành công, mật khẩu mặc định là: 123456");
-            return  "redirect:/admin/account";
+            return  "redirect:/admin/account/update-account?accountId="+ accountId;
         }
     }
     @Transactional
-    public String updateAccount(Model model,Account account,BindingResult result,RedirectAttributes attributes){
-        Account account1 = findByUserName(account.getUserName());
-       if (accountRepo.existsByUserName(account.getUserName()) && !Objects.equals(account1.getAccountId(), account.getAccountId())) {
-           result.rejectValue("userName", "Duplicate.account.userName", "Tên tài khoản đã tồn tại");
-           List<RoleEnumDTO> roles = Arrays.asList(RoleEnumDTO.values());
-           getAccountResponse(model);
-
-           model.addAttribute("roles",roles);
-           model.addAttribute("acc",account);
-           model.addAttribute("title","Account");
-           model.addAttribute("changePass",new ChangePasswordDTO());
-           return "/admin/UpdateAccount";
-       }else if(result.hasErrors()){
-           List<RoleEnumDTO> roles = Arrays.asList(RoleEnumDTO.values());
-           getAccountResponse(model);
-
-           model.addAttribute("roles",roles);
-           model.addAttribute("acc",account);
-           model.addAttribute("title","Account");
-           model.addAttribute("changePass",new ChangePasswordDTO());
-           return "/admin/UpdateAccount";
-       }else {
-           accountRepo.updateAccount(account.getAccountId(),account.getUserName(),account.getEnabled(), String.valueOf(account.getRole()));
+    public String updateAccount(AccountResponse account,RedirectAttributes attributes){
+       Account userNameOther = findByUserName(account.getUserName());
+       Account PhoneOther = accountRepo.findByPhone(account.getPhone());
+       Account EmailOther = accountRepo.findByEmail(account.getEmail());
+       if (accountRepo.existsByUserName(account.getUserName()) && !Objects.equals(userNameOther.getAccountId(), account.getAccountId())) {
+           attributes.addFlashAttribute("alertMessage", "Tài khoản đã tồn tại");
+           return "redirect:/admin/account/update-account?accountId="+account.getAccountId();
+       }else if(accountRepo.existsByPhone(account.getPhone()) && !Objects.equals(PhoneOther.getAccountId(), account.getAccountId())){
+           attributes.addFlashAttribute("alertMessage", "Số điện thoại đã tồn tại");
+           return "redirect:/admin/account/update-account?accountId="+account.getAccountId();
+       } else if (accountRepo.existsByEmail(account.getEmail()) && !Objects.equals(EmailOther.getAccountId(), account.getAccountId())) {
+           attributes.addFlashAttribute("alertMessage", "Email đã tồn tại");
+           return "redirect:/admin/account/update-account?accountId="+account.getAccountId();
+       } else {
+           accountRepo.updateAccount(account.getAccountId(),
+                   account.getUserName(),account.getName(),
+                   account.getPhone(),account.getEmail(),account.getAddress(),
+                   account.getEnabled(), String.valueOf(account.getRole()));
            attributes.addFlashAttribute("alertMessage", "Cập nhập thành công");
            return "redirect:/admin/account/update-account?accountId="+account.getAccountId();
         }
@@ -107,11 +101,6 @@ public class AccountService {
             attributes.addFlashAttribute("alertMessage", "Không thể xóa thành công");
             return "redirect:/admin/account";
         }
-    }
-
-    public AccountResponse getAccount(Integer accountId){
-        Optional<Account> accountOptional = Optional.of(accountRepo.findById(accountId).orElse(new Account()));
-        return AccountResponse.accountResponse(accountOptional.get());
     }
 
     @Transactional
@@ -147,7 +136,7 @@ public class AccountService {
 
     public void getAccountResponse(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated() && authentication.getName() != "anonymousUser") {
+        if (authentication != null && authentication.isAuthenticated() && !Objects.equals(authentication.getName(), "anonymousUser")) {
             model.addAttribute("account",AccountResponse.accountResponse(findByUserName(authentication.getName())));
         }
 

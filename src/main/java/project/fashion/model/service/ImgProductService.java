@@ -79,17 +79,10 @@ public class ImgProductService {
 
     }
 
-    public void addImg(MultipartFile[] files, ImgProduct img, String productId) throws IOException {
+    public void addImg(MultipartFile[] files, String productId) throws IOException {
         for (MultipartFile file : files) {
             if (!file.isEmpty()) {
                 ImgProduct imgs = new ImgProduct();
-                if (img.getBackground1() == null || img.getBackground2() == null) {
-                    imgs.setBackground1(false);
-                    imgs.setBackground2(false);
-                }
-
-                Product product = productRepo.getById(productId);
-                imgs.setProduct(product);
 
                 // Lưu ảnh vào thư mục ngoài 'static'
                 String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
@@ -97,6 +90,8 @@ public class ImgProductService {
                 file.transferTo(destFile);
 
                 // Lưu thông tin vào cơ sở dữ liệu
+                Product product = productRepo.getById(productId);
+                imgs.setProduct(product);
                 imgs.setFileImg(fileName);
                 imgProductRepo.save(imgs);
             }

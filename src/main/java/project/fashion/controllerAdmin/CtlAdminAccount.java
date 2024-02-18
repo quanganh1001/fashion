@@ -58,21 +58,20 @@ public class CtlAdminAccount {
     @PostMapping("/add-account")
     public String addAccount(@Validated
                              @ModelAttribute("newAccount") Account newAccount,
-                             BindingResult result,
-                             Model model,
                              RedirectAttributes attributes) {
-        return accountService.addAccount(newAccount,result,model,attributes);
+        return accountService.addAccount(newAccount,attributes);
     }
 
-    @PreAuthorize("isAuthenticated() and (#accountId == (authentication.principal.user.accountId)) or hasAnyRole('MANAGER')")
+    @PreAuthorize("isAuthenticated() and !hasRole('CUSTOMER') and  (#accountId == (authentication.principal.user.accountId)) or hasAnyRole('MANAGER')")
     @GetMapping("/update-account")
     public String updateAccount(Model model,@RequestParam("accountId") Integer accountId) {
         List<RoleEnumDTO> roles = Arrays.asList(RoleEnumDTO.values());
         accountService.getAccountResponse(model);
         feedbackCustomerService.countUnread(model);
+        AccountResponse accountResponse = AccountResponse.accountResponse(accountService.findById(accountId));
 
         model.addAttribute("roles",roles);
-        model.addAttribute("acc",accountService.findById(accountId));
+        model.addAttribute("acc",accountResponse);
         model.addAttribute("title","Account");
         model.addAttribute("changePass",new ChangePasswordDTO());
         return "admin/UpdateAccount";
@@ -80,11 +79,9 @@ public class CtlAdminAccount {
 
     @PreAuthorize("isAuthenticated() and (#accountId == (authentication.principal.user.accountId)) or hasAnyRole('MANAGER')")
     @PutMapping("/update-account")
-    public String updateAccount(Model model,
-                                @Validated @ModelAttribute("acc") Account account,
-                                BindingResult result,
+    public String updateAccount(@ModelAttribute("acc") AccountResponse account,
                                 RedirectAttributes attributes) {
-        return accountService.updateAccount(model,account,result,attributes);
+        return accountService.updateAccount(account,attributes);
     }
 
     @PreAuthorize("isAuthenticated() and (#accountId == (authentication.principal.user.accountId)) or hasAnyRole('MANAGER')")

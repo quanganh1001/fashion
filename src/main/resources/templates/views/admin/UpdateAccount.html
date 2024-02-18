@@ -11,24 +11,78 @@
     <div class="content-admin p-4">
         <h2>Cập nhập tài khoản</h2>
         <div class="mt-5 bg-white p-5 shadow border">
-            <form th:action="@{/admin/account/update-account}"
+            <form id="form" th:action="@{/admin/account/update-account}"
                   th:object="${acc}" th:method="put">
                 <input type="hidden" th:field="*{accountId}">
                 <div class="row">
-                    <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3">
-                        <label for="userName" class="form-label">Tài khoản<span style="color:red">*</span></label>
-                        <input type="text" class="form-control" id="userName"
+                    <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
+                        <label class="form-label">Tên đăng nhập<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="user-name"
                                th:field="*{userName}">
-                        <p th:if="${#fields.hasErrors('userName')}" class="text-danger" th:errors="*{userName}"></p>
+                        <span id="username-error" class=" text-danger"></span>
                     </div>
 
-                    <div th:unless="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3">
-                        <label class="form-label">Tài khoản<span style="color:red">*</span></label>
+                    <div th:unless="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
+                        <label class="form-label">Tên đăng nhập<span style="color:red">*</span></label>
                         <input readonly type="text" class="readonly form-control"
                                th:field="*{userName}">
                     </div>
 
-                    <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3">
+                    <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
+                        <label class="form-label">Họ và tên<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="name"
+                               th:field="*{name}">
+                        <span id="name-error" class=" text-danger"></span>
+                    </div>
+
+                    <div th:unless="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
+                        <label class="form-label">Họ và tên<span style="color:red">*</span></label>
+                        <input readonly type="text" class="readonly form-control"
+                               th:field="*{name}">
+                    </div>
+
+
+                    <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
+                        <label class="form-label">Số điện thoại<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" th:id="phone"
+                               th:field="*{phone}">
+                        <span id="phone-error" class=" text-danger"></span>
+                    </div>
+
+                    <div th:unless="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
+                        <label class="form-label">Số điện thoại<span style="color:red">*</span></label>
+                        <input readonly type="text" class="readonly form-control" th:id="phone"
+                               th:field="*{phone}">
+                    </div>
+
+                    <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
+                        <label class="form-label">Email<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" th:id="email"
+                               th:field="*{email}">
+                        <span id="email-error" class=" text-danger"></span>
+                    </div>
+
+                    <div th:unless="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
+                        <label class="form-label">Email<span style="color:red">*</span></label>
+                        <input readonly type="text" class="readonly form-control" th:id="phone"
+                               th:field="*{phone}">
+                    </div>
+
+                    <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
+                        <label class="form-label">Địa chỉ<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" th:id="address"
+                               th:field="*{address}">
+                        <span id="address-error" class=" text-danger"></span>
+                    </div>
+
+                    <div th:unless="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
+                        <label class="form-label">Địa chỉ<span style="color:red">*</span></label>
+                        <input readonly type="text" class="readonly form-control" th:id="address"
+                               th:field="*{address}">
+
+                    </div>
+
+                    <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
                         <label for="role" class="form-label">Quyền<span
                                 style="color:red">*</span></label>
                         <select class="form-control" id="role" th:field="*{role}">
@@ -37,7 +91,13 @@
                         </select>
                     </div>
 
-                    <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}">
+                    <div th:unless="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
+                        <label class="form-label">Quyền<span style="color:red">*</span></label>
+                        <input readonly type="text" class="readonly form-control" th:id="role"
+                               th:field="*{role}">
+                    </div>
+
+                    <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" >
                         <label for="enabled" class="form-label">Trạng thái<span style="color:red">*</span></label>
                         <input id="enabled" type="checkbox"
                                class="form-check-input"
