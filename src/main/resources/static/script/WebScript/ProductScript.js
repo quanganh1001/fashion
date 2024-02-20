@@ -30,9 +30,9 @@ $(document).ready(function () {
         $("#no-submit").removeClass("hidden")
         $("#submit").addClass("hidden")
 
-        $('.color').removeClass('bg-success text-light checkedColor');
+        $('.color').removeClass('btn btn-dark checkedColor');
 
-        $(this).addClass('bg-success text-light checkedColor');
+        $(this).addClass('btn btn-dark checkedColor');
 
 
         var input = $(this).find('input[name="color"]');

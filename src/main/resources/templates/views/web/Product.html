@@ -74,8 +74,8 @@
                         <label th:text="${color.name}"
                                th:data-color-id="${color.colorId}"
                                th:data-product-id="${product.productId}"
-                               class="color m-2 border p-2"
-                               th:classappend="${status.index == 0} ? 'bg-success text-light checkedColor' : ''">
+                               class="color m-2 btn border p-2"
+                               th:classappend="${status.index == 0} ? 'btn btn-dark checkedColor' : ''">
                             <input type="radio" name="color"
                                    th:value="${color.colorId}"
                                    th:id="${color.colorId}"
@@ -97,8 +97,8 @@
                 </div>
 
                 <div class="mt-5">
-                    <span class=" p-3 btn btn-primary disabled " id="no-submit">Thêm vào giỏ hàng</span>
-                    <button type="button" class="btn btn-primary p-3 hidden" id="submit">Thêm vào giỏ hàng</button>
+                    <span class=" p-3 btn btn-dark disabled " id="no-submit">Thêm vào giỏ hàng</span>
+                    <button type="button" class="btn btn-dark p-3 hidden" id="submit">Thêm vào giỏ hàng</button>
                 </div>
             </form>
         </div>

@@ -1,87 +1,89 @@
-<div th:fragment="ListProduct" >
-    <div class=" d-flex flex-wrap justify-content-around" >
-    <div th:each="pr : ${products}" class="shadow card hover m-2" style="width: 30%">
-        <div class="card  position-relative">
-            <div th:if="${pr.isDiscount}"
-                 style="z-index: 2;background-color: red;width:50px"
-                 class="position-absolute top-0 start-0 text-white rounded-pill m-2 fw-bold d-flex justify-content-center"
-                 th:text="'-'+${pr.discountPercent} +'%'">
+<div th:fragment="ListProduct">
+    <div class=" d-flex flex-wrap justify-content-around">
+        <div th:each="pr : ${products}" class="shadow card hover m-2" style="width: 30%">
+            <div class="card  position-relative">
+                <div th:if="${pr.isDiscount}"
+                     style="z-index: 2;background-color: red;width:50px"
+                     class="position-absolute top-0 start-0 text-white rounded-pill m-2 fw-bold d-flex justify-content-center"
+                     th:text="'-'+${pr.discountPercent} +'%'">
+                </div>
+
+                <img th:unless="${pr.imageBackground1.endsWith('.mp4')}"
+                     th:src="@{'/img?fileImg='+ ${pr.imageBackground1}}" alt="..."
+                     style="height: 350px;width: 100%"
+                     class="product-image-bg1"
+                     th:data-product-id="${pr.productId}">
+                <video th:if="${pr.imageBackground1.endsWith('.mp4')}"
+                       style="height: 350px;width: 100%" controls autoplay muted
+                       th:src="@{'/img?fileImg='+  ${pr.imageBackground1}}"
+                       class="product-image-bg1"
+                       th:data-product-id="${pr.productId}"></video>
+
+
+                <img th:unless="${pr.imageBackground2.endsWith('.mp4')}"
+                     th:src="@{'/img?fileImg='+  ${pr.imageBackground2}}" alt="..."
+                     style="height: 350px;width: 100%"
+                     th:data-product-id="${pr.productId}"
+                     class="product-image-bg2 hidden">
+                <video th:if="${pr.imageBackground2.endsWith('.mp4')}"
+                       style="height: 350px;width: 100%" controls autoplay muted
+                       th:src="@{'/img?fileImg='+ ${pr.imageBackground2}}"
+                       th:data-product-id="${pr.productId}"
+                       class="product-image-bg2 hidden"></video>
+
+
+                <a style="width: 80%" th:href="@{/products/__${pr.productId}__}"
+                   class="btn btn-dark border-white shadow fw-bold  add-to-cart-btn">Chi tiết sản phẩm
+                </a>
             </div>
 
-            <img th:unless="${pr.imageBackground1.endsWith('.mp4')}"
-                 th:src="@{'/img?fileImg='+ ${pr.imageBackground1}}" alt="..."
-                 style="height: 350px;width: 100%"
-                 class="product-image-bg1"
-                 th:data-product-id="${pr.productId}">
-            <video th:if="${pr.imageBackground1.endsWith('.mp4')}"
-                   style="height: 350px;width: 100%" controls autoplay muted
-                   th:src="@{'/img?fileImg='+  ${pr.imageBackground1}}"
-                   class="product-image-bg1"
-                   th:data-product-id="${pr.productId}"></video>
 
-
-            <img th:unless="${pr.imageBackground2.endsWith('.mp4')}"
-                 th:src="@{'/img?fileImg='+  ${pr.imageBackground2}}" alt="..."
-                 style="height: 350px;width: 100%"
-                 th:data-product-id="${pr.productId}"
-                 class="product-image-bg2 hidden">
-            <video th:if="${pr.imageBackground2.endsWith('.mp4')}"
-                   style="height: 350px;width: 100%" controls autoplay muted
-                   th:src="@{'/img?fileImg='+ ${pr.imageBackground2}}"
-                   th:data-product-id="${pr.productId}"
-                   class="product-image-bg2 hidden"></video>
-
-            <a th:href="@{/products/__${pr.productId}__}">
-                <button
-                        class="btn btn-primary add-to-cart-btn">Chi tiết sản phẩm
-                </button>
-            </a>
-        </div>
-
-        <div class="card-body">
-            <div class="d-flex justify-content-between">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
                                 <span th:text="'+'+ ${pr.totalColor}+' Màu sắc'" class="fw-light"
                                       style="font-size:14px"></span>
-                <span th:text="'+' +${pr.totalSize}+ ' Kích thước'" class="fw-light"
-                      style="font-size:14px"></span>
-            </div>
-            <h5 class="card-title mt-2" th:text="${pr.productName}"></h5>
-            <div th:if="${pr.isDiscount == true}">
+                    <span th:text="'+' +${pr.totalSize}+ ' Kích thước'" class="fw-light"
+                          style="font-size:14px"></span>
+                </div>
+                <h5 class="card-title mt-2" th:text="${pr.productName}"></h5>
+                <div th:if="${pr.isDiscount == true}">
                         <span th:text="${#numbers.formatDecimal(pr.price, 0, 'POINT', 0, 'POINT')} +' đ'"
                               style="text-decoration-line: line-through"></span>
-                <span th:text="${#numbers.formatDecimal(pr.discountPrice, 0, 'POINT', 0, 'POINT')} +' đ'"
-                      style="color: red;font-weight: bold"></span>
-            </div>
-            <div th:unless="${pr.isDiscount == true}">
+                    <span th:text="${#numbers.formatDecimal(pr.discountPrice, 0, 'POINT', 0, 'POINT')} +' đ'"
+                          style="color: red;font-weight: bold"></span>
+                </div>
+                <div th:unless="${pr.isDiscount == true}">
                         <span th:text="${#numbers.formatDecimal(pr.price, 0, 'POINT', 0, 'POINT')} +' đ'"
                               style="color: red;font-weight: bold"></span>
+                </div>
             </div>
         </div>
-    </div>
 
-    <nav th:if="${totalItems >= 1}" aria-label="Page navigation" class="col-12 mt-5">
-        <ul class="pagination">
-            <li class="page-item" th:class="${currentPage == 1} ? 'page-item disabled' : 'page-item'">
-                <a class="page-link"
-                   th:href="@{/category/${catId}(page=${currentPage}-1,minPrice=${minPrice},maxPrice=${maxPrice},filter=${filter},key=${key})}"
-                   aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}">
-                <a class="page-link" th:href="@{/category/__${catId}__(page=${i >= 1 ? i : 1},minPrice=${minPrice},maxPrice=${maxPrice},filter=${filter},key=${key})}"
-                   th:text="${i}"
-                   th:class="${currentPage == i} ? 'page-link active' : 'page-link'"
-                ></a>
-            </li>
-            <li class="page-item"
-                th:class="${currentPage == totalPages} ? 'page-item disabled' : 'page-item'">
-                <a class="page-link" th:href="@{/category/__${catId}__(page=${currentPage +1},minPrice=${minPrice},maxPrice=${maxPrice},filter=${filter},key=${key})}"
-                   aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+        <nav th:if="${totalItems >= 1}" aria-label="Page navigation" class="col-12 mt-5">
+            <ul class="pagination">
+                <li class="page-item" th:class="${currentPage == 1} ? 'page-item disabled' : 'page-item'">
+                    <a class="page-link"
+                       th:href="@{/category/${catId}(page=${currentPage}-1,minPrice=${minPrice},maxPrice=${maxPrice},filter=${filter},key=${key})}"
+                       aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}">
+                    <a class="page-link"
+                       th:href="@{/category/__${catId}__(page=${i >= 1 ? i : 1},minPrice=${minPrice},maxPrice=${maxPrice},filter=${filter},key=${key})}"
+                       th:text="${i}"
+                       th:class="${currentPage == i} ? 'page-link active' : 'page-link'"
+                    ></a>
+                </li>
+                <li class="page-item"
+                    th:class="${currentPage == totalPages} ? 'page-item disabled' : 'page-item'">
+                    <a class="page-link"
+                       th:href="@{/category/__${catId}__(page=${currentPage +1},minPrice=${minPrice},maxPrice=${maxPrice},filter=${filter},key=${key})}"
+                       aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
