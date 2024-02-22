@@ -1,6 +1,7 @@
 package project.fashion.controllerAdmin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -30,13 +31,20 @@ public class CtlAdminAccount {
 
     @PreAuthorize("hasAnyRole('MANAGER')")
     @GetMapping()
-    public String getAllAccount(Model model) {
-        List<AccountResponse> accounts = accountService.findAll();
+    public String getAllAccount(Model model,
+                                @RequestParam(value = "key",defaultValue = "") String key,
+                                @RequestParam(value = "page", defaultValue = "1") int page) {
+        Page<AccountResponse> accounts = accountService.findAll(page -1,key);
 
         accountService.getAccountResponse(model);
         feedbackCustomerService.countUnread(model);
 
-        model.addAttribute("accounts", accounts);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalItems", accounts.getTotalElements());
+        model.addAttribute("accounts", accounts.getContent());
+        model.addAttribute("totalPages", accounts.getTotalPages());
+        model.addAttribute("key",key);
+
         model.addAttribute("title","Account");
         return "admin/AccountAdmin";
     }

@@ -5,6 +5,9 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import project.fashion.model.entity.Account;
+import project.fashion.model.entity.Product;
+
+import java.util.List;
 
 public interface AccountRepo extends JpaRepository<Account, Integer> {
     Account findByUserName(String userName);
@@ -38,4 +41,7 @@ public interface AccountRepo extends JpaRepository<Account, Integer> {
                        @Param("address") String address,
                        @Param("enabled") Boolean enabled,
                        @Param("role") String role);
+
+    List<Account> searchAccountByUserNameContainingIgnoreCaseOrEmailContainingIgnoreCaseOrPhoneContainingIgnoreCase(String key1,
+                                                                                                 String key2,String key3);
 }

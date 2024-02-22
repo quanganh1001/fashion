@@ -38,15 +38,15 @@ public class ProductService {
         productRepo.setProductActive(cat_id, boo);
     }
 
-    public Page<Product> searchProduct(String key, int page, int pagesize) {
+    public Page<Product> searchProduct(String key, int page) {
         if (page < 0) {
             page = 0;
         }
         if (key != null && !key.isEmpty()) {
             return productRepo.searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase(
-                    key, key, PageRequest.of(page, pagesize));
+                    key, key, PageRequest.of(page, 10));
         } else {
-            return productRepo.findAll(PageRequest.of(page, pagesize));
+            return productRepo.findAll(PageRequest.of(page, 10));
         }
     }
 

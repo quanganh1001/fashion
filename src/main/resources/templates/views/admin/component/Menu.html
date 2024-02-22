@@ -11,14 +11,14 @@
             <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" th:data-id="color">Quản
                 lý mã màu
             </li>
-            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" th:data-id="account">Quản
-                lý tài khoản
-            </li>
             <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" th:data-id="store">Quản
                 lý cửa hàng
             </li>
             <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" th:data-id="banner">Quản
                 lý ảnh banner
+            </li>
+            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" th:data-id="account">Quản
+                lý tài khoản
             </li>
             <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}"
                 class=" p-3 text-light menu-item"

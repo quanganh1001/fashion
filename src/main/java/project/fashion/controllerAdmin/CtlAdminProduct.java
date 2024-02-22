@@ -46,7 +46,7 @@ public class CtlAdminProduct {
                                 @RequestParam(defaultValue = "1") int page,
                                 @RequestParam(name = "key", required = false) String key){
         Page<Product> searchResults =
-                productService.searchProduct(key,page -1,10);
+                productService.searchProduct(key,page -1);
 
         accountService.getAccountResponse(model);
         feedbackCustomerService.countUnread(model);

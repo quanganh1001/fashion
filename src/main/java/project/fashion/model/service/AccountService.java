@@ -2,6 +2,9 @@ package project.fashion.model.service;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -32,9 +35,21 @@ public class AccountService {
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public List<AccountResponse> findAll(){
-        return  accountRepo.findAll().stream()
+        return accountRepo.findAll().stream()
                  .map(AccountResponse::accountResponse)
                  .collect(Collectors.toList());
+    }
+
+    public Page<AccountResponse> findAll(int page,String key){
+        List<AccountResponse> accountResponses = accountRepo.searchAccountByUserNameContainingIgnoreCaseOrEmailContainingIgnoreCaseOrPhoneContainingIgnoreCase(key,key,key).stream()
+                .map(AccountResponse::accountResponse)
+                .toList();
+
+        if (page < 0)
+            page = 0;
+        int start = Math.toIntExact(PageRequest.of(page, 10).getOffset());
+        int end = Math.min((start + PageRequest.of(page, 10).getPageSize()), accountResponses.size());
+        return new PageImpl<>(accountResponses.subList(start, end), PageRequest.of(page, 10), accountResponses.size());
     }
 
     public List<AccountResponse> findAllNotCustomer(){
