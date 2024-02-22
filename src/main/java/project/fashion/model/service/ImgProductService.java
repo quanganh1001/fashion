@@ -83,13 +83,6 @@ public class ImgProductService {
         for (MultipartFile file : files) {
             if (!file.isEmpty()) {
                 ImgProduct imgs = new ImgProduct();
-                if (img.getBackground1() == null || img.getBackground2() == null) {
-                    imgs.setBackground1(false);
-                    imgs.setBackground2(false);
-                }
-
-                Product product = productRepo.getById(productId);
-                imgs.setProduct(product);
 
                 // Lưu ảnh vào thư mục ngoài 'static'
                 String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
@@ -98,6 +91,9 @@ public class ImgProductService {
 
                 // Lưu thông tin vào cơ sở dữ liệu
                 imgs.setFileImg(fileName);
+                Product product = productRepo.getById(productId);
+                imgs.setProduct(product);
+
                 imgProductRepo.save(imgs);
             }
         }

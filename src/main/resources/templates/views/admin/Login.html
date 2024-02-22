@@ -11,7 +11,7 @@
         </div>
         <div class="card-body">
             <p class="login-box-msg">Đăng nhập</p>
-            <form id="form" th:action="@{/j_spring_security_check}" method="post">
+            <form id="form" th:action="@{/login(page=admin)}" method="post">
                 <div class=" mb-3">
                     <input id="username" type="text" class="form-control" placeholder="Tên đăng nhập" name="username">
                     <div id="usernameError" class="text-danger"></div>

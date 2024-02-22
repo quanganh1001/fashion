@@ -17,10 +17,14 @@ public class CtlLogin {
     @Autowired
     CategoryService categoryService;
 
-    @GetMapping()
-    public String login(Model model){
-        categoryService.listCategory(model);
+    @GetMapping
+    public String getlogin(@RequestParam(value = "success",required = false) String success, Model model){
+        if (success != null){
+            model.addAttribute("error","Sai tài khoản hoặc mật khẩu");
+        }
         accountService.getAccountResponse(model);
+        categoryService.listCategory(model);
+        model.addAttribute("title","Đăng nhập");
         return "web/Login";
     }
 }

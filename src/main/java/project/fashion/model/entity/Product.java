@@ -19,10 +19,7 @@ public class Product {
     private String description;
     private Integer totalSize;
     private Integer totalColor;
-    @Column(name = "image_background_1")
-    private String imageBackground1;
-    @Column(name = "image_background_2")
-    private String imageBackground2;
+    private String imageBackground;
     private Boolean isProductActive;
 
     @ManyToOne

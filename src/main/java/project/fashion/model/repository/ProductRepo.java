@@ -33,13 +33,8 @@ public interface ProductRepo extends JpaRepository<Product, String> {
     List<Product> findProductByIsDiscountTrueAndIsProductActiveTrueOrderByDiscountPercentDesc();
 
     @Modifying
-    @Query(value = "UPDATE products SET image_background_1 = :imageName WHERE product_id = :productId",
+    @Query(value = "UPDATE products SET image_background = :imageName WHERE product_id = :productId",
             nativeQuery = true)
-    void setProductImgBackground1(@Param("productId") String productId, @Param("imageName") String imageName);
-
-    @Modifying
-    @Query(value = "UPDATE products SET image_background_2 = :imageName WHERE product_id = :productId",
-            nativeQuery = true)
-    void setProductImgBackground2(@Param("productId") String productId, @Param("imageName") String imageName);
+    void setProductImgBackground(@Param("productId") String productId, @Param("imageName") String imageName);
 
 }

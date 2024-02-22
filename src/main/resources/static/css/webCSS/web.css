@@ -2,6 +2,7 @@
 
 *{
     font-family: "Quicksand", sans-serif;
+    font-size: 0.95rem;
 }
 .ui-menu-item-wrapper{
     display: flex;
@@ -45,3 +46,8 @@ a{
     background-color: grey;
 }
 
+#logout:hover{
+    background-color: #c4c4c4;
+    border-radius: 100%;
+    padding: 5px;
+}

@@ -16,7 +16,7 @@
 <header th:include="~{web/component/header::header}"></header>
 <div th:replace="~{web/component/Breadcrumb::Breadcrumb}"></div>
 
-<div class="col-12 d-flex" style="min-height: 30vh">
+<div class="col-12 d-flex mb-5" style="min-height: 30vh">
 
     <div class="d-flex flex-wrap container-xl p-0 ">
         <div class="col-3 bg-light p-3 align-self-start">
@@ -46,8 +46,6 @@
         </div>
 
         <div id="list-product" class="col-9" th:include="~{web/component/ListProduct::ListProduct}"></div>
-
-
     </div>
 </div>
 <script th:inline="javascript">

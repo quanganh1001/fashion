@@ -8,29 +8,14 @@
                      th:text="'-'+${pr.discountPercent} +'%'">
                 </div>
 
-                <img th:unless="${pr.imageBackground1.endsWith('.mp4')}"
-                     th:src="@{'/img?fileImg='+ ${pr.imageBackground1}}" alt="..."
+                <img th:unless="${pr.imageBackground.endsWith('.mp4')}"
+                     th:src="@{'/img?fileImg='+ ${pr.imageBackground}}" alt="..."
                      style="height: 350px;width: 100%"
-                     class="product-image-bg1"
                      th:data-product-id="${pr.productId}">
-                <video th:if="${pr.imageBackground1.endsWith('.mp4')}"
+                <video th:if="${pr.imageBackground.endsWith('.mp4')}"
                        style="height: 350px;width: 100%" controls autoplay muted
-                       th:src="@{'/img?fileImg='+  ${pr.imageBackground1}}"
-                       class="product-image-bg1"
+                       th:src="@{'/img?fileImg='+  ${pr.imageBackground}}"
                        th:data-product-id="${pr.productId}"></video>
-
-
-                <img th:unless="${pr.imageBackground2.endsWith('.mp4')}"
-                     th:src="@{'/img?fileImg='+  ${pr.imageBackground2}}" alt="..."
-                     style="height: 350px;width: 100%"
-                     th:data-product-id="${pr.productId}"
-                     class="product-image-bg2 hidden">
-                <video th:if="${pr.imageBackground2.endsWith('.mp4')}"
-                       style="height: 350px;width: 100%" controls autoplay muted
-                       th:src="@{'/img?fileImg='+ ${pr.imageBackground2}}"
-                       th:data-product-id="${pr.productId}"
-                       class="product-image-bg2 hidden"></video>
-
 
                 <a style="width: 80%" th:href="@{/products/__${pr.productId}__}"
                    class="btn btn-dark border-white shadow fw-bold  add-to-cart-btn">Chi tiết sản phẩm
@@ -45,7 +30,7 @@
                     <span th:text="'+' +${pr.totalSize}+ ' Kích thước'" class="fw-light"
                           style="font-size:14px"></span>
                 </div>
-                <h5 class="card-title mt-2" th:text="${pr.productName}"></h5>
+                <h6 class=" mt-2" th:text="${pr.productName}"></h6>
                 <div th:if="${pr.isDiscount == true}">
                         <span th:text="${#numbers.formatDecimal(pr.price, 0, 'POINT', 0, 'POINT')} +' đ'"
                               style="text-decoration-line: line-through"></span>

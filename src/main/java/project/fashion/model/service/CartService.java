@@ -64,7 +64,7 @@ public class CartService {
                     product.getProductName(),
                     productDetail.getColor().getName(),
                     productDetail.getSize().getName(),
-                    productDetail.getProduct().getImageBackground1()
+                    productDetail.getProduct().getImageBackground()
             );
             cartItemList.add(cartItem);
         }

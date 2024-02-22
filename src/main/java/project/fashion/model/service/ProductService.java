@@ -22,7 +22,7 @@ import static org.apache.commons.lang3.StringUtils.isNumeric;
 
 
 @Service
-public class ProductService{
+public class ProductService {
     @Autowired
     private ProductRepo productRepo;
     @Autowired
@@ -32,66 +32,64 @@ public class ProductService{
 
     public void setProductActive(String cat_id, Boolean boo) {
         List<Product> product = productRepo.findByCategoryCatId(cat_id);
-        for (Product p : product){
-            productDetailRepo.setProductDetailActive(p.getProductId(),boo);
+        for (Product p : product) {
+            productDetailRepo.setProductDetailActive(p.getProductId(), boo);
         }
-        productRepo.setProductActive(cat_id,boo);
+        productRepo.setProductActive(cat_id, boo);
     }
 
-    public Page<Product> searchProduct(String key,int page,  int pagesize) {
-        if(page < 0){
+    public Page<Product> searchProduct(String key, int page, int pagesize) {
+        if (page < 0) {
             page = 0;
         }
         if (key != null && !key.isEmpty()) {
             return productRepo.searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase(
-                    key, key, PageRequest.of(page,pagesize));
+                    key, key, PageRequest.of(page, pagesize));
         } else {
-            return productRepo.findAll(PageRequest.of(page,pagesize));
+            return productRepo.findAll(PageRequest.of(page, pagesize));
         }
     }
 
     @Transactional
-    public String saveProduct(Product product,RedirectAttributes attributes) throws Exception {
+    public String saveProduct(Product product, RedirectAttributes attributes) throws Exception {
 
-        if(Objects.equals(product.getProductId(), "")|| product.getProductId() == null||
-                Objects.equals(product.getProductName(), "")|| product.getProductName() == null||
-                Objects.equals(product.getPrice(), "")|| product.getPrice() == null|| !isNumeric(product.getPrice().toString())||
-                Objects.equals(product.getBrand(), "")|| product.getBrand() == null||
-                Objects.equals(product.getCategory(), "")|| product.getCategory() == null
-                ) {
+        if (Objects.equals(product.getProductId(), "") || product.getProductId() == null ||
+                Objects.equals(product.getProductName(), "") || product.getProductName() == null ||
+                Objects.equals(product.getPrice(), "") || product.getPrice() == null || !isNumeric(product.getPrice().toString()) ||
+                Objects.equals(product.getBrand(), "") || product.getBrand() == null ||
+                Objects.equals(product.getCategory(), "") || product.getCategory() == null
+        ) {
             throw new Exception("Lỗi validation");
-        }
-        else if(product.getDiscountPrice() != null && !isNumeric(product.getDiscountPrice().toString())){
+        } else if (product.getDiscountPrice() != null && !isNumeric(product.getDiscountPrice().toString())) {
             throw new Exception("Lỗi validation");
-        }
-        else {
-            productDetailRepo.setProductDetailActive(product.getProductId(),product.getIsProductActive());
+        } else {
+            productDetailRepo.setProductDetailActive(product.getProductId(), product.getIsProductActive());
             productRepo.save(product);
-            attributes.addFlashAttribute("alertMessage","Đã cập nhập sản phẩm");
-            return "redirect:/admin/product/update-product/"+product.getProductId();
+            attributes.addFlashAttribute("alertMessage", "Đã cập nhập sản phẩm");
+            return "redirect:/admin/product/update-product/" + product.getProductId();
         }
     }
 
     @Transactional
     public String addProduct(Product product, RedirectAttributes attributes) throws Exception {
-        if(Objects.equals(product.getProductId(), "")|| product.getProductId() == null||
-                Objects.equals(product.getProductName(), "")|| product.getProductName() == null||
-                Objects.equals(product.getPrice(), "")|| product.getPrice() == null|| !isNumeric(product.getPrice().toString())||
-                Objects.equals(product.getBrand(), "")|| product.getBrand() == null||
-                Objects.equals(product.getCategory(), "")|| product.getCategory() == null
+        if (Objects.equals(product.getProductId(), "") || product.getProductId() == null ||
+                Objects.equals(product.getProductName(), "") || product.getProductName() == null ||
+                Objects.equals(product.getPrice(), "") || product.getPrice() == null || !isNumeric(product.getPrice().toString()) ||
+                Objects.equals(product.getBrand(), "") || product.getBrand() == null ||
+                Objects.equals(product.getCategory(), "") || product.getCategory() == null
         ) {
             throw new Exception("Lỗi validation");
-        }else if(product.getDiscountPrice() != null && !isNumeric(product.getDiscountPrice().toString())){
+        } else if (product.getDiscountPrice() != null && !isNumeric(product.getDiscountPrice().toString())) {
             throw new Exception("Lỗi validation");
 
-        }else if(productRepo.existsById(product.getProductId())) {
-            attributes.addFlashAttribute("alertMessage","Sản phẩm đã tồn tại");
+        } else if (productRepo.existsById(product.getProductId())) {
+            attributes.addFlashAttribute("alertMessage", "Sản phẩm đã tồn tại");
             return "redirect:/admin/product/add-product";
-        }
-        else {
-            productDetailRepo.setProductDetailActive(product.getProductId(),product.getIsProductActive());
+        } else {
+            productDetailRepo.setProductDetailActive(product.getProductId(), product.getIsProductActive());
+            product.setImageBackground("no_image.jpg");
             productRepo.save(product);
-            attributes.addFlashAttribute("alertMessage","Đã tạo sản phẩm");
+            attributes.addFlashAttribute("alertMessage", "Đã tạo sản phẩm");
             return "redirect:/admin/product/update-product/" + product.getProductId();
         }
     }
@@ -119,27 +117,22 @@ public class ProductService{
     }
 
 
-    public List<Product> findAll(){
+    public List<Product> findAll() {
         return productRepo.findAll();
     }
 
-    public Product findById(String productId){
+    public Product findById(String productId) {
         Optional<Product> productOptional = Optional.of(productRepo.findById(productId).orElse(new Product()));
         return productOptional.get();
     }
 
-    public List<Product> findProductByIsDiscountTrue(){
+    public List<Product> findProductByIsDiscountTrue() {
         return productRepo.findProductByIsDiscountTrueAndIsProductActiveTrueOrderByDiscountPercentDesc();
     }
 
     @Transactional
-    public void setBackground(String productId, String imageName, int imbg)  {
-        if (imbg == 1) {
-            productRepo.setProductImgBackground1(productId,imageName);
-        }
-        if (imbg == 2) {
-            productRepo.setProductImgBackground2(productId,imageName);
-        }
+    public void setBackground(String productId, String imageName) {
+        productRepo.setProductImgBackground(productId, imageName);
     }
 
 }

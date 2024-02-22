@@ -75,9 +75,8 @@ public class CtlAdminImgProduct {
     @PostMapping ("/img-bg")
     public ResponseEntity<String> changeImg(Model model,
                             @RequestParam("imageName") String imageName,
-                            @RequestParam("numberBackground") int numberBackground,
                             @RequestParam("productId") String productId) {
-        productService.setBackground(productId, imageName, numberBackground);
+        productService.setBackground(productId, imageName);
         accountService.getAccountResponse(model);
 
         return ResponseEntity.ok(imageName);

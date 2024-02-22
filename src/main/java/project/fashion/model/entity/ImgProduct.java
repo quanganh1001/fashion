@@ -13,12 +13,6 @@ public class ImgProduct {
 
     private String fileImg;
 
-    @Column(name = "background_1")
-    private Boolean background1;
-
-    @Column(name = "background_2")
-    private Boolean background2;
-
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;

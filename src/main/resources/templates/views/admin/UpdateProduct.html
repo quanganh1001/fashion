@@ -29,6 +29,7 @@
                       method="POST"
                       th:object="${p}">
                     <input type="hidden" name="_method" value="put"/>
+                    <input type="hidden" th:field="*{imageBackground}" value="put"/>
                     <div class="row">
                         <div class="mb-3">
                             <label for="product-id" class="form-label">Mã sản phẩm<span

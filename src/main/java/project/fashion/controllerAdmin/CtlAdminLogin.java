@@ -12,6 +12,7 @@ public class CtlAdminLogin {
         if (success != null){
             model.addAttribute("error","Sai tài khoản hoặc mật khẩu");
         }
+        model.addAttribute("title","Đăng nhập");
         return "admin/Login";
     }
 
