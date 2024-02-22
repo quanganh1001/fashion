@@ -13,9 +13,11 @@ import project.fashion.model.DTO.RoleEnumDTO;
 @NoArgsConstructor
 public class AccountResponse {
     private Integer accountId;
-    @Size(min = 6,max = 16,message = "Tên tài khoản phải từ 6-16 ký tự")
-    @Pattern(regexp = "\\S+", message = "Không được chứa khoảng trắng")
     private String userName;
+    private String name;
+    private String phone;
+    private String email;
+    private String address;
     private Boolean enabled;
     private RoleEnumDTO role;
 
@@ -23,6 +25,10 @@ public class AccountResponse {
         AccountResponse accountResponse = new AccountResponse();
         accountResponse.setAccountId(account.getAccountId());
         accountResponse.setUserName(account.getUserName());
+        accountResponse.setName(account.getName());
+        accountResponse.setPhone(account.getPhone());
+        accountResponse.setEmail(account.getEmail());
+        accountResponse.setAddress(account.getAddress());
         accountResponse.setEnabled(account.getEnabled());
         accountResponse.setRole(account.getRole());
         return accountResponse;

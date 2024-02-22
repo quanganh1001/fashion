@@ -85,6 +85,7 @@ public class ProductService {
         } else if (productRepo.existsById(product.getProductId())) {
             attributes.addFlashAttribute("alertMessage", "Sản phẩm đã tồn tại");
             return "redirect:/admin/product/add-product";
+
         } else {
             productDetailRepo.setProductDetailActive(product.getProductId(), product.getIsProductActive());
             product.setImageBackground("no_image.jpg");

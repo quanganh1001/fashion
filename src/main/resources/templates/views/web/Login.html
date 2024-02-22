@@ -26,15 +26,16 @@
                 </a>
                 <a href="#" class="link-primary btn-link">Đăng ký tài khoản</a>
             </div>
-    <span th:if="${error}" th:text="${error}" id="error" style="color: red"></span>
+            <span th:if="${error}" th:text="${error}" id="error" style="color: red"></span>
 
-    <div class="col-12 d-flex justify-content-center">
-        <button type="submit" class="btn btn-dark btn-block">Đăng nhập</button>
+            <div class="col-12 d-flex justify-content-center">
+                <button type="submit" class="btn btn-dark btn-block">Đăng nhập</button>
+            </div>
+
+        </form>
     </div>
+</div>
 
-    </form>
-</div>
-</div>
 <div th:replace="~{web/component/Footer::Footer}"></div>
 
 </body>

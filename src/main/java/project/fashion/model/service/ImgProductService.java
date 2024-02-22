@@ -79,7 +79,7 @@ public class ImgProductService {
 
     }
 
-    public void addImg(MultipartFile[] files, ImgProduct img, String productId) throws IOException {
+    public void addImg(MultipartFile[] files, String productId) throws IOException {
         for (MultipartFile file : files) {
             if (!file.isEmpty()) {
                 ImgProduct imgs = new ImgProduct();
@@ -90,10 +90,9 @@ public class ImgProductService {
                 file.transferTo(destFile);
 
                 // Lưu thông tin vào cơ sở dữ liệu
-                imgs.setFileImg(fileName);
                 Product product = productRepo.getById(productId);
                 imgs.setProduct(product);
-
+                imgs.setFileImg(fileName);
                 imgProductRepo.save(imgs);
             }
         }

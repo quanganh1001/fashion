@@ -39,7 +39,7 @@ public class CtlAdminInvoice {
         accountService.getAccountResponse(model);
         feedbackCustomerService.countUnread(model);
 
-        List<AccountResponse> accountResponses = accountService.findAll();
+        List<AccountResponse> accountResponses = accountService.findAllNotCustomer();
 
         model.addAttribute("accountResponses",accountResponses);
         model.addAttribute("selectAccount",selectAccount);

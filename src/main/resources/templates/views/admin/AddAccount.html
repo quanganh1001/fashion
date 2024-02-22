@@ -15,13 +15,42 @@
         <div class="mt-5 bg-white p-5 shadow border">
             <form id="form" th:action="@{/admin/account/add-account}" method="post" th:object="${newAccount}">
                 <div class="row">
-                    <div class="mb-3">
-                        <label for="userName" class="form-label">Tên tài khoản<span style="color:red">*</span></label>
-                        <input type="text" class="form-control" id="userName" th:field="*{userName}">
-                        <p th:if="${#fields.hasErrors('userName')}" class="text-danger" th:errors="*{userName}"></p>
+                    <div class="mb-3 col-6">
+                        <label for="user-name" class="form-label">Tên tài khoản<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="user-name" th:field="*{userName}">
+                        <span id="username-error" class=" text-danger"></span>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3 col-6">
+                        <label class="form-label">Họ và tên<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="name"
+                               th:field="*{name}">
+                        <span id="name-error" class=" text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 col-6">
+                        <label class="form-label">Số điện thoại<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" th:id="phone"
+                               th:field="*{phone}">
+                        <span id="phone-error" class=" text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-3 col-6">
+                        <label class="form-label">Email<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="email"
+                               th:field="*{email}">
+                        <span id="email-error" class=" text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 col-6">
+                        <label class="form-label">Địa chỉ<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" th:id="address"
+                               th:field="*{address}">
+                        <span id="address-error" class=" text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 col-6">
                         <label th:for="role" class="form-label">Phân quyền<span style="color:red">*</span></label>
                         <select class="form-control" th:id="role" th:field="*{role}">
                             <option th:each="role : ${roles}" th:value="${role}"
@@ -37,6 +66,7 @@
         </div>
     </div>
 </div>
+<script th:src="@{/script/AdminScript/AddAccountScript.js}"></script>
 </body>
 </html>
 

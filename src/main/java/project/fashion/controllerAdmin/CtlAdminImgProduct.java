@@ -56,12 +56,11 @@ public class CtlAdminImgProduct {
     }
 
     @PostMapping("/add-img")
-    public String addImgPr(@ModelAttribute("img") ImgProduct img,
-                           @RequestParam("productId") String productId,
+    public String addImgPr(@RequestParam("productId") String productId,
                            @RequestParam(value = "file", required = false) MultipartFile[] files,
                            RedirectAttributes attributes) {
         try{
-            imgProductService.addImg(files, img, productId);
+            imgProductService.addImg(files, productId);
             attributes.addFlashAttribute("alertMessage", "Đã thêm thành công");
             return "redirect:/admin/imgProduct/add-img?productId=" + productId;
         }catch (Exception e){

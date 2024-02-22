@@ -18,13 +18,17 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer accountId;
 
-    @Size(min = 6,max = 16,message = "Tên tài khoản phải từ 6-16 ký tự")
-    @Pattern(regexp = "\\S+", message = "Không được chứa khoảng trắng")
-    @Column(unique = true)
     private String userName;
 
-    @Size(min = 6,message = "Mật khẩu phải có từ 6 ký tự trở lên")
     private String password;
+
+    private String name;
+
+    private String phone;
+
+    private String email;
+
+    private String address;
 
     private Boolean enabled;
 

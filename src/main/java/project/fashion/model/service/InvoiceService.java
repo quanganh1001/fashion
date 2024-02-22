@@ -204,6 +204,12 @@ public class InvoiceService {
                 Account account = accountService.findByUserName(authentication.getName());
                 invoice.setAccount(account);
             }
+            if (invoice.getIsPaid()==null){
+                invoice.setIsPaid(false);
+            }
+            invoice.setShippingFee(0);
+            invoice.setTotalPrice(0);
+            invoice.setTotalBill(0);
             invoice.setInvoiceStatus(status);
             invoice.setCreatedAt(LocalDateTime.now());
             // create history
@@ -235,11 +241,7 @@ public class InvoiceService {
             InvoiceStatus status = new InvoiceStatus();
             status.setStatusId(1);
 
-            if(invoice.getAccount() == null){
-                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-                Account account = accountService.findByUserName(authentication.getName());
-                invoice.setAccount(account);
-            }
+            invoice.setAccount(null);
             invoice.setInvoiceStatus(status);
             invoice.setCreatedAt(LocalDateTime.now());
             // create history

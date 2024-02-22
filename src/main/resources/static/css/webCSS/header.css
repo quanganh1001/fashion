@@ -39,3 +39,8 @@ a{
     border-radius: 5px;
     font-size: 0.6rem;
 }
+
+#logout:hover{
+    background-color: #d9d7d7;
+    cursor: pointer;
+}
