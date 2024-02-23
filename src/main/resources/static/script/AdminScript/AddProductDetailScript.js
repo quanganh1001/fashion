@@ -35,4 +35,5 @@ $(document).ready(() => {
 
         return validation;
     })
+
 })

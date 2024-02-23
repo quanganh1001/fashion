@@ -1,0 +1,7 @@
+<div th:fragment="ListColor">
+  <option value="">Chưa chọn</option>
+  <option th:each="color : ${colors}"
+          th:value="${color.colorId}"
+          th:text="${color.name}">
+  </option>
+</div>

@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import project.fashion.model.entity.City;
 import project.fashion.model.entity.Color;
 import project.fashion.model.entity.ProductDetail;
 import project.fashion.model.repository.ColorRepo;
@@ -49,4 +51,12 @@ public class ColorService{
         return new ArrayList<>(new HashSet<>(colorList));
     }
 
+    public void save(Model model, Color newColor){
+        if(colorRepo.existsById(newColor.getColorId())){
+            model.addAttribute("message","Mã sản phẩm đã tồn tại");
+        }else {
+            colorRepo.save(newColor);
+            model.addAttribute("message","Thêm thành công");
+        }
+    }
 }

@@ -1,0 +1,126 @@
+<div th:fragment="ModalColor">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm mã màu</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form-color" th:action="@{/admin/color/add-color}" method="post" th:object="${color}">
+                    <div class="row d-flex justify-content-center">
+                        <div class="mb-3 col-6">
+                            <label for="color-id" class="form-label">Mã màu<span style="color:red">*</span></label>
+                            <input type="text" class="form-control" id="color-id" th:field="*{colorId}">
+                            <span id="idError" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3 col-6">
+                            <label for="name" class="form-label">Tên màu<span style="color:red">*</span></label>
+                            <input type="text" class="form-control" id="name" th:field="*{name}">
+                            <span id="nameError" class="text-danger"></span>
+                        </div>
+
+                        <button type="button" id="btn-color"
+                                class="col-4 btn btn-primary">Thêm mã
+                            màu
+                        </button>
+                        <div th:if="${message != null}">
+                            <span th:if="${message == 'Mã sản phẩm đã tồn tại'}" th:text="${message}"
+                                  class="text-danger"></span>
+                            <span th:unless="${message == 'Mã sản phẩm đã tồn tại'}" th:text="${message}"
+                                  class="text-success"></span>
+                        </div>
+                        <div id="color-error" class="text-danger"></div>
+                    </div>
+                </form>
+                <ul th:if="${colors != null}" th:each="color :${colors}" class="mt-3" id="list-color">
+                    <li>
+                        <button class=" delete btn btn-danger" th:data-id="${color.colorId}">Xóa</button>
+                        <span th:text="${color.colorId} + ' - ' + ${color.name}"
+                              class="fw-bold">
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class=" btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        function updateListColor(){
+            $.ajax({
+                type: 'GET',
+                url: '/admin/color/list-color',
+                success: (data) => {
+                    $("#color").html(data)
+                },
+                error: (jqXHR) => {
+                    alert(jqXHR.responseText)
+                }
+            });
+        }
+        $(document).ready(() => {
+            const csrfToken = $("meta[name='_csrf']").attr("content");
+            const csrfHeader = $("meta[name='_csrf_header']").attr("content");
+            $(".delete").click((btn) => {
+                const colorId = $(btn.target).attr("data-id");
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/admin/color/delete-color',
+                    data: {colorId: colorId},
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(csrfHeader, csrfToken);
+                    },
+                    success: (data) => {
+                        $("#modal-color").html(data);
+                        updateListColor();
+                    },
+                    error: (jqXHR) => {
+                        $("#color-error").text("Không thể xóa");
+                        $("#color-error").focus();
+                    }
+                });
+            })
+            $("#btn-color").click(() => {
+                let validation = true
+
+                if ($("#color-id").val() === ""){
+                    $("#idError").text("Chưa nhập mã màu")
+                    validation = false
+                }else {
+                    $("#idError").text("")
+                }
+
+                if($("#name").val() === ""){
+                    $("#nameError").text("Chưa nhập tên màu")
+                    validation = false
+                }else {
+                    $("#nameError").text("")
+                }
+
+                if (validation){
+                    const formData = $('#form-color').serializeArray(); // Lấy dữ liệu form
+                    const url = $('#form-color').attr('action');
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        data: formData,
+                        beforeSend: function (xhr) {
+                            // Sử dụng tên HTTP header chuẩn và giá trị token
+                            xhr.setRequestHeader(csrfHeader, csrfToken);
+                        },
+                        success: (data) => {
+                            $("#modal-color").html(data);
+                            updateListColor();
+                        },
+                        error: (jqXHR) => {
+                            alert(jqXHR.responseText)
+                        }
+                    });
+                }
+            })
+        })
+    </script>
+</div>

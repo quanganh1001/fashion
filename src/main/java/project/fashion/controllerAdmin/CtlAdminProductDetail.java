@@ -35,13 +35,14 @@ public class CtlAdminProductDetail {
     @GetMapping("/add-prDetail")
     public String addProductDetail(Model model,@RequestParam("productId") String productId) {
         List<Size> s = sizeService.findAll();
-        List<Color> cl = colorService.findAll();
+        List<Color> colors = colorService.findAll();
         accountService.getAccountResponse(model);
         feedbackCustomerService.countUnread(model);
 
         model.addAttribute("productId", productId);
         model.addAttribute("s", s);
-        model.addAttribute("cl", cl);
+        model.addAttribute("colors", colors);
+        model.addAttribute("color",new Color());
         model.addAttribute("pd", new ProductDetail());
         model.addAttribute("title","Product");
         return "/admin/AddProductDetail";
@@ -56,7 +57,7 @@ public class CtlAdminProductDetail {
 
     @GetMapping("update-detail/{prDetailId}")
     public String updateProductDetail(Model model, @PathVariable("prDetailId") Integer prDetailId) {
-        List<Color> color = colorService.findAll();
+        List<Color> colors = colorService.findAll();
         List<Size> size = sizeService.findAll();
         List<Product> product =  productService.findAll();
         ProductDetail pd = productDetailService.getById(prDetailId);
@@ -64,7 +65,8 @@ public class CtlAdminProductDetail {
 
         accountService.getAccountResponse(model);
 
-        model.addAttribute("color", color);
+        model.addAttribute("colors", colors);
+        model.addAttribute("color", new Color());
         model.addAttribute("size", size);
         model.addAttribute("product", product);
         model.addAttribute("pd",pd);

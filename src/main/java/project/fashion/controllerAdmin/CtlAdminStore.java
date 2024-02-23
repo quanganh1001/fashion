@@ -94,7 +94,7 @@ public class CtlAdminStore {
         List<City> cities = cityService.findAll();
 
         model.addAttribute("cities",cities);
-        return "admin/component/ModalCity";
+        return "admin/modal/ModalCity";
     }
 
     @DeleteMapping("delete-city")
@@ -102,7 +102,7 @@ public class CtlAdminStore {
         cityService.delete(cityId);
         List<City> cities = cityService.findAll();
         model.addAttribute("cities",cities);
-        return "admin/component/ModalCity";
+        return "admin/modal/ModalCity";
     }
 
     @GetMapping("list-city")

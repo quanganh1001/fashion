@@ -37,9 +37,14 @@
 
                     <div class="mb-3">
                         <label for="color" class="form-label">Màu<span
-                                style="color:red">*</span></label>
+                                style="color:red">*</span>
+                            <span data-bs-toggle="modal"
+                                  data-bs-target="#modal-color">
+                            <i class="fa-regular fa-square-plus"></i>
+                            </span>
+                        </label>
                         <select class="form-control" id="color" th:field="*{color.colorId}">
-                            <option th:each="cl : ${color}" th:value="${cl.colorId}"
+                            <option th:each="cl : ${colors}" th:value="${cl.colorId}"
                                     th:text="${cl.name} + ' - ' + ${cl.colorId}"></option>
                         </select>
                     </div>
@@ -66,6 +71,12 @@
         </div>
     </div>
 </div>
+<!--     Modal-->
+<div class="modal fade" id="modal-color" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div th:include="~{admin/modal/ModalColor::ModalColor}"></div>
+</div>
+
+
 <script th:src="@{/script/AdminScript/UpdateProductDetaiScript.js}"></script>
 </body>
 </html>

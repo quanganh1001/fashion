@@ -8,9 +8,6 @@
                 Quản lý danh mục Sản phẩm
             </li>
             <li class="p-3 text-light menu-item" th:data-id="invoice">Quản lý đơn hàng</li>
-            <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" th:data-id="color">Quản
-                lý mã màu
-            </li>
             <li th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="p-3 text-light menu-item" th:data-id="store">Quản
                 lý cửa hàng
             </li>
@@ -41,7 +38,7 @@
                 </form>
             </div>
         </ul>
-    <div th:include="~{admin/component/ModalAlert::ModalAlert}"></div>
+    <div th:include="~{admin/modal/ModalAlert::ModalAlert}"></div>
 
 
     <script th:inline="javascript">
