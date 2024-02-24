@@ -21,6 +21,7 @@ h2{
 
 .readonly{
     background-color: #c4c4c4;
+    border: #c4c4c4;
 }
 
 li:hover{

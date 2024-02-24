@@ -24,62 +24,36 @@
 
                     <div th:unless="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
                         <label class="form-label">Tên đăng nhập<span style="color:red">*</span></label>
-                        <input readonly type="text" class="readonly form-control"
-                               th:field="*{userName}">
+                        <div th:text="${acc.userName}" class="form-control readonly"></div>
                     </div>
 
-                    <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
+                    <div class="mb-3 col-6">
                         <label class="form-label">Họ và tên<span style="color:red">*</span></label>
                         <input type="text" class="form-control" id="name"
                                th:field="*{name}">
                         <span id="name-error" class=" text-danger"></span>
                     </div>
 
-                    <div th:unless="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
-                        <label class="form-label">Họ và tên<span style="color:red">*</span></label>
-                        <input readonly type="text" class="readonly form-control"
-                               th:field="*{name}">
-                    </div>
 
-
-                    <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
+                    <div class="mb-3 col-6">
                         <label class="form-label">Số điện thoại<span style="color:red">*</span></label>
-                        <input type="text" class="form-control" th:id="phone"
+                        <input type="text" class="form-control" id="phone"
                                th:field="*{phone}">
                         <span id="phone-error" class=" text-danger"></span>
                     </div>
 
-                    <div th:unless="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
-                        <label class="form-label">Số điện thoại<span style="color:red">*</span></label>
-                        <input readonly type="text" class="readonly form-control" th:id="phone"
-                               th:field="*{phone}">
-                    </div>
-
-                    <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
+                    <div class="mb-3 col-6">
                         <label class="form-label">Email<span style="color:red">*</span></label>
-                        <input type="text" class="form-control" th:id="email"
+                        <input type="text" class="form-control" id="email"
                                th:field="*{email}">
                         <span id="email-error" class=" text-danger"></span>
                     </div>
 
-                    <div th:unless="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
-                        <label class="form-label">Email<span style="color:red">*</span></label>
-                        <input readonly type="text" class="readonly form-control" th:id="email"
-                               th:field="*{phone}">
-                    </div>
-
-                    <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
+                    <div class="mb-3 col-6">
                         <label class="form-label">Địa chỉ<span style="color:red">*</span></label>
-                        <input type="text" class="form-control" th:id="address"
+                        <input type="text" class="form-control" id="address"
                                th:field="*{address}">
                         <span id="address-error" class=" text-danger"></span>
-                    </div>
-
-                    <div th:unless="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
-                        <label class="form-label">Địa chỉ<span style="color:red">*</span></label>
-                        <input readonly type="text" class="readonly form-control" th:id="address"
-                               th:field="*{address}">
-
                     </div>
 
                     <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
@@ -91,29 +65,16 @@
                         </select>
                     </div>
 
-                    <div th:unless="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
-                        <label class="form-label">Quyền<span style="color:red">*</span></label>
-                        <input readonly type="text" class="readonly form-control"
-                               th:field="*{role}">
-                    </div>
-
                     <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" >
                         <label for="enabled" class="form-label">Trạng thái<span style="color:red">*</span></label>
                         <input id="enabled" type="checkbox"
                                class="form-check-input"
                                th:field="*{enabled}">Hoạt động/Không kích hoạt
                     </div>
-
-                    <div th:unless="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" >
-                        <label  class="form-label">Trạng thái<span style="color:red">*</span></label>
-                        <input type="checkbox"
-                               class="form-check-input" readonly
-                               th:field="*{enabled}">Hoạt động/Không kích hoạt
-                    </div>
                 </div>
 
                 <div class="col-6 d-flex justify-content-between">
-                    <button th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" style="text-align: center"
+                    <button style="text-align: center"
                             type="submit" id="button" class="col-2 btn btn-primary">Lưu
                     </button>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"

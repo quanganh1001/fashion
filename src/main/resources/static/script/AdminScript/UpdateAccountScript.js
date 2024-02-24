@@ -98,12 +98,6 @@ $(document).ready(() => {
             $("#phoneError").text("");
         }
 
-        if ($("#email").val() === "") {
-            validation = false
-            $("#email-error").text("Chưa nhập email")
-        } else {
-            $("#email-error").text("");
-        }
 
         if ($("#address").val() === "") {
             validation = false
