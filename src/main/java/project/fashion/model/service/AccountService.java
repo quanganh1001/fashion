@@ -1,6 +1,7 @@
 package project.fashion.model.service;
 
 import jakarta.transaction.Transactional;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -19,7 +20,6 @@ import project.fashion.model.entity.Account;
 import project.fashion.model.DTO.ChangePasswordDTO;
 import project.fashion.model.DTO.RoleEnumDTO;
 import project.fashion.model.repository.AccountRepo;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -31,6 +31,8 @@ public class AccountService {
 
     @Autowired
     private AccountRepo accountRepo;
+    @Autowired
+    EmailService emailService;
 
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -146,6 +148,7 @@ public class AccountService {
             }
 
         }
+
         return "redirect:/admin/account/update-account?accountId="+accountId;
     }
 
@@ -159,5 +162,22 @@ public class AccountService {
 
     public Account findByUserName(String username){
         return accountRepo.findByUserName(username);
+    }
+
+
+    @Transactional
+    public ResponseEntity<String> changePass(String email){
+        Optional<Account> accountOptional = Optional.of(Optional.ofNullable(accountRepo.findByEmail(email)).orElse(new Account()));
+        if (accountOptional.get().getAccountId() != null){
+            String randomPass =  RandomStringUtils.randomAlphanumeric(8);
+            accountRepo.changePassword(accountOptional.get().getAccountId(),passwordEncoder.encode(randomPass));
+            String subject = "Đặt lại mật khẩu";
+            String text = "Bạn vừa thực hiện hành động cấp lại mật khẩu:\n"+ "Tên đăng nhập: "+accountOptional.get().getUserName() + "\nMật khẩu: "+randomPass+"\nHãy đăng nhập và đổi lại mật khẩu mới!";
+            emailService.sendEmail(accountOptional.get().getEmail(),subject,text);
+            return ResponseEntity.ok("Đã gửi tài khoản và mật khẩu mới về địa chỉ email đăng ký");
+        }else{
+            return ResponseEntity.ok("Email không chính xác");
+        }
+
     }
 }

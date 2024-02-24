@@ -84,6 +84,7 @@
                        placeholder="Nhập email của bạn" style="font-size: 0.7rem">
                 <button type="submit" class="btn btn-dark" id="btn-send-mail">Đăng ký</button>
             </div>
+            <div class="font-success hidden" id="loading-send-mail">Đang gửi...</div>
         </div>
     </div>
     <p class="fs-6 fw-light border-top border-dark-subtle p-2 d-flex justify-content-center">Copyright © 2024 <a class="ms-1" href="https://torano.vn"> Torano</a>.
@@ -93,6 +94,7 @@
     <script>
         $(document).ready(() =>{
             $("#btn-send-mail").click(()=>{
+
                 const email = $("#email-input").val()
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if(email === ""){
@@ -100,6 +102,7 @@
                 }else if(!emailRegex.test(email)){
                     $("#email-input").addClass("border-danger")
                 }else {
+                    $("#loading-send-mail").toggleClass("hidden")
                     const csrfToken = $("meta[name='_csrf']").attr("content");
                     const csrfHeader = $("meta[name='_csrf_header']").attr("content");
                     // Thêm mã CSRF vào headers của yêu cầu AJAX
@@ -113,6 +116,7 @@
                         success: (response) => {
                             $("#myModal").modal('show')
                             $("#modal-content").text(response)
+                            $("#loading-send-mail").toggleClass("hidden")
                         },
                         error: (jqXHR) => {
                             alert(jqXHR.responseText)

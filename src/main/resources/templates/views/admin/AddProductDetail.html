@@ -3,8 +3,8 @@
 
 <head th:include="~{admin/component/head::head}"></head>
 <style>
-    #list-color {
-        max-height: 100px;
+    #list-color,#list-size {
+        max-height: 50vh;
         overflow-y: auto;
     }
 </style>
@@ -47,7 +47,12 @@
                     </div>
 
                     <div class="mb-3 col-6">
-                        <label for="size" class="form-label">Size<span style="color:red">*</span></label>
+                        <label for="size" class="form-label">Size<span style="color:red">*</span>
+                            <span data-bs-toggle="modal"
+                                  data-bs-target="#modal-size">
+                            <i class="fa-regular fa-square-plus"></i>
+                            </span>
+                        </label>
                         <select class="form-control" id="size" th:field="*{size.sizeId}">
                             <option value="">--Chọn size--</option>
                             <option th:each="s : ${s}" th:value="${s.sizeId}"
@@ -68,13 +73,10 @@
 <div class="modal fade" id="modal-color" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div th:include="~{admin/modal/ModalColor::ModalColor}"></div>
 </div>
-
 <!--     Modal-->
-<!--<div class="modal fade" id="modal-color" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
-<!--    <div id="modal">-->
-<!--        <div th:include="~{admin/component/ModalCity::ModalCity}"></div>-->
-<!--    </div>-->
-<!--</div>-->
+<div class="modal fade" id="modal-size" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div th:include="~{admin/modal/ModalSize::ModalSize}"></div>
+</div>
 <script th:src="@{/script/AdminScript/AddProductDetailScript.js}"></script>
 </body>
 </html>
