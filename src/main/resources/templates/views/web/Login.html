@@ -9,7 +9,7 @@
     <h4 class="fw-bold">Đăng nhập khách hàng</h4>
 
     <div class="col-6 mt-4">
-        <form id="form" th:action="@{/login(page=customer)}" method="post">
+        <form id="form-login-page" th:action="@{/login}" method="post">
             <div class=" mb-3">
                 <input id="username" type="text" class="form-control" placeholder="Tên đăng nhập"
                        name="username">
@@ -35,7 +35,11 @@
         </form>
     </div>
 </div>
-
+<script>
+    $(document).ready(() => {
+        $("#form-login-page").attr("action", "/login?url=" + encodeURIComponent(window.location.pathname));
+    })
+</script>
 <div th:replace="~{web/component/Footer::Footer}"></div>
 
 </body>

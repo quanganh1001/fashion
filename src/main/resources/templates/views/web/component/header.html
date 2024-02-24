@@ -79,7 +79,8 @@
                         <span>Xin chào, </span>
                         <span th:text="${account.userName} + '!'" class="me-2"></span>
                     </div>
-                    <form id="form-logout" th:action="@{/logout}" method="post" class="align-self-center">
+                    <form th:id="form-logout" th:action="@{/logout}" method="post"
+                          class="align-self-center">
                         <i id="logout" class="fa-solid fa-arrow-right-from-bracket" style="padding: 5px;"></i>
                     </form>
                 </div>
@@ -89,7 +90,7 @@
                          aria-expanded="false"><i class="fa-solid fa-user"></i></div>
                     <div class="dropdown-menu p-3">
                         <div class="fw-bold">Đăng nhập</div>
-                        <form th:action="@{/login(page=customer)}" method="post" class="mt-3">
+                        <form id="form-login" th:action="@{/login}" method="post" class="mt-3">
                             <input type="text" name="username" id="name" class="form-control" style="font-size: 0.8rem"
                                    placeholder="Tên đăng nhập">
                             <input type="password" name="password" id="password" class="form-control mt-3"
@@ -104,6 +105,9 @@
     </nav>
     <script>
         $(document).ready(() => {
+            $("#form-login").attr("action", "/login?url=" + encodeURIComponent(window.location.pathname));
+            $("#form-logout").attr("action", "/logout?url=" + encodeURIComponent(window.location.pathname));
+
             $("#search-form").submit(() => {
                 let validation = true
                 if ($("#search-input").val() === "") {

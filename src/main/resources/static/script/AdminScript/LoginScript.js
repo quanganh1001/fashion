@@ -1,4 +1,6 @@
 $(document).ready(() => {
+    $("#form-login").attr("action", "/login?url=" + encodeURIComponent(window.location.pathname));
+
     $("#form").submit(() => {
         let validation = true
         if($("#username").val() === ""){

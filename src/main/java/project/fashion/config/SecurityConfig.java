@@ -47,21 +47,18 @@ public class SecurityConfig {
                         .passwordParameter("password")
 
                         .failureHandler((request, response, exception) -> {
-                            String paramValue = request.getParameter("page");
-                            if (Objects.equals(paramValue, "customer")){
-                                response.sendRedirect("/login?success=fail");
-                            } else{
-                                response.sendRedirect("/admin/login?success=fail");
-                            }
-
+                            String paramValue = request.getParameter("url");
+                            response.sendRedirect(paramValue +"?success=fail");
                         })
 
                         .successHandler((request, response, authentication) -> {
-                            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-                            if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_CUSTOMER"))) {
+                            String paramValue = request.getParameter("url");
+                            if(Objects.equals(paramValue, "/login")){
                                 response.sendRedirect("/");
-                            } else {
+                            } else if (Objects.equals(paramValue, "/admin/login")) {
                                 response.sendRedirect("/admin");
+                            }else {
+                                response.sendRedirect(paramValue);
                             }
                         })
                 )
@@ -69,12 +66,8 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessHandler((request, response, authentication) -> {
-                            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-                            if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_CUSTOMER"))) {
-                                response.sendRedirect("/");
-                            } else {
-                                response.sendRedirect("/admin/login");
-                            }
+                            String paramValue = request.getParameter("url");
+                                response.sendRedirect(paramValue);
                         })
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
