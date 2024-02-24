@@ -100,10 +100,15 @@ public class AccountService {
            attributes.addFlashAttribute("alertMessage", "Email đã tồn tại");
            return "redirect:/admin/account/update-account?accountId="+account.getAccountId();
        } else {
+           Optional<Account> accountOptional = Optional.of(Optional.ofNullable(findById(account.getAccountId())).orElse(new Account()));
            accountRepo.updateAccount(account.getAccountId(),
-                   account.getUserName(),account.getName(),
-                   account.getPhone(),account.getEmail(),account.getAddress(),
-                   account.getEnabled(), String.valueOf(account.getRole()));
+                   accountOptional.get().getUserName(),
+                   account.getName(),
+                   account.getPhone(),
+                   account.getEmail(),
+                   account.getAddress(),
+                   accountOptional.get().getEnabled(),
+                   String.valueOf(accountOptional.get().getRole()));
            attributes.addFlashAttribute("alertMessage", "Cập nhập thành công");
            return "redirect:/admin/account/update-account?accountId="+account.getAccountId();
         }
@@ -131,26 +136,6 @@ public class AccountService {
         }
     }
 
-    @Transactional
-    public String changePass(ChangePasswordDTO changePasswordDTO,Integer accountId,BindingResult result,RedirectAttributes attributes){
-        Optional<Account> accountOptional= Optional.of(accountRepo.findById(accountId).orElse(new Account()));
-        if(!result.hasErrors()){
-            if(passwordEncoder.matches(changePasswordDTO.getOldPassword(), accountOptional.get().getPassword())){
-                if(!Objects.equals(changePasswordDTO.getNewPasswordAgain(), changePasswordDTO.getPassword())){
-                    result.rejectValue("password", "newPasswordAgain.account.password", "Nhập lại không khớp");
-                }else {
-                    accountRepo.changePassword(accountId,passwordEncoder.encode(changePasswordDTO.getPassword()));
-                    attributes.addFlashAttribute("alertMessage", "Đổi mật khẩu thành công");
-                }
-
-            }else {
-                result.rejectValue("password", "oldPassWord.account.password", "Mật khẩu cũ không đúng");
-            }
-
-        }
-
-        return "redirect:/admin/account/update-account?accountId="+accountId;
-    }
 
     public void getAccountResponse(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -166,7 +151,7 @@ public class AccountService {
 
 
     @Transactional
-    public ResponseEntity<String> changePass(String email){
+    public ResponseEntity<String> sendPass(String email){
         Optional<Account> accountOptional = Optional.of(Optional.ofNullable(accountRepo.findByEmail(email)).orElse(new Account()));
         if (accountOptional.get().getAccountId() != null){
             String randomPass =  RandomStringUtils.randomAlphanumeric(8);
@@ -199,6 +184,17 @@ public class AccountService {
 
             attributes.addFlashAttribute("alertMessage", "Đăng ký tài khoản thành công");
             return "redirect:/login";
+        }
+    }
+
+    @Transactional
+    public ResponseEntity<String> changePass(ChangePasswordDTO changePasswordDTO,int accountId){
+        Optional<Account> accountOptional = Optional.of(Optional.ofNullable(findById(accountId)).orElse(new Account()));
+        if(passwordEncoder.matches(changePasswordDTO.getOldPassword(), accountOptional.get().getPassword())){
+            accountRepo.changePassword(accountId,passwordEncoder.encode(changePasswordDTO.getPassword()));
+            return ResponseEntity.ok("accountId="+accountId);
+        }else {
+            return ResponseEntity.ok("Mật khẩu cũ không chính xác");
         }
     }
 }

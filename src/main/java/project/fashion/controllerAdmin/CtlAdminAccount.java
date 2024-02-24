@@ -72,11 +72,17 @@ public class CtlAdminAccount {
 
     @PreAuthorize("isAuthenticated() and !hasRole('CUSTOMER') and  (#accountId == (authentication.principal.user.accountId)) or hasAnyRole('MANAGER')")
     @GetMapping("/update-account")
-    public String updateAccount(Model model,@RequestParam("accountId") Integer accountId) {
+    public String updateAccount(Model model,@RequestParam("accountId") Integer accountId,
+                                @RequestParam(value = "alert",required = false) String alert) {
+
         List<RoleEnumDTO> roles = Arrays.asList(RoleEnumDTO.values());
         accountService.getAccountResponse(model);
         feedbackCustomerService.countUnread(model);
         AccountResponse accountResponse = AccountResponse.accountResponse(accountService.findById(accountId));
+
+        if(alert != null){
+            model.addAttribute("alertMessage","Lưu thành công");
+        }
 
         model.addAttribute("roles",roles);
         model.addAttribute("acc",accountResponse);
@@ -87,7 +93,8 @@ public class CtlAdminAccount {
 
     @PreAuthorize("isAuthenticated() and (#accountId == (authentication.principal.user.accountId)) or hasAnyRole('MANAGER')")
     @PutMapping("/update-account")
-    public String updateAccount(@ModelAttribute("acc") AccountResponse account,
+    public String updateAccount(@RequestParam("accountId") Integer accountId,
+                                @ModelAttribute("acc") AccountResponse account,
                                 RedirectAttributes attributes) {
         return accountService.updateAccount(account,attributes);
     }
@@ -105,13 +112,9 @@ public class CtlAdminAccount {
     }
 
     @PreAuthorize("isAuthenticated() and (#accountId == (authentication.principal.user.accountId)) or hasAnyRole('MANAGER')")
-    @PutMapping("/change-password/{accountId}")
-    public String changePassword(@Validated
-                                 @ModelAttribute("changePass") ChangePasswordDTO changePass,
-                                 BindingResult result,
-                                 @PathVariable("accountId") Integer accountId,
-                                 RedirectAttributes attributes
-                                 ) {
-        return accountService.changePass(changePass,accountId,result,attributes);
+    @PutMapping("/change-password")
+    public ResponseEntity<String> changePassword(@ModelAttribute ChangePasswordDTO changePass,
+                                                 @RequestParam("accountId") Integer accountId) {
+        return accountService.changePass(changePass,accountId);
     }
 }

@@ -77,10 +77,10 @@
                 <div class="ms-3 d-flex" th:if="${account != null}">
                     <div class="d-flex flex-column ">
                         <span>Xin chào, </span>
-                        <span th:text="${account.userName} + '!'" class="me-2"></span>
+                        <a th:href="@{/info-account(accountId=${account.accountId})}" th:text="${account.userName} + '!'" class=" fst-italic text-decoration-underline btn-link"></a>
                     </div>
                     <form th:id="form-logout" th:action="@{/logout}" method="post"
-                          class="align-self-center">
+                          class="align-self-center ms-1">
                         <i id="logout" class="fa-solid fa-arrow-right-from-bracket" style="padding: 5px;"></i>
                     </form>
                 </div>
@@ -98,11 +98,11 @@
                             <input type="password" name="password" id="password" class="form-control mt-3"
                                    style="font-size: 0.8rem" placeholder="Mật khẩu">
                             <div class="d-flex justify-content-between col-12">
-                                <a href="#" class=" fst-italic text-decoration-underline link-opacity-80-hover"
+                                <a href="#" class=" fst-italic text-decoration-underline btn-link"
                                    style="font-size:0.8rem" data-bs-toggle="modal"
                                    data-bs-target="#modal-forgot-password">Quên mật khẩu?
                                 </a>
-                                <a href="#" class="link-primary btn-link">Đăng ký tài khoản</a>
+                                <a href="/register" class="btn-link">Đăng ký tài khoản</a>
                             </div>
                             <button class="btn btn-dark mt-3">Đăng nhập</button>
                         </form>

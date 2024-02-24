@@ -48,7 +48,13 @@ public class SecurityConfig {
 
                         .failureHandler((request, response, exception) -> {
                             String paramValue = request.getParameter("url");
-                            response.sendRedirect(paramValue +"?success=fail");
+                            if(Objects.equals(paramValue, "/login")){
+                                response.sendRedirect("/login?success=fail");
+                            } else if (Objects.equals(paramValue, "/admin/login")) {
+                                response.sendRedirect("/admin/login?success=fail");
+                            }else {
+                                response.sendRedirect("/login?success=fail");
+                            }
                         })
 
                         .successHandler((request, response, authentication) -> {
@@ -67,7 +73,12 @@ public class SecurityConfig {
                         .logoutUrl("/logout")
                         .logoutSuccessHandler((request, response, authentication) -> {
                             String paramValue = request.getParameter("url");
+                            if (paramValue.startsWith("/info-account")){
+                                response.sendRedirect("/");
+                            }else {
                                 response.sendRedirect(paramValue);
+                            }
+
                         })
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")

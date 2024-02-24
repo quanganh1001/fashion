@@ -21,11 +21,11 @@
                 <div id="passwordError" class="text-danger"></div>
             </div>
             <div class="d-flex justify-content-between">
-                <a href="#" class="fw-light fst-italic text-decoration-underline link-opacity-100-hover"
+                <a href="#" class="fw-light fst-italic text-decoration-underline btn-link"
                    style="font-size:0.8rem" data-bs-toggle="modal"
                    data-bs-target="#modal-forgot-password">Quên mật khẩu?
                 </a>
-                <a href="#" class="link-primary btn-link">Đăng ký tài khoản</a>
+                <a href="/register" class="btn-link">Đăng ký tài khoản</a>
             </div>
             <span th:if="${error}" th:text="${error}" id="error" style="color: red"></span>
 

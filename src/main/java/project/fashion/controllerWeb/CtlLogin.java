@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +21,8 @@ import java.util.List;
 import java.util.Objects;
 
 @Controller
-@PreAuthorize("!isAuthenticated()")
 @SessionAttributes("CARTS")
+@PreAuthorize("!isAuthenticated()")
 @RequestMapping()
 public class CtlLogin {
     @Autowired
@@ -39,15 +41,15 @@ public class CtlLogin {
         return "web/Login";
     }
 
+
     @PostMapping("/forgot-password")
     public ResponseEntity<String> forgotPassword(@RequestParam("inputValue") String inputValue) {
         try {
-            return accountService.changePass(inputValue);
+            return accountService.sendPass(inputValue);
         } catch (Exception e) {
             return new ResponseEntity<>("Có lỗi xảy ra", HttpStatus.BAD_REQUEST);
         }
     }
-
 
     @GetMapping("/register")
     public String getRegister(Model model){
@@ -63,7 +65,6 @@ public class CtlLogin {
     public String postRegister(@ModelAttribute Account newAccount,
                                RedirectAttributes attributes){
         return accountService.saveByCustomer(newAccount,attributes);
-
 
     }
 }

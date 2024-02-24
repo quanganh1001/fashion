@@ -33,7 +33,7 @@
                         th:href="@{'/admin/account/update-account?accountId=' + ${account.accountId}}"><i
                         class="fa-regular fa-eye" style="color:white"></i></a>
                 </div>
-                <form th:id="form-logout" th:action="@{/logout}" method="post">
+                <form th:id="form-logout" th:action="@{/logout(url='/admin/login')}" method="post">
                     <input class="btn btn-danger" type="submit" value="Đăng xuất">
                 </form>
             </div>
@@ -43,8 +43,6 @@
 
     <script th:inline="javascript">
         $(document).ready(() => {
-            $("#form-logout").attr("action", "/logout?url=" + encodeURIComponent(window.location.pathname));
-
             $(".menu-item").click(function() {
                 const id = $(this).attr("data-id")
                 if (id === "invoice") {
