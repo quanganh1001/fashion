@@ -2,6 +2,7 @@ package project.fashion.controllerWeb;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.model.entity.FeedbackCustomer;
 import project.fashion.model.service.AccountService;
 import project.fashion.model.service.CategoryService;
+import project.fashion.model.service.CustomerMailService;
 import project.fashion.model.service.FeedbackCustomerService;
 
 
@@ -21,7 +23,8 @@ public class CtlPage {
     private CategoryService categoryService;
     @Autowired
     AccountService accountService;
-
+    @Autowired
+    CustomerMailService customerMailService;
     @Autowired
     private FeedbackCustomerService feedbackCustomerService;
 
@@ -66,9 +69,9 @@ public class CtlPage {
         return "redirect:/page/lien-he";
     }
 
-    @PostMapping("/send-mail")
-    public String sendMail(@RequestParam("email") String email) {
-        return "redirect:/page/lien-he";
+    @PostMapping("/send-email")
+    public ResponseEntity<String> sendMail(@RequestParam("email") String email) {
+        return customerMailService.save(email);
     }
 
 }

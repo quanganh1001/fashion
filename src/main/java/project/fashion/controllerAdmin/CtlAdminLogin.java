@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@PreAuthorize("!isAuthenticated()")
 @RequestMapping("/admin/login")
 public class CtlAdminLogin {
     @GetMapping

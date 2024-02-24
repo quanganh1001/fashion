@@ -94,7 +94,6 @@
     <script>
         $(document).ready(() =>{
             $("#btn-send-mail").click(()=>{
-
                 const email = $("#email-input").val()
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if(email === ""){
@@ -102,7 +101,7 @@
                 }else if(!emailRegex.test(email)){
                     $("#email-input").addClass("border-danger")
                 }else {
-                    $("#loading-send-mail").toggleClass("hidden")
+                    $("#loading-send-mail").removeClass("hidden")
                     const csrfToken = $("meta[name='_csrf']").attr("content");
                     const csrfHeader = $("meta[name='_csrf_header']").attr("content");
                     // Thêm mã CSRF vào headers của yêu cầu AJAX
@@ -110,13 +109,14 @@
                     headers[csrfHeader] = csrfToken;
                     $.ajax({
                         type: 'POST',
-                        url: "/send-email",
+                        url: "/page/send-email",
                         headers:headers,
                         data: {email:email},
                         success: (response) => {
                             $("#myModal").modal('show')
                             $("#modal-content").text(response)
-                            $("#loading-send-mail").toggleClass("hidden")
+                            $("#email-input").removeClass("border-danger")
+                            $("#loading-send-mail").addClass("hidden")
                         },
                         error: (jqXHR) => {
                             alert(jqXHR.responseText)

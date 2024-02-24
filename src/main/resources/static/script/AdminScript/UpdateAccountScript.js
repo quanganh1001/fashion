@@ -76,6 +76,18 @@ $(document).ready(() => {
             $("#name-error").text("");
         }
 
+        const email = $("#email").val()
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(email === ""){
+            $("#email-error").text("Chưa nhập email")
+            validation = false
+        }else if(!emailRegex.test(email)){
+            $("#email-error").text("Email không đúng định dạng")
+            validation = false
+        }else {
+            $("#email-error").text("")
+        }
+
         if ($("#phone").val() === "") {
             $("#phone-error").text("Chưa nhập số điện thoại")
             validation = false

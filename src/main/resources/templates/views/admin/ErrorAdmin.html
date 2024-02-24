@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:include="~{web/component/head::head}"></head>
+
+<body>
+<div class="p-5 d-flex flex-column align-items-center">
+    <h2>Có lỗi xảy ra</h2>
+    <div class="mt-5 bg-white p-5 shadow border d-flex flex-column align-items-center">
+        <p th:text="${title}"></p>
+        <a href="/admin" class="btn btn-warning ">Về trang chủ</a>
+    </div>
+</div>
+</body>
+</html>

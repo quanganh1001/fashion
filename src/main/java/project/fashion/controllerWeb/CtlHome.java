@@ -42,10 +42,4 @@ public class CtlHome {
         return "web/Home";
     }
 
-    @PostMapping("/send-email")
-    public ResponseEntity<String> sendMail(@RequestParam("email") String email) {
-        customerMailService.save(email);
-        return ResponseEntity.ok("Đăng ký thành công");
-    }
-
 }

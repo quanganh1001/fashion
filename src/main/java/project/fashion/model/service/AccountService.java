@@ -180,4 +180,25 @@ public class AccountService {
         }
 
     }
+
+    public String saveByCustomer(Account newAccount,RedirectAttributes attributes){
+        if (accountRepo.existsByUserName(newAccount.getUserName())) {
+            attributes.addFlashAttribute("alertMessage", "Tài khoản đã tồn tại");
+            return "redirect:/register";
+        }else if(accountRepo.existsByPhone(newAccount.getPhone())){
+            attributes.addFlashAttribute("alertMessage", "Số điện thoại này đã đăng ký rồi");
+            return "redirect:/register";
+        } else if (accountRepo.existsByEmail(newAccount.getEmail())) {
+            attributes.addFlashAttribute("alertMessage", "Email này đã đăng ký rồi");return "redirect:/register";
+        }else {
+            newAccount.setPassword(passwordEncoder.encode(newAccount.getPassword()));
+            newAccount.setEnabled(true);
+            newAccount.setRole(RoleEnumDTO.valueOf("ROLE_CUSTOMER"));
+            accountRepo.save(newAccount);
+            emailService.sendEmail(newAccount.getEmail(),"Đăng ký tài khoản thành công","Đăng ký tài khoản thành công");
+
+            attributes.addFlashAttribute("alertMessage", "Đăng ký tài khoản thành công");
+            return "redirect:/login";
+        }
+    }
 }
