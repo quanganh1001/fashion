@@ -3,6 +3,13 @@
 
 <head th:include="~{admin/component/head::head}"></head>
 
+<style>
+    #list-color,#list-size {
+        max-height: 50vh;
+        overflow-y: auto;
+    }
+</style>
+
 <body>
 <div class="ui-menu-item-wrapper">
     <div class="bg-dark sidebar col-2" th:include="~{admin/component/Menu::menu}"
@@ -51,9 +58,14 @@
 
                     <div class="mb-3">
                         <label for="size" class="form-label">Size<span
-                                style="color:red">*</span></label>
+                                style="color:red">*</span>
+                            <span data-bs-toggle="modal"
+                                  data-bs-target="#modal-size">
+                            <i class="fa-regular fa-square-plus"></i>
+                            </span>
+                        </label>
                         <select class="form-control" id="size" th:field="*{size.sizeId}">
-                            <option th:each="s : ${size}" th:value="${s.sizeId}"
+                            <option th:each="s : ${sizes}" th:value="${s.sizeId}"
                                     th:text="${s.name}"></option>
                         </select>
                     </div>
@@ -74,6 +86,10 @@
 <!--     Modal-->
 <div class="modal fade" id="modal-color" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div th:include="~{admin/modal/ModalColor::ModalColor}"></div>
+</div>
+<!--     Modal-->
+<div class="modal fade" id="modal-size" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div th:include="~{admin/modal/ModalSize::ModalSize}"></div>
 </div>
 
 

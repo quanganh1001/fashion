@@ -69,10 +69,10 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessHandler((request, response, authentication) -> {
-                            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-                            if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_CUSTOMER"))) {
-                                response.sendRedirect("/");
-                            } else {
+                            String paramValue = request.getParameter("page");
+                            if (Objects.equals(paramValue, "customer")){
+                                response.sendRedirect("/login");
+                            } else{
                                 response.sendRedirect("/admin/login");
                             }
                         })

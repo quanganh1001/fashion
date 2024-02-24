@@ -25,21 +25,9 @@ public class ColorService{
         return colorRepo.findAll();
     }
 
-    public String addColor(Color cl, RedirectAttributes attributes){
-        if (colorRepo.existsById(cl.getColorId())){
-            attributes.addFlashAttribute("alertMessage", "Mã màu đã tồn tại");
-            return "redirect:/admin/color/add-color";
-        }else
-            colorRepo.save(cl);
-            attributes.addFlashAttribute("alertMessage", "Tạo thành công");
-            return "redirect:/admin/color";
-    }
-
     public void deleteById(String colorId){
         colorRepo.deleteById(colorId);
     }
-
-
 
     public List<Color> findColor(String productId){
         List<Color> colorList = new ArrayList<>();

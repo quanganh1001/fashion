@@ -1,47 +1,46 @@
-<div th:fragment="ModalColor">
-
+<div th:fragment="ModalSize">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm mã màu</h1>
+                <h1 class="modal-title fs-5">Thêm mã màu</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="form-color" th:action="@{/admin/color/add-color}" method="post" th:object="${color}">
+                <form id="form-size" th:action="@{/admin/size/add-size}" method="post" th:object="${size}">
                     <div class="row d-flex justify-content-center">
                         <div class="mb-3 col-6">
-                            <label for="color-id" class="form-label">Mã màu<span style="color:red">*</span></label>
-                            <input type="text" class="form-control" id="color-id" th:field="*{colorId}">
-                            <span id="color-id-error" class="text-danger"></span>
+                            <label for="size-id" class="form-label">Mã size<span style="color:red">*</span></label>
+                            <input type="text" class="form-control" id="size-id" th:field="*{sizeId}">
+                            <span id="size-id-error" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3 col-6">
-                            <label for="color-name" class="form-label">Tên màu<span style="color:red">*</span></label>
-                            <input type="text" class="form-control" id="color-name" th:field="*{name}">
-                            <span id="color-name-error" class="text-danger"></span>
+                            <label for="size-name" class="form-label">Tên size<span style="color:red">*</span></label>
+                            <input type="text" class="form-control" id="size-name" th:field="*{name}">
+                            <span id="size-name-error" class="text-danger"></span>
                         </div>
 
-                        <button type="button" id="btn-color"
-                                class="col-4 btn btn-primary">Thêm mã
-                            màu
+                        <button type="button" id="btn-size"
+                                class="col-4 btn btn-primary">Thêm mã size
                         </button>
                         <div th:if="${message != null}">
-                            <span th:if="${message == 'Mã màu đã tồn tại'}" th:text="${message}"
+                            <span th:if="${message == 'Mã size đã tồn tại'}" th:text="${message}"
                                   class="text-danger"></span>
-                            <span th:unless="${message == 'Mã màu đã tồn tại'}" th:text="${message}"
+                            <span th:unless="${message == 'Mã size đã tồn tại'}" th:text="${message}"
                                   class="text-success"></span>
                         </div>
 
                     </div>
                 </form>
-                <ul th:if="${colors != null}"  id="list-color" class="mt-3">
-                    <li th:each="color :${colors}" class="mt-3">
-                        <button class=" delete btn btn-danger" th:data-id="${color.colorId}">Xóa</button>
-                        <span th:text="${color.colorId} + ' - ' + ${color.name}"
+                <ul th:if="${sizes != null}"   id="list-size" class="mt-3">
+                    <li th:each="size :${sizes}" class="mt-3">
+                        <button class=" delete btn btn-danger" th:data-id="${size.sizeId}">Xóa</button>
+                        <span th:text="${size.sizeId} + ' - ' + ${size.name}"
                               class="fw-bold">
                         </span>
-                        <div th:id="'color-error-' + ${color.colorId}" class="text-danger"></div>
+                        <div th:id="'size-error-' + ${size.sizeId}" class="text-danger"></div>
                     </li>
+
                 </ul>
             </div>
             <div class="modal-footer">
@@ -50,12 +49,12 @@
         </div>
     </div>
     <script>
-        function updateListColor(){
+        function updateListSize(){
             $.ajax({
                 type: 'GET',
-                url: '/admin/color/list-color',
+                url: '/admin/size/list-size',
                 success: (data) => {
-                    $("#color").html(data)
+                    $("#size").html(data)
                 },
                 error: (jqXHR) => {
                     alert(jqXHR.responseText)
@@ -66,43 +65,43 @@
             const csrfToken = $("meta[name='_csrf']").attr("content");
             const csrfHeader = $("meta[name='_csrf_header']").attr("content");
             $(".delete").click((btn) => {
-                const colorId = $(btn.target).attr("data-id");
+                const sizeId = $(btn.target).attr("data-id");
                 $.ajax({
                     type: 'DELETE',
-                    url: '/admin/color/delete-color',
-                    data: {colorId: colorId},
+                    url: '/admin/size/delete-size',
+                    data: {sizeId: sizeId},
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader(csrfHeader, csrfToken);
                     },
                     success: (data) => {
-                        $("#modal-color").html(data);
-                        updateListColor();
+                        $("#modal-size").html(data);
+                        updateListSize();
                     },
                     error: (jqXHR) => {
-                        $("#color-error-"+colorId).text("Không thể xóa");
+                        $("#size-error-"+sizeId).text("Không thể xóa");
                     }
                 });
             })
-            $("#btn-color").click(() => {
+            $("#btn-size").click(() => {
                 let validation = true
 
-                if ($("#color-id").val() === ""){
-                    $("#color-id-error").text("Chưa nhập mã màu")
+                if ($("#size-id").val() === ""){
+                    $("#size-id-error").text("Chưa nhập mã size")
                     validation = false
                 }else {
-                    $("#color-id-error").text("")
+                    $("#size-id-error").text("")
                 }
 
-                if($("#color-name").val() === ""){
-                    $("#color-name-error").text("Chưa nhập tên màu")
+                if($("#size-name").val() === ""){
+                    $("#size-name-error").text("Chưa nhập tên màu")
                     validation = false
                 }else {
-                    $("#color-name-error").text("")
+                    $("#size-name-error").text("")
                 }
 
                 if (validation){
-                    const formData = $('#form-color').serializeArray(); // Lấy dữ liệu form
-                    const url = $('#form-color').attr('action');
+                    const formData = $('#form-size').serializeArray(); // Lấy dữ liệu form
+                    const url = $('#form-size').attr('action');
                     $.ajax({
                         type: 'POST',
                         url: url,
@@ -112,8 +111,8 @@
                             xhr.setRequestHeader(csrfHeader, csrfToken);
                         },
                         success: (data) => {
-                            $("#modal-color").html(data);
-                            updateListColor();
+                            $("#modal-size").html(data);
+                            updateListSize();
                         },
                         error: (jqXHR) => {
                             alert("Không thể thêm")

@@ -2,6 +2,7 @@ package project.fashion.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import project.fashion.model.entity.Color;
 import project.fashion.model.entity.ProductDetail;
 import project.fashion.model.entity.Size;
@@ -31,5 +32,18 @@ public class SizeService{
             sizeList.add(pd.getSize());
         }
         return new ArrayList<>(new HashSet<>(sizeList));
+    }
+
+    public void save(Model model, Size newSize){
+        if(sizeRepo.existsById(newSize.getSizeId())){
+            model.addAttribute("message","Mã size đã tồn tại");
+        }else {
+            sizeRepo.save(newSize);
+            model.addAttribute("message","Thêm thành công");
+        }
+    }
+
+    public void deleteById(String sizeId){
+        sizeRepo.deleteById(sizeId);
     }
 }

@@ -33,7 +33,7 @@
                         th:href="@{'/admin/account/update-account?accountId=' + ${account.accountId}}"><i
                         class="fa-regular fa-eye" style="color:white"></i></a>
                 </div>
-                <form th:action="@{/logout}" method="post">
+                <form th:action="@{/logout(page=admin)}" method="post">
                     <input class="btn btn-danger" type="submit" value="Đăng xuất">
                 </form>
             </div>

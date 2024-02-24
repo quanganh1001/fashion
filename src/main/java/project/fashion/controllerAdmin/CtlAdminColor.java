@@ -27,8 +27,8 @@ public class CtlAdminColor {
 
 
     @PostMapping("/add-color")
-    public String addColor(@ModelAttribute Color cl,Model model) {
-        colorService.save(model,cl);
+    public String addColor(@ModelAttribute Color color,Model model) {
+        colorService.save(model,color);
         List<Color> colors = colorService.findAll();
         model.addAttribute("colors",colors);
         return "admin/modal/ModalColor";

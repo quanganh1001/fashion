@@ -1,24 +1,31 @@
 package project.fashion.controllerWeb;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import project.fashion.Response.AccountResponse;
+import project.fashion.model.DTO.CartItem;
+import project.fashion.model.entity.Account;
 import project.fashion.model.service.AccountService;
 import project.fashion.model.service.CategoryService;
 
+import java.util.List;
+import java.util.Objects;
+
 @Controller
-@RequestMapping("/login")
+@SessionAttributes("CARTS")
+@RequestMapping()
 public class CtlLogin {
     @Autowired
     AccountService accountService;
     @Autowired
     CategoryService categoryService;
 
-    @GetMapping
+    @GetMapping("/login")
     public String getlogin(@RequestParam(value = "success",required = false) String success, Model model){
         if (success != null){
             model.addAttribute("error","Sai tài khoản hoặc mật khẩu");
@@ -27,5 +34,14 @@ public class CtlLogin {
         categoryService.listCategory(model);
         model.addAttribute("title","Đăng nhập");
         return "web/Login";
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<String> forgotPassword(@RequestParam("inputValue") String inputValue) {
+        try {
+            return accountService.changePass(inputValue);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Có lỗi xảy ra", HttpStatus.BAD_REQUEST);
+        }
     }
 }

@@ -10,8 +10,8 @@
                     <div class="col-10"><input type="text" class="form-control" id="input-city"></div>
                     <button class="btn btn-primary" id="add-city">Thêm</button>
                 </div>
-                <ul th:if="${cities != null}" th:each="city :${cities}" class="mt-3" id="list-city">
-                    <li>
+                <ul th:if="${cities != null}" class="mt-3" id="list-city">
+                    <li th:each="city :${cities}" class="mt-3">
                         <button class=" delete btn btn-danger" th:data-id="${city.cityId}">Xóa</button>
                         <span th:text=" ${city.name}"
                               class="fw-bold">

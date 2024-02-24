@@ -1,0 +1,7 @@
+<div th:fragment="ListSize">
+  <option value="">Chưa chọn</option>
+  <option th:each="size : ${sizes}"
+          th:value="${size.sizeId}"
+          th:text="${size.name}">
+  </option>
+</div>
