@@ -1,10 +1,10 @@
 <div th:fragment="ListInvoice">
     <div class="col-12 mt-3 mb-3 d-flex justify-content-between align-items-center">
-        <a class="btn btn-primary" id="btnAddInvoice" href="/admin/invoice/add">Tạo đơn hàng</a>
+        <a class="btn btn-dark" id="btnAddInvoice" href="/admin/invoice/add">Tạo đơn hàng</a>
         <div id="search" class="input-group" style="width: 500px">
             <input type="text" id="key" th:value="${key}" name="key" class="form-control"
                    placeholder="Nhập SĐT hoặc mã đơn hàng...">
-            <button id="button-search" type="button" class="btn btn-outline-primary">Tìm kiếm</button>
+            <button id="button-search" type="button" class="btn btn-dark">Tìm kiếm</button>
         </div>
         <nav aria-label=" Page navigation">
             <div>Tổng: <span th:text="${totalItems}" style="color:red"></span> đơn hàng</div>
@@ -13,20 +13,20 @@
                     <a class="page-link"
                        aria-label="Previous"
                        id="previous">
-                        <span aria-hidden="true">&laquo;</span>
+                        <span aria-hidden="true" class="text-dark">&laquo;</span>
                     </a>
                 </li>
                 <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
                     <a th:data-page="${i >= 0 ? i : 0}"
                        th:text="${i + 1}"
-                       th:class="${currentPage == i} ? 'page-link active number' : 'number page-link'"
+                       th:class="${currentPage == i} ? 'page-link text-white bg-dark number' : 'number text-dark page-link'"
                     ></a>
                 </li>
                 <li th:class="${currentPage == totalPages - 1} ? 'page-item disabled' : 'page-item'">
                     <a class="page-link"
                        aria-label="Next"
                        id="next">
-                        <span aria-hidden="true">&raquo;</span>
+                        <span aria-hidden="true" class="text-dark">&raquo;</span>
                     </a>
                 </li>
             </ul>
@@ -57,16 +57,18 @@
             <td th:text="${#temporals.format(invoice.createdAt, 'HH:mm:ss dd/MM/yyyy')}"></td>
             <td th:if="${invoice.account !=null}" th:text="${invoice.account.userName}"></td>
             <td th:unless="${invoice.account !=null}">Chưa chia đơn</td>
-            <td th:if="${invoice.account != null}"><a
-                    th:href="@{/admin/invoiceDetail?invoiceId=__${invoice.invoiceId}__&accountId=__${invoice.account.accountId}__}"><i
-                    class="fa-regular fa-eye"></i>
-            </a>
+            <td>
+                <a th:if="${invoice.account != null}"
+                   th:href="@{/admin/invoiceDetail?invoiceId=__${invoice.invoiceId}__&accountId=__${invoice.account.accountId}__}">
+                    <i class="fa-regular fa-eye"></i>
+                </a>
+                <a th:unless="${invoice.account != null}"
+                   th:href="@{/admin/invoiceDetail?invoiceId=__${invoice.invoiceId}__&accountId=1}">
+                    <i class="fa-regular fa-eye"></i>
+                </a>
             </td>
-            <td th:unless="${invoice.account != null}"><a
-                    th:href="@{/admin/invoiceDetail?invoiceId=__${invoice.invoiceId}__&accountId=1}"><i
-                    class="fa-regular fa-eye"></i>
-            </a>
-            </td>
+
+
 
         </tr>
         </tbody>

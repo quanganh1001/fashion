@@ -126,4 +126,11 @@ public class CtlAdminInvoiceDetail {
         return "admin/component/ShippingFee";
     }
 
+    @GetMapping("/update-history")
+    public String updateHistory(Model model,@RequestParam("invoiceId") String invoiceId) {
+        List<History> histories = historyService.findByInvoiceId(invoiceId);
+        model.addAttribute("histories",histories);
+        return "admin/modal/ModalHistory";
+    }
+
 }

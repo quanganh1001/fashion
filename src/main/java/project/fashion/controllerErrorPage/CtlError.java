@@ -1,5 +1,6 @@
 package project.fashion.controllerErrorPage;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.security.core.Authentication;
@@ -28,23 +29,7 @@ public class CtlError implements ErrorController {
         categoryService.listCategory(model);
         accountService.getAccountResponse(model);
         model.addAttribute("title","Trang này không tìm thấy, vui lòng quay trở lại trang chủ");
-
-        try{
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            CustomUserDetailDTO customUserDetailDTO = (CustomUserDetailDTO) authentication.getPrincipal();
-            AccountResponse accountResponse = AccountResponse.accountResponse(customUserDetailDTO.getUser());
-            var accountLogging = accountResponse.getRole();
-            if (Objects.equals(accountLogging.toString(), "ROLE_CUSTOMER")) {
-                return "web/Error";
-            }else {
-                return "admin/ErrorAdmin";
-            }
-        }catch (Exception e){
-            return "web/Error";
-        }
-
-
-
+        return checkRole();
     }
 
     @RequestMapping("/error-400")
@@ -52,19 +37,7 @@ public class CtlError implements ErrorController {
         categoryService.listCategory(model);
         accountService.getAccountResponse(model);
         model.addAttribute("title","Gửi yêu cầu không hợp lệ");
-        try{
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            CustomUserDetailDTO customUserDetailDTO = (CustomUserDetailDTO) authentication.getPrincipal();
-            AccountResponse accountResponse = AccountResponse.accountResponse(customUserDetailDTO.getUser());
-            var accountLogging = accountResponse.getRole();
-            if (Objects.equals(accountLogging.toString(), "ROLE_CUSTOMER")) {
-                return "web/Error";
-            }else {
-                return "admin/ErrorAdmin";
-            }
-        }catch (Exception e){
-            return "web/Error";
-        }
+        return checkRole();
     }
 
     @RequestMapping("/error-500")
@@ -72,19 +45,7 @@ public class CtlError implements ErrorController {
         categoryService.listCategory(model);
         accountService.getAccountResponse(model);
         model.addAttribute("title","Xảy ra lỗi từ phía máy chủ");
-        try{
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            CustomUserDetailDTO customUserDetailDTO = (CustomUserDetailDTO) authentication.getPrincipal();
-            AccountResponse accountResponse = AccountResponse.accountResponse(customUserDetailDTO.getUser());
-            var accountLogging = accountResponse.getRole();
-            if (Objects.equals(accountLogging.toString(), "ROLE_CUSTOMER")) {
-                return "web/Error";
-            }else {
-                return "admin/ErrorAdmin";
-            }
-        }catch (Exception e){
-            return "web/Error";
-        }
+        return checkRole();
     }
 
     @RequestMapping("/error-403")
@@ -92,15 +53,20 @@ public class CtlError implements ErrorController {
         categoryService.listCategory(model);
         accountService.getAccountResponse(model);
         model.addAttribute("title","Bạn không có quyền truy cập trang này");
+        return  checkRole();
+    }
+
+    public String checkRole(){
         try{
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             CustomUserDetailDTO customUserDetailDTO = (CustomUserDetailDTO) authentication.getPrincipal();
             AccountResponse accountResponse = AccountResponse.accountResponse(customUserDetailDTO.getUser());
             var accountLogging = accountResponse.getRole();
+
             if (Objects.equals(accountLogging.toString(), "ROLE_CUSTOMER")) {
                 return "web/Error";
             }else {
-                return "admin/ErrorAdmin";
+                    return "admin/ErrorAdmin";
             }
         }catch (Exception e){
             return "web/Error";

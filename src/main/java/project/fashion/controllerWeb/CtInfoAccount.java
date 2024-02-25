@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.Response.AccountResponse;
 import project.fashion.model.DTO.ChangePasswordDTO;
 import project.fashion.model.service.AccountService;
@@ -15,7 +16,7 @@ import project.fashion.model.service.CategoryService;
 
 @Controller
 @SessionAttributes("CARTS")
-@RequestMapping()
+@RequestMapping("/info-account")
 @PreAuthorize("isAuthenticated()")
 public class CtInfoAccount {
     @Autowired
@@ -24,7 +25,7 @@ public class CtInfoAccount {
     CategoryService categoryService;
 
     @PreAuthorize("#accountId == (authentication.principal.user.accountId)")
-    @GetMapping("/info-account")
+    @GetMapping()
     public String infoAccount(Model model,
                               @RequestParam("accountId") int accountId,
                               @RequestParam(value = "alert",required = false) String alert){
@@ -40,6 +41,14 @@ public class CtInfoAccount {
         model.addAttribute("passDTO",new ChangePasswordDTO());
         model.addAttribute("title","Thông tin tài khoản");
         return "web/InfoAccount";
+    }
+
+    @PreAuthorize("#accountId == (authentication.principal.user.accountId)")
+    @PostMapping("/update-account")
+    public String updateAccount(@RequestParam("accountId") int accountId,
+                                                @ModelAttribute AccountResponse accountResponse,
+                                                RedirectAttributes attributes){
+        return accountService.updateAccountByCustomer(accountResponse,attributes);
     }
 
     @PreAuthorize("#accountId == (authentication.principal.user.accountId)")

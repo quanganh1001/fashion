@@ -13,7 +13,7 @@
          style="min-height: 100vh;overflow-y: auto;"></div>
 
     <div class="content-admin p-4">
-        <h2>THÊM MỚI CỬA HÀNG</h2>
+        <h1 class="fw-bold">THÊM MỚI CỬA HÀNG</h1>
         <div class="mt-5 bg-white p-5 shadow border">
             <form id="form" th:action="@{/admin/store/add-store}" method="post" th:object="${store}">
                 <div class="row">
@@ -49,30 +49,24 @@
 
                     <div class="mb-3 col-6">
                         <label for="city" class="form-label">Thành phố<span style="color:red">*</span>
-                            <span data-bs-toggle="modal"
-                                  data-bs-target="#exampleModal">
-                            <i class="fa-regular fa-square-plus"></i>
-                        </span>
                         </label>
-                        <select class="form-control" id="city" th:field="*{city.cityId}"
-                                th:include="~{admin/component/ListCity::ListCity}"></select>
+                        <select class="form-control" id="city" th:field="*{city}">
+                            <option th:each="city: ${cities}"
+                                    th:value="${city.cityName}"
+                                    th:text="${city.cityName}">
+                            </option>
+                        </select>
+
                         <span id="cityError" class="text-danger"></span>
                     </div>
-                    <button style="text-align: center" type="submit" id="btn-submit" class="col-2 btn btn-primary">Thêm
-                        cửa
-                        hàng
+                    <button style="text-align: center" type="submit" id="btn-submit" class="col-2 btn btn-dark">Lưu lại
                     </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<!--     Modal-->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div id="modal">
-        <div th:include="~{admin/modal/ModalCity::ModalCity}"></div>
-    </div>
-</div>
+
 <script th:src="@{/script/AdminScript/AddStoreScript.js}"></script>
 </body>
 </html>

@@ -72,7 +72,8 @@ public class CtlAdminAccount {
 
     @PreAuthorize("isAuthenticated() and !hasRole('CUSTOMER') and  (#accountId == (authentication.principal.user.accountId)) or hasAnyRole('MANAGER')")
     @GetMapping("/update-account")
-    public String updateAccount(Model model,@RequestParam("accountId") Integer accountId,
+    public String updateAccount(Model model,
+                                @RequestParam("accountId") Integer accountId,
                                 @RequestParam(value = "alert",required = false) String alert) {
 
         List<RoleEnumDTO> roles = Arrays.asList(RoleEnumDTO.values());

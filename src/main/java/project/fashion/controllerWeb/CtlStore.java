@@ -4,21 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import project.fashion.model.entity.City;
+import project.fashion.model.DTO.CityEnumDTO;
 import project.fashion.model.entity.Store;
 import project.fashion.model.service.AccountService;
 import project.fashion.model.service.CategoryService;
-import project.fashion.model.service.CityService;
 import project.fashion.model.service.StoreService;
 
-import java.util.List;
+import java.util.*;
 
 @Controller
 @SessionAttributes("CARTS")
 @RequestMapping("/store")
 public class CtlStore {
-    @Autowired
-    private CityService cityService;
     @Autowired
     private StoreService storeService;
     @Autowired
@@ -27,30 +24,40 @@ public class CtlStore {
     AccountService accountService;
 
     @GetMapping("")
-    public String address(Model model,@RequestParam(value = "cityId",defaultValue = "1") Integer cityId){
-        List<City> cities = cityService.findAll();
-        List<Store> stores = storeService.findAllByCity(cityId);
-        categoryService.listCategory(model);
+    public String address(Model model){
         accountService.getAccountResponse(model);
-        var api = stores.get(0).getApi();
+        categoryService.listCategory(model);
 
-        model.addAttribute("cities",cities);
-        model.addAttribute("stores",stores);
-        model.addAttribute("api",api);
+        Set<String> cities = new HashSet<>();
+        List<Store> allStore = storeService.findAll();
+        for (Store store : allStore) {
+            cities.add(store.getCity());
+        }
+
+        List<String> cityList = new ArrayList<>(cities);
+
+        if (!cityList.isEmpty()) {
+            List<Store> stores = storeService.findAllByCity(cityList.get(0));
+            model.addAttribute("stores", stores);
+            model.addAttribute("cities", cities);
+        }
+
         model.addAttribute("title","Hệ thống cửa hàng");
         return "web/Store";
     }
 
     @GetMapping("change-map")
-    public String changeMap(Model model,@RequestParam("cityId") Integer cityId) {
-        List<City> cities = cityService.findAll();
-        List<Store> stores = storeService.findAllByCity(cityId);
-
-        model.addAttribute("api",stores.get(0).getApi());
-        model.addAttribute("stores",stores);
-        model.addAttribute("cities",cities);
-        model.addAttribute("cityId",cityId);
-        return "web/component/Map";
+    public String changeMap(Model model,@RequestParam("city") String city) {
+        List<Store> stores = storeService.findAllByCity(city);
+        Set<String> cities = new HashSet<>();
+        List<Store> allStore = storeService.findAll();
+        for (Store store : allStore) {
+            cities.add(store.getCity());
+        }
+        model.addAttribute("cities", cities);
+        model.addAttribute("citySelected", city);
+        model.addAttribute("stores", stores);
+        return "web/component/ListStore";
     }
 
     @GetMapping("/map")

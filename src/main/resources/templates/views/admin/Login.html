@@ -21,13 +21,14 @@
                 </div>
                 <span th:if="${error}" th:text="${error}" id="error" style="color: red"></span>
                 <div>
-                    <a href="#" class="fw-light fst-italic text-decoration-underline link-opacity-100-hover"
-                       style="font-size:0.8rem">Quên mật khẩu?
+                    <a href="#" class="fw-light fst-italic text-decoration-underline btn-link"
+                       data-bs-toggle="modal"
+                       data-bs-target="#modal-forgot-password">Quên mật khẩu?
                     </a>
                 </div>
                 <div class="row">
                     <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+                        <button type="submit" class="btn btn-dark">Đăng nhập</button>
                     </div>
                 </div>
             </form>
@@ -35,6 +36,9 @@
 
     </div>
 </div>
-<script th:src="@{/script/AdminScript/LoginScript.js}"></script>
+<div class="modal fade" id="modal-forgot-password" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div th:include="~{admin/modal/ModalForgotPassword::ModalForgotPassword}"></div>
+</div>
+<script th:src="@{/script/AdminScript/AdminLoginScript.js}"></script>
 </body>
 </html>

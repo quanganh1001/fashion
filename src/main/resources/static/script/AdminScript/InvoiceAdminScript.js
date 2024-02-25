@@ -25,9 +25,9 @@ $(document).ready(() => {
             success: (data) => {
                 $("#list-invoice").html(data)
                 const id = $(this).attr("id");
-                $(".filter").removeClass("active text-white ")
+                $(".filter").removeClass("bg-dark text-white ")
                 if (newFilterStatus === id) {
-                    $(this).addClass("active text-white");
+                    $(this).addClass("bg-dark text-white");
                 }
             },
             error: (jqXHR) => {

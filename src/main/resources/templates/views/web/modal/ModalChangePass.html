@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="form-change-pass" th:action="@{/change-pass(accountId=${account.accountId})}" th:method="put" th:object="${passDTO}">
+                <form id="form-change-pass" th:action="@{/info-account/change-pass(accountId=${account.accountId})}" th:method="put" th:object="${passDTO}">
                     <div class="row d-flex justify-content-center">
                         <div class="mb-3">
                             <label for="old-password" class="form-label">Mật khẩu

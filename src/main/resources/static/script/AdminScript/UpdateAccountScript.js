@@ -1,71 +1,13 @@
 $(document).ready(() => {
-    $("#reset-button").click(() => {
-        var result = confirm("Bạn có muốn đặt lại mật khẩu cho tài khoản này?");
-        if (result) {
-            var accountId = $("#reset-button").data("account-id");
-            var csrfToken = $("meta[name='_csrf']").attr("content");
-            var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-            $.ajax({
-                type: 'PUT',
-                data: {accountId: accountId},
-                url: '/admin/account/reset-password',
-                beforeSend: function (xhr) {
-                    // Sử dụng tên HTTP header chuẩn và giá trị token
-                    xhr.setRequestHeader(csrfHeader, csrfToken);
-                },
-                success: () => {
-                    alert("Đã reset mật khẩu tài khoản. Mật khẩu mặc định là: 123456")
-                },
-                error: (jqXHR) => {
-                    alert(jqXHR.responseText)
-                }
-            });
-        }
-    })
+    const csrfToken = $("meta[name='_csrf']").attr("content");
+    const csrfHeader = $("meta[name='_csrf_header']").attr("content");
 
-    $("#change-pw-btn").click(() => {
-        var accountId = $("#change-pw-btn").data("account-id");
-        var oldPassword = $("#oldPassword").val();
-        var newPassword = $("#newPassword").val();
-        var newPasswordAgain = $("#newPasswordAgain").val();
-
-        if (oldPassword === '' || oldPassword == null ||
-            newPassword === '' || newPassword ==null ||
-            newPasswordAgain ==='' || newPasswordAgain == null||
-            newPassword !== newPasswordAgain)
-        {
-            alert("Nhập thiếu dữ liệu hoặc mật khẩu mới không khớp!")
-        }else if (newPassword.length < 6){
-            alert("Mật khẩu phải có ít nhất 6 ký tự")
-        }
-        else {
-            var csrfToken = $("meta[name='_csrf']").attr("content");
-            var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-            $.ajax({
-                type: 'PUT',
-                data: {accountId: accountId,oldPassword:oldPassword,newPassword:newPassword},
-                url: '/admin/account/change-password',
-                beforeSend: function (xhr) {
-                    // Sử dụng tên HTTP header chuẩn và giá trị token
-                    xhr.setRequestHeader(csrfHeader, csrfToken);
-                },
-                success: () => {
-                    alert("Đã thay đổi mật khẩu")
-                    window.location.reload();
-                },
-                error: (jqXHR) => {
-                    alert(jqXHR.responseText)
-                }
-            });
-        }
-    })
-
-    $("#form").submit(()=>{
+    $("#form").submit(() => {
         let validation = true
-        if($("#user-name").val()===""){
+        if ($("#user-name").val() === "") {
             $("#username-error").text("Chưa nhập tên đăng nhập")
-            validation=false;
-        }else {
+            validation = false;
+        } else {
             $("#username-error").text("")
         }
 
@@ -78,13 +20,13 @@ $(document).ready(() => {
 
         const email = $("#email").val()
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(email === ""){
+        if (email === "") {
             $("#email-error").text("Chưa nhập email")
             validation = false
-        }else if(!emailRegex.test(email)){
+        } else if (!emailRegex.test(email)) {
             $("#email-error").text("Email không đúng định dạng")
             validation = false
-        }else {
+        } else {
             $("#email-error").text("")
         }
 
@@ -107,5 +49,83 @@ $(document).ready(() => {
         }
 
         return validation;
+    })
+
+
+    $("#form-change-pass").submit((event) => {
+        event.preventDefault();
+
+        let validation = true
+
+        if ($("#old-password").val() === "") {
+            $("#old-password-error").text("Chưa nhập mật khẩu cũ")
+            validation = false
+        } else {
+            $("#old-password-error").text("")
+        }
+
+        if ($("#new-password").val() === "") {
+            $("#new-password-error").text("Chưa nhập mật khẩu mới")
+            validation = false
+        } else if ($("#new-password").val().length < 6 || $("#new-password").val().length > 25) {
+            validation = false
+            $("#new-password-error").text("Mật khẩu có độ dài từ 6-25 ký tự")
+        } else {
+            $("#new-password-error").text("")
+        }
+
+        if ($("#new-password").val() !== $("#new-password-again").val()) {
+            $("#new-password-again-error").text("Nhập lại không khớp")
+            validation = false
+        } else {
+            $("#new-password-again-error").text("")
+        }
+
+
+        if (validation) {
+            const formData = $('#form-change-pass').serialize(); // Lấy dữ liệu form
+            const url = $('#form-change-pass').attr('action'); // Lấy URL của form
+            $.ajax({
+                type: 'PUT',
+                url: url,
+                data: formData,
+                beforeSend: function (xhr) {
+                    // Sử dụng tên HTTP header chuẩn và giá trị token
+                    xhr.setRequestHeader(csrfHeader, csrfToken);
+                },
+                success: (data) => {
+                    if (data === "Mật khẩu cũ không chính xác") {
+                        $("#old-password-error").text(data);
+                    } else {
+                        window.location.href = "/admin/account/update-account?" + data + "&alert=oke"
+                    }
+
+                },
+                error: (jqXHR) => {
+                    $("#change-pass-error").text("Có lỗi")
+                }
+            });
+        }
+    })
+
+    $("#reset-pass").click(() =>{
+        const accountId = $("#reset-pass").attr("data-account-id")
+        $.ajax({
+            type: "PUT",
+            url: "/admin/account/reset-password",
+            data: {accountId:accountId},
+            beforeSend: function (xhr) {
+                // Sử dụng tên HTTP header chuẩn và giá trị token
+                xhr.setRequestHeader(csrfHeader, csrfToken);
+            },
+            success: (data) => {
+                $("#myModal").modal('show')
+                $("#modal-content").text(data)
+            },
+            error: (jqXHR) => {
+                $("myModal").modal('show')
+                $("modal-content").text(jqXHR.responseText)
+            }
+        });
     })
 });

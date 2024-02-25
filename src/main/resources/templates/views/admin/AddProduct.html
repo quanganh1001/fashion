@@ -73,14 +73,14 @@
                     <div class="mb-3">
                         <label for="imgSize" class="form-label">Ảnh hướng dẫn chọn size<span
                                 style="color:red">*</span></label>
-                        <select class="form-control" id="imgSize" th:field="*{imgSize}">
-                            <option th:each="img : ${img}" th:value="${img.imgSizeId}"
-                                    th:text="${img.imgName}"></option>
+                        <select class="form-control" id="imgSize" th:field="*{imageChooseSize}">
+                            <option th:each="img : ${imgSize}" th:value="${img.url}"
+                                    th:text="${img.name}"></option>
                         </select>
                     </div>
 
 
-                    <button style="text-align: center" type="submit" id="submit" class="col-2 btn btn-primary">Thêm sản
+                    <button style="text-align: center" type="submit" id="submit" class="col-2 btn btn-dark">Thêm sản
                         phẩm
                     </button>
                 </div>

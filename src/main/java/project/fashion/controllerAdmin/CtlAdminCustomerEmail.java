@@ -8,20 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import project.fashion.model.entity.Color;
-import project.fashion.model.entity.CustomerMail;
-import project.fashion.model.entity.ProductDetail;
-import project.fashion.model.entity.Size;
 import project.fashion.model.service.AccountService;
 import project.fashion.model.service.CustomerMailService;
 import project.fashion.model.service.FeedbackCustomerService;
 
-import java.util.List;
-
 @Controller
 @PreAuthorize("hasAnyRole('MANAGER')")
 @RequestMapping("/admin/email")
-public class CtlAdminSendEmail {
+public class CtlAdminCustomerEmail {
     @Autowired
     private AccountService accountService;
     @Autowired

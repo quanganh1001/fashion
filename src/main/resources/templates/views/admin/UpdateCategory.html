@@ -14,7 +14,7 @@
          style="min-height: 100vh;overflow-y: auto;"></div>
 
     <div class="content-admin p-4">
-        <h2>SỬA DANH MỤC</h2>
+        <h1 class="fw-bold">SỬA DANH MỤC</h1>
         <div class="mt-5 bg-white p-5 shadow border">
             <form id="form" th:action="@{/admin/category/update-category}" th:method="put"
                   th:object="${cat}" class="d-flex">
@@ -49,8 +49,8 @@
                         động/Ẩn
                     </div>
 
-                    <button style="text-align: center" type="button" id="btn-submit" class="btn btn-primary"
-                            th:data-cat-bg="${cat.catBackground}">Sửa danh mục
+                    <button style="text-align: center" type="button" id="btn-submit" class="col-2 btn btn-dark"
+                            th:data-cat-bg="${cat.catBackground}">Lưu
                     </button>
                 </div>
 
@@ -58,18 +58,12 @@
                     <label class="form-label" for="fileInput">Ảnh bìa danh mục</label>
                     <input type="file" id="fileInput" th:field="*{catBackground}" class="form-control">
 
-
-                    <img th:unless="${cat.catBackground != null and cat.catBackground.endsWith('.mp4')}  "
+                    <img th:if="${cat.catBackground != null}  "
                          width="150px" class="border border-2 mt-3"
-                         th:src="@{'/admin/imgProduct/'+${cat.catBackground}}" alt="Image">
-
-
-                    <video th:if="${cat.catBackground != null and cat.catBackground.endsWith('.mp4')}"
-                           width="150px"
-                           th:id="vdbg1" controls
-                           class="border border-2 mt-3"
-                           th:src="@{'/admin/imgProduct/'+${cat.catBackground}}">
-                    </video>
+                         th:src="@{'/admin/imgProduct?imageName='+${cat.catBackground}}" alt="Image">
+                    <img th:unless="${cat.catBackground != null}  "
+                         width="150px" class="border border-2 mt-3"
+                         th:src="@{'/admin/imgProduct/no_image.jpg'}" alt="Image">
 
                 </div>
 
@@ -79,7 +73,7 @@
                 <h4>Danh sách sản phẩm</h4>
                 <div class="mb-3 mt-3">
                     <a th:href="@{/admin/product/add-product?catId=__${cat.catId}__}">
-                        <button type="button" class="btn btn-primary">Thêm sản phẩm</button>
+                        <button type="button" class="btn btn-dark">Thêm sản phẩm</button>
                     </a>
                 </div>
 
@@ -102,16 +96,15 @@
                             <td th:text="${p.category.catName}">
                             <td th:text="${p.isProductActive}==true ? 'Hoạt động' :'Đã ẩn'"></td>
 
-                            <td class="button"><a th:href="@{/admin/product/update-product/__${p.productId}__}">
-                                <button class="btn btn-primary">Sửa
-                                </button>
-                            </a>
-
+                            <td class="button ">
+                                <a class="btn btn-warning" th:href="@{/admin/product/update-product/__${p.productId}__}">Sửa
+                                </a>
                             </td>
+
                             <td class="button">
                                 <button class="btn btn-danger btn-sm" th:id="${p.productId}"
                                         onclick="confirmDelete(this.id)">
-                                    <i class="fas fa-trash-alt"></i> Delete
+                                    <i class="fas fa-trash-alt"></i>
                                 </button>
                             </td>
                         </tr>

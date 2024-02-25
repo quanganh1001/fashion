@@ -57,7 +57,7 @@ public class HistoryService {
             Duration duration = Duration.between(history.getTime(), currentTime);
             history.setTimeAgo(formatDuration(duration,history.getTime().toString()));
         }
-        histories.sort(Comparator.comparing(History::getTimeAgo));
+        histories.sort(Comparator.comparing(History::getTime).reversed());
 
         return histories;
     }
@@ -72,11 +72,14 @@ public class HistoryService {
                 return hours + " giờ trước";
             } else {
                 long days = duration.toDays();
-                if (days < 10) {
+                if (days < 30) {
                     return days + " ngày trước";
+                } else if (days < 365) {
+                    long months = days / 30;
+                    return months + " tháng trước";
                 } else {
-                    // Nếu trên 10 ngày, hiển thị thời gian gốc
-                    return time;
+                    long years = days / 365;
+                    return years + " năm trước";
                 }
             }
         }

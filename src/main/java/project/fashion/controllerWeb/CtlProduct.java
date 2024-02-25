@@ -25,8 +25,6 @@ public class CtlProduct {
     @Autowired
     public ProductDetailService productDetailService;
     @Autowired
-    public ImgSizeService imgSizeService;
-    @Autowired
     public ImgProductService imgProductService;
     @Autowired
     public ColorService colorService;
@@ -52,7 +50,7 @@ public class CtlProduct {
         List<Size> sizes = sizeService.findSize(productId);
         List<ProductDetail> productDetails = productDetailService.findAllByProductAndColor(productId,colors.get(0).getColorId());
 
-        model.addAttribute("title","Home");
+        model.addAttribute("title","Trang chủ");
         model.addAttribute("product",product);
         model.addAttribute("imgProducts",imgProducts);
         model.addAttribute("colors",colors);

@@ -12,6 +12,44 @@ function updateTotalBill(invoiceId) {
     })
 }
 
+function toggleEditMode(button) {
+    var detailId = $(button.currentTarget).attr('data-detail-id');
+    var quantityElement = $('#quantity' + detailId);
+    var inputElement = $('#input' + detailId);
+    var doneElement = $('#done' + detailId);
+    var editElement = $('#edit' + detailId);
+    var cancelElement = $('#cancel' + detailId);
+
+    inputElement.toggleClass('hidden');
+    quantityElement.toggleClass('hidden');
+    doneElement.toggleClass('hidden');
+    editElement.toggleClass('hidden');
+    cancelElement.toggleClass('hidden');
+}
+
+function updateHistory(){
+    const invoiceId = $("#input-plus").attr("data-invoice-id");
+    $.ajax({
+        url: '/admin/invoiceDetail/update-history',
+        data: {invoiceId:invoiceId},
+        type: 'GET',
+        success: function (data) {
+            $("#modal-history").html(data)
+        },
+        error: (jqXHR) => {
+            alert(jqXHR.responseText)
+        }
+    });
+}
+
+function toggleShippingFee() {
+    $("#shippingFee").toggleClass("hidden");
+    $("#input-ship").toggleClass("hidden")
+    $("#done-ship").toggleClass("hidden")
+    $("#cancel-ship").toggleClass("hidden")
+    $("#edit-ship").toggleClass("hidden")
+}
+
 
 $(document).ready(() => {
     const invoiceId = $("#input-plus").attr("data-invoice-id");

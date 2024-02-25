@@ -1,7 +1,0 @@
-<div th:fragment="ListCity">
-    <option value="">Chưa chọn</option>
-    <option th:each="city : ${cities}"
-            th:value="${city.cityId}"
-            th:text="${city.name}">
-    </option>
-</div>

@@ -28,7 +28,7 @@
                         <span th:if="${feedback.status == true}" th:text="${feedback.feedback}"></span>
                         <span class="unread fw-bold" th:data-id="${feedback.id}"
                               th:unless="${feedback.status == true}">Phản hồi mới <i
-                                class="fa-regular fa-eye"></i></span>
+                                class="fa-regular fa-eye text-primary" style="cursor: pointer"></i></span>
                     </td>
 
                 </tr>

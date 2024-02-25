@@ -1,19 +1,19 @@
-<div th:fragment="Map">
+<div th:fragment="ListStore">
     <div class="col-12  d-flex justify-content-around mt-5">
         <div class="col-5 border p-5">
             <h4>Tìm cửa hàng</h4>
             <div class="mb-3">
                 <p>Chọn tỉnh thành</p>
                 <select class="col-12 form-control" id="changeCity">
-                    <option th:each="city : ${cities}"
-                            th:value="${city.cityId}"
-                            th:text="${city.name}"
-                            th:selected="${cityId == city.cityId}">
+                    <option th:if="${cities != null}" th:each="city : ${cities}"
+                            th:value="${city}"
+                            th:text="${city}"
+                            th:selected="${citySelected == city}">
                     </option>
                 </select>
             </div>
             <div id="store-info">
-                <div th:each="store : ${stores}" class="border d-flex mt-5">
+                <div th:if="${stores != null}" th:each="store : ${stores}" class="border d-flex mt-5">
                     <div class="m-3">
                         <i class="fa-solid fa-location-dot"></i>
                     </div>
@@ -23,13 +23,14 @@
                         <div class="mt-3">Thời gian hoạt động: <span th:text="${store.time}" class="fw-bold"></span>
                         </div>
                         <div class="mt-3">Số điện thoại: <span th:text="${store.phone}" class="fw-bold"></span></div>
-                        <button class="btn btn-primary mt-3 mb-3 view-map" th:data-store-api="${store.api}">Xem bản đồ</button>
+                        <button class="btn btn-dark mt-3 mb-3 view-map" th:data-store-api="${store.api}">Xem bản đồ</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <iframe id="map-api" th:src="${api}" class="border col-6" height="600" allowfullscreen="" loading="lazy"
+        <iframe th:if="${stores!=null}" id="map-api" th:src="${stores[0].api}" class="border col-6" height="800" allowfullscreen=""
+                loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"></iframe>
 
 
@@ -37,11 +38,11 @@
     <script>
         $(document).ready(() => {
             $("#changeCity").change(function (select) {
-                const cityId = $(select.target).val();
+                const city = $(select.target).val();
                 $.ajax({
                     type: 'GET',
                     url: '/store/change-map',
-                    data: {cityId: cityId},
+                    data: {city: city},
                     success: (data) => {
                         $("#map").html(data)
                     },

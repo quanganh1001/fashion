@@ -17,8 +17,11 @@ public class StoreService {
     @Autowired
     private StoreRepo storeRepo;
 
-    public List<Store> findAllByCity(Integer cityId){
-        return storeRepo.findAllByCityCityId(cityId);
+    public List<Store> findAll(){
+        return storeRepo.findAll();
+    }
+    public List<Store> findAllByCity(String city){
+        return storeRepo.findAllByCity(city);
     }
 
     public Store findById(Integer storeId){

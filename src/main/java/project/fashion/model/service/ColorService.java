@@ -1,12 +1,8 @@
 package project.fashion.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.fashion.model.entity.City;
 import project.fashion.model.entity.Color;
 import project.fashion.model.entity.ProductDetail;
 import project.fashion.model.repository.ColorRepo;

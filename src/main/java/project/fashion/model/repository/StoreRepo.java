@@ -6,7 +6,7 @@ import project.fashion.model.entity.Store;
 import java.util.List;
 
 public interface StoreRepo extends JpaRepository<Store,Integer> {
-    List<Store> findAllByCityCityId(Integer cityId);
+    List<Store> findAllByCity(String city);
 
     Boolean existsByName(String name);
 }

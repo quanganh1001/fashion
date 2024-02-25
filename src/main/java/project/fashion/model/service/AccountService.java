@@ -114,6 +114,35 @@ public class AccountService {
         }
     }
 
+    @Transactional
+    public String updateAccountByCustomer(AccountResponse account,RedirectAttributes attributes){
+        Account userNameOther = findByUserName(account.getUserName());
+        Account PhoneOther = accountRepo.findByPhone(account.getPhone());
+        Account EmailOther = accountRepo.findByEmail(account.getEmail());
+        if (accountRepo.existsByUserName(account.getUserName()) && !Objects.equals(userNameOther.getAccountId(), account.getAccountId())) {
+            attributes.addFlashAttribute("alertMessage", "Tài khoản đã tồn tại");
+            return "redirect:/info-account?accountId=" + account.getAccountId();
+        }else if(accountRepo.existsByPhone(account.getPhone()) && !Objects.equals(PhoneOther.getAccountId(), account.getAccountId())){
+            attributes.addFlashAttribute("alertMessage", "Số điện thoại đã tồn tại");
+            return "redirect:/info-account?accountId=" + account.getAccountId();
+        } else if (accountRepo.existsByEmail(account.getEmail()) && !Objects.equals(EmailOther.getAccountId(), account.getAccountId())) {
+            attributes.addFlashAttribute("alertMessage", "Email đã tồn tại");
+            return "redirect:/info-account?accountId=" + account.getAccountId();
+        } else {
+            Optional<Account> accountOptional = Optional.of(Optional.ofNullable(findById(account.getAccountId())).orElse(new Account()));
+            accountRepo.updateAccount(account.getAccountId(),
+                    accountOptional.get().getUserName(),
+                    account.getName(),
+                    account.getPhone(),
+                    account.getEmail(),
+                    account.getAddress(),
+                    accountOptional.get().getEnabled(),
+                    String.valueOf(accountOptional.get().getRole()));
+            attributes.addFlashAttribute("alertMessage", "Cập nhập thành công");
+            return "redirect:/info-account?accountId=" + account.getAccountId();
+        }
+    }
+
     public String deleteAccount(Integer accountId,RedirectAttributes attributes){
         try {
             accountRepo.deleteById(accountId);
@@ -130,9 +159,9 @@ public class AccountService {
         try{
             var newPassword =   passwordEncoder.encode("123456");
             accountRepo.changePassword(accountId,newPassword);
-            return ResponseEntity.ok("done");
+            return ResponseEntity.ok("Đặt lại mật khẩu thành công, mật khẩu mặc đinh là '123456'");
         }catch (Exception e){
-            return new ResponseEntity<>("có lỗi",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Không thể đặt lại mật khẩu",HttpStatus.BAD_REQUEST);
         }
     }
 

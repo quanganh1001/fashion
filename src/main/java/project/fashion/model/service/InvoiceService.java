@@ -258,10 +258,14 @@ public class InvoiceService {
             if(newShippingFee <0) {
                 newShippingFee = 0;
             }
+            // create history
+            historyService.setTriggerVariableForHistory();
             invoiceRepo.updateShippingFee(invoiceId,newShippingFee);
+
+
             Optional<Invoice> optionalInvoice = Optional.of(invoiceRepo.findById(invoiceId).orElse(new Invoice()));
             if(optionalInvoice.get().getIsPaid()){
-                throw new Exception("Đơn hàng đã thanh toán không thể thêm sản phẩm");
+                throw new Exception("Đơn hàng đã thanh toán không thể chỉnh sửa");
             }
         }catch (Exception e){
             throw new Exception(e);

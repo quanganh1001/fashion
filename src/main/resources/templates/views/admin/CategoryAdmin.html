@@ -9,23 +9,25 @@
          style="min-height: 100vh;overflow-y: auto;"></div>
 
     <div class="content-admin p-4">
-        <h2>DANH MỤC SẢN PHẨM</h2>
+        <h1 class="fw-bold">DANH MỤC SẢN PHẨM</h1>
         <div class="mt-5 bg-white p-5 shadow border">
             <div>
                 <a th:if="${cat.catId  != null and cat.catParent!=null} "
-                   th:href="@{/admin/category?parent=__${cat.catParent.catId}__}">
+                   th:href="@{/admin/category?parent=__${cat.catParent.catId}__}"
+                    class="text-dark link-underline-dark link-underline-opacity-0 link-underline-opacity-100-hover">
                     <i class="fa-solid fa-arrow-left"></i>
                     <span th:text="${cat.catId} + ' - ' + ${cat.catName}"></span>
                 </a>
                 <a th:unless="${cat.catId !=null and cat.catParent!=null}"
-                   href="/admin/category?parent=">
+                   href="/admin/category?parent="
+                   class="text-dark link-underline-dark link-underline-opacity-0 link-underline-opacity-100-hover">
                 <span th:if="${cat.catId!=null}"><i class="fa-solid fa-arrow-left"></i><span
                         th:text="${cat.catId} + ' - ' + ${cat.catName}"></span></span>
                     <span th:unless="${cat.catId!=null}"></span>
                 </a>
                 <div class="mt-3 mb-5">
                     <a th:href="@{/admin/category/add-category?catParentId=__${cat.catId}__}">
-                        <button type="button" class="btn btn-primary">Thêm danh mục</button>
+                        <button type="button" class="btn btn-dark">Thêm danh mục</button>
                     </a>
                 </div>
             </div>
@@ -41,7 +43,10 @@
                 <tbody>
                 <tr th:each="c:${categories}">
                     <td>
-                        <a th:href="@{/admin/category(parent=${c.catId})}" th:text="${c.catId}"></a>
+                        <a class="text-dark link-underline-dark link-underline-opacity-0 link-underline-opacity-100-hover" th:href="@{/admin/category(parent=${c.catId})}">
+                            <span th:text="${c.catId}"></span>
+                            <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                        </a>
                     </td>
                     <td th:text="${c.catName}"></td>
                     <td th:if="${c.catParent != null}" th:text="${c.catParent.catName}"></td>
@@ -50,7 +55,7 @@
                     <td>
                         <div class="d-flex justify-content-center">
                             <a th:href="@{/admin/category/update-category/__${c.catId}__}">
-                                <button class="align-items-center btn-sm btn btn-primary">Sửa
+                                <button class="align-items-center btn-sm btn btn-warning">Sửa
                                 </button>
                             </a>
                         </div>
@@ -62,7 +67,7 @@
                                   th:method="delete"
                                   onsubmit="return confirm('Bạn có muốn xóa danh mục này này?')">
                                 <button class="btn btn-danger btn-sm" type="submit">
-                                    <i class="fas fa-trash-alt"></i>Xóa
+                                    <i class="fas fa-trash-alt"></i>
                                 </button>
                             </form>
                         </div>

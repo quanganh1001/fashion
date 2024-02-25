@@ -15,8 +15,5 @@ public class Store {
     private String time;
     private String phone;
     private String api;
-
-    @ManyToOne
-    @JoinColumn(name = "city_id")
-    private City city;
+    private String city;
 }

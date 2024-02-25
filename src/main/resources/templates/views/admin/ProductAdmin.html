@@ -9,18 +9,18 @@
          style="min-height: 100vh;overflow-y: auto;"></div>
 
     <div class="content-admin p-4">
-        <h2>Danh sách sản phẩm</h2>
+        <h1 class="fw-bold">DANH SÁCH SẢN PHẨM</h1>
         <div class="mt-5 bg-white p-5 shadow border">
             <div class="mt-5 d-flex align-items-center flex-wrap justify-content-between">
                 <a href="/admin/product/add-product">
-                    <button type="button" class="btn btn-primary">Thêm sản phẩm</button>
+                    <button type="button" class="btn btn-dark">Thêm sản phẩm</button>
                 </a>
                 <form th:action="@{/admin/product}" method="get">
                     <div class="input-group" style="width: 400px">
                         <input class="form-control" type="text" id="key" name="key"
                                th:value="${#strings.isEmpty(searchKey) ? '' : searchKey}"
                                placeholder="Nhập mã sản phẩm hoặc tên sản phẩm...">
-                        <button type="submit" class="btn btn-outline-primary">Tìm kiếm</button>
+                        <button type="submit" class="btn btn-outline-dark">Tìm kiếm</button>
                     </div>
                 </form>
 
@@ -30,20 +30,20 @@
                         <li class="page-item" th:class="${currentPage == 1} ? 'page-item disabled' : 'page-item'">
                             <a class="page-link" th:href="@{/admin/product(page=${currentPage}-1,key=${key})}"
                                aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
+                                <span aria-hidden="true" class="text-dark">&laquo;</span>
                             </a>
                         </li>
                         <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}">
                             <a class="page-link" th:href="@{/admin/product(page=${i >= 1 ? i : 1},key=${key})}"
                                th:text="${i}"
-                               th:class="${currentPage == i} ? 'page-link active' : 'page-link'"
+                               th:class="${currentPage == i} ? 'page-link bg-dark text-white ' : 'page-link text-dark'"
                             ></a>
                         </li>
                         <li class="page-item"
                             th:class="${currentPage == totalPages} ? 'page-item disabled' : 'page-item'">
                             <a class="page-link" th:href="@{/admin/product(page=${currentPage+1},key=${key})}"
                                aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
+                                <span aria-hidden="true" class="text-dark">&raquo;</span>
                             </a>
                         </li>
                     </ul>
@@ -69,7 +69,7 @@
                     <td>
                         <div class="d-flex justify-content-center">
                             <a th:href="@{/admin/product/update-product/__${p.productId}__}">
-                                <button class="align-items-center btn btn-primary">Sửa
+                                <button class="align-items-center btn btn-warning">Sửa
                                 </button>
                             </a>
                         </div>

@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="form-change-pass" th:action="@{/admin/account/change-password(accountId=${account.accountId})}" th:method="put" th:object="${changePass}">
+                <form id="form-change-pass" th:action="@{/admin/account/change-password(accountId=${acc.accountId})}" th:method="put" th:object="${changePass}">
                     <div class="row d-flex justify-content-center">
                         <div class="mb-3">
                             <label for="old-password" class="form-label">Mật khẩu
@@ -39,66 +39,5 @@
             </div>
         </div>
     </div>
-    <script>
-        $(document).ready(() => {
-            const csrfToken = $("meta[name='_csrf']").attr("content");
-            const csrfHeader = $("meta[name='_csrf_header']").attr("content");
 
-            $("#form-change-pass").submit((event) => {
-                event.preventDefault();
-
-                let validation = true
-
-                if ($("#old-password").val() === "") {
-                    $("#old-password-error").text("Chưa nhập mật khẩu cũ")
-                    validation = false
-                } else {
-                    $("#old-password-error").text("")
-                }
-
-                if ($("#new-password").val() === "") {
-                    $("#new-password-error").text("Chưa nhập mật khẩu mới")
-                    validation = false
-                }else if($("#new-password").val().length <6 || $("#new-password").val().length>25){
-                    validation = false
-                    $("#new-password-error").text("Mật khẩu có độ dài từ 6-25 ký tự")
-                }else {
-                    $("#new-password-error").text("")
-                }
-
-                if ($("#new-password").val() !== $("#new-password-again").val()) {
-                    $("#new-password-again-error").text("Nhập lại không khớp")
-                    validation = false
-                } else {
-                    $("#new-password-again-error").text("")
-                }
-
-
-                if (validation) {
-                    const formData = $('#form-change-pass').serialize(); // Lấy dữ liệu form
-                    const url = $('#form-change-pass').attr('action'); // Lấy URL của form
-                    $.ajax({
-                        type: 'PUT',
-                        url: url,
-                        data: formData,
-                        beforeSend: function (xhr) {
-                            // Sử dụng tên HTTP header chuẩn và giá trị token
-                            xhr.setRequestHeader(csrfHeader, csrfToken);
-                        },
-                        success: (data) => {
-                            if (data==="Mật khẩu cũ không chính xác"){
-                                $("#old-password-error").text(data);
-                            }else {
-                                window.location.href="/admin/account/update-account?" +data + "&alert=oke"
-                            }
-
-                        },
-                        error: (jqXHR) => {
-                            $("#change-pass-error").text("Có lỗi")
-                        }
-                    });
-                }
-            })
-        })
-    </script>
 </div>

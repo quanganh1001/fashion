@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Quicksand:wght@300..700&display=swap');
+
+*{
+    font-family: "Quicksand", sans-serif;
+    font-size: 1rem;
+}
+
 .content-admin{
     background-color: whitesmoke;
     width: 100%;
@@ -11,9 +18,6 @@
     display: flex;
 }
 
-h2{
-    color: darkmagenta;
-}
 
 .hidden{
     display: none;

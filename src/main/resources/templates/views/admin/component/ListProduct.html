@@ -15,10 +15,10 @@
 
     <tr th:each="id:${invoiceDetails}">
         <td>
-            <img th:unless="${id.productDetail.product.imageBackground1.endsWith('.mp4')}" width="50px"
-                 th:src="@{'/admin/imgProduct?imageName='+${id.productDetail.product.imageBackground1}}">
-            <video th:if="${id.productDetail.product.imageBackground1.endsWith('.mp4')}" controls width="50px"
-                   th:src="@{'/admin/imgProduct?imageName='+${id.productDetail.product.imageBackground1}}"></video>
+            <img th:unless="${id.productDetail.product.imageBackground.endsWith('.mp4')}" width="50px"
+                 th:src="@{'/admin/imgProduct?imageName='+${id.productDetail.product.imageBackground}}">
+            <video th:if="${id.productDetail.product.imageBackground.endsWith('.mp4')}" controls width="50px"
+                   th:src="@{'/admin/imgProduct?imageName='+${id.productDetail.product.imageBackground}}"></video>
         </td>
         <td th:text="${id.productDetail.code}"></td>
         <td th:text="${id.productDetail.product.productName}"></td>
@@ -37,17 +37,17 @@
                       th:id="'edit' + ${id.detailId}"
                       th:data-detail-id="${id.detailId}"
                       class="edit">
-                    <i class=" fa-regular fa-pen-to-square" style="color: #0033ff;"></i>
+                    <i class=" fa-regular fa-pen-to-square text-dark" style="color: #0033ff;cursor: pointer"></i>
                         </span>
                 <span class="hidden saveQuantity"
                       th:id="'done' + ${id.detailId}"
                       th:data-detail-id="${id.detailId}">
-                            <i class="fa-solid fa-check" style="color: #00ff59;"></i>
+                            <i class="fa-solid fa-check" style="color: #00ff59;cursor: pointer"></i>
                         </span>
                 <span class="hidden cancel"
                       th:id="'cancel' + ${id.detailId}"
                       th:data-detail-id="${id.detailId}">
-                            <i class="fa-solid fa-xmark" style="color: #ff0000;"></i>
+                            <i class="fa-solid fa-xmark" style="color: #ff0000;cursor: pointer"></i>
                         </span>
             </div>
         </td>
@@ -55,27 +55,12 @@
         <td class="button"
             th:if="${id.invoice.invoiceStatus.statusId} >= 0 and ${id.invoice.invoiceStatus.statusId} <= 2 and ${!id.invoice.isPaid}">
             <button class="delete btn btn-danger btn-sm" th:data-id="${id.detailId}">
-                <i class="fas fa-trash-alt"></i> Delete
+                <i class="fas fa-trash-alt"></i>
             </button>
         </td>
     </tr>
     </tbody>
     <script>
-        function toggleEditMode(button) {
-            var detailId = $(button.currentTarget).attr('data-detail-id');
-            var quantityElement = $('#quantity' + detailId);
-            var inputElement = $('#input' + detailId);
-            var doneElement = $('#done' + detailId);
-            var editElement = $('#edit' + detailId);
-            var cancelElement = $('#cancel' + detailId);
-
-            inputElement.toggleClass('hidden');
-            quantityElement.toggleClass('hidden');
-            doneElement.toggleClass('hidden');
-            editElement.toggleClass('hidden');
-            cancelElement.toggleClass('hidden');
-        }
-
         $(document).ready(() =>{
             const csrfToken = $("meta[name='_csrf']").attr("content");
             const csrfHeader = $("meta[name='_csrf_header']").attr("content");
@@ -102,6 +87,7 @@
                     success: function (data) {
                         $("#table").html(data)
                         updateTotalBill(invoiceId)
+                        updateHistory()
                     },
                     error: (jqXHR) => {
                         alert(jqXHR.responseText)
@@ -125,6 +111,7 @@
                         toggleEditMode(btn);
                         $("#table").html(data)
                         updateTotalBill(invoiceId)
+                        updateHistory()
                     },
                     error: (jqXHR) => {
                         alert(jqXHR.responseText)

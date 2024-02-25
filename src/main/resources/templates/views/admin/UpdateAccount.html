@@ -13,7 +13,6 @@
         <div class="mt-5 bg-white p-5 shadow border">
             <form id="form" th:action="@{/admin/account/update-account(accountId=${acc.accountId})}"
                   th:object="${acc}" th:method="put">
-                <input type="hidden" th:field="*{accountId}">
                 <div class="row">
                     <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
                         <label class="form-label">Tên đăng nhập<span style="color:red">*</span></label>
@@ -75,14 +74,15 @@
 
                 <div class="col-6 d-flex justify-content-between">
                     <button style="text-align: center"
-                            type="submit" id="button" class="col-2 btn btn-primary">Lưu
+                            type="submit" id="button" class="col-2 btn btn-dark">Lưu
                     </button>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#modal-change-pass"
                             class=" btn btn-warning">Đổi mật khẩu
                     </button>
-                    <button th:data-account-id="${account.accountId}"
-                            id="reset-button"
-                            class="btn btn-warning">Đặt lại mật khẩu
+
+                    <button  th:data-account-id="${acc.accountId}"
+                             id="reset-pass" type="button"
+                             class="btn btn-warning">Đặt lại mật khẩu
                     </button>
                 </div>
             </form>

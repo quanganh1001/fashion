@@ -4,7 +4,7 @@
 <head th:include="~{web/component/head::head}"></head>
 <style>
     #store-info {
-        max-height: 400px;
+        max-height: 600px;
         overflow-y: auto;
         overflow-scrolling: unset;
     }
@@ -16,8 +16,8 @@
 
 <h2 class=" col-12 d-flex justify-content-center">Hệ thống cửa hàng</h2>
 
-<div id="map" class="container-xl" style="min-height: 30vh">
-    <div th:replace="~{web/component/Map::Map}"></div>
+<div id="map" class="container-xl mb-5" style="min-height: 50vh">
+    <div th:replace="~{web/component/ListStore::ListStore}"></div>
 </div>
 
 <div th:replace="~{web/component/Footer::Footer}"></div>

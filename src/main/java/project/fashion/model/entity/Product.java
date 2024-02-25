@@ -20,15 +20,12 @@ public class Product {
     private Integer totalSize;
     private Integer totalColor;
     private String imageBackground;
+    private String imageChooseSize;
     private Boolean isProductActive;
 
     @ManyToOne
     @JoinColumn(name = "cat_id")
     private Category category;
-
-    @ManyToOne
-    @JoinColumn(name = "img_size_id")
-    private ImgSize imgSize;
 
     @PrePersist
     public void prePersist() {

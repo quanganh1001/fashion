@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head th:include="~{admin/component/head::head}"></head>
+<style>
+    #list-store {
+        max-height: 60vh;
+        overflow-y: auto;
+        overflow-scrolling: unset;
+    }
+</style>
+<body>
+<div class="ui-menu-item-wrapper">
+    <div class="bg-dark sidebar col-2" th:include="~{admin/component/Menu::menu}"
+         style="min-height: 100vh;overflow-y: auto;"></div>
+
+    <div class="content-admin p-4">
+        <h1 class="fw-bold">Hệ thống cửa hàng</h1>
+        <div class="mt-5 bg-white p-5 shadow border">
+            <a class="btn btn-dark" href="/admin/store/add-store">Thêm mới</a>
+            <div id="store-info" >
+                <div th:replace="~{admin/component/ListStore::ListStore}"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -2,26 +2,23 @@ package project.fashion.controllerAdmin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import project.fashion.model.DTO.ImgSizeEnumDTO;
 import project.fashion.model.entity.Category;
-import project.fashion.model.entity.ImgSize;
 import project.fashion.model.entity.Product;
 import project.fashion.model.entity.ProductDetail;
 import project.fashion.model.repository.CategoryRepo;
-import project.fashion.model.repository.ImgSizeRepo;
 import project.fashion.model.service.AccountService;
 import project.fashion.model.service.FeedbackCustomerService;
 import project.fashion.model.service.ProductDetailService;
 import project.fashion.model.service.ProductService;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -34,8 +31,7 @@ public class CtlAdminProduct {
     private ProductService productService;
     @Autowired
     private CategoryRepo categoryRepo;
-    @Autowired
-    private ImgSizeRepo imgSizeRepo;
+
     @Autowired
     private AccountService accountService;
     @Autowired
@@ -63,14 +59,14 @@ public class CtlAdminProduct {
     @GetMapping("/add-product")
     public String addProduct(Model model,@RequestParam(value = "catId",defaultValue = "") String catId) {
         List<Category> cat = categoryRepo.findAll();
-        List<ImgSize> img = imgSizeRepo.findAll();
+        List<ImgSizeEnumDTO> imgSize =  Arrays.asList(ImgSizeEnumDTO.values());
         accountService.getAccountResponse(model);
         feedbackCustomerService.countUnread(model);
 
         model.addAttribute("catId",catId);
         model.addAttribute("product", new Product());
         model.addAttribute("cat", cat);
-        model.addAttribute("img", img);
+        model.addAttribute("imgSize", imgSize);
         model.addAttribute("title","Product");
         return "admin/AddProduct";
     }
@@ -97,14 +93,14 @@ public class CtlAdminProduct {
     @GetMapping("/update-product/{productId}")
     public String updateProduct(Model model, @PathVariable("productId") String productId) {
         List<Category> cat = categoryRepo.findAll();
-        List<ImgSize> img = imgSizeRepo.findAll();
+        List<ImgSizeEnumDTO> imgSize =  Arrays.asList(ImgSizeEnumDTO.values());
         List<ProductDetail> prDetail =  productDetailService.findAllByProductProductId(productId);
         Product p = productService.findById(productId);
         accountService.getAccountResponse(model);
         feedbackCustomerService.countUnread(model);
 
         model.addAttribute("cat", cat);
-        model.addAttribute("img", img);
+        model.addAttribute("imgSize", imgSize);
         model.addAttribute("p", p);
         model.addAttribute("prDetail",prDetail);
         model.addAttribute("title","Product");

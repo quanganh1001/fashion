@@ -7,54 +7,50 @@
            th:value="${invoice.shippingFee}"/>
     <span th:if="${invoice.invoiceStatus.statusId} >= 0 and ${invoice.invoiceStatus.statusId} <=2 and ${!invoice.isPaid}"
           id="edit-ship">
-        <i class="fa-regular fa-pen-to-square" style="color: #0033ff;"></i>
+        <i class="fa-regular fa-pen-to-square text-dark" style="color: #0033ff;cursor: pointer"></i>
     </span>
     <span class="hidden"
           id="done-ship">
-        <i class="fa-solid fa-check" style="color: #00ff59;"></i>
+        <i class="fa-solid fa-check" style="color: #00ff59;cursor: pointer"></i>
     </span>
     <span class="hidden"
           id="cancel-ship">
-        <i class="fa-solid fa-xmark" style="color: #ff0000;"></i>
+        <i class="fa-solid fa-xmark" style="color: #ff0000;cursor: pointer"></i>
     </span>
     <script>
-        function toggleShippingFee() {
-            $("#shippingFee").toggleClass("hidden");
-            $("#input-ship").toggleClass("hidden")
-            $("#done-ship").toggleClass("hidden")
-            $("#cancel-ship").toggleClass("hidden")
-            $("#edit-ship").toggleClass("hidden")
-        }
+        $(document).ready(() => {
 
-        $("#edit-ship").click(()=>{
-            toggleShippingFee()
-        })
+            $("#edit-ship").click(() => {
+                toggleShippingFee()
+            })
 
-        $("#cancel-ship").click(()=>{
-            toggleShippingFee()
-        })
+            $("#cancel-ship").click(() => {
+                toggleShippingFee()
+            })
 
-        $("#done-ship").click(()=>{
-            toggleShippingFee()
-            const newShippingFee = $("#input-ship").val();
-            const invoiceId = $("#input-ship").attr("data-invoice-id");
-            const csrfToken = $("meta[name='_csrf']").attr("content");
-            const csrfHeader = $("meta[name='_csrf_header']").attr("content");
-            $.ajax({
-                type: 'PUT',
-                url: '/admin/invoiceDetail/updateShip',
-                data:{newShippingFee:newShippingFee,invoiceId:invoiceId},
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader(csrfHeader, csrfToken);
-                },
-                success: function (data) {
-                    $("#ship").html(data);
-                    updateTotalBill(invoiceId);
-                },
-                error: (jqXHR) => {
-                    alert(jqXHR.responseText)
-                }
-            });
+            $("#done-ship").click(() => {
+                toggleShippingFee()
+                const newShippingFee = $("#input-ship").val();
+                const invoiceId = $("#input-ship").attr("data-invoice-id");
+                const csrfToken = $("meta[name='_csrf']").attr("content");
+                const csrfHeader = $("meta[name='_csrf_header']").attr("content");
+                $.ajax({
+                    type: 'PUT',
+                    url: '/admin/invoiceDetail/updateShip',
+                    data: {newShippingFee: newShippingFee, invoiceId: invoiceId},
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(csrfHeader, csrfToken);
+                    },
+                    success: function (data) {
+                        $("#ship").html(data);
+                        updateTotalBill(invoiceId);
+                        updateHistory()
+                    },
+                    error: (jqXHR) => {
+                        alert(jqXHR.responseText)
+                    }
+                });
+            })
         })
     </script>
 </div>

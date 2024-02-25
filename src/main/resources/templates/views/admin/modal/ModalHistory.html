@@ -1,0 +1,23 @@
+<div th:fragment="ModalHistory">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Lịch sử đơn hàng</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul th:if="${histories != null}" th:each="history :${histories}">
+                    <li>
+                            <span th:text=" ${history.timeAgo}"
+                                  class="fw-lighter fs-8"></span>
+                        <p th:utext="${history.content}"></p>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

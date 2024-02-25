@@ -14,12 +14,12 @@
          style="min-height: 100vh;overflow-y: auto;"></div>
 
     <div class="content-admin p-4">
-        <h2>SẢN PHẨM</h2>
+        <h1 class="fw-bold">CẬP NHẬP SẢN PHẨM</h1>
         <div class="mt-5 bg-white p-5 shadow border">
             <div class="d-flex flex-wrap justify-content-between">
                 <div class="mb-3 col-12">
                     <a th:href="@{/admin/imgProduct/add-img?productId=__${p.productId}__}"
-                       class="btn btn-primary btn-sm"
+                       class="btn btn-dark btn-sm"
                        role="button">Thêm ảnh sản phẩm
                     </a>
                 </div>
@@ -86,9 +86,9 @@
                         <div class="mb-3">
                             <label for="imgSize" class="form-label">Ảnh hướng dẫn chọn size<span
                                     style="color:red">*</span></label>
-                            <select class="form-control" id="imgSize" th:field="*{imgSize}">
-                                <option th:each="img : ${img}" th:value="${img.imgSizeId}"
-                                        th:text="${img.imgName}"></option>
+                            <select class="form-control" id="imgSize" th:field="*{imageChooseSize}">
+                                <option th:each="img : ${imgSize}" th:value="${img.url}"
+                                        th:text="${img.name}"></option>
                             </select>
                         </div>
 
@@ -98,16 +98,14 @@
                             động/Ẩn
                         </div>
 
-                        <button style="text-align: center" type="submit" id="button" class="col-4 btn btn-primary">Lưu
-                            sản
-                            phẩm
+                        <button style="text-align: center" type="submit" id="button" class="col-4 btn btn-dark">Lưu sản phẩm
                         </button>
                     </div>
                 </form>
                 <div class=" col-4 border p-3 pl-3">
                     <div class="mb-3"><a th:href="@{/admin/productDetail/add-prDetail?productId=__${p.productId}__}"
-                                         class="btn btn-primary btn-sm"
-                                         role="button">Thêm chi tiết
+                                         class="btn btn-dark btn-sm"
+                                         role="button">Thêm mã phân loại
                     </a></div>
 
                     <div class="pd">
@@ -117,12 +115,12 @@
                                   th:method="delete"
                                   onsubmit="return confirm('Bạn có muốn xóa sản phẩm này?')">
                                 <button class="btn btn-danger btn-sm" type="submit">
-                                    <i class="fas fa-trash-alt"></i> Delete
+                                    <i class="fas fa-trash-alt"></i>
                                 </button>
                                 <a th:href="@{/admin/productDetail/update-detail/__${pd.productDetailId}__}"
                                    class="btn btn-warning btn-sm"
                                    role="button">
-                                    <i class="fas fa-pencil-alt"></i> Edit
+                                    <i class="fas fa-pencil-alt"></i> Sửa
                                 </a>
                                 <span th:text="${pd.code}"></span>
                             </form>

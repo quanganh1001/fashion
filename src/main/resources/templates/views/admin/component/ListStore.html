@@ -1,0 +1,81 @@
+<div th:fragment="ListStore">
+    <div class="d-flex justify-content-around mt-5 ">
+        <div class="col-4 border p-5 bg-white">
+            <h4>Tìm cửa hàng</h4>
+            <div class="mb-3">
+                <p>Chọn tỉnh thành</p>
+                <select class="col-12 form-control" id="changeCity">
+                    <option th:if="${cities != null}"
+                            th:each="city : ${cities}"
+                            th:value="${city}"
+                            th:text="${city}"
+                            th:selected="${citySelected == city}">
+                    </option>
+                </select>
+            </div>
+            <div id="list-store">
+                <div th:if="${stores != null}" th:each="store : ${stores}" class="border d-flex mt-5 pe-2">
+                    <div class="m-3">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div>
+                        <div th:text="${store.name}" class="mt-3"></div>
+                        <div th:text="${store.address}" class="mt-3"></div>
+                        <div class="mt-3">Thời gian hoạt động: <span th:text="${store.time}" class="fw-bold"></span>
+                        </div>
+                        <div class="mt-3">Số điện thoại: <span th:text="${store.phone}" class="fw-bold"></span></div>
+                        <div>
+                            <form th:action="@{/admin/store/delete-store?id=__${store.id}__}" th:method="delete">
+                                <button class="btn btn-dark mt-3 mb-3 view-map" type="button"
+                                        th:data-store-api="${store.api}">Xem
+                                    bản
+                                    đồ
+                                </button>
+                                <button class="btn btn-danger delete">Xóa</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <iframe th:if="${stores!=null}" id="map-api" th:src="${stores[0].api}" class="border col-6" height="600"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+    <script>
+        $(document).ready(() => {
+            $(".view-map").click(function (btn) {
+                const api = $(btn.target).attr("data-store-api")
+                $.ajax({
+                    type: 'GET',
+                    url: '/admin/store/map',
+                    data: {api: api},
+                    success: (data) => {
+                        $("#map-api").attr("src", data);
+                    },
+                    error: (jqXHR) => {
+                        alert(jqXHR.responseText)
+                    }
+                });
+            })
+        })
+
+        $("#changeCity").change(function (select) {
+            const city = $(select.target).val();
+            $.ajax({
+                type: 'GET',
+                url: '/admin/store/change-map',
+                data: {city: city},
+                success: (data) => {
+                    $("#store-info").html(data)
+                },
+                error: (jqXHR) => {
+                    alert(jqXHR.responseText)
+                }
+            });
+        })
+    </script>
+
+</div>

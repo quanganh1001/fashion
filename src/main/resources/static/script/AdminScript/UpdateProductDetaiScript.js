@@ -1,4 +1,5 @@
 $(document).ready(() => {
+
     $("#form").submit(() => {
         let validation = true
 
