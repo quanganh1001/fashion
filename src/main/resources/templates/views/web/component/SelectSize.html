@@ -2,14 +2,14 @@
     <div class="d-flex align-items-center" id="selectSize">
         <div th:each="pd : ${productDetails}">
             <label th:if="${pd.quantity > 0}"
-                   th:text="${pd.size.name}"
-                   th:data-size-id="${pd.size.sizeId}"
+                   th:text="${pd.size}"
+                   th:data-size="${pd.size}"
                    th:data-product-id="${productId}"
                    class="size m-2 border p-2 btn">
             </label>
             <label th:unless="${pd.quantity > 0}"
-                   th:text="${pd.size.name}"
-                   th:data-size-id="${pd.size.sizeId}"
+                   th:text="${pd.size}"
+                   th:data-size="${pd.size}"
                    th:data-product-id="${productId}"
                    class="m-2 border p-2 disable btn">
             </label>
@@ -38,13 +38,13 @@
             input.prop('checked', true);
 
             var colorId = $(".checkedColor").data("color-id");
-            var sizeId = event.currentTarget.getAttribute("data-size-id");
+            var size = event.currentTarget.getAttribute("data-size");
             var productId = event.currentTarget.getAttribute("data-product-id");
 
             $.ajax({
                 type: 'GET',
                 url: "/products/detail",
-                data: {colorId: colorId, sizeId: sizeId, productId: productId},
+                data: {colorId: colorId, size: size, productId: productId},
                 success: function (data) {
                     $("#detail").html(data)
                 },

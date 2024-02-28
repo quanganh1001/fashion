@@ -14,7 +14,7 @@ public class ProductDetail {
     private Integer quantity;
     private Boolean outOfStock;
     private Boolean productDetailActive;
-
+    private String size;
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
@@ -22,10 +22,6 @@ public class ProductDetail {
     @ManyToOne
     @JoinColumn(name = "color_id")
     private Color color;
-
-    @ManyToOne
-    @JoinColumn(name = "size_id")
-    private Size size;
 
     @PrePersist
     public void prePersist() {

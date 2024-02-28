@@ -36,7 +36,7 @@ public interface ProductDetailRepo extends JpaRepository<ProductDetail,Integer> 
 
     ProductDetail findByCode(String code);
 
-    @Query(value = "SELECT * FROM products_detail WHERE product_id = :productId AND color_id = :colorId AND size_id = :sizeId",
+    @Query(value = "SELECT * FROM products_detail WHERE product_id = :productId AND color_id = :colorId AND size = :size",
             nativeQuery = true)
-    ProductDetail findProductDetails(@Param("productId") String productId,@Param("colorId") String colorId,@Param("sizeId") String sizeId);
+    ProductDetail findProductDetails(@Param("productId") String productId,@Param("colorId") String colorId,@Param("size") String size);
 }

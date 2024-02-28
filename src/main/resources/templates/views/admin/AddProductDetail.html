@@ -48,15 +48,11 @@
 
                     <div class="mb-3 col-6">
                         <label for="size" class="form-label">Size<span style="color:red">*</span>
-                            <span data-bs-toggle="modal"
-                                  data-bs-target="#modal-size">
-                            <i class="fa-regular fa-square-plus"></i>
-                            </span>
                         </label>
-                        <select class="form-control" id="size" th:field="*{size.sizeId}">
+                        <select class="form-control" id="size" th:field="*{s}">
                             <option value="">--Chọn size--</option>
-                            <option th:each="s : ${s}" th:value="${s.sizeId}"
-                                    th:text="${s.sizeId} + ' - ' + ${s.name}"></option>
+                            <option th:each="s : ${sizes}" th:value="${s.size}"
+                                    th:text="${s.size}"></option>
                         </select>
                         <span id="sizeError" class="text-danger"></span>
                     </div>
@@ -73,10 +69,7 @@
 <div class="modal fade" id="modal-color" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div th:include="~{admin/modal/ModalColor::ModalColor}"></div>
 </div>
-<!--     Modal-->
-<div class="modal fade" id="modal-size" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div th:include="~{admin/modal/ModalSize::ModalSize}"></div>
-</div>
+
 <script th:src="@{/script/AdminScript/AddProductDetailScript.js}"></script>
 </body>
 </html>

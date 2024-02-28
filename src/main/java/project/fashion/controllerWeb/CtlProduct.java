@@ -7,10 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import project.fashion.model.DTO.SizeEnumDTO;
 import project.fashion.model.entity.*;
 import project.fashion.model.service.*;
 
 import java.net.MalformedURLException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,8 +31,6 @@ public class CtlProduct {
     @Autowired
     public ColorService colorService;
     @Autowired
-    public SizeService sizeService;
-    @Autowired
     AccountService accountService;
 
     @GetMapping("/{productId}")
@@ -47,14 +47,13 @@ public class CtlProduct {
         accountService.getAccountResponse(model);
         List<ImgProduct> imgProducts = imgProductService.findAllImgByProduct(productId);
         List<Color> colors = colorService.findColor(productId);
-        List<Size> sizes = sizeService.findSize(productId);
+
         List<ProductDetail> productDetails = productDetailService.findAllByProductAndColor(productId,colors.get(0).getColorId());
 
         model.addAttribute("title","Trang chủ");
         model.addAttribute("product",product);
         model.addAttribute("imgProducts",imgProducts);
         model.addAttribute("colors",colors);
-        model.addAttribute("sizes",sizes );
         model.addAttribute("productDetails",productDetails );
         model.addAttribute("title", product.getProductName());
 
@@ -65,9 +64,9 @@ public class CtlProduct {
     public String getDetail(Model model,
                             @RequestParam(value = "productId") String productId,
                             @RequestParam(value = "colorId") String colorId,
-                            @RequestParam(value = "sizeId",defaultValue = "") String sizeId){
+                            @RequestParam(value = "size",defaultValue = "") String size){
         Product product = productService.findById(productId);
-        ProductDetail productDetail = productDetailService.findProductDetail(productId,colorId,sizeId);
+        ProductDetail productDetail = productDetailService.findProductDetail(productId,colorId,size);
 
         model.addAttribute("productDetail",productDetail);
         model.addAttribute("product",product);

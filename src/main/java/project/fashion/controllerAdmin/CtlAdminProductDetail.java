@@ -1,18 +1,18 @@
 package project.fashion.controllerAdmin;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import project.fashion.model.DTO.SizeEnumDTO;
 import project.fashion.model.entity.Color;
 import project.fashion.model.entity.Product;
 import project.fashion.model.entity.ProductDetail;
-import project.fashion.model.entity.Size;
 import project.fashion.model.service.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -21,8 +21,6 @@ import java.util.List;
 public class CtlAdminProductDetail {
     @Autowired
     private ProductDetailService productDetailService;
-    @Autowired
-    private SizeService sizeService;
     @Autowired
     private ColorService colorService;
     @Autowired
@@ -34,14 +32,13 @@ public class CtlAdminProductDetail {
 
     @GetMapping("/add-prDetail")
     public String addProductDetail(Model model,@RequestParam("productId") String productId) {
-        List<Size> sizes = sizeService.findAll();
+        List<SizeEnumDTO> sizes = Arrays.asList(SizeEnumDTO.values());
         List<Color> colors = colorService.findAll();
         accountService.getAccountResponse(model);
         feedbackCustomerService.countUnread(model);
 
         model.addAttribute("productId", productId);
         model.addAttribute("sizes", sizes);
-        model.addAttribute("size", new Size());
         model.addAttribute("colors", colors);
         model.addAttribute("color",new Color());
         model.addAttribute("pd", new ProductDetail());
@@ -59,7 +56,7 @@ public class CtlAdminProductDetail {
     @GetMapping("update-detail/{prDetailId}")
     public String updateProductDetail(Model model, @PathVariable("prDetailId") Integer prDetailId) {
         List<Color> colors = colorService.findAll();
-        List<Size> sizes = sizeService.findAll();
+        List<SizeEnumDTO> sizes = Arrays.asList(SizeEnumDTO.values());
         List<Product> product =  productService.findAll();
         ProductDetail pd = productDetailService.getById(prDetailId);
         feedbackCustomerService.countUnread(model);
@@ -69,7 +66,6 @@ public class CtlAdminProductDetail {
         model.addAttribute("colors", colors);
         model.addAttribute("color", new Color());
         model.addAttribute("sizes", sizes);
-        model.addAttribute("size", new Size());
         model.addAttribute("product", product);
         model.addAttribute("pd",pd);
         model.addAttribute("title","Product");

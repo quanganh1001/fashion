@@ -2,13 +2,13 @@
 
     <div th:include="~{web/modal/ModalAlert::ModalAlert}"></div>
     <nav class=" pb-2 pt-2 bg-body-tertiary position-relative shadow-sm d-flex">
-        <div class="container-xl d-flex justify-content-between">
-            <div class="col-2">
+        <div class="container-xl d-flex justify-content-between align-sefl">
+            <div class="col-2 align-self-center">
                 <a href="/"><img src="/image/logo.png" style="width: 100%" alt=""></a>
             </div>
 
             <ul class=" align-self-end d-flex col-5 justify-content-between">
-                <li class="align-self-end f1">
+                <li class=" f1">
                     <a class="text-dark  fw-bold" aria-current="page" th:href="@{/category/sale}"
                        th:text="Sale"></a>
                 </li>
@@ -54,10 +54,14 @@
                 </li>
             </ul>
 
-            <div class="align-self-center col-2">
-                <form id="search-form" th:action="@{/category/search}" class="d-flex">
-                    <div class="input-group ">
-                        <input type="text" class="form-control" id="search-input" name="key" placeholder="Tìm kiếm">
+            <div class="col-2 align-self-center">
+                <form id="search-form" th:action="@{/category/search}">
+                    <div class="input-group">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="search-input" name="key"
+                                   placeholder="Tìm kiếm">
+                            <label for="search-input">Tìm kiếm</label>
+                        </div>
                         <button class="btn border" type="submit">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>

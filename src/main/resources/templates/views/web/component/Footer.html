@@ -80,11 +80,16 @@
             <span class="mt-3 fw-lighter fs-6">Để cập nhật những sản phẩm mới, nhận thông tin ưu đãi đặc biệt và thông tin giảm giá khác.</span>
             <div class="input-group mt-3">
                 <span class="input-group-text" id="basic-addon1">@</span>
-                <input id="email-input" type="email" class="form-control"
-                       placeholder="Nhập email của bạn" style="font-size: 0.7rem">
+                <div class="form-floating">
+                    <input id="email-input" type="email" class="form-control"
+                           placeholder="Nhập email" style="font-size: 0.8rem">
+                    <label for="email-input">Nhập email của bạn</label>
+                </div>
                 <button type="submit" class="btn btn-dark" id="btn-send-mail">Đăng ký</button>
             </div>
-            <div class="font-success hidden" id="loading-send-mail">Đang gửi...</div>
+            <div id="loading-send-mail" class="spinner-border text-dark hidden" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
         </div>
     </div>
     <p class="fs-6 fw-light border-top border-dark-subtle p-2 d-flex justify-content-center">Copyright © 2024 <a class="ms-1" href="https://torano.vn"> Torano</a>.

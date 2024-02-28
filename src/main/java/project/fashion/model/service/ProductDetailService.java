@@ -9,6 +9,7 @@ import project.fashion.model.entity.Product;
 import project.fashion.model.entity.ProductDetail;
 import project.fashion.model.repository.ProductDetailRepo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -82,11 +83,20 @@ public class ProductDetailService {
         return productDetailRepo.findAllByProductProductIdAndColor_ColorIdAndProductDetailActiveIsTrue(productId, colorId);
     }
 
-    public ProductDetail findProductDetail(String productId, String colorId, String sizeId) {
-        return productDetailRepo.findProductDetails(productId, colorId, sizeId);
+    public ProductDetail findProductDetail(String productId, String colorId, String size) {
+        return productDetailRepo.findProductDetails(productId, colorId, size);
     }
 
     public ProductDetail findByCode(String productDetailCode) {
         return productDetailRepo.findByCode(productDetailCode);
+    }
+
+    public List<String> findSize(String id){
+        List<String> listSize = new ArrayList<>();
+        List<ProductDetail> productDetails = productDetailRepo.findAllByProductProductId(id);
+        for (ProductDetail productDetail: productDetails){
+            listSize.add(productDetail.getSize());
+        }
+        return listSize;
     }
 }
