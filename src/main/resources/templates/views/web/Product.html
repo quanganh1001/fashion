@@ -8,174 +8,184 @@
 <header id="header" th:include="~{web/component/header::header}"></header>
 <div th:replace="~{web/component/Breadcrumb::Breadcrumb}"></div>
 
-<div class="d-flex container-xl" style="min-height: 50vh">
-    <div class="col-4 position-relative img ">
+<div class="container-xl mb-5" style="min-height: 50vh">
+    <div class="d-flex mb-5">
+        <div class="col-4 position-relative img ">
+            <div id="slider">
+                <div th:each="img : ${imgProducts}" class=" border border-4 position-relative">
 
-        <div id="slider">
-            <div th:each="img : ${imgProducts}" class=" border border-4 position-relative">
+                    <div th:if="${product.isDiscount}"
+                         style="z-index: 2;background-color: red;width:50px"
+                         class="position-absolute top-0 start-0 text-white rounded-pill m-2 fw-bold d-flex justify-content-center"
+                         th:text="'-'+${product.discountPercent} +'%'">
+                    </div>
 
-                <div th:if="${product.isDiscount}"
-                     style="z-index: 2;background-color: red;width:50px"
-                     class="position-absolute top-0 start-0 text-white rounded-pill m-2 fw-bold d-flex justify-content-center"
-                     th:text="'-'+${product.discountPercent} +'%'">
-                </div>
-
-                <img th:unless="${img.fileImg.endsWith('.mp4')}" th:src="@{'/img?fileImg='+${img.fileImg}}" alt="Image"
-                     style="width:100%;height: 500px">
-                <video th:if="${img.fileImg.endsWith('.mp4')}" style="width:100%;height: 500px" controls autoplay muted
-                       th:src="@{'/img?fileImg='+${img.fileImg}}"></video>
-            </div>
-        </div>
-        <div class="slick-prev slick-prev-img p-2 ps-3 pe-3 rounded-circle bg-white position-absolute translate-middle-y start-0 top-50">
-            <i class=" fa-solid fa-chevron-left "></i>
-        </div>
-        <div class="slick-next slick-next-img position-absolute translate-middle-y end-0 top-50 p-2 ps-3 pe-3 rounded-circle bg-white">
-            <i class=" fa-solid fa-chevron-right "></i>
-        </div>
-        <div class="thumb position-relative">
-            <div id="thumbnail_slider">
-                <div th:each="img : ${imgProducts}" class="border border-4">
-                    <img th:unless="${img.fileImg.endsWith('.mp4')}" th:src="@{'/img?fileImg='+${img.fileImg}}"
-                         alt="Image" style="width:100%">
-                    <video th:if="${img.fileImg.endsWith('.mp4')}" style="width:100%" controls autoplay muted
+                    <img th:unless="${img.fileImg.endsWith('.mp4')}" th:src="@{'/img?fileImg='+${img.fileImg}}" alt="Image"
+                         style="width:100%;height: 500px">
+                    <video th:if="${img.fileImg.endsWith('.mp4')}" style="width:100%;height: 500px" controls autoplay muted
                            th:src="@{'/img?fileImg='+${img.fileImg}}"></video>
                 </div>
             </div>
-            <div class="slick-prev-thumb slick-prev rounded-circle bg-white position-absolute translate-middle-y start-0 top-50 p-1 ps-2 pe-2">
+            <div class="slick-prev slick-prev-img p-2 ps-3 pe-3 rounded-circle bg-white position-absolute translate-middle-y start-0 top-50">
                 <i class=" fa-solid fa-chevron-left "></i>
             </div>
-            <div class="slick-next-thumb slick-next rounded-circle bg-white position-absolute translate-middle-y end-0 top-50 p-1 ps-2 pe-2">
+            <div class="slick-next slick-next-img position-absolute translate-middle-y end-0 top-50 p-2 ps-3 pe-3 rounded-circle bg-white">
                 <i class=" fa-solid fa-chevron-right "></i>
             </div>
+            <div class="thumb position-relative">
+                <div id="thumbnail_slider">
+                    <div th:each="img : ${imgProducts}" class="border border-4">
+                        <img th:unless="${img.fileImg.endsWith('.mp4')}" th:src="@{'/img?fileImg='+${img.fileImg}}"
+                             alt="Image" style="width:100%">
+                        <video th:if="${img.fileImg.endsWith('.mp4')}" style="width:100%" controls autoplay muted
+                               th:src="@{'/img?fileImg='+${img.fileImg}}"></video>
+                    </div>
+                </div>
+                <div class="slick-prev-thumb slick-prev rounded-circle bg-white position-absolute translate-middle-y start-0 top-50 p-1 ps-2 pe-2">
+                    <i class=" fa-solid fa-chevron-left "></i>
+                </div>
+                <div class="slick-next-thumb slick-next rounded-circle bg-white position-absolute translate-middle-y end-0 top-50 p-1 ps-2 pe-2">
+                    <i class=" fa-solid fa-chevron-right "></i>
+                </div>
+            </div>
         </div>
-    </div>
 
-
-    <div class="col-8 ps-5">
-        <h4 id="productName" th:text="${product.productName}" class="mb-4"></h4>
-        <div id="detail" class="mb-3">Hãy chọn size</div>
-        <div style="background-color: #d9d7d7" class="p-3 ">
-            <div class="d-flex">
-                <span>Giá: </span>
-                <span id="price" th:if="${!product.isDiscount}"
-                      th:text="' ' +${ #numbers.formatDecimal(product.price, 0, 'POINT', 0, 'POINT')} +' đ'"
-                      class="text-danger fw-bold ms-2"></span>
-                <div th:unless="${!product.isDiscount}">
+        <div class=" col-8 ps-5">
+            <h4 id="productName" th:text="${product.productName}" class="mb-4"></h4>
+            <div class="d-flex justify-content-between mb-3">
+                <div id="detail">Hãy chọn size</div>
+                <div data-bs-toggle="modal"
+                     data-bs-target="#modal-choose-size"
+                     class="link-body-emphasis link-offset-2 border-bottom border-dark fst-italic text-nowrap align-self-center"
+                     style="cursor: pointer">Ảnh hướng dẫn chọn size
+                </div>
+                <div class="modal fade" id="modal-choose-size" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div th:include="~{web/modal/ModalChooseSize::ModalChooseSize}"></div>
+                </div>
+            </div>
+            <div style="background-color: #d9d7d7" class="p-3 ">
+                <div class="d-flex">
+                    <span>Giá: </span>
+                    <span id="price" th:if="${!product.isDiscount}"
+                          th:text="' ' +${ #numbers.formatDecimal(product.price, 0, 'POINT', 0, 'POINT')} +' đ'"
+                          class="text-danger fw-bold ms-2"></span>
+                    <div th:unless="${!product.isDiscount}">
                             <span th:text="' ' +${ #numbers.formatDecimal(product.price, 0, 'POINT', 0, 'POINT')} +' đ'"
                                   style="text-decoration: line-through;" class="ms-2"></span>
 
-                    <span id="discountPrice"
-                          th:text="${ #numbers.formatDecimal(product.discountPrice, 0, 'POINT', 0, 'POINT')} +' đ'"
-                          class="text-danger fw-bold ms-2"></span>
+                        <span id="discountPrice"
+                              th:text="${ #numbers.formatDecimal(product.discountPrice, 0, 'POINT', 0, 'POINT')} +' đ'"
+                              class="text-danger fw-bold ms-2"></span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="p-3">
-            <form action="" id="form">
-                <div class="d-flex align-items-center">
-                    <div class="col-1">Màu sắc:</div>
-                    <div th:each="color, status : ${colors}">
-                        <label th:text="${color.name}"
-                               th:data-color-id="${color.colorId}"
-                               th:data-product-id="${product.productId}"
-                               class="color m-2 btn border p-2"
-                               th:classappend="${status.index == 0} ? 'btn btn-dark checkedColor' : ''">
-                            <input type="radio" name="color"
-                                   th:value="${color.colorId}"
-                                   th:id="${color.colorId}"
-                                   th:checked="${status.index == 0}"
-                                   class="hidden"/>
-                        </label>
+            <div class="p-3">
+                <form action="" id="form">
+                    <div class="d-flex align-items-center">
+                        <div class="col-1">Màu sắc:</div>
+                        <div th:each="color, status : ${colors}">
+                            <label th:text="${color.name}"
+                                   th:data-color-id="${color.colorId}"
+                                   th:data-product-id="${product.productId}"
+                                   class="color m-2 btn border p-2"
+                                   th:classappend="${status.index == 0} ? 'btn btn-dark checkedColor' : ''">
+                                <input type="radio" name="color"
+                                       th:value="${color.colorId}"
+                                       th:id="${color.colorId}"
+                                       th:checked="${status.index == 0}"
+                                       class="hidden"/>
+                            </label>
+                        </div>
                     </div>
-                </div>
 
-                <div class="d-flex align-items-center">
-                    <div class="col-1">Size:</div>
-                    <div th:include="web/component/SelectSize::SelectSize"></div>
-                </div>
-
-                <div class="mt-3">
-                    <label class="col-1">Số lượng: </label>
-                    <label class="col-1"><input id="quantity" class=" m-1 p-1 form-control" type="number" value="1"
-                                                min="1" max="99"></label>
-                </div>
-
-                <div class="mt-5">
-                    <span class=" p-3 btn btn-dark disabled " id="no-submit">Thêm vào giỏ hàng</span>
-                    <button type="button" class="btn btn-dark p-3 hidden" id="submit">Thêm vào giỏ hàng</button>
-                </div>
-            </form>
-        </div>
-
-        <div class="mt-5">
-            <div class="fw-bold mb-1">Chính sách bán hàng</div>
-            <div class="row">
-                <div class="col-4 d-flex align-items-center">
-                    <div>
-                        <img class=" ls-is-cached lazyloaded"
-                             data-src="//theme.hstatic.net/200000690725/1001078549/14/product_info1_desc1_img.png?v=282"
-                             src="//theme.hstatic.net/200000690725/1001078549/14/product_info1_desc1_img.png?v=282"
-                             alt="Miễn phí giao hàng cho đơn hàng từ 500K">
+                    <div class="d-flex align-items-center">
+                        <div class="col-1">Size:</div>
+                        <div th:include="web/component/SelectSize::SelectSize"></div>
                     </div>
-                    <div class="ms-2">Miễn phí giao hàng cho đơn hàng từ 500K</div>
-                </div>
 
-                <div class="col-4 d-flex align-items-center">
-                    <div>
-                        <img class=" ls-is-cached lazyloaded"
-                             data-src="//theme.hstatic.net/200000690725/1001078549/14/product_info1_desc2_img.png?v=282"
-                             src="//theme.hstatic.net/200000690725/1001078549/14/product_info1_desc2_img.png?v=282"
-                             alt="Hàng phân phối chính hãng 100%">
+                    <div class="mt-3">
+                        <label class="col-1">Số lượng: </label>
+                        <label class="col-1"><input id="quantity" class=" m-1 p-1 form-control" type="number" value="1"
+                                                    min="1" max="99"></label>
                     </div>
-                    <div class="ms-2">Hàng phân phối chính hãng 100%</div>
-                </div>
 
-                <div class="col-4 d-flex align-items-center">
-                    <div>
-                        <img class=" ls-is-cached lazyloaded"
-                             data-src="//theme.hstatic.net/200000690725/1001078549/14/product_info1_desc3_img.png?v=282"
-                             src="//theme.hstatic.net/200000690725/1001078549/14/product_info1_desc3_img.png?v=282"
-                             alt="TỔNG ĐÀI 24/7 :  0964942121">
+                    <div class="mt-5">
+                        <span class=" p-3 btn btn-dark disabled " id="no-submit">Thêm vào giỏ hàng</span>
+                        <button type="button" class="btn btn-dark p-3 hidden" id="submit">Thêm vào giỏ hàng</button>
                     </div>
-                    <div class="ms-2">TỔNG ĐÀI 24/7 : 0964942121</div>
+                </form>
+            </div>
+
+            <div class="mt-5">
+                <div class="fw-bold mb-1">Chính sách bán hàng</div>
+                <div class="row">
+                    <div class="col-4 d-flex align-items-center">
+                        <div>
+                            <img width="100%" class=" ls-is-cached lazyloaded"
+                                 data-src="//theme.hstatic.net/200000690725/1001078549/14/product_info1_desc1_img.png?v=282"
+                                 src="//theme.hstatic.net/200000690725/1001078549/14/product_info1_desc1_img.png?v=282"
+                                 alt="Miễn phí giao hàng cho đơn hàng từ 500K">
+                        </div>
+                        <div class="ms-2">Miễn phí giao hàng cho đơn hàng từ 500K</div>
+                    </div>
+
+                    <div class="col-4 d-flex align-items-center">
+                        <div>
+                            <img width="100%" class=" ls-is-cached lazyloaded"
+                                 data-src="//theme.hstatic.net/200000690725/1001078549/14/product_info1_desc2_img.png?v=282"
+                                 src="//theme.hstatic.net/200000690725/1001078549/14/product_info1_desc2_img.png?v=282"
+                                 alt="Hàng phân phối chính hãng 100%">
+                        </div>
+                        <div class="ms-2">Hàng phân phối chính hãng 100%</div>
+                    </div>
+
+                    <div class="col-4 d-flex align-items-center">
+                        <div>
+                            <img width="100%" class=" ls-is-cached lazyloaded"
+                                 data-src="//theme.hstatic.net/200000690725/1001078549/14/product_info1_desc3_img.png?v=282"
+                                 src="//theme.hstatic.net/200000690725/1001078549/14/product_info1_desc3_img.png?v=282"
+                                 alt="TỔNG ĐÀI 24/7 :  0964942121">
+                        </div>
+                        <div class="ms-2">TỔNG ĐÀI 24/7 : 0964942121</div>
+                    </div>
                 </div>
             </div>
-        </div>
 
 
-        <div class="mt-3">
-            <div class="fw-bold mb-1">Thông tin thêm
-            </div>
-            <div class="row">
-                <div class="col-4 d-flex align-items-center">
-                    <div>
-                        <img class=" ls-is-cached lazyloaded"
-                             data-src="//theme.hstatic.net/200000690725/1001078549/14/product_info2_desc1_img.png?v=282"
-                             src="//theme.hstatic.net/200000690725/1001078549/14/product_info2_desc1_img.png?v=282"
-                             alt="ĐỔI SẢN PHẨM DỄ DÀNG (Trong vòng 7 ngày khi còn nguyên tem mác)">
-                    </div>
-                    <div class="ms-2">ĐỔI SẢN PHẨM DỄ DÀNG (Trong vòng 7 ngày khi còn nguyên tem mác)
-                    </div>
+            <div class="mt-3">
+                <div class="fw-bold mb-1">Thông tin thêm
                 </div>
-
-                <div class="col-4 d-flex align-items-center">
-                    <div>
-                        <img class=" ls-is-cached lazyloaded"
-                             data-src="//theme.hstatic.net/200000690725/1001078549/14/product_info2_desc2_img.png?v=282"
-                             src="//theme.hstatic.net/200000690725/1001078549/14/product_info2_desc2_img.png?v=282"
-                             alt="Kiểm tra, thanh toán khi nhận hàng COD">
+                <div class="row">
+                    <div class="col-4 d-flex align-items-center">
+                        <div>
+                            <img width="100%" class=" ls-is-cached lazyloaded"
+                                 data-src="//theme.hstatic.net/200000690725/1001078549/14/product_info2_desc1_img.png?v=282"
+                                 src="//theme.hstatic.net/200000690725/1001078549/14/product_info2_desc1_img.png?v=282"
+                                 alt="ĐỔI SẢN PHẨM DỄ DÀNG (Trong vòng 7 ngày khi còn nguyên tem mác)">
+                        </div>
+                        <div class="ms-2">ĐỔI SẢN PHẨM DỄ DÀNG (Trong vòng 7 ngày khi còn nguyên tem mác)
+                        </div>
                     </div>
-                    <div class="ms-2">Kiểm tra, thanh toán khi nhận hàng COD</div>
-                </div>
 
-                <div class="col-4 d-flex align-items-center">
-                    <div>
-                        <img class=" ls-is-cached lazyloaded"
-                             data-src="//theme.hstatic.net/200000690725/1001078549/14/product_info2_desc3_img.png?v=282"
-                             src="//theme.hstatic.net/200000690725/1001078549/14/product_info2_desc3_img.png?v=282"
-                             alt="Hỗ trợ bảo hành,đổi sản phẩm tại tất cả store TORANO">
+                    <div class="col-4 d-flex align-items-center">
+                        <div>
+                            <img width="100%" class=" ls-is-cached lazyloaded"
+                                 data-src="//theme.hstatic.net/200000690725/1001078549/14/product_info2_desc2_img.png?v=282"
+                                 src="//theme.hstatic.net/200000690725/1001078549/14/product_info2_desc2_img.png?v=282"
+                                 alt="Kiểm tra, thanh toán khi nhận hàng COD">
+                        </div>
+                        <div class="ms-2">Kiểm tra, thanh toán khi nhận hàng COD</div>
                     </div>
-                    <div class="ms-2">Hỗ trợ bảo hành, đổi sản phẩm tại tất cả store TORANO
+
+                    <div class="col-4 d-flex align-items-center">
+                        <div>
+                            <img width="100%" class=" ls-is-cached lazyloaded"
+                                 data-src="//theme.hstatic.net/200000690725/1001078549/14/product_info2_desc3_img.png?v=282"
+                                 src="//theme.hstatic.net/200000690725/1001078549/14/product_info2_desc3_img.png?v=282"
+                                 alt="Hỗ trợ bảo hành,đổi sản phẩm tại tất cả store TORANO">
+                        </div>
+                        <div class="ms-2">Hỗ trợ bảo hành, đổi sản phẩm tại tất cả store TORANO
+                        </div>
                     </div>
                 </div>
             </div>
@@ -183,7 +193,32 @@
     </div>
 
 
+    <div class="mt-5 ">
+        <ul class="nav nav-underline fw-bold " id="myTab" role="tablist">
+            <li class="nav-item h3 me-5" role="presentation">
+                <button class="nav-link text-dark active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description-tab-pane" type="button" role="tab" aria-controls="description-tab-pane" aria-selected="true">Thông tin chi tiết</button>
+            </li>
+            <li class="nav-item h3 me-5" role="presentation">
+                <button class="nav-link text-dark" id="return-policy-tab" data-bs-toggle="tab" data-bs-target="#return-policy-tab-pane" type="button" role="tab" aria-controls="return-policy-tab-pane" aria-selected="false">Chính sách đổi trả</button>
+            </li>
+            <li class="nav-item h3" role="presentation">
+                <button class="nav-link text-dark" id="private-policy-tab" data-bs-toggle="tab" data-bs-target="#private-policy-tab-pane" type="button" role="tab" aria-controls="private-policy-tab-pane" aria-selected="false">Chính sách bảo mật</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="description-tab-pane" role="tabpanel" aria-labelledby="description-tab" tabindex="0">
+                <pre class="mt-5" th:text="${product.description}"></pre>
+            </div>
+            <div class="tab-pane fade" id="return-policy-tab-pane" role="tabpanel" aria-labelledby="return-policy-tab" tabindex="0">
+                <div th:replace="~{web/component/ReturnPolicy::ReturnPolicy}"></div>
+            </div>
+            <div class="tab-pane fade" id="private-policy-tab-pane" role="tabpanel" aria-labelledby="private-policy-tab" tabindex="0">
+                <div th:replace="~{web/component/PrivatePolicy::PrivatePolicy}"></div>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 <div th:replace="~{web/component/Footer::Footer}"></div>
 <script th:src="@{/script/WebScript/ProductScript.js}"></script>

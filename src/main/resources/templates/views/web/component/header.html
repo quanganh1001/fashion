@@ -57,11 +57,8 @@
             <div class="col-2 align-self-center">
                 <form id="search-form" th:action="@{/category/search}">
                     <div class="input-group">
-                        <div class="form-floating">
-                            <input type="text" class="form-control" id="search-input" name="key"
-                                   placeholder="Tìm kiếm">
-                            <label for="search-input">Tìm kiếm</label>
-                        </div>
+                        <input type="text" class="form-control" id="search-input" name="key"
+                               placeholder="Tìm kiếm" style="font-size: 0.9rem">
                         <button class="btn border" type="submit">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
@@ -81,7 +78,9 @@
                 <div class="ms-3 d-flex" th:if="${account != null}">
                     <div class="d-flex flex-column ">
                         <span>Xin chào, </span>
-                        <a th:href="@{/info-account(accountId=${account.accountId})}" th:text="${account.userName} + '!'" class=" fst-italic text-decoration-underline btn-link"></a>
+                        <a th:href="@{/info-account(accountId=${account.accountId})}"
+                           th:text="${account.userName} + '!'"
+                           class=" fst-italic text-decoration-underline btn-link"></a>
                     </div>
                     <form th:id="form-logout" th:action="@{/logout}" method="post"
                           class="align-self-center ms-1">
@@ -94,7 +93,8 @@
                          aria-expanded="false">
                         <i class="fa-solid fa-user"></i>
                     </div>
-                    <div class="dropdown-menu p-3 start-0 top-100 translate-middle-x mt-2" style="width: 400px; z-index:9999">
+                    <div class="dropdown-menu p-3 start-0 top-100 translate-middle-x mt-2"
+                         style="width: 400px; z-index:9999">
                         <div class="fw-bold">Đăng nhập</div>
                         <form id="form-login" th:action="@{/login}" method="post" class="mt-3">
                             <input type="text" name="username" id="name" class="form-control" style="font-size: 0.8rem"
@@ -106,6 +106,12 @@
                                    style="font-size:0.8rem" data-bs-toggle="modal"
                                    data-bs-target="#modal-forgot-password">Quên mật khẩu?
                                 </a>
+
+                                <div class="modal fade" id="modal-forgot-password" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                     aria-hidden="true">
+                                    <div th:include="~{web/modal/ModalForgotPassword::ModalForgotPassword}"></div>
+                                </div>
+
                                 <a href="/register" class="btn-link">Đăng ký tài khoản</a>
                             </div>
                             <button class="btn btn-dark mt-3">Đăng nhập</button>
@@ -118,9 +124,6 @@
         </div>
     </nav>
 
-    <div class="modal fade" id="modal-forgot-password" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div th:include="~{web/modal/ModalForgotPassword::ModalForgotPassword}"></div>
-    </div>
 
     <script>
         $(document).ready(() => {

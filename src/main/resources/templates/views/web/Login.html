@@ -36,12 +36,13 @@
         </form>
     </div>
 </div>
+<div th:replace="~{web/component/Footer::Footer}"></div>
+
 <script>
     $(document).ready(() => {
         $("#form-login-page").attr("action", "/login?url=" + encodeURIComponent(window.location.pathname));
     })
 </script>
-<div th:replace="~{web/component/Footer::Footer}"></div>
 
 </body>
 </html>

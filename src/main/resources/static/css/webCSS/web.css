@@ -8,10 +8,6 @@
     display: flex;
 }
 
-.active{
-    background-color: #5b5bd4;
-    color: white;
-}
 table{
     border-collapse: collapse;
     width: 100%;

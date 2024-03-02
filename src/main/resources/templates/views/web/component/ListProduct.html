@@ -1,7 +1,7 @@
 <div th:fragment="ListProduct">
     <div class=" d-flex flex-wrap justify-content-around">
         <div th:each="pr : ${products}" class="shadow card hover m-2" style="width: 30%">
-            <div class="card  position-relative">
+            <div class="card  position-relative ">
                 <div th:if="${pr.isDiscount}"
                      style="z-index: 2;background-color: red;width:50px"
                      class="position-absolute top-0 start-0 text-white rounded-pill m-2 fw-bold d-flex justify-content-center"
@@ -50,14 +50,14 @@
                     <a class="page-link"
                        th:href="@{/category/${catId}(page=${currentPage}-1,minPrice=${minPrice},maxPrice=${maxPrice},filter=${filter},key=${key})}"
                        aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
+                        <span aria-hidden="true" class="text-dark">&laquo;</span>
                     </a>
                 </li>
                 <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}">
                     <a class="page-link"
                        th:href="@{/category/__${catId}__(page=${i >= 1 ? i : 1},minPrice=${minPrice},maxPrice=${maxPrice},filter=${filter},key=${key})}"
                        th:text="${i}"
-                       th:class="${currentPage == i} ? 'page-link active' : 'page-link'"
+                       th:class="${currentPage == i} ? 'page-link text-white bg-dark' : 'text-dark page-link'"
                     ></a>
                 </li>
                 <li class="page-item"
@@ -65,7 +65,7 @@
                     <a class="page-link"
                        th:href="@{/category/__${catId}__(page=${currentPage +1},minPrice=${minPrice},maxPrice=${maxPrice},filter=${filter},key=${key})}"
                        aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
+                        <span aria-hidden="true" class="text-dark">&raquo;</span>
                     </a>
                 </li>
             </ul>

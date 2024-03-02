@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -65,18 +66,43 @@ public class ImgProductService {
     }
 
     public ResponseEntity<Resource> getImg(String imageName) throws MalformedURLException {
+        var path = Paths.get("src/main/resources/static/image");
         if (Objects.equals(imageName, "no_image.jpg") || imageName == null || imageName.isEmpty()){
-            Path imagePath = Paths.get("src/main/resources/static/image").resolve("no_image.jpg");
+            Path imagePath = path.resolve("no_image.jpg");
             Resource imageResource = new UrlResource(imagePath.toUri());
             // Trả về phản hồi với hình ảnh
             return ResponseEntity.ok().body(imageResource);
         }else {
             Path imagePath = Paths.get("src/main/uploads/images").resolve(imageName);
             Resource imageResource = new UrlResource(imagePath.toUri());
+            if (!imageResource.exists()) {
+                imagePath = path.resolve("no_image.jpg");
+                imageResource = new UrlResource(imagePath.toUri());
+                return ResponseEntity.ok().body(imageResource);
+            }
             // Trả về phản hồi với hình ảnh
             return ResponseEntity.ok().body(imageResource);
         }
+    }
 
+    public ResponseEntity<Resource> getImgStatic(String imageName) throws MalformedURLException {
+        var path = Paths.get("src/main/resources/static/image");
+        if (Objects.equals(imageName, "no_image.jpg") || imageName == null || imageName.isEmpty()){
+            Path imagePath = path.resolve("no_image.jpg");
+            Resource imageResource = new UrlResource(imagePath.toUri());
+            // Trả về phản hồi với hình ảnh
+            return ResponseEntity.ok().body(imageResource);
+        }else {
+            Path imagePath = path.resolve(imageName);
+            Resource imageResource = new UrlResource(imagePath.toUri());
+            if (!imageResource.exists()) {
+                imagePath = path.resolve("no_image.jpg");
+                imageResource = new UrlResource(imagePath.toUri());
+                return ResponseEntity.ok().body(imageResource);
+            }
+            // Trả về phản hồi với hình ảnh
+            return ResponseEntity.ok().body(imageResource);
+        }
     }
 
     public void addImg(MultipartFile[] files, String productId) throws IOException {

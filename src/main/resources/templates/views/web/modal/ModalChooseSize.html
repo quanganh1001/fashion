@@ -1,0 +1,16 @@
+<div th:fragment="ModalChooseSize">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Hướng dẫn chọn size</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img th:src="@{'/img/static?fileImg='+ ${product.imageChooseSize}}" alt="Chọn size" width="100%">
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>

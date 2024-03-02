@@ -20,6 +20,10 @@ public class CtlImg {
     @GetMapping()
     public ResponseEntity<Resource> getImg(@RequestParam(value = "fileImg",required = false) String fileImg) throws MalformedURLException {
             return imgProductService.getImg(fileImg);
+    }
 
+    @GetMapping("/static")
+    public ResponseEntity<Resource> getImgStatic(@RequestParam(value = "fileImg",required = false) String fileImg) throws MalformedURLException {
+            return imgProductService.getImgStatic(fileImg);
     }
 }

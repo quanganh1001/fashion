@@ -12,20 +12,18 @@
     transition: all 0.3s;
     top: 80%;
 }
-.product-image-bg1 {
-    transition: opacity 0.5s; /* Thêm hiệu ứng chuyển đổi cho opacity */
-    opacity: 1;
+
+
+.card{
+    overflow: hidden;
 }
 
-.product-image-bg1:hover {
-    opacity: 0; /* Ẩn ảnh mặc định khi hover vào */
-}
-.product-image-bg2 {
-    transition: opacity 0.5s; /* Thêm hiệu ứng chuyển đổi cho opacity */
-    opacity: 0;
+.card img {
+    transition: transform 0.3s ease;
 }
 
-.product-image-bg2:hover {
-    opacity: 1; /* Ẩn ảnh mặc định khi hover vào */
+.card:hover img {
+    transform: scale(1.1); /* Phóng to ảnh khi hover */
 }
+
 
