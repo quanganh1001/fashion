@@ -11,10 +11,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.model.entity.ImgProduct;
 import project.fashion.model.entity.Product;
-import project.fashion.model.service.AccountService;
-import project.fashion.model.service.FeedbackCustomerService;
-import project.fashion.model.service.ImgProductService;
-import project.fashion.model.service.ProductService;
+import project.fashion.service.AccountService;
+import project.fashion.service.FeedbackCustomerService;
+import project.fashion.service.ImgProductService;
+import project.fashion.service.ProductService;
 
 import java.io.*;
 import java.util.List;

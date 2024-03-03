@@ -4,9 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import project.fashion.model.DTO.CartItem;
+import project.fashion.DTO.CartItem;
 import project.fashion.model.entity.*;
-import project.fashion.model.service.*;
+
+import project.fashion.service.AccountService;
+import project.fashion.service.CartService;
+import project.fashion.service.CategoryService;
 
 import java.util.ArrayList;
 import java.util.List;

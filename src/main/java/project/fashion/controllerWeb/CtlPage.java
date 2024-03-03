@@ -1,18 +1,16 @@
 package project.fashion.controllerWeb;
 
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.model.entity.FeedbackCustomer;
-import project.fashion.model.service.AccountService;
-import project.fashion.model.service.CategoryService;
-import project.fashion.model.service.CustomerMailService;
-import project.fashion.model.service.FeedbackCustomerService;
+import project.fashion.service.AccountService;
+import project.fashion.service.CategoryService;
+import project.fashion.service.CustomerMailService;
+import project.fashion.service.FeedbackCustomerService;
 
 
 @Controller

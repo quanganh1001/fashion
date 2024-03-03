@@ -49,7 +49,7 @@
                     <div class="mb-3 col-6">
                         <label for="size" class="form-label">Size<span style="color:red">*</span>
                         </label>
-                        <select class="form-control" id="size" th:field="*{s}">
+                        <select class="form-control" id="size" th:field="*{size}">
                             <option value="">--Chọn size--</option>
                             <option th:each="s : ${sizes}" th:value="${s.size}"
                                     th:text="${s.size}"></option>

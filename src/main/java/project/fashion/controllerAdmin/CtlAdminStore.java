@@ -6,12 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.fashion.model.DTO.CityEnumDTO;
-import project.fashion.model.DTO.ImgSizeEnumDTO;
+import project.fashion.DTO.CityEnumDTO;
 import project.fashion.model.entity.Store;
-import project.fashion.model.service.AccountService;
-import project.fashion.model.service.FeedbackCustomerService;
-import project.fashion.model.service.StoreService;
+import project.fashion.service.AccountService;
+import project.fashion.service.FeedbackCustomerService;
+import project.fashion.service.StoreService;
 
 import java.util.*;
 

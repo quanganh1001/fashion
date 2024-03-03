@@ -5,8 +5,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import project.fashion.model.service.AccountService;
-import project.fashion.model.service.FeedbackCustomerService;
+import project.fashion.service.AccountService;
+import project.fashion.service.FeedbackCustomerService;
 
 @Controller
 @RequestMapping("/admin")

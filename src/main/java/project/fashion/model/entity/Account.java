@@ -1,12 +1,10 @@
 package project.fashion.model.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import project.fashion.model.DTO.RoleEnumDTO;
+import project.fashion.DTO.RoleEnumDTO;
 
 @Entity
 @Data

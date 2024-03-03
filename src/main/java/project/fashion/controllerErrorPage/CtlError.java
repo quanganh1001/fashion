@@ -1,6 +1,5 @@
 package project.fashion.controllerErrorPage;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.security.core.Authentication;
@@ -9,10 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import project.fashion.Response.AccountResponse;
-import project.fashion.model.DTO.CustomUserDetailDTO;
-import project.fashion.model.service.AccountService;
-import project.fashion.model.service.CategoryService;
+import project.fashion.DTO.AccountResponse;
+import project.fashion.DTO.CustomUserDetailDTO;
+import project.fashion.service.AccountService;
+import project.fashion.service.CategoryService;
 
 import java.util.Objects;
 

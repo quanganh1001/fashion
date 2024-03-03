@@ -6,8 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.fashion.model.entity.Color;
-import project.fashion.model.service.ColorService;
-import project.fashion.model.service.FeedbackCustomerService;
+import project.fashion.service.ColorService;
+import project.fashion.service.FeedbackCustomerService;
 
 import java.util.List;
 

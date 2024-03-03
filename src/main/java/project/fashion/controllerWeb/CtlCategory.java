@@ -1,25 +1,13 @@
 package project.fashion.controllerWeb;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.fashion.model.entity.Category;
-import project.fashion.model.entity.ImgProduct;
-import project.fashion.model.entity.Product;
-import project.fashion.model.service.AccountService;
-import project.fashion.model.service.CategoryService;
-import project.fashion.model.service.ImgProductService;
-import project.fashion.model.service.ProductService;
+import project.fashion.service.AccountService;
+import project.fashion.service.CategoryService;
 
-import java.net.MalformedURLException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 
 @Controller

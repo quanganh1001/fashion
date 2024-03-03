@@ -1,20 +1,14 @@
 package project.fashion.controllerWeb;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.fashion.model.DTO.SizeEnumDTO;
 import project.fashion.model.entity.*;
-import project.fashion.model.service.*;
+import project.fashion.service.*;
 
-import java.net.MalformedURLException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @SessionAttributes("CARTS")

@@ -9,10 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.fashion.Response.AccountResponse;
-import project.fashion.model.DTO.ChangePasswordDTO;
-import project.fashion.model.service.AccountService;
-import project.fashion.model.service.CategoryService;
+import project.fashion.DTO.AccountResponse;
+import project.fashion.DTO.ChangePasswordDTO;
+import project.fashion.service.AccountService;
+import project.fashion.service.CategoryService;
 
 @Controller
 @SessionAttributes("CARTS")

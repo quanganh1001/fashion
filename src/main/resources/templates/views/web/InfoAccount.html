@@ -56,21 +56,6 @@
                         <span id="address-error" class=" text-danger"></span>
                     </div>
 
-                    <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}" class="mb-3 col-6">
-                        <label for="role" class="form-label">Quyền<span
-                                style="color:red">*</span></label>
-                        <select class="form-control" id="role" th:field="*{role}">
-                            <option th:each="role : ${roles}" th:value="${role}"
-                                    th:text="${role}"></option>
-                        </select>
-                    </div>
-
-                    <div th:if="${#strings.equals(account.role.name(), 'ROLE_MANAGER')}">
-                        <label for="enabled" class="form-label">Trạng thái<span style="color:red">*</span></label>
-                        <input id="enabled" type="checkbox"
-                               class="form-check-input"
-                               th:field="*{enabled}">Hoạt động/Không kích hoạt
-                    </div>
                 </div>
 
                 <div class="col-6 d-flex justify-content-start">

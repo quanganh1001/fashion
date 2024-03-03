@@ -23,7 +23,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import java.util.Collection;
 import java.util.Objects;
 
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)

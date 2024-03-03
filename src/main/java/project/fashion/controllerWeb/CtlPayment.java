@@ -1,14 +1,14 @@
 package project.fashion.controllerWeb;
 
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.fashion.config.VNPayConfig;
-import project.fashion.model.DTO.CartItem;
+import project.fashion.DTO.CartItem;
 import project.fashion.model.entity.Invoice;
-import project.fashion.model.service.AccountService;
-import project.fashion.model.service.CartService;
+import project.fashion.service.CartService;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -24,7 +24,7 @@ public class CtlPayment {
     private CartService cartService;
 
     @GetMapping("/create-payment")
-    public String createPayment(Model model,@ModelAttribute Invoice invoice) throws UnsupportedEncodingException {
+    public String createPayment(Model model, @ModelAttribute Invoice invoice, HttpServletRequest http) throws UnsupportedEncodingException {
         String orderType = "other";
         List<CartItem> cartItemList = (List<CartItem>) model.getAttribute("CARTS");
         var totalPrice = cartService.getTotalPrice(cartItemList);
@@ -34,6 +34,7 @@ public class CtlPayment {
         String isPaidParam = String.valueOf(true);
         String vnp_ReturnUrl = "http://localhost:8080/checkout/done?name="+invoice.getName()+"&phone="+invoice.getPhone()+"&address="+invoice.getAddress()+"&customerNote="+invoice.getCustomerNote()+"&isPaid="+isPaidParam;
         String vnp_TxnRef = VNPayConfig.getRandomNumber(8);
+        String vnp_IpAddr = VNPayConfig.getIpAddress(http);
 
         Map<String, String> vnp_Params = new HashMap<>();
         vnp_Params.put("vnp_Version", VNPayConfig.vnp_Version);
@@ -41,13 +42,12 @@ public class CtlPayment {
         vnp_Params.put("vnp_TmnCode", VNPayConfig.vnp_TmnCode);
         vnp_Params.put("vnp_Amount", String.valueOf(amount));
         vnp_Params.put("vnp_CurrCode", "VND");
-//        vnp_Params.put("vnp_BankCode", "NCB");
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
         vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + vnp_TxnRef);
         vnp_Params.put("vnp_OrderType", orderType);
         vnp_Params.put("vnp_Locale", "vn");
         vnp_Params.put("vnp_ReturnUrl", vnp_ReturnUrl);
-        vnp_Params.put("vnp_IpAddr", "127.0.0.1");
+        vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");

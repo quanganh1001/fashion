@@ -36,20 +36,19 @@
                     </select>
 
                     <div th:unless="${product.imageBackground.endsWith('.mp4')}  ">
-                        <img width="50px" th:id="imgbg1"
+                        <img width="100px" th:id="imgbg1"
                              th:src="@{'/admin/imgProduct?imageName='+${product.imageBackground}}" alt="">
-                        <video width="50px" th:id="vdbg1" controls
+                        <video width="100px" th:id="vdbg1" controls
                                class="hidden"
-
                                th:src="@{'/admin/imgProduct?imageName='+${product.imageBackground}}">
                         </video>
                     </div>
 
                     <div th:if="${product.imageBackground.endsWith('.mp4')}">
-                        <img width="50px" th:id="imgbg1"
+                        <img width="100px" th:id="imgbg1"
                              class="hidden"
                              th:src="@{'/admin/imgProduct?imageName='+${product.imageBackground}}" alt="">
-                        <video width="50px" th:id="vdbg1" controls
+                        <video width="100px" th:id="vdbg1" controls
                                th:src="@{'/admin/imgProduct?imageName='+${product.imageBackground}}">
                             Your browser does not support the video tag.
                         </video>

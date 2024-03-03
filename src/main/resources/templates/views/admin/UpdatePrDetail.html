@@ -49,6 +49,12 @@
                                   data-bs-target="#modal-color">
                             <i class="fa-regular fa-square-plus"></i>
                             </span>
+                            <!--     Modal-->
+                            <div class="modal fade" id="modal-color" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div th:include="~{admin/modal/ModalColor::ModalColor}"></div>
+                            </div>
+
+
                         </label>
                         <select class="form-control" id="color" th:field="*{color.colorId}">
                             <option th:each="cl : ${colors}" th:value="${cl.colorId}"
@@ -60,7 +66,7 @@
                         <label for="size" class="form-label">Size<span
                                 style="color:red">*</span>
                         </label>
-                        <select class="form-control" id="size" th:field="*{s}">
+                        <select class="form-control" id="size" th:field="*{size}">
                             <option th:each="s : ${sizes}" th:value="${s.size}"
                                     th:text="${s.size}"></option>
                         </select>
@@ -79,10 +85,7 @@
         </div>
     </div>
 </div>
-<!--     Modal-->
-<div class="modal fade" id="modal-color" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div th:include="~{admin/modal/ModalColor::ModalColor}"></div>
-</div>
+
 
 
 <script th:src="@{/script/AdminScript/UpdateProductDetaiScript.js}"></script>

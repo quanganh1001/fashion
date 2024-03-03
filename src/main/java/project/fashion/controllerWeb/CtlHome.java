@@ -1,15 +1,12 @@
 package project.fashion.controllerWeb;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.fashion.model.entity.Category;
-import project.fashion.model.entity.CustomerMail;
-import project.fashion.model.entity.ImgProduct;
 import project.fashion.model.entity.Product;
-import project.fashion.model.service.*;
+import project.fashion.service.*;
 
 import java.util.List;
 
