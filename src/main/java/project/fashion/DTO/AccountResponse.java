@@ -3,7 +3,7 @@ package project.fashion.DTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import project.fashion.model.entity.Account;
+import project.fashion.model.Account;
 
 @Data
 @AllArgsConstructor

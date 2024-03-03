@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.DTO.CityEnumDTO;
-import project.fashion.model.entity.Store;
+import project.fashion.model.Store;
 import project.fashion.service.AccountService;
 import project.fashion.service.FeedbackCustomerService;
 import project.fashion.service.StoreService;

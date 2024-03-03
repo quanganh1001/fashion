@@ -3,7 +3,7 @@ package project.fashion.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import project.fashion.model.entity.CustomerMail;
+import project.fashion.model.CustomerMail;
 import project.fashion.repository.CustomerMailRepo;
 
 import java.util.List;

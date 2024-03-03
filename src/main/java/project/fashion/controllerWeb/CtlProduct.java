@@ -5,7 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.fashion.model.entity.*;
+import project.fashion.model.Color;
+import project.fashion.model.ImgProduct;
+import project.fashion.model.Product;
+import project.fashion.model.ProductDetail;
 import project.fashion.service.*;
 
 import java.util.List;

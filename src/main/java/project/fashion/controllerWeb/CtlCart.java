@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.fashion.DTO.CartItem;
-import project.fashion.model.entity.*;
+import project.fashion.model.Invoice;
 
 import project.fashion.service.AccountService;
 import project.fashion.service.CartService;

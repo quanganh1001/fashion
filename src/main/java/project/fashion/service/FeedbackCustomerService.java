@@ -4,7 +4,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import project.fashion.model.entity.FeedbackCustomer;
+import project.fashion.model.FeedbackCustomer;
 import project.fashion.repository.FeedbackCustomerRepo;
 
 import java.util.List;

@@ -3,7 +3,7 @@ package project.fashion.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.fashion.model.entity.Store;
+import project.fashion.model.Store;
 import project.fashion.repository.StoreRepo;
 
 import java.util.List;

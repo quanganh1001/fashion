@@ -4,7 +4,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import project.fashion.model.entity.BannerImg;
+import project.fashion.model.BannerImg;
 import project.fashion.repository.BannerRepo;
 
 import java.io.File;

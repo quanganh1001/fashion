@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import project.fashion.model.entity.Account;
+import project.fashion.model.Account;
 
 import java.util.Collection;
 @Data

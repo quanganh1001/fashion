@@ -10,7 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.DTO.AccountResponse;
-import project.fashion.model.entity.Account;
+import project.fashion.model.Account;
 import project.fashion.DTO.ChangePasswordDTO;
 import project.fashion.DTO.RoleEnumDTO;
 import project.fashion.service.AccountService;

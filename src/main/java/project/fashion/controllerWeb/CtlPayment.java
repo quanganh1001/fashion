@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.fashion.config.VNPayConfig;
 import project.fashion.DTO.CartItem;
-import project.fashion.model.entity.Invoice;
+import project.fashion.model.Invoice;
 import project.fashion.service.CartService;
 
 import java.io.UnsupportedEncodingException;

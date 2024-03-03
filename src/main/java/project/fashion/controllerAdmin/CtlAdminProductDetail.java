@@ -7,9 +7,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.DTO.SizeEnumDTO;
-import project.fashion.model.entity.Color;
-import project.fashion.model.entity.Product;
-import project.fashion.model.entity.ProductDetail;
+import project.fashion.model.Color;
+import project.fashion.model.Product;
+import project.fashion.model.ProductDetail;
 import project.fashion.service.*;
 
 import java.util.Arrays;

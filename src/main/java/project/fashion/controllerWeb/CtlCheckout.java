@@ -7,7 +7,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.DTO.CartItem;
-import project.fashion.model.entity.*;
+import project.fashion.model.Invoice;
+import project.fashion.model.InvoiceDetail;
 
 import project.fashion.service.*;
 

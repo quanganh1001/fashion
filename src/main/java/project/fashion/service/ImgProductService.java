@@ -7,8 +7,8 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import project.fashion.model.entity.ImgProduct;
-import project.fashion.model.entity.Product;
+import project.fashion.model.ImgProduct;
+import project.fashion.model.Product;
 import project.fashion.repository.ImgProductRepo;
 import project.fashion.repository.ProductRepo;
 

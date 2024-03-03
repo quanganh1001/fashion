@@ -3,8 +3,8 @@ package project.fashion.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.fashion.DTO.CartItem;
-import project.fashion.model.entity.Product;
-import project.fashion.model.entity.ProductDetail;
+import project.fashion.model.Product;
+import project.fashion.model.ProductDetail;
 
 import java.util.List;
 import java.util.Objects;

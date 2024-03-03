@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.fashion.model.entity.Product;
+import project.fashion.model.Product;
 import project.fashion.repository.ProductDetailRepo;
 import project.fashion.repository.ProductRepo;
 

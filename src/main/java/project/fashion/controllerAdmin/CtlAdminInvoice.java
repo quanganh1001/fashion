@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.fashion.DTO.AccountResponse;
-import project.fashion.model.entity.Invoice;
+import project.fashion.model.Invoice;
 import project.fashion.service.AccountService;
 import project.fashion.service.FeedbackCustomerService;
 import project.fashion.service.InvoiceService;

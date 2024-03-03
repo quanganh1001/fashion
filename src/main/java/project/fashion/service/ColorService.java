@@ -3,8 +3,8 @@ package project.fashion.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import project.fashion.model.entity.Color;
-import project.fashion.model.entity.ProductDetail;
+import project.fashion.model.Color;
+import project.fashion.model.ProductDetail;
 import project.fashion.repository.ColorRepo;
 import project.fashion.repository.ProductDetailRepo;
 

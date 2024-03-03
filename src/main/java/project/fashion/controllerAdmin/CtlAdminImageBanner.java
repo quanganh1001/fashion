@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.fashion.model.entity.BannerImg;
+import project.fashion.model.BannerImg;
 import project.fashion.service.AccountService;
 import project.fashion.service.BannerService;
 import project.fashion.service.FeedbackCustomerService;

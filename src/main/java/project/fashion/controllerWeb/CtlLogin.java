@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.fashion.model.entity.Account;
+import project.fashion.model.Account;
 import project.fashion.service.AccountService;
 import project.fashion.service.CategoryService;
 

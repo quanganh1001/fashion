@@ -1,7 +1,7 @@
 package project.fashion.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import project.fashion.model.entity.History;
+import project.fashion.model.History;
 
 import java.util.List;
 

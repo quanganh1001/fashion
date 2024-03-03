@@ -3,8 +3,8 @@ package project.fashion.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.fashion.model.entity.Product;
-import project.fashion.model.entity.ProductDetail;
+import project.fashion.model.Product;
+import project.fashion.model.ProductDetail;
 import project.fashion.repository.ProductDetailRepo;
 
 import java.util.ArrayList;

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import project.fashion.model.entity.History;
+import project.fashion.model.History;
 import project.fashion.repository.HistoryRepo;
 
 import java.time.Duration;

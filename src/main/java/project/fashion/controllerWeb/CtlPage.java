@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.fashion.model.entity.FeedbackCustomer;
+import project.fashion.model.FeedbackCustomer;
 import project.fashion.service.AccountService;
 import project.fashion.service.CategoryService;
 import project.fashion.service.CustomerMailService;

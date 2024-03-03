@@ -6,7 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import project.fashion.model.entity.FeedbackCustomer;
+import project.fashion.model.FeedbackCustomer;
 import project.fashion.service.AccountService;
 import project.fashion.service.FeedbackCustomerService;
 
