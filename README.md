@@ -1,6 +1,6 @@
 # Công cụ:
   - IDE: inteliJ
-  - Ngôn ngữ: Java (JDK 17), HTML, CSS, javascritps
+  - Ngôn ngữ: Java (JDK 17), HTML, CSS, JavaScritps
   - Framwork: SpringBoot
   - Thư viện: Thymeleaf, jQuery, Boostrap5, Spring Security
   - Database: MySql
