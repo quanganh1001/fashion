@@ -207,7 +207,8 @@
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="description-tab-pane" role="tabpanel" aria-labelledby="description-tab" tabindex="0">
-                <pre class="mt-5" th:text="${product.description}"></pre>
+                <pre th:if="${product.description != null and product.description != ''} " class="mt-5" th:text="${product.description}"></pre>
+                <pre th:unless="${product.description != null and product.description != ''} " class="mt-5" th:text="${product.productName}"></pre>
             </div>
             <div class="tab-pane fade" id="return-policy-tab-pane" role="tabpanel" aria-labelledby="return-policy-tab" tabindex="0">
                 <div th:replace="~{web/component/ReturnPolicy::ReturnPolicy}"></div>

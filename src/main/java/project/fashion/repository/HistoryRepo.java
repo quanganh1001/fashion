@@ -6,5 +6,5 @@ import project.fashion.model.History;
 import java.util.List;
 
 public interface HistoryRepo extends JpaRepository<History,Integer> {
-    List<History> findAllByInvoiceId(String invoiceId);
+    List<History> findAllByInvoiceInvoiceId(String invoiceId);
 }

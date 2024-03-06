@@ -52,7 +52,7 @@ public class HistoryService {
     public List<History> findByInvoiceId(String invoiceId){
         LocalDateTime currentTime = LocalDateTime.now();
         // Tính khoảng cách thời gian giữa timestamp và thời gian hiện tại
-        List<History> histories = historyRepo.findAllByInvoiceId(invoiceId);
+        List<History> histories = historyRepo.findAllByInvoiceInvoiceId(invoiceId);
         for (History history: histories){
             Duration duration = Duration.between(history.getTime(), currentTime);
             history.setTimeAgo(formatDuration(duration,history.getTime().toString()));

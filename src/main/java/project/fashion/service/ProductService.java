@@ -87,6 +87,7 @@ public class ProductService {
         } else {
             productDetailRepo.setProductDetailActive(product.getProductId(), product.getIsProductActive());
             product.setImageBackground("no_image.jpg");
+
             productRepo.save(product);
             attributes.addFlashAttribute("alertMessage", "Đã tạo sản phẩm");
             return "redirect:/admin/product/update-product/" + product.getProductId();

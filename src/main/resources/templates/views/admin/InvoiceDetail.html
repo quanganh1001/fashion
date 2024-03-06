@@ -157,6 +157,10 @@
                      data-bs-target="#modal-history" class="history mt-2 col-2">
                     Xem lịch sử đơn hàng
                 </div>
+                <!--     Modal-->
+                <div class="modal fade" id="modal-history" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div th:include="~{admin/modal/ModalHistory::ModalHistory}"></div>
+                </div>
             </div>
 
             <div id="table">
@@ -196,10 +200,7 @@
         </div>
     </div>
 </div>
-<!--     Modal-->
-<div class="modal fade" id="modal-history" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div th:include="~{admin/modal/ModalHistory::ModalHistory}"></div>
-</div>
+
 <script th:src="@{/script/AdminScript/InvoiceDetailScript.js}"></script>
 </body>
 </html>
