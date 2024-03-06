@@ -13,7 +13,7 @@
     + username: nhanvien1
     + pass: 123456
   - Khách hàng:
-    + username: khách hàng
+    + username: khachhang
     + pass: 123456
   - Đường dẫn đăng nhập:
     + Trang admin:  http://localhost:8080/admin/login
