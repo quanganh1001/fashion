@@ -44,8 +44,8 @@
   - Trang Admin:
     + Đăng ký, đăng nhập tài khoản, quản lý toàn bộ tài khoản
     + Quản lý sản phẩm, ảnh sản phẩm, mã sản phẩm theo màu,size
-    + Quản lý danh mục sản phẩm, phân cấp cha - con
-    + Quản lý đơn hàng, cập nhập trạng thái đơn hàng, chia đơn cho nhân viên
+    + Quản lý danh mục sản phẩm, phân cấp danh mục cha - con
+    + Quản lý đơn hàng, cập nhập trạng thái đơn hàng, chia đơn cho nhân viên, xem lịch sử đơn hàng
     + Quản lý hệ thống cửa hàng, bản đồ
     + Xem phản hồi của khách hàng
     + Gửi tin tức khuyến mãi cho khách hàng
