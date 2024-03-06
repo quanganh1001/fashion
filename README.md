@@ -1,7 +1,11 @@
 # Công cụ:
-  - Ngôn ngữ: Java
+  - IDE: inteliJ
+  - Ngôn ngữ: Java (JDK 17), HTML, CSS, javascritps
   - Framwork: SpringBoot
-  - 
+  - Thư viện: Thymeleaf, jQuery, Boostrap5, Spring Security
+  - Database: MySql
+
+    
 # Các entity
   - products
   - products_detail
