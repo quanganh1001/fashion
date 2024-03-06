@@ -5,7 +5,24 @@
   - Thư viện: Thymeleaf, jQuery, Boostrap5, Spring Security
   - Database: MySql
 
-    
+# Tài khoản đăng nhập:
+  - Admin:
+    + username: quanly
+    + pass: 123456
+  - Nhân viên:
+    + username: nhanvien1
+    + pass: 123456
+  - Khách hàng:
+    + username: khách hàng
+    + pass: 123456
+  - Đường dẫn đăng nhập:
+    + Trang admin:  http://localhost:8080/admin/login
+    + Trang bán hàng: http://localhost:8080/login
+   
+# Trang chủ
+  - Trang admin:  http://localhost:8080/admin
+  - Trang bán hàng: http://localhost:8080
+
 # Các entity
   - products
   - products_detail
