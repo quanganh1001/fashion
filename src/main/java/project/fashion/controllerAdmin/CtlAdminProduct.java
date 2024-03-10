@@ -40,51 +40,56 @@ public class CtlAdminProduct {
     @GetMapping()
     public String searchProduct(Model model,
                                 @RequestParam(defaultValue = "1") int page,
-                                @RequestParam(name = "key", required = false) String key){
+                                @RequestParam(name = "key", required = false) String key) {
         Page<Product> searchResults =
-                productService.searchProduct(key,page -1);
+                productService.searchProduct(key, page - 1);
 
         accountService.getAccountResponse(model);
         feedbackCustomerService.countUnread(model);
 
-        model.addAttribute("key",key);
+        model.addAttribute("key", key);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", searchResults.getTotalPages());
         model.addAttribute("totalItems", searchResults.getTotalElements());
         model.addAttribute("products", searchResults.getContent());
-        model.addAttribute("title","Product");
+        model.addAttribute("title", "Product");
         return "/admin/ProductAdmin";
     }
 
     @GetMapping("/add-product")
-    public String addProduct(Model model,@RequestParam(value = "catId",defaultValue = "") String catId) {
+    public String addProduct(Model model, @RequestParam(value = "catId", defaultValue = "") String catId) {
         List<Category> cat = categoryRepo.findAll();
-        List<ImgSizeEnumDTO> imgSize =  Arrays.asList(ImgSizeEnumDTO.values());
+        List<ImgSizeEnumDTO> imgSize = Arrays.asList(ImgSizeEnumDTO.values());
         accountService.getAccountResponse(model);
         feedbackCustomerService.countUnread(model);
 
-        model.addAttribute("catId",catId);
+        model.addAttribute("catId", catId);
         model.addAttribute("product", new Product());
         model.addAttribute("cat", cat);
         model.addAttribute("imgSize", imgSize);
-        model.addAttribute("title","Product");
+        model.addAttribute("title", "Product");
         return "admin/AddProduct";
     }
 
     @PostMapping("/add-product")
-    public String addProduct(@ModelAttribute Product product, RedirectAttributes attributes) throws Exception {
-        return productService.addProduct(product,attributes);
+    public String addProduct(@ModelAttribute Product product, RedirectAttributes attributes) {
+        try {
+            return productService.addProduct(product, attributes);
+        } catch (Exception e) {
+            attributes.addFlashAttribute("alertMessage", " Không thêm được sản phẩm");
+            return "redirect:/admin/product";
+        }
     }
 
     @DeleteMapping("/delete-product/{productId}")
     public String deleteProduct(@PathVariable("productId") String productId,
-                                                RedirectAttributes attributes) throws IOException {
-        try{
+                                RedirectAttributes attributes) throws IOException {
+        try {
             productService.deleteProduct(productId);
-            attributes.addFlashAttribute("alertMessage","Đã xóa sản phẩm");
+            attributes.addFlashAttribute("alertMessage", "Đã xóa sản phẩm");
             return "redirect:/admin/product";
-        }catch (Exception e){
-            attributes.addFlashAttribute("alertMessage","Không thể xóa sản phẩm");
+        } catch (Exception e) {
+            attributes.addFlashAttribute("alertMessage", "Không thể xóa sản phẩm");
             return "redirect:/admin/product";
         }
 
@@ -92,9 +97,12 @@ public class CtlAdminProduct {
 
     @GetMapping("/update-product/{productId}")
     public String updateProduct(Model model, @PathVariable("productId") String productId) {
+        if (!productService.existsById(productId)) {
+            return "redirect:/admin/product";
+        }
         List<Category> cat = categoryRepo.findAll();
-        List<ImgSizeEnumDTO> imgSize =  Arrays.asList(ImgSizeEnumDTO.values());
-        List<ProductDetail> prDetail =  productDetailService.findAllByProductProductId(productId);
+        List<ImgSizeEnumDTO> imgSize = Arrays.asList(ImgSizeEnumDTO.values());
+        List<ProductDetail> prDetail = productDetailService.findAllByProductProductId(productId);
         Product p = productService.findById(productId);
         accountService.getAccountResponse(model);
         feedbackCustomerService.countUnread(model);
@@ -102,14 +110,14 @@ public class CtlAdminProduct {
         model.addAttribute("cat", cat);
         model.addAttribute("imgSize", imgSize);
         model.addAttribute("p", p);
-        model.addAttribute("prDetail",prDetail);
-        model.addAttribute("title","Product");
+        model.addAttribute("prDetail", prDetail);
+        model.addAttribute("title", "Product");
         return "/admin/UpdateProduct";
     }
 
     @PutMapping("/update-product")
-    public String updateProduct(@ModelAttribute Product p,RedirectAttributes attributes) throws Exception {
-        return productService.saveProduct(p,attributes);
+    public String updateProduct(@ModelAttribute Product p, RedirectAttributes attributes) throws Exception {
+        return productService.saveProduct(p, attributes);
     }
 
 }

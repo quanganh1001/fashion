@@ -87,6 +87,7 @@ public class ProductService {
         } else {
             productDetailRepo.setProductDetailActive(product.getProductId(), product.getIsProductActive());
             product.setImageBackground("no_image.jpg");
+            System.out.println(product);
 
             productRepo.save(product);
             attributes.addFlashAttribute("alertMessage", "Đã tạo sản phẩm");
@@ -133,6 +134,10 @@ public class ProductService {
     @Transactional
     public void setBackground(String productId, String imageName) {
         productRepo.setProductImgBackground(productId, imageName);
+    }
+
+    public Boolean existsById(String productId) {
+        return productRepo.existsById(productId);
     }
 
 
