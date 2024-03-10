@@ -41,6 +41,9 @@
                 </tr>
                 </thead>
                 <tbody>
+                <tr th:if="${categories.isEmpty()}">
+                    <td colspan="7">Không có danh mục con</td>
+                </tr>
                 <tr th:each="c:${categories}">
                     <td>
                         <a class="text-dark link-underline-dark link-underline-opacity-0 link-underline-opacity-100-hover" th:href="@{/admin/category(parent=${c.catId})}">
