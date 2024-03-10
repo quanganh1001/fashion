@@ -98,17 +98,18 @@ public class ProductService {
     @Transactional
     public void deleteProduct(String productId) {
         try {
-            // Gọi hàm xóa ảnh
-            imgProductService.deleteByProductId(productId);
-
-            // Gọi hàm xóa chi tiết sản phẩm
-            productDetailRepo.deleteAllByProductProductId(productId);
+//            // Gọi hàm xóa ảnh
+//            imgProductService.deleteByProductId(productId);
+//
+//            // Gọi hàm xóa chi tiết sản phẩm
+//            productDetailRepo.deleteAllByProductProductId(productId);
+            //xóa path ảnh
+            imgProductService.deletePath(productId);
 
             // Gọi hàm xóa sản phẩm
             productRepo.deleteById(productId);
 
-            //xóa path ảnh
-            imgProductService.deletePath(productId);
+
 
             ResponseEntity.ok("done");
         } catch (Exception e) {

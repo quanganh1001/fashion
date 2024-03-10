@@ -3,13 +3,15 @@
         th:data-invoice-id="${invoiceId}"
         th:id="${result.productDetailId}"
         class="item list-group-item" style="display: flex">
-        <img class="img-thumbnail" width="50px"
-             th:src="@{'/admin/invoiceDetail/img/'+${result.product.productId}}" alt="">
+        <img th:unless="${result.product.imageBackground.endsWith('.mp4')}" width="50px"
+             th:src="@{'/admin/imgProduct?imageName='+${result.product.imageBackground}}">
+        <video th:if="${result.product.imageBackground.endsWith('.mp4')}" controls width="50px"
+               th:src="@{'/admin/imgProduct?imageName='+${result.product.imageBackground}}"></video>
         <div>
                 <span th:if="${result.outOfStock == true}"
-                      th:text="${result.product.productName} + ' | ' +  ${result.size.name} + ' | ' +  ${result.color.name}"></span>
+                      th:text="${result.product.productName} + ' | ' +  ${result.size} + ' | ' +  ${result.color.name}"></span>
             <span th:unless="${result.outOfStock == true}"
-                  th:text="${result.product.productName} + ' | ' +  ${result.size.name} + ' | ' +  ${result.color.name}"
+                  th:text="${result.product.productName} + ' | ' +  ${result.size} + ' | ' +  ${result.color.name}"
                   style="text-decoration: line-through;"></span>
             <div class="d-flex justify-content-between">
                 <div th:if="${result.product.isDiscount == true}">

@@ -29,6 +29,9 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
     private List<ImgProduct> imgProducts;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
+    private List<ProductDetail> productDetails;
+
 
     @ManyToOne
     @JoinColumn(name = "cat_id")
