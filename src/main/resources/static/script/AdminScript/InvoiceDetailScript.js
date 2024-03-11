@@ -71,12 +71,16 @@ $(document).ready(() => {
         // kiểm tra nếu đơn chưa gửi thì không thể chuyển trạng thái thành công hoặc hoàn
         else if (oldStatus <= 2 && newStatus >= 4) {
             $(select.currentTarget).val(oldStatus);
-            $("#model-content").text("Đơn chưa gửi không thể cập nhập trạng thái đang chuyển, thành công hoặc hoàn")
+            $("#modal-content").text("Chưa lên đơn thì không thể cập nhập trạng thái này")
             $('#myModal').modal('show');
         } else if (oldStatus == 5 || oldStatus == 6) {
             $(select.currentTarget).val(oldStatus);
             $("#model-content").text("Đơn hàng đã thành công hoặc hoàn thì không thể cập nhập trạng thái")
             $('#myModal').modal('show');
+        } else if($("#account-id").val() === "" && newStatus >= 3) {
+            $(select.currentTarget).val(oldStatus);
+            $("#myModal").modal('show')
+            $("#modal-content").text("Chưa chia nguồn nhân viên thì không thể lên đơn hàng")
         }
     })
 
@@ -106,6 +110,8 @@ $(document).ready(() => {
         } else {
             $("#phoneError").text("");
         }
+
+
 
         return validation;
     })
