@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th3 06, 2024 lúc 04:28 PM
+-- Máy chủ: localhost
+-- Thời gian đã tạo: Th3 11, 2024 lúc 05:29 AM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.0.28
+-- Phiên bản PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -1962,7 +1962,7 @@ CREATE TRIGGER `insertProduct` BEFORE INSERT ON `products` FOR EACH ROW BEGIN
     
     IF NEW.total_size IS NULL THEN
     SET NEW.total_size = (
-    SELECT COUNT(DISTINCT size_id)
+    SELECT COUNT(DISTINCT size)
     FROM products_detail
     WHERE product_id = NEW.product_id
     );
