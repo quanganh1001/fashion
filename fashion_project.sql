@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th3 11, 2024 lúc 05:41 AM
+-- Thời gian đã tạo: Th3 11, 2024 lúc 05:59 AM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -883,7 +883,11 @@ INSERT INTO `history` (`id`, `invoice_id`, `content`, `time`, `time_ago`) VALUES
 (1204, '41ZSPBHA', 'quanly đã thay đổi Phí ship: 0 -> 10000', '2024-02-25 12:29:11', NULL),
 (1205, '41ZSPBHA', 'quanly đã thay đổi Phí ship: 10000 -> 0', '2024-02-25 12:30:37', NULL),
 (1206, '41ZSPBHA', 'quanly đã thay đổi Phí ship: 0 -> 20000', '2024-03-06 15:26:41', NULL),
-(1207, '41ZSPBHA', 'quanly đã thêm sản phẩm: DABJ00401CT00SB_NV-32 (giá = 550000)', '2024-03-11 04:40:44', NULL);
+(1207, '41ZSPBHA', 'quanly đã thêm sản phẩm: DABJ00401CT00SB_NV-32 (giá = 550000)', '2024-03-11 04:40:44', NULL),
+(1208, '41ZSPBHA', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đang xử lý', '2024-03-11 04:42:18', NULL),
+(1209, '41ZSPBHA', 'quanly đã thay đổi Trạng thái đơn hàng: Đang xử lý -> Đã lên đơn', '2024-03-11 04:46:39', NULL),
+(1210, '41ZSPBHA', 'quanly đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Đang xử lý', '2024-03-11 04:47:52', NULL),
+(1211, '41ZSPBHA', 'quanly đã thay đổi Trạng thái đơn hàng: Đang xử lý -> Đã lên đơn', '2024-03-11 04:51:41', NULL);
 
 -- --------------------------------------------------------
 
@@ -1424,7 +1428,7 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `created_at`, `note`, `customer_note`, `account_id`, `invoice_status`, `total_price`, `shipping_fee`, `total_bill`, `is_paid`) VALUES
-('41ZSPBHA', 'quang anh', '0365151822', '4dvsdsf', '2024-03-11 04:40:44', '', 'd', NULL, 1, 1960000, 20000, 1980000, b'0'),
+('41ZSPBHA', 'quang anh', '0365151822', '4dvsdsf', '2024-03-11 04:51:41', '', 'd', 1, 3, 1960000, 20000, 1980000, b'0'),
 ('4LFFMS9V', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 17:31:56', '', 'd', NULL, 1, 50000, 30000, 80000, b'0'),
 ('56BKIMXY', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 17:36:03', '', 'f', NULL, 1, 990000, 0, 990000, b'0'),
 ('5CKTNJXP', 'quang anh', '0365151822', '4dvsdsf', '2024-02-18 11:01:34', '', 'd', 1, 1, 990000, 0, 990000, b'1'),
@@ -2099,7 +2103,7 @@ INSERT INTO `products_detail` (`product_detail_id`, `product_id`, `code`, `color
 (79, 'ESTP074', 'ESTP07472CT00SB_NV-L', 'NV', 'Size L', 999, b'1', b'1'),
 (80, 'ESTP074', 'ESTP07472CT00SB_NV-XL', 'NV', 'Size XL', 999, b'1', b'1'),
 (81, 'ESTP074', 'ESTP07472CT00SB_WH-S', 'WH', 'Size S', 999, b'1', b'1'),
-(82, 'ESTP074', 'ESTP07472CT00SB_WH-M', 'WH', 'Size M', 999, b'1', b'1'),
+(82, 'ESTP074', 'ESTP07472CT00SB_WH-M', 'WH', 'Size M', 998, b'1', b'1'),
 (83, 'ESTP074', 'ESTP07472CT00SB_WH-L', 'WH', 'Size L', 999, b'1', b'1'),
 (84, 'ESTP074', 'ESTP07472CT00SB_WH-XL', 'WH', 'Size XL', 999, b'1', b'1'),
 (85, 'ESTP005', 'ESTP00572CT00SB_DNV-S', 'DNV', 'Size S', 999, b'1', b'1'),
@@ -2504,7 +2508,7 @@ INSERT INTO `products_detail` (`product_detail_id`, `product_id`, `code`, `color
 (527, 'DABJ004', 'DABJ00401CT00SB_NV-29', 'NV', 'Size 29', 999, b'1', b'1'),
 (528, 'DABJ004', 'DABJ00401CT00SB_NV-30', 'NV', 'Size 30', 999, b'1', b'1'),
 (529, 'DABJ004', 'DABJ00401CT00SB_NV-31', 'NV', 'Size 31', 999, b'1', b'1'),
-(530, 'DABJ004', 'DABJ00401CT00SB_NV-32', 'NV', 'Size 32', 999, b'1', b'1'),
+(530, 'DABJ004', 'DABJ00401CT00SB_NV-32', 'NV', 'Size 32', 998, b'1', b'1'),
 (531, 'DABJ004', 'DABJ00401CT00SB_NV-33', 'NV', 'Size 33', 999, b'1', b'1'),
 (532, 'DABJ010', 'DABJ01001CT00SB_BU-29', 'BU', 'Size 29', 999, b'1', b'1'),
 (533, 'DABJ010', 'DABJ01001CT00SB_BU-30', 'BU', 'Size 30', -5, b'0', b'1'),
@@ -2666,7 +2670,7 @@ INSERT INTO `products_detail` (`product_detail_id`, `product_id`, `code`, `color
 (689, 'EWCW007', 'EWCW00751PE00SB_BL-L', 'BL', 'Size L', 0, b'0', b'1'),
 (690, 'EWCW007', 'EWCW00751PE00SB_BL-XL', 'BL', 'Size XL', 0, b'0', b'1'),
 (691, 'DWCT001', 'DWCT00161PE00RB_NV-S', 'NV', 'Size S', 996, b'1', b'1'),
-(692, 'DWCT001', 'DWCT00161PE00RB_NV-M', 'NV', 'Size M', 999, b'1', b'1'),
+(692, 'DWCT001', 'DWCT00161PE00RB_NV-M', 'NV', 'Size M', 998, b'1', b'1'),
 (693, 'DWCT001', 'DWCT00161PE00RB_NV-L', 'NV', 'Size L', 0, b'0', b'1'),
 (694, 'DWCT001', 'DWCT00161PE00RB_NV-XL', 'NV', 'Size XL', 0, b'0', b'1'),
 (695, 'DWCT001', 'DWCT00161PE00RB_DGR-M', 'DGR', 'Size M', 999, b'1', b'1'),
@@ -2995,7 +2999,7 @@ ALTER TABLE `feedback_customer`
 -- AUTO_INCREMENT cho bảng `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1208;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1212;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_product`
