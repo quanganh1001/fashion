@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Data
 @Table(name = "products")
@@ -23,6 +25,14 @@ public class Product {
     private String imageChooseSize;
     private Boolean isProductActive;
 
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
+    private List<ImgProduct> imgProducts;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
+    private List<ProductDetail> productDetails;
+
+
     @ManyToOne
     @JoinColumn(name = "cat_id")
     private Category category;
@@ -31,14 +41,6 @@ public class Product {
     public void prePersist() {
         if (isProductActive == null)
             isProductActive = true;
-    }
-
-    public String toString() {
-        return "Product{" +
-                "productName='" + productName + '\'' +
-                ", price=" + price +
-                ", discountPrice=" + discountPrice +
-                '}';
     }
 }
 

@@ -55,9 +55,9 @@
                         <div class="mb-3">
                             <label for="category" class="form-label">Danh mục sản phẩm<span
                                     style="color:red">*</span></label>
-                            <select class="form-control" id="category" th:field="*{category}">
-                                <option th:value=null>--Chọn danh mục--</option>
-                                <option th:each="cat : ${cat}" th:value="${cat.catId}"
+                                <select class="form-control" id="category" th:field="*{category.catId}">
+                                    <option th:value=null>--Chọn danh mục--</option>
+                                    <option th:each="cat : ${cat}" th:value="${cat.catId}"
                                         th:text="${cat.catName} + ' - ' + ${cat.catId}"></option>
                             </select>
                             <span id="categoryError" class="text-danger"></span>

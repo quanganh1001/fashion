@@ -87,6 +87,7 @@ public class ProductService {
         } else {
             productDetailRepo.setProductDetailActive(product.getProductId(), product.getIsProductActive());
             product.setImageBackground("no_image.jpg");
+            System.out.println(product);
 
             productRepo.save(product);
             attributes.addFlashAttribute("alertMessage", "Đã tạo sản phẩm");
@@ -97,17 +98,18 @@ public class ProductService {
     @Transactional
     public void deleteProduct(String productId) {
         try {
-            // Gọi hàm xóa ảnh
-            imgProductService.deleteByProductId(productId);
-
-            // Gọi hàm xóa chi tiết sản phẩm
-            productDetailRepo.deleteAllByProductProductId(productId);
+//            // Gọi hàm xóa ảnh
+//            imgProductService.deleteByProductId(productId);
+//
+//            // Gọi hàm xóa chi tiết sản phẩm
+//            productDetailRepo.deleteAllByProductProductId(productId);
+            //xóa path ảnh
+            imgProductService.deletePath(productId);
 
             // Gọi hàm xóa sản phẩm
             productRepo.deleteById(productId);
 
-            //xóa path ảnh
-            imgProductService.deletePath(productId);
+
 
             ResponseEntity.ok("done");
         } catch (Exception e) {
@@ -133,6 +135,10 @@ public class ProductService {
     @Transactional
     public void setBackground(String productId, String imageName) {
         productRepo.setProductImgBackground(productId, imageName);
+    }
+
+    public Boolean existsById(String productId) {
+        return productRepo.existsById(productId);
     }
 
 
