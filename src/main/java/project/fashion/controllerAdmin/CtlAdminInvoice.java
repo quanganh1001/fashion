@@ -79,7 +79,6 @@ public class CtlAdminInvoice {
                                     @RequestParam(name = "page", defaultValue = "0") int page,
                                     @RequestParam(name = "key", defaultValue = "") String key) {
         Page<Invoice> searchInvoice = invoiceService.findInvoiceByKeyAndStatus(selectAccount,key, filterStatus, page);
-
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", searchInvoice.getTotalPages());
         model.addAttribute("totalItems", searchInvoice.getTotalElements());

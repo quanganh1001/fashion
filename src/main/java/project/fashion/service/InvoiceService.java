@@ -3,9 +3,7 @@ package project.fashion.service;
 import jakarta.transaction.Transactional;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,9 +20,7 @@ import project.fashion.repository.InvoiceRepo;
 import project.fashion.repository.ProductDetailRepo;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 import static org.apache.commons.lang3.StringUtils.isNumeric;
 
@@ -62,50 +58,65 @@ public class InvoiceService {
         var accountLogging = accountResponse.getRole();
         var accountId = accountResponse.getAccountId();;
 
-        int pageSize = 10; // Số bản ghi trên mỗi trang
-        int pageNumber = page; // Số trang bạn muốn truy vấn, bắt đầu từ 0 hoặc 1 tùy thuộc vào cấu hình
-
-        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("createdAt").descending());
+        List<Invoice> invoices = new ArrayList<>();
         // quyền manager
         if (Objects.equals(accountLogging.toString(), "ROLE_MANAGER")) {
             //lọc theo trạng thái + quyền manager
             if (filterStatus != -1) {
                 //tất cả account + lọc theo trạng thái + quyền manager
                 if (selectAccount == -1) {
-                    return invoiceRepo.findInvoiceByKeyAndInvoiceStatus(key, filterStatus, pageRequest);
+                    invoices = invoiceRepo.findInvoiceByKeyAndInvoiceStatus(key, filterStatus);
                     // hệ thống + lọc theo trạng thái + quyền manager
                 } else if (selectAccount == 0) {
-                    return invoiceRepo.findInvoiceByKeyAndInvoiceStatusAndAccount_AccountIdNull(key, filterStatus, pageRequest);
+                    invoices = invoiceRepo.findInvoiceByKeyAndInvoiceStatusAndAccount_AccountIdNull(key, filterStatus);
                 }
                 // lọc theo account + lọc theo trạng thái + quyền manager
                 else {
-                    return invoiceRepo.findInvoiceByKeyAndInvoiceStatusAndAccount_AccountId(key, filterStatus, selectAccount, pageRequest);
+                    invoices = invoiceRepo.findInvoiceByKeyAndInvoiceStatusAndAccount_AccountId(key, filterStatus,
+                            selectAccount);
                 }
                 // tất cả trạng thái + quyền manager
             } else
                 // tất cả account + tất cả trạng thái + quyền manager
                 if (selectAccount == -1){
-                    return invoiceRepo.searchInvoicesByInvoiceIdContainingIgnoreCaseOrPhoneContainingIgnoreCase(
-                            key, key, pageRequest);
+                    invoices = invoiceRepo.searchInvoicesByInvoiceIdContainingIgnoreCaseOrPhoneContainingIgnoreCase(
+                            key, key);
                 // hệ thống + tất cả trạng thái + quyền manager
                 } else if(selectAccount == 0) {
-                    return invoiceRepo.findInvoiceByKeyAndAccount_AccountIdNull(key, pageRequest);
+                    invoices = invoiceRepo.findInvoiceByKeyAndAccount_AccountIdNull(key);
                 // lọc theo account +  tất cả trạng thái + quyền manager
                 }else{
-                    return invoiceRepo.findInvoiceByKeyAndAccount_AccountId(key, selectAccount, pageRequest);
+                    invoices = invoiceRepo.findInvoiceByKeyAndAccount_AccountId(key, selectAccount);
         }
         // quyền nhân viên
     } else {
         // lọc theo trạng thái + quyền nhân viên
         if (filterStatus != -1) {
-            return invoiceRepo.findInvoiceByKeyAndStatusAndAccount_AccountId(key, filterStatus, accountId, pageRequest);
+            invoices = invoiceRepo.findInvoiceByKeyAndStatusAndAccount_AccountId(key, filterStatus, accountId);
             // tất cả trạng thái + quyền nhân viên
-        } else
-            return invoiceRepo.findInvoiceByKeyAndAccount_AccountId(key, accountId, pageRequest);
-
+        } else {
+            invoices = invoiceRepo.findInvoiceByKeyAndAccount_AccountId(key, accountId);
+        }
     }
+        Comparator<Invoice> comparator = new Comparator<Invoice>() {
+            @Override
+            public int compare(Invoice invoice1, Invoice invoice2) {
+                // So sánh theo thời gian createdAt, đảo ngược thứ tự để bản ghi mới nhất lên đầu
+                return invoice2.getCreatedAt().compareTo(invoice1.getCreatedAt());
+            }
+        };
 
+        // Sắp xếp danh sách sử dụng Comparator
+        Collections.sort(invoices, comparator);
+        return convertToPage(invoices,page);
 }
+
+    public Page<Invoice> convertToPage(List<Invoice> invoiceList,int page) {
+        Pageable pageable = PageRequest.of(page, 10);
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), invoiceList.size());
+        return new PageImpl<>(invoiceList.subList(start, end), pageable, invoiceList.size());
+    }
 
     @Transactional
     public String updateInvoice(Invoice invoice, RedirectAttributes attributes) throws Exception {
