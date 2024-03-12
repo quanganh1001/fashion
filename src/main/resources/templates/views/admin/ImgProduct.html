@@ -27,7 +27,8 @@
                 <div id="select-background" class="bg mt-3">
                     <h4>Chọn ảnh nền</h4>
                     <select id="bg1" class="form-select" th:data-product-id="${productId}">
-                        <option id="op1"
+                        <option value="">Chưa chọn</option>
+                        <option class="op1"
                                 th:selected="${i.fileImg} == ${product.imageBackground}"
                                 th:each="i : ${imgProducts}"
                                 th:value="${i.fileImg}"
@@ -35,20 +36,20 @@
                         </option>
                     </select>
 
-                    <div th:unless="${product.imageBackground.endsWith('.mp4')}  ">
+                    <div th:unless="${product.imageBackground.endsWith('.mp4')}  " class="mt-3">
                         <img width="100px" th:id="imgbg1"
                              th:src="@{'/admin/imgProduct?imageName='+${product.imageBackground}}" alt="">
-                        <video width="100px" th:id="vdbg1" controls
+                        <video width="150px" th:id="vdbg1" controls
                                class="hidden"
                                th:src="@{'/admin/imgProduct?imageName='+${product.imageBackground}}">
                         </video>
                     </div>
 
-                    <div th:if="${product.imageBackground.endsWith('.mp4')}">
+                    <div th:if="${product.imageBackground.endsWith('.mp4')}" class="mt-3">
                         <img width="100px" th:id="imgbg1"
                              class="hidden"
                              th:src="@{'/admin/imgProduct?imageName='+${product.imageBackground}}" alt="">
-                        <video width="100px" th:id="vdbg1" controls
+                        <video width="150px" th:id="vdbg1" controls
                                th:src="@{'/admin/imgProduct?imageName='+${product.imageBackground}}">
                             Your browser does not support the video tag.
                         </video>
