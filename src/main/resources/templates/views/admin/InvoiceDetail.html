@@ -191,8 +191,11 @@
                     </div>
                     <div class="d-flex">
                         <span class="col-5">Tổng đơn hàng:</span>
-                        <h4 id="totalBill" style="color:red"
+                        <h4 th:if="${invoice.totalBill != null}"
+                            th:id="totalBill" style="color:red"
                             th:text="${#numbers.formatDecimal(invoice.totalBill, 0, 'POINT', 0, 'POINT')} +'đ'"></h4>
+                        <h4 th:unless="${invoice.totalBill != null}"
+                            th:id="totalBill" style="color:red">0 đ</h4>
                         <span th:if="${invoice.isPaid}">(Đã thanh toán)</span>
                     </div>
                 </div>

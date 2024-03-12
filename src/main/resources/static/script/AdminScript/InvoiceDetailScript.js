@@ -4,7 +4,11 @@ function updateTotalBill(invoiceId) {
         url: "/admin/invoiceDetail/update-total-bill",
         data: {invoiceId: invoiceId},
         success: (data) => {
-            $("#totalBill").text(data.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}).replace('₫', 'đ'))
+            if (data  == ""){
+                $("#totalBill").text('0 đ')
+            }else {
+                $("#totalBill").text(data.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}).replace('₫', 'đ'))
+            }
         },
         error: (error) => {
             console.log(error)
