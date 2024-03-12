@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th3 11, 2024 lúc 05:59 AM
+-- Thời gian đã tạo: Th3 12, 2024 lúc 06:02 AM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -241,7 +241,7 @@ INSERT INTO `feedback_customer` (`id`, `name`, `email`, `phone`, `feedback`, `st
 
 CREATE TABLE `history` (
   `id` int(11) NOT NULL,
-  `invoice_id` varchar(25) NOT NULL,
+  `invoice_id` varchar(8) NOT NULL,
   `content` varchar(255) NOT NULL,
   `time` timestamp NOT NULL DEFAULT current_timestamp(),
   `time_ago` varchar(50) DEFAULT NULL
@@ -887,7 +887,13 @@ INSERT INTO `history` (`id`, `invoice_id`, `content`, `time`, `time_ago`) VALUES
 (1208, '41ZSPBHA', 'quanly đã thay đổi Trạng thái đơn hàng: Đơn mới -> Đang xử lý', '2024-03-11 04:42:18', NULL),
 (1209, '41ZSPBHA', 'quanly đã thay đổi Trạng thái đơn hàng: Đang xử lý -> Đã lên đơn', '2024-03-11 04:46:39', NULL),
 (1210, '41ZSPBHA', 'quanly đã thay đổi Trạng thái đơn hàng: Đã lên đơn -> Đang xử lý', '2024-03-11 04:47:52', NULL),
-(1211, '41ZSPBHA', 'quanly đã thay đổi Trạng thái đơn hàng: Đang xử lý -> Đã lên đơn', '2024-03-11 04:51:41', NULL);
+(1211, '41ZSPBHA', 'quanly đã thay đổi Trạng thái đơn hàng: Đang xử lý -> Đã lên đơn', '2024-03-11 04:51:41', NULL),
+(1217, 'F6GYDSV1', 'quanly đã tạo đơn hàng: <br>Mã đơn: F6GYDSV1,<br>Tên khách hàng: nguyễn quang anh,<br>Số điện thoại: 0365151822,<br>Địa chỉ: số 18 ngõ 222 tựu liệt,thanh trì, hà nội,<br>Ghi chú: ,<br>Nguồn:  quanly', '2024-03-12 04:45:39', NULL),
+(1218, 'F6GYDSV1', 'quanly đã thay đổi Số điện thoại: 0365151822 -> 0365151821', '2024-03-12 04:46:14', NULL),
+(1219, 'F6GYDSV1', 'quanly đã thay đổi Phí ship: 0 -> 10000', '2024-03-12 04:46:25', NULL),
+(1220, 'F6GYDSV1', 'quanly đã thêm sản phẩm: DSTP90372CT32RB_HCR-M (giá = 290000)', '2024-03-12 04:46:30', NULL),
+(1221, 'F6GYDSV1', ' đã thay đổi Số lượng (DSTP90372CT32RB_HCR-M) :1 -> 2', '2024-03-12 04:46:37', NULL),
+(1222, 'F6GYDSV1', 'quanly đã xóa sản phẩm: DSTP90372CT32RB_HCR-M (giá = 290000)', '2024-03-12 04:46:45', NULL);
 
 -- --------------------------------------------------------
 
@@ -1454,6 +1460,7 @@ INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `created_at`, 
 ('EIIMQTNF', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 17:53:16', '', 'd', NULL, 1, 400000, 30000, 430000, b'0'),
 ('EXAWZYY2', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 15:41:14', '', 's', NULL, 1, 990000, 0, 990000, b'0'),
 ('EYCDR8PC', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-02-06 12:39:32', '                        fsd', NULL, 1, 1, 0, 0, 580000, b'0'),
+('F6GYDSV1', 'nguyễn quang anh', '0365151821', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-03-12 04:46:45', '', NULL, 1, 1, NULL, 10000, NULL, b'0'),
 ('GB4ENHC1', 'nguyễn quang anh', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-01-21 16:42:11', '', 'dfs', NULL, 0, 1980000, 0, 1980000, b'0'),
 ('GCRM2OC5', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 13:46:00', '', 'sd', NULL, 1, NULL, 30000, 380000, b'0'),
 ('GGTWEEBJ', 'quang anh', '0365151822', '4dvsdsf', '2024-02-12 18:45:34', '', 'd', NULL, 1, 200000, 30000, 230000, b'1'),
@@ -1512,7 +1519,7 @@ INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `created_at`, 
 -- Bẫy `invoices`
 --
 DELIMITER $$
-CREATE TRIGGER `after_invoice_history_insert` BEFORE INSERT ON `invoices` FOR EACH ROW BEGIN
+CREATE TRIGGER `after_invoice_history_insert` AFTER INSERT ON `invoices` FOR EACH ROW BEGIN
 	DECLARE content VARCHAR(255);
     DECLARE invoice_id VARCHAR(25);
     DECLARE account_name VARCHAR(25);
@@ -1521,14 +1528,13 @@ CREATE TRIGGER `after_invoice_history_insert` BEFORE INSERT ON `invoices` FOR EA
     SET invoice_id = NEW.invoice_id;
     
     SET content = CONCAT(@current_user , ' đã tạo đơn hàng: <br>Mã đơn: ', NEW.invoice_id, ',<br>Tên khách hàng: ', NEW.name, ',<br>Số điện thoại: ', NEW.phone, ',<br>Địa chỉ: ', NEW.address,',<br>Ghi chú: ', NEW.note,',<br>Nguồn:  ',account_name);
-    
-	INSERT INTO History (invoice_id,content) VALUES (invoice_id,content);
+    INSERT INTO History (invoice_id,content) VALUES (invoice_id,content);
    
 END
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `after_invoice_history_update` BEFORE UPDATE ON `invoices` FOR EACH ROW BEGIN
+CREATE TRIGGER `after_invoice_history_update` AFTER UPDATE ON `invoices` FOR EACH ROW BEGIN
 	DECLARE content VARCHAR(255);
     DECLARE invoice_id VARCHAR(25);
     DECLARE old_status VARCHAR(25);
@@ -2914,7 +2920,7 @@ ALTER TABLE `feedback_customer`
 --
 ALTER TABLE `history`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `invoice_id` (`invoice_id`);
+  ADD KEY `FK` (`invoice_id`);
 
 --
 -- Chỉ mục cho bảng `imgs_product`
@@ -2999,19 +3005,19 @@ ALTER TABLE `feedback_customer`
 -- AUTO_INCREMENT cho bảng `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1212;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1223;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_product`
 --
 ALTER TABLE `imgs_product`
-  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=682;
+  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=684;
 
 --
 -- AUTO_INCREMENT cho bảng `invoices_detail`
 --
 ALTER TABLE `invoices_detail`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=437;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=438;
 
 --
 -- AUTO_INCREMENT cho bảng `invoices_status`
@@ -3023,7 +3029,7 @@ ALTER TABLE `invoices_status`
 -- AUTO_INCREMENT cho bảng `products_detail`
 --
 ALTER TABLE `products_detail`
-  MODIFY `product_detail_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=768;
+  MODIFY `product_detail_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=769;
 
 --
 -- AUTO_INCREMENT cho bảng `stores`
@@ -3045,7 +3051,7 @@ ALTER TABLE `categories`
 -- Các ràng buộc cho bảng `history`
 --
 ALTER TABLE `history`
-  ADD CONSTRAINT `history_ibfk_1` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`invoice_id`);
+  ADD CONSTRAINT `FK` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`invoice_id`);
 
 --
 -- Các ràng buộc cho bảng `imgs_product`

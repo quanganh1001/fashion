@@ -5,6 +5,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -61,20 +62,24 @@ public class InvoiceService {
         var accountLogging = accountResponse.getRole();
         var accountId = accountResponse.getAccountId();;
 
+        int pageSize = 10; // Số bản ghi trên mỗi trang
+        int pageNumber = page; // Số trang bạn muốn truy vấn, bắt đầu từ 0 hoặc 1 tùy thuộc vào cấu hình
+
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by("createdAt").descending());
         // quyền manager
         if (Objects.equals(accountLogging.toString(), "ROLE_MANAGER")) {
             //lọc theo trạng thái + quyền manager
             if (filterStatus != -1) {
                 //tất cả account + lọc theo trạng thái + quyền manager
                 if (selectAccount == -1) {
-                    return invoiceRepo.findInvoiceByKeyAndInvoiceStatus(key, filterStatus, PageRequest.of(page, 10));
+                    return invoiceRepo.findInvoiceByKeyAndInvoiceStatus(key, filterStatus, pageRequest);
                     // hệ thống + lọc theo trạng thái + quyền manager
                 } else if (selectAccount == 0) {
-                    return invoiceRepo.findInvoiceByKeyAndInvoiceStatusAndAccount_AccountIdNull(key, filterStatus, PageRequest.of(page, 10));
+                    return invoiceRepo.findInvoiceByKeyAndInvoiceStatusAndAccount_AccountIdNull(key, filterStatus, pageRequest);
                 }
                 // lọc theo account + lọc theo trạng thái + quyền manager
                 else {
-                    return invoiceRepo.findInvoiceByKeyAndInvoiceStatusAndAccount_AccountId(key, filterStatus, selectAccount, PageRequest.of(page, 10));
+                    return invoiceRepo.findInvoiceByKeyAndInvoiceStatusAndAccount_AccountId(key, filterStatus, selectAccount, pageRequest);
                 }
                 // tất cả trạng thái + quyền manager
             } else
@@ -84,19 +89,19 @@ public class InvoiceService {
                             key, key, PageRequest.of(page, 10));
                 // hệ thống + tất cả trạng thái + quyền manager
                 } else if(selectAccount == 0) {
-                    return invoiceRepo.findInvoiceByKeyAndAccount_AccountIdNull(key, PageRequest.of(page, 10));
+                    return invoiceRepo.findInvoiceByKeyAndAccount_AccountIdNull(key, pageRequest);
                 // lọc theo account +  tất cả trạng thái + quyền manager
                 }else{
-                    return invoiceRepo.findInvoiceByKeyAndAccount_AccountId(key, selectAccount, PageRequest.of(page, 10));
+                    return invoiceRepo.findInvoiceByKeyAndAccount_AccountId(key, selectAccount, pageRequest);
         }
         // quyền nhân viên
     } else {
         // lọc theo trạng thái + quyền nhân viên
         if (filterStatus != -1) {
-            return invoiceRepo.findInvoiceByKeyAndStatusAndAccount_AccountId(key, filterStatus, accountId, PageRequest.of(page, 10));
+            return invoiceRepo.findInvoiceByKeyAndStatusAndAccount_AccountId(key, filterStatus, accountId, pageRequest);
             // tất cả trạng thái + quyền nhân viên
         } else
-            return invoiceRepo.findInvoiceByKeyAndAccount_AccountId(key, accountId, PageRequest.of(page, 10));
+            return invoiceRepo.findInvoiceByKeyAndAccount_AccountId(key, accountId, pageRequest);
 
     }
 
