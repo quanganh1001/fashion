@@ -86,7 +86,7 @@ public class InvoiceService {
                 // tất cả account + tất cả trạng thái + quyền manager
                 if (selectAccount == -1){
                     return invoiceRepo.searchInvoicesByInvoiceIdContainingIgnoreCaseOrPhoneContainingIgnoreCase(
-                            key, key, PageRequest.of(page, 10));
+                            key, key, pageRequest);
                 // hệ thống + tất cả trạng thái + quyền manager
                 } else if(selectAccount == 0) {
                     return invoiceRepo.findInvoiceByKeyAndAccount_AccountIdNull(key, pageRequest);
