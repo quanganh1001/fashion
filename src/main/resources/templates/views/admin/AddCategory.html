@@ -31,7 +31,7 @@
                     <div class="mb-3">
                         <label th:for="parent-id" class="form-label">Nằm trong danh
                             mục<span style="color:red">*</span></label>
-                        <select class="form-control" id="parent-id" th:field="*{catParent}">
+                        <select class="form-control" id="parent-id" th:field="*{catParent.catId}">
                             <option value="">Không có</option>
                             <option th:each="cat : ${cat}" th:value="${cat.catId}"
                                     th:text="${cat.catId} + ' - ' + ${cat.catName}">
