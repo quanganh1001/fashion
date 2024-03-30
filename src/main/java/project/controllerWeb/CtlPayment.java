@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import project.fashion.config.VNPayConfig;
+import project.config.VNPayConfig;
 import project.DTO.CartItem;
 import project.model.Invoice;
 import project.service.CartService;
