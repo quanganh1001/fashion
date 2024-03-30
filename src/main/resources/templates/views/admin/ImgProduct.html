@@ -25,32 +25,23 @@
 
                 </form>
                 <div id="select-background" class="bg mt-3">
-                    <h4>Chọn ảnh nền</h4>
-                    <select id="bg1" class="form-select" th:data-product-id="${productId}">
-                        <option value="">Chưa chọn</option>
-                        <option class="op1"
-                                th:selected="${i.fileImg} == ${product.imageBackground}"
-                                th:each="i : ${imgProducts}"
-                                th:value="${i.fileImg}"
-                                th:text="${i.fileImg}">
-                        </option>
-                    </select>
+                    <h4>Ảnh nền</h4>
 
                     <div th:unless="${product.imageBackground.endsWith('.mp4')}  " class="mt-3">
                         <img width="100px" th:id="imgbg1"
-                             th:src="@{'/admin/imgProduct?imageName='+${product.imageBackground}}" alt="">
+                             th:src="${product.imageBackground}" alt="">
                         <video width="150px" th:id="vdbg1" controls
                                class="hidden"
-                               th:src="@{'/admin/imgProduct?imageName='+${product.imageBackground}}">
+                               th:src="${product.imageBackground}">
                         </video>
                     </div>
 
                     <div th:if="${product.imageBackground.endsWith('.mp4')}" class="mt-3">
                         <img width="100px" th:id="imgbg1"
                              class="hidden"
-                             th:src="@{'/admin/imgProduct?imageName='+${product.imageBackground}}" alt="">
+                             th:src="${product.imageBackground}" alt="">
                         <video width="150px" th:id="vdbg1" controls
-                               th:src="@{'/admin/imgProduct?imageName='+${product.imageBackground}}">
+                               th:src="${product.imageBackground}">
                             Your browser does not support the video tag.
                         </video>
                     </div>
@@ -62,19 +53,29 @@
                 <ul class="d-flex" th:each="i : ${imgProducts}">
                     <li th:unless="${i.fileImg.endsWith('.mp4')}">
                         <!-- Nếu là hình ảnh -->
-                        <img width="250px" th:src="@{'/admin/imgProduct?imageName='+${i.fileImg}}" alt="Image">
+                        <img width="250px" th:src="${i.fileImg}" alt="Image">
                     </li>
                     <li th:if="${i.fileImg.endsWith('.mp4')}">
                         <!-- Nếu là video -->
-                        <video width="250px" controls th:src="@{'/admin/imgProduct?imageName='+${i.fileImg}}">
+                        <video width="250px" controls th:src="${i.fileImg}">
                         </video>
                     </li>
-                    <form th:action="@{/admin/imgProduct/delete?imageName=__${i.fileImg}__&productId=__${productId}__}"
-                          th:method="delete">
-                        <button class="btn btn-danger btn-sm" type="submit">
-                            <i class="fas fa-trash-alt"></i>Xóa
+                    <div>
+                        <form th:action="@{/admin/imgProduct/delete?imageName=__${i.fileImg}__&productId=__${productId}__}"
+                              th:method="delete">
+                            <button class="btn btn-danger btn-sm" type="submit">
+                                <i class="fas fa-trash-alt"></i>Xóa
+                            </button>
+                        </form>
+
+                        <button class="choose-bg btn btn-warning mt-3 "
+                                type="button"
+                                th:data-imageName="${i.fileImg}"
+                                th:data-product-id="${productId}">
+                            Đặt làm ảnh nền
                         </button>
-                    </form>
+                    </div>
+
                 </ul>
             </div>
         </div>

@@ -64,7 +64,7 @@ public class CtlAdminImgProduct {
             attributes.addFlashAttribute("alertMessage", "Đã thêm thành công");
             return "redirect:/admin/imgProduct/add-img?productId=" + productId;
         }catch (Exception e){
-            attributes.addFlashAttribute("alertMessage", "Có lỗi xảy ra");
+            attributes.addFlashAttribute("alertMessage", e);
             return "redirect:/admin/imgProduct/add-img?productId=" + productId;
         }
 
@@ -72,11 +72,10 @@ public class CtlAdminImgProduct {
     }
 
     @PostMapping ("/img-bg")
-    public ResponseEntity<String> changeImg(Model model,
+    public ResponseEntity<String> changeImg(
                             @RequestParam("imageName") String imageName,
                             @RequestParam("productId") String productId) {
         productService.setBackground(productId, imageName);
-        accountService.getAccountResponse(model);
 
         return ResponseEntity.ok(imageName);
 
@@ -95,4 +94,5 @@ public class CtlAdminImgProduct {
             return "redirect:/admin/banner";
         }
     }
+
 }

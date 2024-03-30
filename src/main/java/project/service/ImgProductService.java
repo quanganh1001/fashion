@@ -1,68 +1,54 @@
 package project.service;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 import project.model.ImgProduct;
 import project.model.Product;
 import project.repository.ImgProductRepo;
 import project.repository.ProductRepo;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Service
 public class ImgProductService {
     @Autowired
     private ImgProductRepo imgProductRepo;
-
     @Autowired
     private ProductRepo productRepo;
+    @Autowired
+    private CloudinaryService cloudinaryService;
 
     @Transactional
     public void deleteByFileImg(String imageName) throws IOException {
-        String filePath = "src/main/uploads/images/" + imageName;
-        Path path = Paths.get(filePath);
-        // Kiểm tra xem file tồn tại không
-        if (Files.exists(path)) {
-            Files.delete(path);
-        }
+        cloudinaryService.deleteImageByUrl(imageName);
         imgProductRepo.deleteByFileImg(imageName);
     }
 
 
-    @Transactional
-    public void deletePath(String productId) throws IOException {
-        List<ImgProduct> imgProducts = findAllImgByProduct(productId);
-        for (ImgProduct imgProduct : imgProducts) {
-            String filePath = "src/main/uploads/images/" + imgProduct.getFileImg();
-            Path path = Paths.get(filePath);
-            // Kiểm tra xem file tồn tại không
-            if (Files.exists(path)) {
-                Files.delete(path);
-            }
-        }
-
-    }
-
     public ResponseEntity<Resource> getImg(String imageName) throws MalformedURLException {
         var path = Paths.get("src/main/resources/static/image");
-        if (Objects.equals(imageName, "no_image.jpg") || imageName == null || imageName.isEmpty()){
+        if (Objects.equals(imageName, "no_image.jpg") || imageName == null || imageName.isEmpty()) {
             Path imagePath = path.resolve("no_image.jpg");
             Resource imageResource = new UrlResource(imagePath.toUri());
             // Trả về phản hồi với hình ảnh
             return ResponseEntity.ok().body(imageResource);
-        }else {
+        } else {
             Path imagePath = Paths.get("src/main/uploads/images").resolve(imageName);
             Resource imageResource = new UrlResource(imagePath.toUri());
             if (!imageResource.exists()) {
@@ -77,12 +63,12 @@ public class ImgProductService {
 
     public ResponseEntity<Resource> getImgStatic(String imageName) throws MalformedURLException {
         var path = Paths.get("src/main/resources/static/image");
-        if (Objects.equals(imageName, "no_image.jpg") || imageName == null || imageName.isEmpty()){
+        if (Objects.equals(imageName, "no_image.jpg") || imageName == null || imageName.isEmpty()) {
             Path imagePath = path.resolve("no_image.jpg");
             Resource imageResource = new UrlResource(imagePath.toUri());
             // Trả về phản hồi với hình ảnh
             return ResponseEntity.ok().body(imageResource);
-        }else {
+        } else {
             Path imagePath = path.resolve(imageName);
             Resource imageResource = new UrlResource(imagePath.toUri());
             if (!imageResource.exists()) {
@@ -95,26 +81,27 @@ public class ImgProductService {
         }
     }
 
+    @Transactional
     public void addImg(MultipartFile[] files, String productId) throws IOException {
         for (MultipartFile file : files) {
-            if (!file.isEmpty()) {
-                ImgProduct imgs = new ImgProduct();
+            // Thêm ảnh vào cloudnidary
+            String publicId = file.getOriginalFilename();
+            Map<String, Object> uploadResult = cloudinaryService.upload(file, publicId);
 
-                // Lưu ảnh vào thư mục ngoài 'static'
-                String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-                File destFile = new File(System.getProperty("user.dir") + "src/main/uploads/images/" + fileName);
-                file.transferTo(destFile);
+            String imageUrl = uploadResult.get("secure_url").toString();
 
-                // Lưu thông tin vào cơ sở dữ liệu
-                Product product = productRepo.getById(productId);
-                imgs.setProduct(product);
-                imgs.setFileImg(fileName);
-                imgProductRepo.save(imgs);
-            }
+            //            Thêm ảnh vào CSDL
+            ImgProduct imgs = new ImgProduct();
+            Product product = productRepo.getById(productId);
+            imgs.setProduct(product);
+            imgs.setFileImg(imageUrl);
+            imgProductRepo.save(imgs);
         }
+
     }
 
     public List<ImgProduct> findAllImgByProduct(String productId) {
         return imgProductRepo.findAllByProductProductIdOrderByImgIdDesc(productId);
     }
+
 }

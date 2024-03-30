@@ -1,8 +1,12 @@
 package project.config;
 
+import com.cloudinary.Cloudinary;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 public class WebConfig {
@@ -11,4 +15,6 @@ public class WebConfig {
     public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
         return new HiddenHttpMethodFilter();
     }
+
+
 }

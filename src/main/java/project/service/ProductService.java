@@ -8,10 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import project.model.ImgProduct;
 import project.model.Product;
 import project.repository.ProductDetailRepo;
 import project.repository.ProductRepo;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -27,6 +29,8 @@ public class ProductService {
     private ProductDetailRepo productDetailRepo;
     @Autowired
     private ImgProductService imgProductService;
+    @Autowired
+    private CloudinaryService cloudinaryService;
 
     public void setProductActive(String cat_id, Boolean boo) {
         List<Product> product = productRepo.findByCategoryCatId(cat_id);
@@ -98,19 +102,19 @@ public class ProductService {
     @Transactional
     public void deleteProduct(String productId) {
         try {
-//            // Gọi hàm xóa ảnh
-//            imgProductService.deleteByProductId(productId);
-//
-//            // Gọi hàm xóa chi tiết sản phẩm
-//            productDetailRepo.deleteAllByProductProductId(productId);
-            //xóa path ảnh
-            imgProductService.deletePath(productId);
+            // xóa ảnh trên cloud
+            List<ImgProduct> imgProducts = imgProductService.findAllImgByProduct(productId);
+            imgProducts.forEach(imgProduct ->{
+                String imageName = imgProduct.getFileImg();
+                try {
+                    cloudinaryService.deleteImageByUrl(imageName);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
             // Gọi hàm xóa sản phẩm
             productRepo.deleteById(productId);
-
-
-
             ResponseEntity.ok("done");
         } catch (Exception e) {
             // Nếu có lỗi, hệ thống sẽ tự động rollback
