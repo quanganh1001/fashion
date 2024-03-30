@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: localhost
--- Thời gian đã tạo: Th3 12, 2024 lúc 09:56 AM
--- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.2.4
+-- Máy chủ: mysql8-container
+-- Thời gian đã tạo: Th3 29, 2024 lúc 02:56 PM
+-- Phiên bản máy phục vụ: 8.0.2-dmr
+-- Phiên bản PHP: 8.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Cơ sở dữ liệu: `fashion_project`
 --
+CREATE DATABASE IF NOT EXISTS `fashion_project` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE `fashion_project`;
 
 -- --------------------------------------------------------
 
@@ -29,13 +31,13 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `accounts` (
   `account_id` int(11) NOT NULL,
-  `user_name` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(55) NOT NULL,
-  `phone` varchar(55) NOT NULL,
-  `address` varchar(255) NOT NULL,
-  `role` varchar(15) NOT NULL,
+  `user_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(55) COLLATE utf8mb4_general_ci NOT NULL,
+  `phone` varchar(55) COLLATE utf8mb4_general_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `role` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
   `enabled` bit(1) NOT NULL DEFAULT b'1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -58,7 +60,7 @@ INSERT INTO `accounts` (`account_id`, `user_name`, `password`, `name`, `email`, 
 
 CREATE TABLE `banner_imgs` (
   `id` int(11) NOT NULL,
-  `file_name` varchar(255) DEFAULT NULL
+  `file_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -78,10 +80,10 @@ INSERT INTO `banner_imgs` (`id`, `file_name`) VALUES
 --
 
 CREATE TABLE `categories` (
-  `cat_id` varchar(10) NOT NULL,
-  `cat_name` varchar(30) DEFAULT NULL,
-  `parent_id` varchar(10) DEFAULT NULL,
-  `cat_background` varchar(255) DEFAULT NULL,
+  `cat_id` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
+  `cat_name` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `parent_id` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `cat_background` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `is_cat_active` bit(1) NOT NULL DEFAULT b'1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -139,8 +141,8 @@ INSERT INTO `categories` (`cat_id`, `cat_name`, `parent_id`, `cat_background`, `
 --
 
 CREATE TABLE `colors` (
-  `color_id` varchar(5) NOT NULL,
-  `name` varchar(50) DEFAULT NULL
+  `color_id` varchar(5) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -198,7 +200,7 @@ INSERT INTO `colors` (`color_id`, `name`) VALUES
 
 CREATE TABLE `customer_mail` (
   `id` int(11) NOT NULL,
-  `email` varchar(55) NOT NULL
+  `email` varchar(55) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -218,10 +220,10 @@ INSERT INTO `customer_mail` (`id`, `email`) VALUES
 
 CREATE TABLE `feedback_customer` (
   `id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `email` varchar(55) NOT NULL,
-  `phone` varchar(55) DEFAULT NULL,
-  `feedback` varchar(255) NOT NULL,
+  `name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(55) COLLATE utf8mb4_general_ci NOT NULL,
+  `phone` varchar(55) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `feedback` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `status` bit(1) DEFAULT b'0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -241,10 +243,10 @@ INSERT INTO `feedback_customer` (`id`, `name`, `email`, `phone`, `feedback`, `st
 
 CREATE TABLE `history` (
   `id` int(11) NOT NULL,
-  `invoice_id` varchar(8) NOT NULL,
-  `content` varchar(255) NOT NULL,
-  `time` timestamp NOT NULL DEFAULT current_timestamp(),
-  `time_ago` varchar(50) DEFAULT NULL
+  `invoice_id` varchar(8) COLLATE utf8mb4_general_ci NOT NULL,
+  `content` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `time_ago` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -926,8 +928,8 @@ INSERT INTO `history` (`id`, `invoice_id`, `content`, `time`, `time_ago`) VALUES
 
 CREATE TABLE `imgs_product` (
   `img_id` int(11) NOT NULL,
-  `product_id` varchar(15) DEFAULT NULL,
-  `file_img` varchar(250) DEFAULT NULL
+  `product_id` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `file_img` varchar(250) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -1437,18 +1439,18 @@ INSERT INTO `imgs_product` (`img_id`, `product_id`, `file_img`) VALUES
 --
 
 CREATE TABLE `invoices` (
-  `invoice_id` varchar(8) NOT NULL,
-  `name` varchar(30) DEFAULT NULL,
-  `phone` varchar(15) DEFAULT NULL,
-  `address` text DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
-  `note` varchar(255) DEFAULT NULL,
-  `customer_note` varchar(255) DEFAULT NULL,
+  `invoice_id` varchar(8) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `phone` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `address` text COLLATE utf8mb4_general_ci,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `note` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `customer_note` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `account_id` int(11) DEFAULT NULL,
-  `invoice_status` int(1) NOT NULL DEFAULT 1,
-  `total_price` int(20) DEFAULT 0,
-  `shipping_fee` int(11) DEFAULT 0,
-  `total_bill` int(20) DEFAULT 0,
+  `invoice_status` int(1) NOT NULL DEFAULT '1',
+  `total_price` int(20) DEFAULT '0',
+  `shipping_fee` int(11) DEFAULT '0',
+  `total_bill` int(20) DEFAULT '0',
   `is_paid` bit(1) NOT NULL DEFAULT b'0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1633,11 +1635,11 @@ DELIMITER ;
 
 CREATE TABLE `invoices_detail` (
   `detail_id` int(11) NOT NULL,
-  `invoice_id` varchar(8) DEFAULT NULL,
+  `invoice_id` varchar(8) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `product_detail_id` int(11) DEFAULT NULL,
   `price` double DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
-  `total_price` int(20) DEFAULT 0
+  `total_price` int(20) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -1857,7 +1859,7 @@ DELIMITER ;
 
 CREATE TABLE `invoices_status` (
   `status_id` int(11) NOT NULL,
-  `status` varchar(255) DEFAULT NULL
+  `status` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -1880,19 +1882,19 @@ INSERT INTO `invoices_status` (`status_id`, `status`) VALUES
 --
 
 CREATE TABLE `products` (
-  `product_id` varchar(15) NOT NULL,
-  `product_name` varchar(100) DEFAULT NULL,
-  `cat_id` varchar(10) DEFAULT NULL,
+  `product_id` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
+  `product_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `cat_id` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
   `discount_price` int(11) DEFAULT NULL,
   `discount_percent` int(11) DEFAULT NULL,
   `is_discount` bit(1) DEFAULT b'0',
-  `brand` varchar(20) DEFAULT 'TORANO',
-  `description` text DEFAULT 'Chưa có thông tin',
-  `total_size` int(11) DEFAULT 0,
-  `total_color` int(11) DEFAULT 0,
-  `image_background` varchar(255) DEFAULT 'no_image.jpg',
-  `image_choose_size` varchar(255) DEFAULT 'no_image.jpg',
+  `brand` varchar(20) COLLATE utf8mb4_general_ci DEFAULT 'TORANO',
+  `description` text COLLATE utf8mb4_general_ci,
+  `total_size` int(11) DEFAULT '0',
+  `total_color` int(11) DEFAULT '0',
+  `image_background` varchar(255) COLLATE utf8mb4_general_ci DEFAULT 'no_image.jpg',
+  `image_choose_size` varchar(255) COLLATE utf8mb4_general_ci DEFAULT 'no_image.jpg',
   `is_product_active` bit(1) DEFAULT b'1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -2041,10 +2043,10 @@ DELIMITER ;
 
 CREATE TABLE `products_detail` (
   `product_detail_id` int(10) NOT NULL,
-  `product_id` varchar(15) DEFAULT NULL,
-  `code` varchar(30) DEFAULT NULL,
-  `color_id` varchar(5) NOT NULL,
-  `size` varchar(10) NOT NULL,
+  `product_id` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `code` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `color_id` varchar(5) COLLATE utf8mb4_general_ci NOT NULL,
+  `size` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
   `quantity` int(11) DEFAULT NULL,
   `out_of_stock` bit(1) DEFAULT NULL,
   `product_detail_active` bit(1) DEFAULT b'1'
@@ -2876,12 +2878,12 @@ DELIMITER ;
 
 CREATE TABLE `stores` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `time` varchar(255) DEFAULT NULL,
-  `phone` varchar(255) DEFAULT NULL,
-  `api` varchar(500) DEFAULT NULL,
-  `city` varchar(255) NOT NULL
+  `name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `address` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `time` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `api` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `city` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

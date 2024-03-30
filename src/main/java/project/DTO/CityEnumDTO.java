@@ -1,0 +1,78 @@
+package project.DTO;
+
+import lombok.Getter;
+
+@Getter
+public enum CityEnumDTO {
+    HA_NOI("Hà Nội"),
+    HA_LONG("Hạ Long"),
+    HAIPHONG("Hải Phòng"),
+    VINH("Vinh"),
+    THANH_HOA("Thanh Hóa"),
+    DONG_HOI("Đồng Hới"),
+    HUE("Huế"),
+    DA_NANG("Đà Nẵng"),
+    QUANG_NGAI("Quảng Ngãi"),
+    QUY_NHON("Quy Nhơn"),
+    PLEIKU("Pleiku"),
+    NHA_TRANG("Nha Trang"),
+    DALAT("Đà Lạt"),
+    BINH_DUONG("Bình Dương"),
+    BIEN_HOA("Biên Hòa"),
+    VUNG_TAU("Vũng Tàu"),
+    HO_CHI_MINH_CITY("Thành phố Hồ Chí Minh"),
+    CAN_THO("Cần Thơ"),
+    SOC_TRANG("Sóc Trăng"),
+    CA_MAU("Cà Mau"),
+    RACH_GIA("Rạch Giá"),
+    LONG_XUYEN("Long Xuyên"),
+    AN_GIANG("An Giang"),
+    PHNOM_PENH("Phnom Penh"),
+    BATTAMBANG("Battambang"),
+    SIEM_REAP("Siem Reap"),
+    LAO_CAPE_TOWN("Vientiane"),
+    SAVANNAKHET("Savannakhet"),
+    VIENTIANE("Vientiane"),
+    HOA_BINH("Hòa Bình"),
+    SON_LA("Sơn La"),
+    DIEN_BIEN_PHU("Điện Biên Phủ"),
+    LAI_CHAU("Lai Châu"),
+    TAM_DAO("Tam Đảo"),
+    LAO_CAI("Lào Cai"),
+    BAC_CAN("Bắc Cạn"),
+    CAO_BANG("Cao Bằng"),
+    LANG_SON("Lạng Sơn"),
+    QUANG_NINH("Quảng Ninh"),
+    THAI_BINH("Thái Bình"),
+    NAM_DINH("Nam Định"),
+    NINH_BINH("Ninh Bình"),
+    THAI_NGUYEN("Thái Nguyên"),
+    PHU_THO("Phú Thọ"),
+    BAC_GIANG("Bắc Giang"),
+    BAC_NINH("Bắc Ninh"),
+    HAI_DUONG("Hải Dương"),
+    HUNG_YEN("Hưng Yên"),
+    HA_NAM("Hà Nam"),
+    VINH_PHUC("Vĩnh Phúc"),
+    QUANG_TRI("Quảng Trị"),
+    QUANG_BINH("Quảng Bình"),
+    BAC_LIEU("Bạc Liêu"),
+    TRA_VINH("Trà Vinh"),
+    BEN_TRE("Bến Tre"),
+    TIEN_GIANG("Tiền Giang"),
+    KIEN_GIANG("Kiên Giang"),
+    VINH_LONG("Vĩnh Long"),
+    DONG_THAP("Đồng Tháp"),
+    DAK_LAK("Đắk Lắk"),
+    DAK_NONG("Đắk Nông"),
+    BINH_PHUOC("Bình Phước"),
+    BINH_THUAN("Bình Thuận"),
+    KON_TUM("Kon Tum"),
+    GIA_LAI("Gia Lai");
+
+    private final String cityName;
+
+    CityEnumDTO(String cityName) {
+        this.cityName = cityName;
+    }
+}
