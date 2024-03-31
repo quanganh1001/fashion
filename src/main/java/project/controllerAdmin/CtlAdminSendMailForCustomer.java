@@ -15,7 +15,7 @@ import project.service.FeedbackCustomerService;
 @Controller
 @PreAuthorize("hasAnyRole('MANAGER')")
 @RequestMapping("/admin/email")
-public class CtlAdminCustomerEmail {
+public class CtlAdminSendMailForCustomer {
     @Autowired
     private AccountService accountService;
     @Autowired
@@ -35,6 +35,6 @@ public class CtlAdminCustomerEmail {
     public ResponseEntity<String> sendEmail(@RequestParam("content") String content,
                                     @RequestParam("subject") String subject) {
         customerMailService.sendEmail(content,subject);
-        return ResponseEntity.ok("Đã gửi thành công");
+        return ResponseEntity.ok("Đã gửi tin tức cho toàn bộ khách hàng");
     }
 }

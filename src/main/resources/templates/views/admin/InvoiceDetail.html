@@ -51,7 +51,7 @@
                                         th:field="*{account.accountId}">
                                     <option value="" th:selected="${invoice.account.accountId == null}">Chưa chọn
                                     </option>
-                                    <option th:each="acc : ${accountResponses}"
+                                    <option th:each="acc : ${accountRespons}"
                                             th:value="${acc.accountId}"
                                             th:text="${acc.userName}"
                                             th:selected="${acc.accountId == invoice.account.accountId}">

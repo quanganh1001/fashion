@@ -1,9 +1,6 @@
-package project.DTO;
+package project.Enum;
 
-import lombok.Data;
 import lombok.Getter;
-import lombok.Setter;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @Getter
 public enum ImgSizeEnumDTO {

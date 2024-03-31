@@ -9,10 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.DTO.AccountResponse;
+import project.DTO.AccountDTO;
 import project.model.Account;
 import project.DTO.ChangePasswordDTO;
-import project.DTO.RoleEnumDTO;
+import project.Enum.RoleEnumDTO;
 import project.service.AccountService;
 import project.service.FeedbackCustomerService;
 
@@ -33,7 +33,7 @@ public class CtlAdminAccount {
     public String getAllAccount(Model model,
                                 @RequestParam(value = "key",defaultValue = "") String key,
                                 @RequestParam(value = "page", defaultValue = "1") int page) {
-        Page<AccountResponse> accounts = accountService.findAll(page -1,key);
+        Page<AccountDTO> accounts = accountService.findAll(page -1,key);
 
         accountService.getAccountResponse(model);
         feedbackCustomerService.countUnread(model);
@@ -78,14 +78,14 @@ public class CtlAdminAccount {
         List<RoleEnumDTO> roles = Arrays.asList(RoleEnumDTO.values());
         accountService.getAccountResponse(model);
         feedbackCustomerService.countUnread(model);
-        AccountResponse accountResponse = AccountResponse.accountResponse(accountService.findById(accountId));
+        AccountDTO accountDTO = AccountDTO.accountMapper(accountService.findById(accountId));
 
         if(alert != null){
             model.addAttribute("alertMessage","Lưu thành công");
         }
 
         model.addAttribute("roles",roles);
-        model.addAttribute("acc",accountResponse);
+        model.addAttribute("acc", accountDTO);
         model.addAttribute("title","Account");
         model.addAttribute("changePass",new ChangePasswordDTO());
         return "admin/UpdateAccount";
@@ -94,7 +94,7 @@ public class CtlAdminAccount {
     @PreAuthorize("isAuthenticated() and (#accountId == (authentication.principal.user.accountId)) or hasAnyRole('MANAGER')")
     @PutMapping("/update-account")
     public String updateAccount(@RequestParam("accountId") Integer accountId,
-                                @ModelAttribute("acc") AccountResponse account,
+                                @ModelAttribute("acc") AccountDTO account,
                                 RedirectAttributes attributes) {
         return accountService.updateAccount(account,attributes);
     }

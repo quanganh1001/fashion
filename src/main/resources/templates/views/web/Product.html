@@ -20,10 +20,10 @@
                          th:text="'-'+${product.discountPercent} +'%'">
                     </div>
 
-                    <img th:unless="${img.fileImg.endsWith('.mp4')}" th:src="@{'/img?fileImg='+${img.fileImg}}" alt="Image"
+                    <img th:unless="${img.fileImg.endsWith('.mp4')}" th:src="${img.fileImg}" alt="Image"
                          style="width:100%;height: 500px">
                     <video th:if="${img.fileImg.endsWith('.mp4')}" style="width:100%;height: 500px" controls autoplay muted
-                           th:src="@{'/img?fileImg='+${img.fileImg}}"></video>
+                           th:src="${img.fileImg}"></video>
                 </div>
             </div>
             <div class="slick-prev slick-prev-img p-2 ps-3 pe-3 rounded-circle bg-white position-absolute translate-middle-y start-0 top-50">
@@ -35,10 +35,10 @@
             <div class="thumb position-relative">
                 <div id="thumbnail_slider">
                     <div th:each="img : ${imgProducts}" class="border border-4">
-                        <img th:unless="${img.fileImg.endsWith('.mp4')}" th:src="@{'/img?fileImg='+${img.fileImg}}"
+                        <img th:unless="${img.fileImg.endsWith('.mp4')}" th:src="${img.fileImg}"
                              alt="Image" style="width:100%">
                         <video th:if="${img.fileImg.endsWith('.mp4')}" style="width:100%" controls autoplay muted
-                               th:src="@{'/img?fileImg='+${img.fileImg}}"></video>
+                               th:src="${img.fileImg}"></video>
                     </div>
                 </div>
                 <div class="slick-prev-thumb slick-prev rounded-circle bg-white position-absolute translate-middle-y start-0 top-50 p-1 ps-2 pe-2">
@@ -207,7 +207,7 @@
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="description-tab-pane" role="tabpanel" aria-labelledby="description-tab" tabindex="0">
-                <pre th:if="${product.description != null and product.description != ''} " class="mt-5" th:text="${product.description}"></pre>
+                <pre th:if="${product.description != null and product.description != ''}" style="font-size:16px;font-family: 'Quicksand', sans-serif" class="mt-5" th:text="${product.description}"></pre>
                 <pre th:unless="${product.description != null and product.description != ''} " class="mt-5" th:text="${product.productName}"></pre>
             </div>
             <div class="tab-pane fade" id="return-policy-tab-pane" role="tabpanel" aria-labelledby="return-policy-tab" tabindex="0">

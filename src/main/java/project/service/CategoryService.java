@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.DTO.CartItem;
 import project.model.Category;
@@ -18,9 +19,6 @@ import project.repository.CategoryRepo;
 import project.repository.ProductRepo;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 
 @Service
@@ -34,6 +32,9 @@ public class CategoryService {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private CloudinaryService cloudinaryService;
 
     @Transactional
     public ResponseEntity<String> saveCategory(Category category) {
@@ -68,28 +69,17 @@ public class CategoryService {
         } else if (categoryRepo.existsById(category.getCatId())) {
             return new ResponseEntity<>("Danh mục đã tồn tại",HttpStatus.BAD_REQUEST);
         } else {
-            setCatActive(category.getCatId(), category.getIsCatActive());
-            if (Objects.equals(category.getCatBackground(), "")){
-                category.setCatBackground(null);
-            }else {
-                String fileName = System.currentTimeMillis() + "_" + category.getCatBackground();
-                category.setCatBackground(fileName);
+            if (Objects.equals(category.getCatParent().getCatId(), "")){
+                category.setCatParent(null);
             }
-
+            category.setCatBackground(null);
             categoryRepo.save(category);
-            return ResponseEntity.ok(category.getCatBackground()==null?"no":category.getCatBackground());
+            return ResponseEntity.ok(category.getCatId());
 
         }
     }
 
-    public void deleteFile(String catBackground) throws IOException {
-        //           xóa file ảnh cũ
-        String filePath = "src/main/uploads/images/" + catBackground;
-        Path path = Paths.get(filePath);
-        if (Files.exists(path)) {
-            Files.delete(path);
-        }
-    }
+
     public List<Category> getCategoriesByCatParentCatId(String parent) {
         List<Category> categories;
         if (parent.isEmpty()) {
@@ -164,6 +154,8 @@ public class CategoryService {
             parentId = category.get().getCatParent().getCatId();
 
         try {
+            if (category.get().getCatBackground() != null)
+            deleteFileCloudinary(category.get().getCatBackground());
             categoryRepo.deleteById(catId);
             attributes.addFlashAttribute("alertMessage", "Đã xóa");
             return "redirect:/admin/category?parent=" + parentId;
@@ -211,9 +203,6 @@ public class CategoryService {
 
     }
 
-    public Category findByCatBackground(String catBackground){
-        return categoryRepo.findByCatBackground(catBackground);
-    }
 
     public List<Category> getCategoryF2(){
         List<Category> categoryF2 = new ArrayList<>();
@@ -268,5 +257,27 @@ public class CategoryService {
 
     public List<Product> searchProductByKey(String key){
         return productRepo.searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase(key,key);
+    }
+
+    @Transactional
+    public void updateCatBackground(MultipartFile file,String catId,String oldCatBg) throws IOException {
+
+        // xóa file ảnh cũ trong cloudinary
+        if(oldCatBg !=null){
+            deleteFileCloudinary(oldCatBg);
+        }
+
+
+        // up ảnh mới lên cloudinary
+        Map<String, Object> uploadResult = cloudinaryService.upload(file);
+        String imageUrl = uploadResult.get("secure_url").toString();
+
+        // sửa trong database
+        categoryRepo.updateCatBackground(imageUrl,catId);
+    }
+
+    public void deleteFileCloudinary(String catBackground) throws IOException {
+        //           xóa file ảnh cũ treen cloudianry
+        cloudinaryService.deleteImageByUrl(catBackground);
     }
 }

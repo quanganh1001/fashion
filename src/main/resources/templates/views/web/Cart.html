@@ -32,12 +32,12 @@
                     </div>
                     <div class="border border-collapse border-light-subtle p-2 d-flex align-items-center col-11">
                         <img th:unless="${cart.imgBackground.endsWith('.mp4')}"
-                             th:src="@{'/img?fileImg='+ ${cart.imgBackground }}" alt="..." style="max-height: 150px"
+                             th:src="${cart.imgBackground }" alt="..." style="max-height: 150px"
                              class="img-thumbnail col-2">
 
                         <video th:if="${cart.imgBackground.endsWith('.mp4')}"
                                controls autoplay muted
-                               th:src="@{'/img?fileImg='+ ${cart.imgBackground }}"
+                               th:src="${cart.imgBackground}"
                                style="max-height: 150px"
                                class="img-thumbnail col-2"></video>
 

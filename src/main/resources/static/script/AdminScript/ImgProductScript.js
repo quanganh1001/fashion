@@ -1,4 +1,11 @@
 $(document).ready(() =>{
+    $("#form").submit(()=>{
+        $("#loading-add").removeClass("hidden")
+    })
+
+    $('form#form-delete').submit(function(event) {
+        $(this).find('#loading-delete').removeClass('hidden');
+    })
 
     $('.choose-bg').click(function (){
         const csrfToken = $("meta[name='_csrf']").attr("content");

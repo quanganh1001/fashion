@@ -17,7 +17,9 @@ $(document).ready(() => {
         }
 
         if (validation) {
-            const catBg = $("#btn-submit").attr("data-cat-bg")
+            $("#loading").removeClass("hidden")
+            const oldCatBg = $("#btn-submit").attr("data-cat-bg")
+            const catId = $("#cat-id").val()
             const parentId = $("#cat-parent").val() == null ? "" : $("#cat-parent").val();
             const fileInput = $("#fileInput")
             const url = $("#form").attr("action")
@@ -25,6 +27,7 @@ $(document).ready(() => {
             const catBackground = fileInput[0].files[0] == null ? null : fileInput[0].files[0].name
 
             formData.push({name: "catBackground", value: catBackground});
+
             // Lấy mã CSRF từ thẻ meta
             const csrfToken = $("meta[name='_csrf']").attr("content");
             const csrfHeader = $("meta[name='_csrf_header']").attr("content");
@@ -42,23 +45,13 @@ $(document).ready(() => {
                         window.location.href = "/admin/category?parent=" + parentId + "&success=success";
                     } else {
                         if (catBackground != null) {
-                            //xóa file cũ
-                            $.ajax({
-                                url: '/admin/category/delete-file',
-                                type: 'POST',
-                                data: {catBackground: catBg},
-                                headers: headers,
-                                success: function () {
-                                },
-                                error: function (xhr, status, error) {
-                                    // Xử lý lỗi
-                                }
-                            });
                             // tạo file mới
                             const form = new FormData();
                             const file = fileInput[0].files[0] == null ? null : fileInput[0].files[0];
                             if (file != null) {
-                                form.append('file', file, response);
+                                form.append('file', file);
+                                form.append('catId', catId);
+                                form.append('oldCatBg',oldCatBg)
                                 $.ajax({
                                     url: '/admin/category/update-file',
                                     type: 'POST',
@@ -71,12 +64,12 @@ $(document).ready(() => {
 
                                     },
                                     error: function (xhr, status, error) {
-                                        // Xử lý lỗi
+                                        $("#modal-content").text(xhr.responseText)
+                                        $("#myModal").modal('show')
                                     }
                                 });
                             }
                         } else return window.location.href = "/admin/category?parent=" + parentId + "&success=success";
-
                     }
 
                 },

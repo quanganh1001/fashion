@@ -1,4 +1,4 @@
-package project.DTO;
+package project.Enum;
 
 import lombok.Getter;
 

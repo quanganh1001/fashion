@@ -21,7 +21,7 @@
                 <select id="changeAccount" class="form-control">
                     <option value=-1 th:selected="${selectAccount == -1}">Tất cả</option>
                     <option value=0 th:selected="${selectAccount == 0}">Chưa chia</option>
-                    <option th:each="a : ${accountResponses}"
+                    <option th:each="a : ${accountRespons}"
                             th:value="${a.accountId}"
                             th:text="${a.userName}"
                             th:selected="${a.accountId == selectAccount}">

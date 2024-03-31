@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.DTO.CityEnumDTO;
+import project.Enum.CityEnumDTO;
 import project.model.Store;
 import project.service.AccountService;
 import project.service.FeedbackCustomerService;

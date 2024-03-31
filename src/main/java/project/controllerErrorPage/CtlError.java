@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import project.DTO.AccountResponse;
+import project.DTO.AccountDTO;
 import project.DTO.CustomUserDetailDTO;
 import project.service.AccountService;
 import project.service.CategoryService;
@@ -59,8 +59,8 @@ public class CtlError implements ErrorController {
         try{
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             CustomUserDetailDTO customUserDetailDTO = (CustomUserDetailDTO) authentication.getPrincipal();
-            AccountResponse accountResponse = AccountResponse.accountResponse(customUserDetailDTO.getUser());
-            var accountLogging = accountResponse.getRole();
+            AccountDTO accountDTO = AccountDTO.accountMapper(customUserDetailDTO.getUser());
+            var accountLogging = accountDTO.getRole();
 
             if (Objects.equals(accountLogging.toString(), "ROLE_CUSTOMER")) {
                 return "web/Error";

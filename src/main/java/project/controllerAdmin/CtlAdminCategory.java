@@ -1,6 +1,7 @@
 package project.controllerAdmin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -9,17 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.model.Category;
-import project.model.ImgProduct;
 import project.model.Product;
 import project.service.AccountService;
 import project.service.CategoryService;
 import project.service.CloudinaryService;
 import project.service.FeedbackCustomerService;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -101,30 +98,22 @@ public class CtlAdminCategory {
     }
 
     @PutMapping("/update-category")
-    public ResponseEntity<String> updateCat(@ModelAttribute Category cat) throws Exception {
-       return categoryService.saveCategory(cat);
+    public ResponseEntity<String> updateCat(@ModelAttribute Category cat) {
+        try{
+            return categoryService.saveCategory(cat);
+        }catch (Exception e){
+            return new ResponseEntity<>("Không thể cập nhập",HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @PostMapping("/update-file")
-    public ResponseEntity<String> updateFile(@RequestParam("file") MultipartFile file,RedirectAttributes attributes) throws Exception {
-//       up lên cloudinary
-        Map<String, Object> uploadResult = cloudinaryService.upload(file);
-        String imageUrl = uploadResult.get("secure_url").toString();
-
-        //  Cập nhập csdl
+    public ResponseEntity<String> updateFile(@RequestParam("file") MultipartFile file,
+                                             @RequestParam("catId") String catId,
+                                             @RequestParam(value = "oldCatBg",required = false) String oldCatBg) throws Exception {
+        categoryService.updateCatBackground(file,catId,oldCatBg);
 
         return ResponseEntity.ok("Lưu thành công");
     }
 
-    @PostMapping("/delete-file")
-    public ResponseEntity<String> deleteFile(@RequestParam(value = "catBackground",required = false) String catBackground) throws IOException {
-        if (catBackground == null){
-            return ResponseEntity.ok("ok");
-        }else {
-            categoryService.deleteFile(catBackground);
-            return ResponseEntity.ok("ok");
-        }
-
-
-    }
 }

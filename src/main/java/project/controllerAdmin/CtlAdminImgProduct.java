@@ -1,7 +1,6 @@
 package project.controllerAdmin;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -31,11 +30,7 @@ public class CtlAdminImgProduct {
     private ProductService productService;
     @Autowired
     FeedbackCustomerService feedbackCustomerService;
-
-    @GetMapping()
-    public ResponseEntity<Resource> serveImage(@RequestParam("imageName") String imageName) throws IOException {
-        return imgProductService.getImg(imageName);
-    }
+    
 
     @GetMapping("/add-img")
     public String addImg(Model model, @RequestParam("productId") String productId) {

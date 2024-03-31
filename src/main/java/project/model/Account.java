@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import project.DTO.RoleEnumDTO;
+import project.Enum.RoleEnumDTO;
 
 @Entity
 @Data

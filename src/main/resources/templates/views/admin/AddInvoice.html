@@ -47,7 +47,7 @@
                             <label class="form-label">Nguồn: <span style="color:red">*</span></label>
                             <label>
                                 <select class="form-control" th:field="*{account.accountId}">
-                                    <option th:each="acc : ${accountResponses}"
+                                    <option th:each="acc : ${accountRespons}"
                                             th:value="${acc.accountId}"
                                             th:text="${acc.userName}"
                                             th:selected="${acc.accountId == account.accountId}">

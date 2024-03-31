@@ -9,12 +9,12 @@
                 </div>
 
                 <img th:unless="${pr.imageBackground.endsWith('.mp4')}"
-                     th:src="@{'/img?fileImg='+ ${pr.imageBackground}}" alt="..."
+                     th:src="${pr.imageBackground}" alt="..."
                      style="height: 350px;width: 100%"
                      th:data-product-id="${pr.productId}">
                 <video th:if="${pr.imageBackground.endsWith('.mp4')}"
                        style="height: 350px;width: 100%" controls autoplay muted
-                       th:src="@{'/img?fileImg='+  ${pr.imageBackground}}"
+                       th:src="${pr.imageBackground}"
                        th:data-product-id="${pr.productId}"></video>
 
                 <a style="width: 80%" th:href="@{/products/__${pr.productId}__}"

@@ -4,9 +4,9 @@
         th:id="${result.productDetailId}"
         class="item list-group-item" style="display: flex">
         <img th:unless="${result.product.imageBackground.endsWith('.mp4')}" width="50px"
-             th:src="@{'/admin/imgProduct?imageName='+${result.product.imageBackground}}">
+             th:src="${result.product.imageBackground}">
         <video th:if="${result.product.imageBackground.endsWith('.mp4')}" controls width="50px"
-               th:src="@{'/admin/imgProduct?imageName='+${result.product.imageBackground}}"></video>
+               th:src="${result.product.imageBackground}"></video>
         <div>
                 <span th:if="${result.outOfStock == true}"
                       th:text="${result.product.productName} + ' | ' +  ${result.size} + ' | ' +  ${result.color.name}"></span>

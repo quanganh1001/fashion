@@ -14,10 +14,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.DTO.AccountResponse;
+import project.DTO.AccountDTO;
 import project.model.Account;
 import project.DTO.ChangePasswordDTO;
-import project.DTO.RoleEnumDTO;
+import project.Enum.RoleEnumDTO;
 import project.repository.AccountRepo;
 
 import java.util.List;
@@ -35,28 +35,28 @@ public class AccountService {
 
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public List<AccountResponse> findAll(){
+    public List<AccountDTO> findAll(){
         return accountRepo.findAll().stream()
-                 .map(AccountResponse::accountResponse)
+                 .map(AccountDTO::accountMapper)
                  .collect(Collectors.toList());
     }
 
-    public Page<AccountResponse> findAll(int page,String key){
-        List<AccountResponse> accountResponses = accountRepo.searchAccountByUserNameContainingIgnoreCaseOrEmailContainingIgnoreCaseOrPhoneContainingIgnoreCase(key,key,key).stream()
-                .map(AccountResponse::accountResponse)
+    public Page<AccountDTO> findAll(int page, String key){
+        List<AccountDTO> accountRespons = accountRepo.searchAccountByUserNameContainingIgnoreCaseOrEmailContainingIgnoreCaseOrPhoneContainingIgnoreCase(key,key,key).stream()
+                .map(AccountDTO::accountMapper)
                 .toList();
 
         if (page < 0)
             page = 0;
         int start = Math.toIntExact(PageRequest.of(page, 10).getOffset());
-        int end = Math.min((start + PageRequest.of(page, 10).getPageSize()), accountResponses.size());
-        return new PageImpl<>(accountResponses.subList(start, end), PageRequest.of(page, 10), accountResponses.size());
+        int end = Math.min((start + PageRequest.of(page, 10).getPageSize()), accountRespons.size());
+        return new PageImpl<>(accountRespons.subList(start, end), PageRequest.of(page, 10), accountRespons.size());
     }
 
-    public List<AccountResponse> findAllNotCustomer(){
+    public List<AccountDTO> findAllNotCustomer(){
         return accountRepo.findAll().stream()
                 .filter(account -> account.getRole() != RoleEnumDTO.ROLE_CUSTOMER) // Lọc ra các tài khoản có vai trò khác "CUSTOMER"
-                .map(AccountResponse::accountResponse)
+                .map(AccountDTO::accountMapper)
                 .collect(Collectors.toList());
     }
 
@@ -85,7 +85,7 @@ public class AccountService {
         }
     }
     @Transactional
-    public String updateAccount(AccountResponse account,RedirectAttributes attributes){
+    public String updateAccount(AccountDTO account, RedirectAttributes attributes){
        Account userNameOther = findByUserName(account.getUserName());
        Account PhoneOther = accountRepo.findByPhone(account.getPhone());
        Account EmailOther = accountRepo.findByEmail(account.getEmail());
@@ -114,7 +114,7 @@ public class AccountService {
     }
 
     @Transactional
-    public String updateAccountByCustomer(AccountResponse account,RedirectAttributes attributes){
+    public String updateAccountByCustomer(AccountDTO account, RedirectAttributes attributes){
         Account userNameOther = findByUserName(account.getUserName());
         Account PhoneOther = accountRepo.findByPhone(account.getPhone());
         Account EmailOther = accountRepo.findByEmail(account.getEmail());
@@ -168,7 +168,7 @@ public class AccountService {
     public void getAccountResponse(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated() && !Objects.equals(authentication.getName(), "anonymousUser")) {
-            model.addAttribute("account",AccountResponse.accountResponse(findByUserName(authentication.getName())));
+            model.addAttribute("account", AccountDTO.accountMapper(findByUserName(authentication.getName())));
         }
 
     }

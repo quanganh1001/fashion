@@ -18,12 +18,12 @@
                 <div class="border border-light-subtle p-2 d-flex align-items-center col-11 m-2">
 
                     <img th:unless="${invoiceDetail.productDetail.product.imageBackground.endsWith('.mp4')}"
-                         th:src="@{'/img?fileImg='+ ${invoiceDetail.productDetail.product.imageBackground}}" alt="..." style="max-height: 150px"
+                         th:src="${invoiceDetail.productDetail.product.imageBackground}" alt="..." style="max-height: 150px"
                          class="img-thumbnail col-2">
 
                     <video th:if="${invoiceDetail.productDetail.product.imageBackground.endsWith('.mp4')}"
                            controls autoplay muted
-                           th:src="@{'/img?fileImg='+ ${invoiceDetail.productDetail.product.imageBackground}}"
+                           th:src="${invoiceDetail.productDetail.product.imageBackground}"
                            style="max-height: 150px"
                            class="img-thumbnail col-2"></video>
 

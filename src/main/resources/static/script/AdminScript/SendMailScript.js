@@ -1,6 +1,7 @@
 $("#btn").click(() => {
     var result = confirm("Bạn có chắc chắn muốn gửi hàng loạt?");
     if (result) {
+        $("#loading").removeClass("hidden")
         const content = $("#content").val()
         const subject = $("#subject").val()
         if(subject === ""){
@@ -15,6 +16,7 @@ $("#btn").click(() => {
                 success: (response) => {
                     $("#myModal").modal('show')
                     $("#modal-content").text(response)
+                    $("#loading").addClass("hidden")
                 },
                 error: (jqXHR) => {
                     alert(jqXHR.responseText)

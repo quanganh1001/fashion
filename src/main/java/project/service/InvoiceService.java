@@ -9,7 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.DTO.AccountResponse;
+import project.DTO.AccountDTO;
 import project.DTO.CustomUserDetailDTO;
 import project.model.Account;
 import project.model.Invoice;
@@ -53,10 +53,10 @@ public class InvoiceService {
             page = 0;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetailDTO customUserDetailDTO = (CustomUserDetailDTO) authentication.getPrincipal();
-        AccountResponse accountResponse = AccountResponse.accountResponse(customUserDetailDTO.getUser());
+        AccountDTO accountDTO = AccountDTO.accountMapper(customUserDetailDTO.getUser());
 
-        var accountLogging = accountResponse.getRole();
-        var accountId = accountResponse.getAccountId();;
+        var accountLogging = accountDTO.getRole();
+        var accountId = accountDTO.getAccountId();;
 
         List<Invoice> invoices = new ArrayList<>();
         // quyền manager
@@ -190,7 +190,7 @@ public class InvoiceService {
                     invoice.getNote(),newStatus);
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             int accountId =
-                    AccountResponse.accountResponse(accountService.findByUserName(authentication.getName())).getAccountId();
+                    AccountDTO.accountMapper(accountService.findByUserName(authentication.getName())).getAccountId();
             attributes.addFlashAttribute("alertMessage","Đã cập nhập thành công");
             return "redirect:/admin/invoiceDetail?invoiceId=" + invoice.getInvoiceId() + "&accountId=" + accountId;
         }

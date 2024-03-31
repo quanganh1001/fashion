@@ -12,7 +12,7 @@
         <h1 class="fw-bold">THÊM ẢNH SẢN PHẨM</h1>
         <div class="mt-5 bg-white p-5 shadow border">
             <div class="a">
-                <form th:action="@{/admin/imgProduct/add-img?productId=__${productId}__}" method="post"
+                <form id="form" th:action="@{/admin/imgProduct/add-img?productId=__${productId}__}" method="post"
                       th:object="${img}"
                       enctype="multipart/form-data">
                     <div class="mb-3 col-6">
@@ -22,6 +22,9 @@
                     </div>
 
                     <button style="text-align: center" type="submit" class="col-2 btn btn-dark">Lưu ảnh</button>
+                    <div id="loading-add" class="spinner-border text-dark hidden" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
 
                 </form>
                 <div id="select-background" class="bg mt-3">
@@ -61,11 +64,14 @@
                         </video>
                     </li>
                     <div>
-                        <form th:action="@{/admin/imgProduct/delete?imageName=__${i.fileImg}__&productId=__${productId}__}"
+                        <form id="form-delete" th:action="@{/admin/imgProduct/delete?imageName=__${i.fileImg}__&productId=__${productId}__}"
                               th:method="delete">
                             <button class="btn btn-danger btn-sm" type="submit">
                                 <i class="fas fa-trash-alt"></i>Xóa
                             </button>
+                            <div id="loading-delete" class="spinner-border text-dark hidden" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
                         </form>
 
                         <button class="choose-bg btn btn-warning mt-3 "

@@ -65,13 +65,15 @@
                     </td>
                     <td>
                         <div class="d-flex justify-content-center">
-                            <form id="form-delete-category"
+                            <form id="form-delete"
                                   th:action="@{/admin/category/delete-cat?catId=__${c.catId}__}"
-                                  th:method="delete"
-                                  onsubmit="return confirm('Bạn có muốn xóa danh mục này này?')">
+                                  th:method="delete">
                                 <button class="btn btn-danger btn-sm" type="submit">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
+                                <div id="loading-delete" class="spinner-border text-dark hidden" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
                             </form>
                         </div>
                     </td>

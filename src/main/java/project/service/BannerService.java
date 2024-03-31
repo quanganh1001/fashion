@@ -7,52 +7,35 @@ import org.springframework.web.multipart.MultipartFile;
 import project.model.BannerImg;
 import project.repository.BannerRepo;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BannerService{
     @Autowired
     BannerRepo bannerRepo;
-
+    @Autowired
+    CloudinaryService cloudinaryService;
     public List<BannerImg> getAllBanner(){
         return bannerRepo.findAll();
     }
 
-    public void addImg(MultipartFile[] files) {
-        for (MultipartFile file : files) {
-            if (!file.isEmpty()) {
-                try {
-                    BannerImg imgs = new BannerImg();
-                    // Lưu ảnh vào thư mục ngoài 'static'
-                    String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-                    File destFile = new File(System.getProperty("user.dir") + "/src/main/uploads/images/" + fileName);
-                    file.transferTo(destFile);
-
-                    // Lưu thông tin vào cơ sở dữ liệu
-                    imgs.setFileName(fileName);
-                    bannerRepo.save(imgs);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    // Xử lý lỗi nếu có
-                }
-            }
+    public void addImg(MultipartFile[] files) throws IOException {
+        // thêm ảnh lên cloundinary
+        for (MultipartFile file: files){
+            Map<String, Object> uploadResult = cloudinaryService.upload(file);
+            String imageUrl = uploadResult.get("secure_url").toString();
+            BannerImg bannerImg = new BannerImg();
+            bannerImg.setFileName(imageUrl);
+            bannerRepo.save(bannerImg);
         }
+
     }
 
     @Transactional
     public void delete(String fileName) throws IOException {
-        System.out.println("xcvxc" +fileName);
-        String filePath = "src/main/uploads/images/" + fileName;
-        Path path = Paths.get(filePath);
-        // Kiểm tra xem file tồn tại không
-        if (Files.exists(path)) {
-            Files.delete(path);
-        }
+        cloudinaryService.deleteImageByUrl(fileName);
         bannerRepo.deleteByFileName(fileName);
     }
 }

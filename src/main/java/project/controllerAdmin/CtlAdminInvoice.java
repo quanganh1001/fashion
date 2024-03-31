@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.DTO.AccountResponse;
+import project.DTO.AccountDTO;
 import project.model.Invoice;
 import project.service.AccountService;
 import project.service.FeedbackCustomerService;
@@ -37,9 +37,9 @@ public class CtlAdminInvoice {
         accountService.getAccountResponse(model);
         feedbackCustomerService.countUnread(model);
 
-        List<AccountResponse> accountResponses = accountService.findAllNotCustomer();
+        List<AccountDTO> accountRespons = accountService.findAllNotCustomer();
 
-        model.addAttribute("accountResponses",accountResponses);
+        model.addAttribute("accountResponses", accountRespons);
         model.addAttribute("selectAccount",selectAccount);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", searchInvoice.getTotalPages());
@@ -57,11 +57,11 @@ public class CtlAdminInvoice {
         accountService.getAccountResponse(model);
         feedbackCustomerService.countUnread(model);
 
-        List<AccountResponse> accountResponses = accountService.findAll();
+        List<AccountDTO> accountRespons = accountService.findAll();
 
         model.addAttribute("invoice",new Invoice());
         model.addAttribute("title","Invoice");
-        model.addAttribute("accountResponses",accountResponses);
+        model.addAttribute("accountResponses", accountRespons);
         return "admin/AddInvoice";
     }
 
