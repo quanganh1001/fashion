@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: localhost
--- Thời gian đã tạo: Th3 31, 2024 lúc 07:01 AM
--- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.2.4
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th3 31, 2024 lúc 03:16 PM
+-- Phiên bản máy phục vụ: 10.4.32-MariaDB
+-- Phiên bản PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -68,10 +68,10 @@ CREATE TABLE `banner_imgs` (
 --
 
 INSERT INTO `banner_imgs` (`id`, `file_name`) VALUES
-(24, '1707589631031_slide_1_img.jpg'),
-(25, '1707589659083_slide_4_img.jpg'),
-(26, '1707589659361_slide_3_img.jpg'),
-(27, '1707589659861_slide_2_img.jpg');
+(28, 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711885305/ysmew6aqlneqdojqdgdq.webp'),
+(29, 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711885303/bfbpbb0zfrhe5k1wn8hx.webp'),
+(30, 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711885307/tzbdiicr7ds9ncao7jxj.webp'),
+(31, 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711885309/k6eyr9bcnhwppvvmshq2.webp');
 
 -- --------------------------------------------------------
 
@@ -92,7 +92,7 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`cat_id`, `cat_name`, `parent_id`, `cat_background`, `is_cat_active`) VALUES
-('AK', 'Áo khoác', 'AO', '1707657052035_home_category_1_img.jpg', b'1'),
+('AK', 'Áo khoác', 'AO', 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711887062/trmwzjbstkhva5q3s12g.jpg', b'1'),
 ('AKBB', 'Áo khoác Bomber', 'AK', NULL, b'1'),
 ('AKCC', 'Áo khoác cổ cao', 'AK', NULL, b'1'),
 ('AKG', 'Áo khoác gió', 'AK', NULL, b'1'),
@@ -100,37 +100,37 @@ INSERT INTO `categories` (`cat_id`, `cat_name`, `parent_id`, `cat_background`, `
 ('ALK', 'Áo len kẻ', 'ANL', NULL, b'1'),
 ('ALT', 'Áo len trơn', 'ANL', NULL, b'1'),
 ('ANK', 'Áo nỉ kẻ', 'ANL', NULL, b'1'),
-('ANL', 'Áo nỉ - len', 'AO', '1708857857237_tw003-bs001-6_53291471625_o_1f620c3d758e41d696fb128d159744a2_master.jpg', b'1'),
+('ANL', 'Áo nỉ - len', 'AO', 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711887116/qasfi8lttpdvyvgmolah.webp', b'1'),
 ('ANT', 'Áo nỉ trơn', 'ANL', NULL, b'1'),
-('AO', 'Áo nam', NULL, '1707659268353_309472437_1159489334948483_878248476891481358_n.mp4', b'1'),
-('BN', 'Bộ nỉ', 'SET', '1707659802887_home_category_2_img.jpg', b'1'),
+('AO', 'Áo nam', NULL, 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711889153/vsxicuhzwi7pnbttle2w.webp', b'1'),
+('BN', 'Bộ nỉ', 'SET', 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711887418/zisn6ikfcajpyoqvwits.webp', b'1'),
 ('PLBK', 'Polo Bo Kẻ', 'POLO', 'no_image.jpg', b'1'),
 ('PLCP', 'Polo can phối', 'POLO', 'no_image.jpg', b'1'),
 ('PLHT', 'Polo họa tiết', 'POLO', '1707659794400_home_category_7_img.jpg', b'1'),
 ('PLK', 'Polo kẻ', 'POLO', 'no_image.jpg', b'1'),
 ('PLT', 'Polo trơn', 'POLO', 'no_image.jpg', b'1'),
-('POLO', 'Áo polo', 'AO', '1707658054393_home_category_7_img.jpg', b'1'),
-('QA', 'Quần âu', 'QUAN', '1707658508920_home_category_4_img.jpg', b'1'),
+('POLO', 'Áo polo', 'AO', 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711887135/ikfhqgyc649ojjh98kwr.webp', b'1'),
+('QA', 'Quần âu', 'QUAN', 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711887256/ubsonyurdhhfwczmykoy.webp', b'1'),
 ('QAPTC', 'Quần âu phối thun cạp', 'QA', 'no_image.jpg', b'1'),
-('QDK', 'Quần dài kaki', 'QUAN', '1707658730194_20220616_imo73m42sdzgttoxblnoitdk_731b47cd880d4329ae353df413fa9712_master.jpg', b'1'),
-('QJ', 'Quần jeans', 'QUAN', '1707658789144_home_category_3_img.jpg', b'1'),
+('QDK', 'Quần dài kaki', 'QUAN', 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711887282/etuppqbnkbxufsqmy7el.jpg', b'1'),
+('QJ', 'Quần jeans', 'QUAN', 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711887311/d3eqcj37abqwnwv4dmvu.webp', b'1'),
 ('QJB', 'Quần jeans basic', 'QJ', 'no_image.jpg', b'1'),
 ('QJR', 'Quần jeans rách', 'QJ', 'no_image.jpg', b'1'),
 ('QKB', 'Quần kaki basic', 'QDK', 'no_image.jpg', b'1'),
-('QN', 'Quần nỉ', 'QUAN', '1707729872190_bs002_19fa4cd191704c63ace6c7cfd5f2bc67_master.jpg', b'1'),
-('QS', 'Quần short', 'QUAN', '1707729768103_list.jpg', b'1'),
+('QN', 'Quần nỉ', 'QUAN', 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711887352/x23rz8v9cqdaadztvexs.webp', b'1'),
+('QS', 'Quần short', 'QUAN', 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711887380/x9muxebcf9z8xa4naqte.webp', b'1'),
 ('QUAN', 'Quần nam', NULL, 'no_image.jpg', b'1'),
 ('SD', 'Short đũi', 'QS', 'no_image.jpg', b'1'),
 ('SET', 'Set', NULL, '1707658980103_home_category_2_img.jpg', b'1'),
 ('SG', 'Short gió', 'QS', 'no_image.jpg', b'1'),
 ('SKK', 'Short kaki', 'QS', 'no_image.jpg', b'1'),
-('SM', 'Sơ mi', 'AO', '1707658088128_home_category_5_img.jpg', b'1'),
+('SM', 'Sơ mi', 'AO', 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711887158/qrazso5enu9rfz1zrwze.webp', b'1'),
 ('SMD', 'Sơ mi đũi', 'SM', NULL, b'1'),
 ('SMDM', 'Sơ mi Demin', 'SM', NULL, b'1'),
 ('SMHT', 'Sơ mi họa tiết', 'SMD', NULL, b'1'),
 ('SMK', 'Sơ mi kẻ', 'SM', NULL, b'1'),
 ('SMT', 'Sơ mi trơn', 'SM', NULL, b'1'),
-('THUN', 'Áo thun', 'AO', '1707658099690_home_category_8_img.jpg', b'1'),
+('THUN', 'Áo thun', 'AO', 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711887206/weftgxxcytuuh11xtpj8.webp', b'1'),
 ('TIH', 'Thun in hình', 'THUN', NULL, b'1'),
 ('TT', 'Tank top', 'THUN', NULL, b'1');
 
@@ -918,7 +918,12 @@ INSERT INTO `history` (`id`, `invoice_id`, `content`, `time`, `time_ago`) VALUES
 (1243, 'TFWOAP9I', 'quanly đã thay đổi Phí ship: 0 -> 1', '2024-03-12 08:55:25', NULL),
 (1244, 'TFWOAP9I', 'quanly đã thay đổi Phí ship: 1 -> 0', '2024-03-12 08:55:36', NULL),
 (1245, 'TFWOAP9I', 'quanly đã thêm sản phẩm: DSTP90372CT32RB_HCR-S (giá = 290000)', '2024-03-12 08:56:02', NULL),
-(1246, 'TFWOAP9I', 'quanly đã xóa sản phẩm: DSTP90372CT32RB_HCR-S (giá = 290000)', '2024-03-12 08:56:07', NULL);
+(1246, 'TFWOAP9I', 'quanly đã xóa sản phẩm: DSTP90372CT32RB_HCR-S (giá = 290000)', '2024-03-12 08:56:07', NULL),
+(1247, 'TFWOAP9I', 'quanly đã thêm sản phẩm: DSBI01302LI00SB_WH-32 (giá = 380000)', '2024-03-31 11:23:06', NULL),
+(1248, 'TFWOAP9I', 'quanly đã thêm sản phẩm: DSTP61172CX00SB_WH-L (giá = 333333)', '2024-03-31 11:27:08', NULL),
+(1249, 'TFWOAP9I', ' đã thay đổi Số lượng (DSTP61172CX00SB_WH-L) :1 -> 2', '2024-03-31 11:27:12', NULL),
+(1250, 'BSONPNNZ', 'quanly đã tạo đơn hàng: <br>Mã đơn: BSONPNNZ,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 0365151822,<br>Địa chỉ: 4dvsdsf,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-03-31 12:08:22', NULL),
+(1251, 'BSONPNNZ', 'quanly đã thêm sản phẩm: EABT01901PE00SB_BL-29 (giá = 500000)', '2024-03-31 12:08:22', NULL);
 
 -- --------------------------------------------------------
 
@@ -1121,7 +1126,6 @@ INSERT INTO `imgs_product` (`img_id`, `product_id`, `file_img`) VALUES
 (255, 'TP004', 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711811022/tp004-2_572851b755514fa7b302d5120a7d3b94_master.jpg.webp'),
 (256, 'TP004', 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711811019/5_14e1329ad875426cbc7afb776056eeae_master.jpg.jpg'),
 (257, 'TP004', 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711811017/4_4d48bde78a5148fab5623251d0da8e08_master.jpg.jpg'),
-(258, 'TP004', '3_0f0a15621d144f79b8228e7763b3b8e5_master.jpg.jpg'),
 (297, 'ESTP074', 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711810989/1701361255341_10_ab507de1e88747f99527ac4852b40535_master.jpg.jpg'),
 (298, 'ESTP074', 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711810992/1701361255426_9_ae65d9fd2f8f4cfcb114ee123fcffd63_master.jpg.jpg'),
 (299, 'ESTP074', 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711810996/1701361255431_8_62f9c35e209b490fa0012a46b2faada3_master.jpg.jpg'),
@@ -1472,6 +1476,7 @@ INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `created_at`, 
 ('AEAXIQS0', 'quang anh', '34232', 'ssd', '2024-01-21 16:42:11', '', 'x', NULL, 0, 990000, 0, NULL, b'0'),
 ('B90AZKP8', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 17:35:18', '', 'f', NULL, 1, 750000, 0, 750000, b'0'),
 ('BOXLJSBK', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 12:24:54', '', 'sd', NULL, 1, 480000, 30000, 510000, b'0'),
+('BSONPNNZ', 'quang anh', '0365151822', '4dvsdsf', '2024-03-31 12:08:22', '', 'gsd', NULL, 1, 500000, 0, 500000, b'1'),
 ('CDJBJ419', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 18:08:30', '', 'd', NULL, 1, 750000, 0, 750000, b'0'),
 ('CK0I8M9L', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 18:04:16', '', 'a', NULL, 1, 750000, 0, 750000, b'0'),
 ('CK2RNNXU', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 15:22:36', '', 'd', NULL, 1, 990000, 0, 990000, b'0'),
@@ -1514,7 +1519,7 @@ INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `created_at`, 
 ('SNGWGR4V', 'quang anh', '0365151822', '4dvsdsf', '2024-02-08 15:38:43', '', 'd', 1, 1, 750000, 0, 750000, b'0'),
 ('SRXO1SSG', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 17:33:37', '', 'h', NULL, 1, 400000, 30000, 430000, b'0'),
 ('T1VCKYYG', 'sser', '44343', 'f', '2024-03-12 08:44:12', 'dfs', NULL, 2, 3, 0, 0, 0, b'0'),
-('TFWOAP9I', 'nguyễn quang anh', '4343222342', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-03-12 08:56:07', '', '', NULL, 1, NULL, 0, NULL, b'0'),
+('TFWOAP9I', 'nguyễn quang anh', '4343222342', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-03-31 11:27:12', '', '', NULL, 1, 1046666, 0, 1046666, b'0'),
 ('TGPIGVXB', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 17:16:29', '', 'd', NULL, 1, 990000, 0, 990000, b'0'),
 ('TLSY7TFT', 'dfgdf', '323233232', 'fds', '2024-01-20 08:38:59', '', 'f', NULL, 1, 750000, 0, 750000, b'0'),
 ('U0F7TYG1', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 17:12:03', '', 'vs', NULL, 1, 890000, 0, 890000, b'0'),
@@ -1737,7 +1742,10 @@ INSERT INTO `invoices_detail` (`detail_id`, `invoice_id`, `product_detail_id`, `
 (430, 'GGTWEEBJ', 4, 200000, 1, 200000),
 (432, 'MDXPM23G', 620, 380000, 2, 760000),
 (433, '5CKTNJXP', 695, 990000, 1, 990000),
-(436, '41ZSPBHA', 530, 550000, 1, 550000);
+(436, '41ZSPBHA', 530, 550000, 1, 550000),
+(443, 'TFWOAP9I', 620, 380000, 1, 380000),
+(444, 'TFWOAP9I', 48, 333333, 2, 666666),
+(445, 'BSONPNNZ', 522, 500000, 1, 500000);
 
 --
 -- Bẫy `invoices_detail`
@@ -1951,7 +1959,7 @@ INSERT INTO `products` (`product_id`, `product_name`, `cat_id`, `price`, `discou
 ('ESTP028', 'Áo polo trơn bo kẻ cổ V, in logo ngực ESTP028', 'PLBK', 420000, NULL, NULL, b'0', 'TORANO', '', 5, 4, 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711811570/tp028---bk004-_11__9246a1d8b0184518abd852704bd4fa02_master.jpg.webp', 'size-polo.jpeg', b'1'),
 ('ESTP032', 'Áo polo trơn bo kẻ ESTP032', 'PLBK', 400000, NULL, NULL, b'0', 'TORANO', '', 4, 3, 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711811526/estp032-3_f94042405af64ca581ca72c753b53b51_master.jpg.webp', 'size-polo.jpeg', b'1'),
 ('ESTP033', 'Áo polo trơn bo kẻ phối viền cổ ESTP033', 'PLBK', 420000, NULL, NULL, b'0', 'TORANO', 'Áo polo trơn bo kẻ phối viền cổ cao cấp', 4, 1, 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711811351/m1t1_9a04e0331596472281861b7f44cc3ca2_master.jpg.webp', 'size-polo.jpeg', b'1'),
-('ESTP038', 'Áo Polo trơn basic đen thêu logo ngực ESTP038', 'PLT', 330000, 200000, 39, b'1', 'TORANO', 'Áo Polo trơn TORANO cổ bẻ tay ngắn trơn, bo kẻ nhiều màu ESTP038 chính là item hoàn hảo dễ mặc dễ phối đồ cho cả nam và nữ. Khám phá ngay!!!\r\n</br>+ Chất vải có độ co giãn tốt, thoáng khí và không phai màu.\r\n</br>+60% Poly +35% cotton +5% Spandex+ Thấm hút mồ hôi tối đa và thoải mái khi vận động\r\n</br>+ Thiết kế Slimfit vừa vặn tôn dáng\r\n</br>+ Phù hợp với đi làm, đi học, đi chơi, hẹn hò, du lịch...\r\n</br>+ Áo có 4 size : S – M –L – XL\r\n</br>Hướng dẫn sử dụng và bảo quản:\r\n</br>+ Giặt ở nhiệt độ bình thường, với đồ có màu tương tự.\r\n</br>+ Không được dùng hóa chất tẩy.\r\n</br>+ Hạn chế sử dụng máy sấy và ủi ở nhiệt độ thích hợp.\r\n</br>+ Lộn mặt trái khi phơi tránh bị phai màu\r\n</br>Chính sách và điều kiện đổi trả của TORANO:\r\n</br>+ Cam kết chất lượng và mẫu mã sản phẩm giống với hình ảnh.\r\n</br>+ Cam kết được đổi trả hàng trong vòng 7 ngày.\r\n</br>+ Hàng phải còn nguyên tem mác và chưa qua sử dụng\r\n</br>+ Sản phẩm bị lỗi do vận chuyển và do nhà sản xuất', 5, 1, 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711811636/tp038-1.jpeg.webp', 'size-polo.jpeg', b'1'),
+('ESTP038', 'Áo Polo trơn basic đen thêu logo ngực ESTP038', 'PLT', 330000, 200000, 39, b'1', 'TORANO', 'Áo Polo trơn TORANO cổ bẻ tay ngắn trơn, bo kẻ nhiều màu ESTP038 chính là item hoàn hảo dễ mặc dễ phối đồ cho cả nam và nữ. Khám phá ngay!!!\r\n\r\n+ Chất vải có độ co giãn tốt, thoáng khí và không phai màu.\r\n\r\n+60% Poly +35% cotton +5% Spandex\r\n\r\n+ Thấm hút mồ hôi tối đa và thoải mái khi vận động\r\n\r\n+ Thiết kế Slimfit vừa vặn tôn dáng\r\n\r\n+ Phù hợp với đi làm, đi học, đi chơi, hẹn hò, du lịch...\r\n\r\n+ Áo có 4 size : S – M –L – XL\r\n\r\nHướng dẫn sử dụng và bảo quản:\r\n\r\n+ Giặt ở nhiệt độ bình thường, với đồ có màu tương tự.\r\n\r\n+ Không được dùng hóa chất tẩy.\r\n\r\n+ Hạn chế sử dụng máy sấy và ủi ở nhiệt độ thích hợp.\r\n\r\n+ Lộn mặt trái khi phơi tránh bị phai màu\r\n\r\nChính sách và điều kiện đổi trả của TORANO:\r\n\r\n+ Cam kết chất lượng và mẫu mã sản phẩm giống với hình ảnh.\r\n\r\n+ Cam kết được đổi trả hàng trong vòng 7 ngày.\r\n\r\n+ Hàng phải còn nguyên tem mác và chưa qua sử dụng\r\n\r\n+ Sản phẩm bị lỗi do vận chuyển và do nhà sản xuất', 5, 1, 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711811636/tp038-1.jpeg.webp', 'size-polo.jpeg', b'1'),
 ('ESTP041', 'Áo Polo trơn hiệu ứng ESTP041', 'PLT', 450000, NULL, NULL, b'0', 'TORANO', 'Áo polo nam cao cấp chống nhăn nhàu đang hot tại Torano', 4, 5, 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711811461/estp041-16_4cb9d42d84e7436884bd3f4e648621ed_master.jpg.webp', 'size-polo.jpeg', b'1'),
 ('ESTP042', 'Áo Polo trơn vải lục giác kèm logo ngực ESTP042', 'PLT', 380000, 349000, 8, b'1', 'TORANO', 'Mẫu áo polo chất liệu cải tiến thế hệ mới mang lại cho các anh sự thoải mái cũng như vẻ ngoài lịch sự và đầy nam tính.', 5, 9, 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711811418/tp042---bk004-_9__2efe604ac9324e06841cf8edc590e169_master.jpg.webp', 'size-polo.jpeg', b'1'),
 ('ESTP047', 'Áo Polo len bo kẻ cổ 2.ESTP047', 'PLBK', 500000, NULL, NULL, b'0', 'TORANO', 'Áo polo len bo kẻ nam cao cấp chính hãng Torano. Chất vải len dệt chắc chắn, không xù và dão.', 4, 2, 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711811054/5_66590d1cba6041359e8a89a1c7e0feb5_master.jpg.webp', 'size-polo.jpeg', b'1'),
@@ -1969,8 +1977,8 @@ INSERT INTO `products` (`product_id`, `product_name`, `cat_id`, `price`, `discou
 ('EWCP002', 'Áo khoác Hooded Puffer 4.EWCP002', 'AKP', 1200000, NULL, NULL, b'0', 'TORANO', '', 4, 3, 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711810156/1704251255837_ewcp002-30_53376967025_o_d452a9fe67ca4f9b9803a72fa15b64fd_master.jpg.webp', 'tagsize_5_img.jpeg', b'1'),
 ('EWCW007', 'Áo khoác gió 1 lớp mũ liền EWCW007', 'AKG', 50000, NULL, NULL, b'0', 'TORANO', 'Áo khoác gió 1 lớp mũ liền chống nước giá siêu tốt của nhà Torano đã cập bến.\r\n', 4, 3, 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711810212/1704189991841_ewcw007-1_c8b1f230ddb2408daa72728d0ecee531_master.jpg.webp', 'tagsize_5_img.jpeg', b'1'),
 ('EWTE003', 'Áo len kẻ ngang cổ tròn 2.EWTE003', 'ALK', 520000, NULL, NULL, b'0', 'TORANO', '', 4, 2, 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711810003/1708267758762_ewte003-10_53297045794_o_af9bd1f2fa8246dab498a75b2a976f04_master.jpg.jpg', 'tagsize_5_img.jpeg', b'1'),
-('EWTW003', 'Áo nỉ trơn basic vải hiệu ứng 3.EWTW003', 'ANT', 380000, NULL, NULL, b'0', 'TORANO', '', 5, 3, '1707657567773_tw003-bs001-6_53291471625_o_1f620c3d758e41d696fb128d159744a2_master.jpg', 'tagsize_5_img.jpeg', b'1'),
-('TP004', 'Áo polo phối màu color-block 1.TP004', 'PLHT', 450000, NULL, NULL, b'0', 'TORANO', 'Áo polo phối màu color-block TP004', 4, 1, '3_0f0a15621d144f79b8228e7763b3b8e5_master.jpg.jpg', 'size-polo.jpeg', b'1');
+('EWTW003', 'Áo nỉ trơn basic vải hiệu ứng 3.EWTW003', 'ANT', 380000, NULL, NULL, b'0', 'TORANO', '', 5, 3, 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711810052/1707657567773_tw003-bs001-6_53291471625_o_1f620c3d758e41d696fb128d159744a2_master.jpg.webp', 'tagsize_5_img.jpeg', b'1'),
+('TP004', 'Áo polo phối màu color-block 1.TP004', 'PLHT', 450000, NULL, NULL, b'0', 'TORANO', 'Áo polo phối màu color-block TP004', 4, 1, 'https://res.cloudinary.com/dmmvhjl0m/image/upload/v1711811025/tp004_45415f65d7bc4f4c8d52f4893d682a43_master.jpg.webp', 'size-polo.jpeg', b'1');
 
 --
 -- Bẫy `products`
@@ -3009,7 +3017,7 @@ ALTER TABLE `accounts`
 -- AUTO_INCREMENT cho bảng `banner_imgs`
 --
 ALTER TABLE `banner_imgs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT cho bảng `customer_mail`
@@ -3027,19 +3035,19 @@ ALTER TABLE `feedback_customer`
 -- AUTO_INCREMENT cho bảng `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1247;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1252;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_product`
 --
 ALTER TABLE `imgs_product`
-  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=702;
+  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=704;
 
 --
 -- AUTO_INCREMENT cho bảng `invoices_detail`
 --
 ALTER TABLE `invoices_detail`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=443;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=446;
 
 --
 -- AUTO_INCREMENT cho bảng `invoices_status`
