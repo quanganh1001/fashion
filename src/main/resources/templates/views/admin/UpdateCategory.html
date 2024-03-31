@@ -60,10 +60,10 @@
 
                     <img th:if="${cat.catBackground != null}  "
                          width="150px" class="border border-2 mt-3"
-                         th:src="@{'/admin/imgProduct?imageName='+${cat.catBackground}}" alt="Image">
+                         th:src="${cat.catBackground}" alt="Image">
                     <img th:unless="${cat.catBackground != null}  "
                          width="150px" class="border border-2 mt-3"
-                         th:src="@{'/admin/imgProduct/no_image.jpg'}" alt="Image">
+                         src="/image/no_image.jpg" alt="Image">
 
                 </div>
 

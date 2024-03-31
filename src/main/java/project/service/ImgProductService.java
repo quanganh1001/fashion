@@ -85,8 +85,7 @@ public class ImgProductService {
     public void addImg(MultipartFile[] files, String productId) throws IOException {
         for (MultipartFile file : files) {
             // Thêm ảnh vào cloudnidary
-            String publicId = file.getOriginalFilename();
-            Map<String, Object> uploadResult = cloudinaryService.upload(file, publicId);
+            Map<String, Object> uploadResult = cloudinaryService.upload(file);
 
             String imageUrl = uploadResult.get("secure_url").toString();
 

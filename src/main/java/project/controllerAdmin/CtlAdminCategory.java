@@ -9,14 +9,17 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.model.Category;
+import project.model.ImgProduct;
 import project.model.Product;
 import project.service.AccountService;
 import project.service.CategoryService;
+import project.service.CloudinaryService;
 import project.service.FeedbackCustomerService;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -30,6 +33,8 @@ public class CtlAdminCategory {
     AccountService accountService;
     @Autowired
     FeedbackCustomerService feedbackCustomerService;
+    @Autowired
+    CloudinaryService cloudinaryService;
 
     @GetMapping()
     public String getCat(Model model,
@@ -102,12 +107,11 @@ public class CtlAdminCategory {
 
     @PostMapping("/update-file")
     public ResponseEntity<String> updateFile(@RequestParam("file") MultipartFile file,RedirectAttributes attributes) throws Exception {
-//        tạo file ảnh mới
-        File destFile = new File(System.getProperty("user.dir") + "/src/main/uploads/images/" + file.getOriginalFilename());
-        file.transferTo(destFile);
+//       up lên cloudinary
+        Map<String, Object> uploadResult = cloudinaryService.upload(file);
+        String imageUrl = uploadResult.get("secure_url").toString();
 
-        Category category = categoryService.findByCatBackground(file.getOriginalFilename());
-        String catId = category.getCatParent() == null? "" : category.getCatParent().getCatId();
+        //  Cập nhập csdl
 
         return ResponseEntity.ok("Lưu thành công");
     }
