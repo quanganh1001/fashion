@@ -43,7 +43,7 @@ public class CtlAdminProductDetail {
         model.addAttribute("color",new Color());
         model.addAttribute("pd", new ProductDetail());
         model.addAttribute("title","Product");
-        return "/admin/AddProductDetail";
+        return "admin/AddProductDetail";
     }
 
     @PostMapping("/add-prDetail")
@@ -69,7 +69,7 @@ public class CtlAdminProductDetail {
         model.addAttribute("product", product);
         model.addAttribute("pd",pd);
         model.addAttribute("title","Product");
-        return "/admin/UpdatePrDetail";
+        return "admin/UpdatePrDetail";
     }
 
     @PutMapping("update-detail")

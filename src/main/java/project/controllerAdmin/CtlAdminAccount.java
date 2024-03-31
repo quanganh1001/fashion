@@ -58,7 +58,7 @@ public class CtlAdminAccount {
         model.addAttribute("newAccount",account);
         model.addAttribute("roles",roles);
         model.addAttribute("title","Account");
-        return "/admin/AddAccount";
+        return "admin/AddAccount";
     }
 
     @PreAuthorize("hasAnyRole('MANAGER')")

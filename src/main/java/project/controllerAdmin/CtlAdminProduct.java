@@ -53,7 +53,7 @@ public class CtlAdminProduct {
         model.addAttribute("totalItems", searchResults.getTotalElements());
         model.addAttribute("products", searchResults.getContent());
         model.addAttribute("title", "Product");
-        return "/admin/ProductAdmin";
+        return "admin/ProductAdmin";
     }
 
     @GetMapping("/add-product")
@@ -112,7 +112,7 @@ public class CtlAdminProduct {
         model.addAttribute("p", p);
         model.addAttribute("prDetail", prDetail);
         model.addAttribute("title", "Product");
-        return "/admin/UpdateProduct";
+        return "admin/UpdateProduct";
     }
 
     @PutMapping("/update-product")

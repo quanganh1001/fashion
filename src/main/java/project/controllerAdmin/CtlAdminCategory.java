@@ -65,7 +65,7 @@ public class CtlAdminCategory {
 
         model.addAttribute("catParentId",catParentId);
         model.addAttribute("title","Category");
-        return "/admin/AddCategory";
+        return "admin/AddCategory";
     }
 
 
@@ -94,7 +94,7 @@ public class CtlAdminCategory {
         model.addAttribute("cat", cat);
         model.addAttribute("products",products);
         model.addAttribute("title","Category");
-        return "/admin/UpdateCategory";
+        return "admin/UpdateCategory";
     }
 
     @PutMapping("/update-category")

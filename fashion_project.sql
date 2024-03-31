@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th3 31, 2024 lúc 03:16 PM
+-- Thời gian đã tạo: Th3 31, 2024 lúc 05:29 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -923,7 +923,8 @@ INSERT INTO `history` (`id`, `invoice_id`, `content`, `time`, `time_ago`) VALUES
 (1248, 'TFWOAP9I', 'quanly đã thêm sản phẩm: DSTP61172CX00SB_WH-L (giá = 333333)', '2024-03-31 11:27:08', NULL),
 (1249, 'TFWOAP9I', ' đã thay đổi Số lượng (DSTP61172CX00SB_WH-L) :1 -> 2', '2024-03-31 11:27:12', NULL),
 (1250, 'BSONPNNZ', 'quanly đã tạo đơn hàng: <br>Mã đơn: BSONPNNZ,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 0365151822,<br>Địa chỉ: 4dvsdsf,<br>Ghi chú: ,<br>Nguồn:  Hệ thống', '2024-03-31 12:08:22', NULL),
-(1251, 'BSONPNNZ', 'quanly đã thêm sản phẩm: EABT01901PE00SB_BL-29 (giá = 500000)', '2024-03-31 12:08:22', NULL);
+(1251, 'BSONPNNZ', 'quanly đã thêm sản phẩm: EABT01901PE00SB_BL-29 (giá = 500000)', '2024-03-31 12:08:22', NULL),
+(1252, 'NQHLQRH4', 'quanly đã tạo đơn hàng: <br>Mã đơn: NQHLQRH4,<br>Tên khách hàng: quang anh,<br>Số điện thoại: 0365151822,<br>Địa chỉ: 4dvsdsf,<br>Ghi chú: ,<br>Nguồn:  quanly', '2024-03-31 14:55:56', NULL);
 
 -- --------------------------------------------------------
 
@@ -1506,6 +1507,7 @@ INSERT INTO `invoices` (`invoice_id`, `name`, `phone`, `address`, `created_at`, 
 ('MVNWRADX', 'nhanvien1', '365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-03-12 08:44:12', '                        ', NULL, 2, 5, 0, 0, 0, b'0'),
 ('N6VKCD4X', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 17:54:59', '', 's', NULL, 1, 750000, 0, 750000, b'0'),
 ('NHMSP1VU', 'nguyễn quang anh', '0365151822', 'số 18 ngõ 222 tựu liệt,thanh trì, hà nội', '2024-03-12 08:32:47', '', NULL, 1, 1, 0, 0, 0, b'0'),
+('NQHLQRH4', 'quang anh', '0365151822', '4dvsdsf', '2024-03-31 14:55:56', '', NULL, 1, 1, 0, 0, 0, b'0'),
 ('NV7CM7AY', 'quang anh', '0365151822', '4dvsdsf', '2024-02-06 17:11:23', '', 'gh', NULL, 1, 750000, 0, 750000, b'0'),
 ('OCFAOWMB', 'fsdfsd', '333333', 'vd', '2024-01-21 09:45:14', '', 'd', 1, 1, 1380000, 30000, 1410000, b'0'),
 ('OUFWELJT', 'quang anh', '0365151822', '4dvsdsf', '2024-03-12 08:44:12', '', '', NULL, 1, 990000, 0, 990000, b'0'),
@@ -1556,7 +1558,7 @@ CREATE TRIGGER `after_invoice_history_insert` AFTER INSERT ON `invoices` FOR EAC
     SET invoice_id = NEW.invoice_id;
     
     SET content = CONCAT(@current_user , ' đã tạo đơn hàng: <br>Mã đơn: ', NEW.invoice_id, ',<br>Tên khách hàng: ', NEW.name, ',<br>Số điện thoại: ', NEW.phone, ',<br>Địa chỉ: ', NEW.address,',<br>Ghi chú: ', NEW.note,',<br>Nguồn:  ',account_name);
-    INSERT INTO History (invoice_id,content) VALUES (invoice_id,content);
+    INSERT INTO history (invoice_id,content) VALUES (invoice_id,content);
    
 END
 $$
@@ -1760,7 +1762,7 @@ CREATE TRIGGER `after_invoiceDetail_delete` BEFORE DELETE ON `invoices_detail` F
     
     SET content = CONCAT(@current_user, ' đã xóa sản phẩm: ',product_code,' (giá = ',OLD.price,')');
 
-    INSERT INTO History (invoice_id,content) VALUES (invoice_id,content);
+    INSERT INTO history (invoice_id,content) VALUES (invoice_id,content);
 END
 $$
 DELIMITER ;
@@ -1775,7 +1777,7 @@ CREATE TRIGGER `after_invoiceDetail_insert` BEFORE INSERT ON `invoices_detail` F
     
     SET content = CONCAT(@current_user, ' đã thêm sản phẩm: ',product_code,' (giá = ',NEW.price,')');
 
-    INSERT INTO History (invoice_id,content) VALUES (invoice_id,content);
+    INSERT INTO history (invoice_id,content) VALUES (invoice_id,content);
 END
 $$
 DELIMITER ;
@@ -3035,7 +3037,7 @@ ALTER TABLE `feedback_customer`
 -- AUTO_INCREMENT cho bảng `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1252;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1253;
 
 --
 -- AUTO_INCREMENT cho bảng `imgs_product`

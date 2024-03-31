@@ -29,7 +29,7 @@ public class CtlAdminSendMailForCustomer {
         feedbackCustomerService.countUnread(model);
 
         model.addAttribute("title","Email");
-        return "/admin/SendEmailForCustomer";
+        return "admin/SendEmailForCustomer";
     }
     @GetMapping("/send")
     public ResponseEntity<String> sendEmail(@RequestParam("content") String content,
