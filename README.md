@@ -1,9 +1,12 @@
 # Công cụ:
-  - IDE: inteliJ
+  - IDE: IntelliJ
   - Ngôn ngữ: Java (JDK 17), HTML, CSS, JavaScritps
   - Framwork: SpringBoot
   - Thư viện: Thymeleaf, jQuery, Boostrap5, Spring Security
   - Database: MySql
+  - Cloundiny
+  - Docker
+  - XAMPP(phpMyAdmin)
 
 # Tài khoản đăng nhập:
   - Admin:
@@ -41,20 +44,39 @@
 
 
 # Các tính năng:
-  - Trang Admin:
-    + Đăng ký, đăng nhập tài khoản, quản lý toàn bộ tài khoản
-    + Quản lý sản phẩm, ảnh sản phẩm, mã sản phẩm theo màu,size
-    + Quản lý danh mục sản phẩm, phân cấp danh mục cha - con
-    + Quản lý đơn hàng, cập nhập trạng thái đơn hàng, chia đơn cho nhân viên, xem lịch sử đơn hàng
-    + Quản lý hệ thống cửa hàng, bản đồ
-    + Xem phản hồi của khách hàng
-    + Gửi tin tức khuyến mãi cho khách hàng
-  - Trang bán hàng:
-    + Đăng ký, đăng nhập tài khoản
-    + Xem, tìm kiếm sản phẩm, lọc danh sách sản phẩm
-    + Thêm sản phẩm vào giỏ hàng
-    + Thanh toán online hoặc ship COD
-    + Nhận tin tức khuyến mãi qua mail
-    + Gửi feedback tới cửa hàng
-    + Xem bản đồ các cửa hàng
+Trang Admin:
+
++ Login, tạo tài khoản, cấp lại mật khẩu qua mail
+
++ Quản lý tài khoản nhân viên, khách hàng,
+
++ Quản lý sản phẩm, ảnh sản phẩm. Phân loại sản phẩm theo màu sắc, size
+
++ Quản lý danh mục sản phẩm,. Phân cấp danh mục cha - con
+
++ Quản lý thông tin các cửa hàng, google map cửa hàng
+
++ Quản lý đơn hàng, chia đơn hàng cho nhân viên, cập nhập trạng thái đơn hàng, xem lịch sử thao tác
+
++ Phân quyền truy cập
+
++ Gửi mail thông tin khuyến mãi cho khách hàng đã đăng ký qua mail
+
+
+
+Trang bán hàng:
+
++ Đăng ký, đăng nhập tài khoản, cấp lại mật khẩu bằng mail
+
++ Xem, tìm kiếm sản phẩm, lọc danh sách sản phẩm
+
++ Thêm sản phẩm vào giỏ hàng
+
++ Thanh toán online hoặc ship COD
+
++ Nhận tin tức khuyến mãi qua mail
+
++ Gửi feedback tới cửa hàng
+
++ Xem bản đồ các cửa hàng
   
