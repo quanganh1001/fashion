@@ -29,6 +29,8 @@ services:
     build:
       context: .
       dockerfile: ./DockerfileJavaSpring
+    environment:
+      TZ: "Asia/Ho_Chi_Minh"
     ports:
       - 8080:8080
     networks:
