@@ -37,12 +37,31 @@ public class CtlAdminProduct {
     @Autowired
     FeedbackCustomerService feedbackCustomerService;
 
+//    @GetMapping()
+//    public String searchProduct(Model model,
+//                                @RequestParam(value = "page",defaultValue = "1") int page,
+//                                @RequestParam(name = "key", required = false) String key,
+//                                @RequestParam(name = "pageSize",defaultValue = "10") int size) throws JsonProcessingException {
+//        List<Product> searchResults =
+//                productService.searchProduct(model,key, page - 1,size);
+//
+//        accountService.getAccountResponse(model);
+//        feedbackCustomerService.countUnread(model);
+//
+//        model.addAttribute("key", key);
+//        model.addAttribute("currentPage", page);
+//        model.addAttribute("products", searchResults);
+//        model.addAttribute("title", "Product");
+//        return "admin/ProductAdmin";
+//    }
+
     @GetMapping()
     public String searchProduct(Model model,
                                 @RequestParam(defaultValue = "1") int page,
-                                @RequestParam(name = "key", required = false) String key) {
+                                @RequestParam(name = "key", required = false)String key,
+                                @RequestParam(value = "pageSize",defaultValue = "10") int size) {
         Page<Product> searchResults =
-                productService.searchProduct(key, page - 1);
+                productService.searchProduct(key, page - 1,size);
 
         accountService.getAccountResponse(model);
         feedbackCustomerService.countUnread(model);

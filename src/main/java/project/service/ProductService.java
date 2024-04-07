@@ -31,6 +31,8 @@ public class ProductService {
     private ImgProductService imgProductService;
     @Autowired
     private CloudinaryService cloudinaryService;
+    @Autowired
+    private ProductRedisService productRedisService;
 
     public void setProductActive(String cat_id, Boolean boo) {
         List<Product> product = productRepo.findByCategoryCatId(cat_id);
@@ -40,15 +42,56 @@ public class ProductService {
         productRepo.setProductActive(cat_id, boo);
     }
 
-    public Page<Product> searchProduct(String key, int page) {
+//    public List<Product> searchProduct(Model model,String key, int page, int size) throws JsonProcessingException {
+//        List<Product> productsRedis = new ArrayList<>();
+//        int totalPage;
+//        long totalItem;
+//        if (page < 0) {
+//            page = 0;
+//        }
+//        if (key != null && !key.isEmpty()) {
+//            productsRedis = productRedisService.getAllProduct("searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase",page,size);
+//            totalPage = productRedisService.getTotalPage(key,page,size);
+//            totalItem = productRedisService.getTotalItem(key,page,size);
+//            if(productsRedis == null){
+//                Page<Product> productsPage = productRepo.searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase(key, key, PageRequest.of(page, size));
+//                totalPage = productsPage.getTotalPages();
+//                totalItem = productsPage.getTotalElements();
+//                productsRedis = productsPage.getContent();
+//                productRedisService.saveAllProducts("searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase",
+//                                                    productsRedis,
+//                                                    page,size,totalPage,totalItem);
+//            }
+//
+//        } else {
+//            productsRedis =  productRedisService.getAllProduct("findAll",page,size);
+//            totalPage = productRedisService.getTotalPage(key,page,size);
+//            totalItem = productRedisService.getTotalItem(key,page,size);
+//            if(productsRedis == null){
+//                Page<Product> productsPage = productRepo.searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase(key, key, PageRequest.of(page, size));
+//                totalPage = productsPage.getTotalPages();
+//                totalItem = productsPage.getTotalElements();
+//                productsRedis = productsPage.getContent();
+//                productRedisService.saveAllProducts("findAll",
+//                                                        productsRedis,
+//                                                        page,size,totalPage,totalItem);
+//            }
+//        }
+//
+//        model.addAttribute("totalPage",totalPage);
+//        model.addAttribute("totalItem",totalItem);
+//        return productsRedis;
+//    }
+
+    public Page<Product> searchProduct(String key, int page,int size) {
         if (page < 0) {
             page = 0;
         }
         if (key != null && !key.isEmpty()) {
             return productRepo.searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase(
-                    key, key, PageRequest.of(page, 10));
+                    key, key, PageRequest.of(page, size));
         } else {
-            return productRepo.findAll(PageRequest.of(page, 10));
+            return productRepo.findAll(PageRequest.of(page, size));
         }
     }
 
