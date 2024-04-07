@@ -57,7 +57,7 @@ public class CtlAdminProduct {
 
     @GetMapping()
     public String searchProduct(Model model,
-                                @RequestParam(defaultValue = "1") int page,
+                                @RequestParam(value = "page",defaultValue = "1") int page,
                                 @RequestParam(name = "key", required = false)String key,
                                 @RequestParam(value = "pageSize",defaultValue = "10") int size) {
         Page<Product> searchResults =
