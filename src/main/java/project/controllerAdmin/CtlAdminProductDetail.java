@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.Enum.SizeEnumDTO;
 import project.model.Color;
-import project.model.Product;
+import project.model.Product.Product;
 import project.model.ProductDetail;
 import project.service.*;
 

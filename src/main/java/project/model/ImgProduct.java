@@ -2,6 +2,7 @@ package project.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import project.model.Product.Product;
 
 @Data
 @Entity

@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import project.model.ImgProduct;
-import project.model.Product;
+import project.model.Product.Product;
 import project.repository.ImgProductRepo;
 import project.repository.ProductRepo;
 

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import project.model.Product;
+import project.model.Product.Product;
 
 import java.util.List;
 
@@ -18,20 +18,26 @@ public class ProductRedisService implements IProductRedisService {
 
 
     private String getKeyFrom(String keyword, int page, int size) {
-        return String.format(keyword, page, size);
+        return String.format(keyword+ ":" + page + ":" + size);
     }
 
     @Override
     public void clear() {
+        redisTemplate.getConnectionFactory().getConnection().flushAll();
     }
 
     @Override
-    public void saveAllProducts(String key, List<Product> products, int page, int size, int totalPage, long totalItem) throws JsonProcessingException {
-        String keyForm = this.getKeyFrom(key,page,size);
-        String json = redisObjectMapper.writeValueAsString(products);
-        redisTemplate.opsForValue().set(keyForm, json);
-        redisTemplate.opsForValue().set(keyForm + "totalPage", totalPage);
-        redisTemplate.opsForValue().set(keyForm+ "totalItem", totalItem);
+    public void saveAllProducts(String key, List<Product> products, int page, int size, int totalPage, Long totalItem) throws JsonProcessingException {
+        try {
+            String keyForm = getKeyFrom(key, page, size);
+            String json = redisObjectMapper.writeValueAsString(products);
+            redisTemplate.opsForValue().set(keyForm, json);
+            redisTemplate.opsForValue().set(keyForm + ":totalPage", totalPage);
+            redisTemplate.opsForValue().set(keyForm+ ":totalItem", totalItem);
+        } catch (JsonProcessingException e) {
+            // Xử lý ngoại lệ tại đây (ví dụ: log và báo lỗi)
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -42,21 +48,20 @@ public class ProductRedisService implements IProductRedisService {
                 redisObjectMapper.readValue(json, new TypeReference<List<Product>>() {
                 })
                 : null;
-
     }
 
     @Override
     public int getTotalPage(String key,int page, int size){
         String keyForm = this.getKeyFrom(key,page,size);
-        Integer totalPage = (Integer) redisTemplate.opsForValue().get(keyForm + "totalPage");
+        Integer totalPage = (Integer) redisTemplate.opsForValue().get(keyForm + ":totalPage");
         return totalPage != null ? totalPage : 0;
     }
 
     @Override
     public long getTotalItem(String key,int page, int size){
         String keyForm = this.getKeyFrom(key,page,size);
-        Long totalItem = (Long) redisTemplate.opsForValue().get(keyForm + "totalItem");
-        return totalItem != null ? totalItem : 0;
+        Integer totalItem = (Integer) redisTemplate.opsForValue().get(keyForm + ":totalItem");
+        return totalItem != null ? totalItem : 0L;
     }
 
 }

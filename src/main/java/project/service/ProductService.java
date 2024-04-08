@@ -1,5 +1,6 @@
 package project.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -7,13 +8,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.model.ImgProduct;
-import project.model.Product;
+import project.model.Product.Product;
 import project.repository.ProductDetailRepo;
 import project.repository.ProductRepo;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -42,58 +45,67 @@ public class ProductService {
         productRepo.setProductActive(cat_id, boo);
     }
 
-//    public List<Product> searchProduct(Model model,String key, int page, int size) throws JsonProcessingException {
-//        List<Product> productsRedis = new ArrayList<>();
-//        int totalPage;
-//        long totalItem;
-//        if (page < 0) {
-//            page = 0;
-//        }
-//        if (key != null && !key.isEmpty()) {
-//            productsRedis = productRedisService.getAllProduct("searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase",page,size);
-//            totalPage = productRedisService.getTotalPage(key,page,size);
-//            totalItem = productRedisService.getTotalItem(key,page,size);
-//            if(productsRedis == null){
-//                Page<Product> productsPage = productRepo.searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase(key, key, PageRequest.of(page, size));
-//                totalPage = productsPage.getTotalPages();
-//                totalItem = productsPage.getTotalElements();
-//                productsRedis = productsPage.getContent();
-//                productRedisService.saveAllProducts("searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase",
-//                                                    productsRedis,
-//                                                    page,size,totalPage,totalItem);
-//            }
-//
-//        } else {
-//            productsRedis =  productRedisService.getAllProduct("findAll",page,size);
-//            totalPage = productRedisService.getTotalPage(key,page,size);
-//            totalItem = productRedisService.getTotalItem(key,page,size);
-//            if(productsRedis == null){
-//                Page<Product> productsPage = productRepo.searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase(key, key, PageRequest.of(page, size));
-//                totalPage = productsPage.getTotalPages();
-//                totalItem = productsPage.getTotalElements();
-//                productsRedis = productsPage.getContent();
-//                productRedisService.saveAllProducts("findAll",
-//                                                        productsRedis,
-//                                                        page,size,totalPage,totalItem);
-//            }
-//        }
-//
-//        model.addAttribute("totalPage",totalPage);
-//        model.addAttribute("totalItem",totalItem);
-//        return productsRedis;
-//    }
-
-    public Page<Product> searchProduct(String key, int page,int size) {
+    public List<Product> searchProduct(Model model, String key, int page, int size) throws JsonProcessingException {
+        List<Product> productsRedis = new ArrayList<>();
+        int totalPage;
+        Long totalItem;
         if (page < 0) {
             page = 0;
         }
         if (key != null && !key.isEmpty()) {
-            return productRepo.searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase(
-                    key, key, PageRequest.of(page, size));
+            productsRedis = productRedisService.getAllProduct("searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase",page,size);
+            if(productsRedis == null){
+                Page<Product> productsPage = productRepo.searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase(key, key, PageRequest.of(page, size));
+                totalPage = productsPage.getTotalPages();
+                totalItem = productsPage.getTotalElements();
+                productsRedis = productsPage.getContent();
+                productRedisService.saveAllProducts("searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase",
+                                                    productsRedis,
+                                                    page,size,totalPage,totalItem);
+            }else {
+                totalPage = productRedisService.getTotalPage(key,page,size);
+                totalItem = productRedisService.getTotalItem(key,page,size);
+            }
+
         } else {
-            return productRepo.findAll(PageRequest.of(page, size));
+            try{
+                productsRedis =  productRedisService.getAllProduct("findAll",page,size);
+            }catch (JsonProcessingException e) {
+                // Xử lý ngoại lệ tại đây (ví dụ: log và báo lỗi)
+                e.printStackTrace();
+            }
+            if(productsRedis == null){
+                Page<Product> productsPage = productRepo.findAll(PageRequest.of(page, size));
+
+                totalPage = productsPage.getTotalPages();
+                totalItem = productsPage.getTotalElements();
+                productsRedis = productsPage.getContent();
+                productRedisService.saveAllProducts("findAll",
+                                                        productsRedis,
+                                                        page,size,totalPage,totalItem);
+            }else {
+                totalPage = productRedisService.getTotalPage("findAll",page,size);
+                totalItem = productRedisService.getTotalItem("findAll",page,size);
+
+            }
         }
+
+        model.addAttribute("totalPages",totalPage);
+        model.addAttribute("totalItems",totalItem);
+        return productsRedis;
     }
+
+//    public Page<Product> searchProduct(String key, int page,int size) {
+//        if (page < 0) {
+//            page = 0;
+//        }
+//        if (key != null && !key.isEmpty()) {
+//            return productRepo.searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase(
+//                    key, key, PageRequest.of(page, size));
+//        } else {
+//            return productRepo.findAll(PageRequest.of(page, size));
+//        }
+//    }
 
     @Transactional
     public String saveProduct(Product product, RedirectAttributes attributes) throws Exception {

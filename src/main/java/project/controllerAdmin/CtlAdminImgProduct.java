@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.model.ImgProduct;
-import project.model.Product;
+import project.model.Product.Product;
 import project.service.AccountService;
 import project.service.FeedbackCustomerService;
 import project.service.ImgProductService;

@@ -3,7 +3,7 @@ package project.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.DTO.CartItem;
-import project.model.Product;
+import project.model.Product.Product;
 import project.model.ProductDetail;
 
 import java.util.List;

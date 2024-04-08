@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.DTO.CartItem;
 import project.model.Category;
-import project.model.Product;
+import project.model.Product.Product;
 import project.repository.CategoryRepo;
 import project.repository.ProductRepo;
 

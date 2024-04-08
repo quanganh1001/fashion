@@ -3,7 +3,7 @@ package project.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.model.Product;
+import project.model.Product.Product;
 import project.model.ProductDetail;
 import project.repository.ProductDetailRepo;
 

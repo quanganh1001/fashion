@@ -1,14 +1,14 @@
 package project.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import project.model.Product;
+import project.model.Product.Product;
 
 import java.util.List;
 
 public interface IProductRedisService {
     void clear();
 
-    void saveAllProducts(String key, List<Product> products, int page, int size, int totalPage, long totalItem) throws JsonProcessingException;
+    void saveAllProducts(String key, List<Product> products, int page, int size, int totalPage, Long totalItem) throws JsonProcessingException;
 
     int getTotalPage(String key, int page, int size);
 

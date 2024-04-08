@@ -2,6 +2,7 @@ package project.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import project.model.Product.Product;
 
 @Entity
 @Data
@@ -15,6 +16,7 @@ public class ProductDetail {
     private Boolean outOfStock;
     private Boolean productDetailActive;
     private String size;
+
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;

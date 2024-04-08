@@ -1,7 +1,9 @@
 package project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import project.model.Product.Product;
 
 import java.util.List;
 
@@ -15,13 +17,13 @@ public class Category {
     private String catBackground;
     private Boolean isCatActive;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Product> product;
 
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private Category catParent;
-
 
 
     @PrePersist

@@ -1,7 +1,7 @@
 package project.controllerAdmin;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.Enum.ImgSizeEnumDTO;
 import project.model.Category;
-import project.model.Product;
+import project.model.Product.Product;
 import project.model.ProductDetail;
 import project.repository.CategoryRepo;
 import project.service.AccountService;
@@ -37,43 +37,43 @@ public class CtlAdminProduct {
     @Autowired
     FeedbackCustomerService feedbackCustomerService;
 
-//    @GetMapping()
-//    public String searchProduct(Model model,
-//                                @RequestParam(value = "page",defaultValue = "1") int page,
-//                                @RequestParam(name = "key", required = false) String key,
-//                                @RequestParam(name = "pageSize",defaultValue = "10") int size) throws JsonProcessingException {
-//        List<Product> searchResults =
-//                productService.searchProduct(model,key, page - 1,size);
-//
-//        accountService.getAccountResponse(model);
-//        feedbackCustomerService.countUnread(model);
-//
-//        model.addAttribute("key", key);
-//        model.addAttribute("currentPage", page);
-//        model.addAttribute("products", searchResults);
-//        model.addAttribute("title", "Product");
-//        return "admin/ProductAdmin";
-//    }
-
     @GetMapping()
     public String searchProduct(Model model,
                                 @RequestParam(value = "page",defaultValue = "1") int page,
-                                @RequestParam(name = "key", required = false)String key,
-                                @RequestParam(value = "pageSize",defaultValue = "10") int size) {
-        Page<Product> searchResults =
-                productService.searchProduct(key, page - 1,size);
+                                @RequestParam(name = "key", required = false) String key,
+                                @RequestParam(name = "pageSize",defaultValue = "10") int size) throws JsonProcessingException {
+        List<Product> searchResults =
+                productService.searchProduct(model,key, page - 1,size);
 
         accountService.getAccountResponse(model);
         feedbackCustomerService.countUnread(model);
 
         model.addAttribute("key", key);
         model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", searchResults.getTotalPages());
-        model.addAttribute("totalItems", searchResults.getTotalElements());
-        model.addAttribute("products", searchResults.getContent());
+        model.addAttribute("products", searchResults);
         model.addAttribute("title", "Product");
         return "admin/ProductAdmin";
     }
+
+//    @GetMapping()
+//    public String searchProduct(Model model,
+//                                @RequestParam(value = "page",defaultValue = "1") int page,
+//                                @RequestParam(name = "key", required = false)String key,
+//                                @RequestParam(value = "pageSize",defaultValue = "10") int size) {
+//        Page<Product> searchResults =
+//                productService.searchProduct(key, page - 1,size);
+//
+//        accountService.getAccountResponse(model);
+//        feedbackCustomerService.countUnread(model);
+//
+//        model.addAttribute("key", key);
+//        model.addAttribute("currentPage", page);
+//        model.addAttribute("totalPages", searchResults.getTotalPages());
+//        model.addAttribute("totalItems", searchResults.getTotalElements());
+//        model.addAttribute("products", searchResults.getContent());
+//        model.addAttribute("title", "Product");
+//        return "admin/ProductAdmin";
+//    }
 
     @GetMapping("/add-product")
     public String addProduct(Model model, @RequestParam(value = "catId", defaultValue = "") String catId) {
