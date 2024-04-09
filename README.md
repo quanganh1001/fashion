@@ -6,6 +6,7 @@
   - Database: MySql
   - Cloundiny
   - Docker
+  - Redis
   - XAMPP(phpMyAdmin)
 
 # Tài khoản đăng nhập:
