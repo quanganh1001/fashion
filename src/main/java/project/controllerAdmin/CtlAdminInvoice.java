@@ -24,7 +24,7 @@ public class CtlAdminInvoice {
     @Autowired
     private AccountService accountService;
     @Autowired
-    FeedbackCustomerService feedbackCustomerService;
+    private FeedbackCustomerService feedbackCustomerService;
 
     @GetMapping("")
     public String filterStatus(Model model,

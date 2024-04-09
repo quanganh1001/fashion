@@ -9,10 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.model.Category;
+import project.model.Category.Category;
 import project.model.Product.Product;
 import project.service.AccountService;
-import project.service.CategoryService;
+import project.service.Category.CategoryService;
 import project.service.CloudinaryService;
 import project.service.FeedbackCustomerService;
 
@@ -27,11 +27,11 @@ public class CtlAdminCategory {
     @Autowired
     private CategoryService categoryService;
     @Autowired
-    AccountService accountService;
+    private AccountService accountService;
     @Autowired
-    FeedbackCustomerService feedbackCustomerService;
+    private FeedbackCustomerService feedbackCustomerService;
     @Autowired
-    CloudinaryService cloudinaryService;
+    private CloudinaryService cloudinaryService;
 
     @GetMapping()
     public String getCat(Model model,

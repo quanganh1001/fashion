@@ -1,5 +1,6 @@
-package project.service;
+package project.service.Category;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.DTO.CartItem;
-import project.model.Category;
+import project.model.Category.Category;
 import project.model.Product.Product;
 import project.repository.CategoryRepo;
 import project.repository.ProductRepo;
+import project.service.CloudinaryService;
+import project.service.Product.ProductService;
 
 import java.io.IOException;
 import java.util.*;
@@ -26,15 +29,14 @@ import java.util.*;
 public class CategoryService {
     @Autowired
     private CategoryRepo categoryRepo;
-
     @Autowired
     private ProductRepo productRepo;
-
     @Autowired
     private ProductService productService;
-
     @Autowired
     private CloudinaryService cloudinaryService;
+    @Autowired
+    private CategoryRedisService categoryRedisService;
 
     @Transactional
     public ResponseEntity<String> saveCategory(Category category) {
@@ -176,30 +178,41 @@ public class CategoryService {
     }
 
 
-    public void listCategory(Model model) {
-        List<Category> categoriesF1 = categoryRepo.findCategoriesByCatParentCatId(null);
-        List<Category> categoriesF2 = new ArrayList<>();
-        List<Category> categoriesF3 = new ArrayList<>();
-        for (Category catF1 : categoriesF1) {
-            categoriesF2.addAll(categoryRepo.findCategoriesByCatParentCatId(catF1.getCatId()));
-        }
-        for (Category catF2 : categoriesF2) {
-            categoriesF3.addAll(categoryRepo.findCategoriesByCatParentCatId(catF2.getCatId()));
+    public void listCategoryHeader(Model model) throws JsonProcessingException {
+        // categories F1
+        String keyRedis = "findCategoriesByCatParentCatId" + "-null";
+        List<Category> categoriesF1 = categoryRedisService.getCategories(keyRedis);
+        if(categoriesF1 == null){
+            categoriesF1 = categoryRepo.findCategoriesByCatParentCatId(null);
+            categoryRedisService.saveCategories(keyRedis,categoriesF1);
         }
 
-        List<CartItem> numberCart = (List<CartItem>) model.getAttribute("CARTS");
-        // Tính tổng số lượng sản phẩm trong giỏ hàng
-        int number = 0;
-        if (numberCart != null) {
-            for (CartItem cartItem : numberCart) {
-                number += cartItem.getQuantity();
+        // categories F2
+        keyRedis = "findCategoriesByCatParentCatId" + "-catF1.getCatId()";
+        List<Category> categoriesF2 = categoryRedisService.getCategories(keyRedis);
+        if(categoriesF2 == null){
+            categoriesF2 = new ArrayList<>();
+            for (Category catF1 : categoriesF1) {
+                categoriesF2.addAll(categoryRepo.findCategoriesByCatParentCatId(catF1.getCatId()));
             }
+            categoryRedisService.saveCategories(keyRedis,categoriesF2);
+        }
+
+        // categories F3
+        keyRedis = "findCategoriesByCatParentCatId" + "-catF2.getCatId()";
+        List<Category> categoriesF3 = categoryRedisService.getCategories(keyRedis);
+        if(categoriesF3 == null){
+            categoriesF3 = new ArrayList<>();
+            for (Category catF2 : categoriesF2) {
+                categoriesF3.addAll(categoryRepo.findCategoriesByCatParentCatId(catF2.getCatId()));
+            }
+            categoryRedisService.saveCategories(keyRedis,categoriesF3);
         }
 
         model.addAttribute("categoriesF1", categoriesF1);
         model.addAttribute("categoriesF2", categoriesF2);
         model.addAttribute("categoriesF3", categoriesF3);
-        model.addAttribute("number", number);
+
 
     }
 

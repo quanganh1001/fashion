@@ -1,4 +1,4 @@
-package project.service;
+package project.service.Product;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.transaction.Transactional;
@@ -14,6 +14,8 @@ import project.model.ImgProduct;
 import project.model.Product.Product;
 import project.repository.ProductDetailRepo;
 import project.repository.ProductRepo;
+import project.service.CloudinaryService;
+import project.service.ImgProductService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,6 +48,7 @@ public class ProductService {
     }
 
     public List<Product> searchProduct(Model model, String key, int page, int size) throws JsonProcessingException {
+        String keyRedis;
         List<Product> productsRedis = new ArrayList<>();
         int totalPage;
         Long totalItem;
@@ -53,59 +56,46 @@ public class ProductService {
             page = 0;
         }
         if (key != null && !key.isEmpty()) {
-            productsRedis = productRedisService.getAllProduct("searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase",page,size);
-            if(productsRedis == null){
+            keyRedis = "searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase" + "-" + key + "-" + page +
+                    "-" + size;
+            productsRedis = productRedisService.getProducts(keyRedis);
+            if (productsRedis == null) {
                 Page<Product> productsPage = productRepo.searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase(key, key, PageRequest.of(page, size));
                 totalPage = productsPage.getTotalPages();
                 totalItem = productsPage.getTotalElements();
                 productsRedis = productsPage.getContent();
-                productRedisService.saveAllProducts("searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase",
-                                                    productsRedis,
-                                                    page,size,totalPage,totalItem);
-            }else {
-                totalPage = productRedisService.getTotalPage(key,page,size);
-                totalItem = productRedisService.getTotalItem(key,page,size);
+                // Luu product vào redis
+                productRedisService.saveProducts(keyRedis, productsRedis);
+                // Luu totalPage và totalItem vao redis
+                productRedisService.setTotalPageAndToTalItem(keyRedis, totalPage, totalItem);
+            } else {
+                totalPage = productRedisService.getTotalPage(keyRedis);
+                totalItem = productRedisService.getTotalItem(keyRedis);
             }
 
         } else {
-            try{
-                productsRedis =  productRedisService.getAllProduct("findAll",page,size);
-            }catch (JsonProcessingException e) {
-                // Xử lý ngoại lệ tại đây (ví dụ: log và báo lỗi)
-                e.printStackTrace();
-            }
-            if(productsRedis == null){
+            keyRedis = "findAll" + "-" + page + "-" + size;
+            productsRedis = productRedisService.getProducts(keyRedis);
+            if (productsRedis == null) {
                 Page<Product> productsPage = productRepo.findAll(PageRequest.of(page, size));
 
                 totalPage = productsPage.getTotalPages();
                 totalItem = productsPage.getTotalElements();
                 productsRedis = productsPage.getContent();
-                productRedisService.saveAllProducts("findAll",
-                                                        productsRedis,
-                                                        page,size,totalPage,totalItem);
-            }else {
-                totalPage = productRedisService.getTotalPage("findAll",page,size);
-                totalItem = productRedisService.getTotalItem("findAll",page,size);
+                productRedisService.saveProducts(keyRedis, productsRedis);
+                // Luu totalPage và totalItem vao redis
+                productRedisService.setTotalPageAndToTalItem(keyRedis, totalPage, totalItem);
+            } else {
+                totalPage = productRedisService.getTotalPage(keyRedis);
+                totalItem = productRedisService.getTotalItem(keyRedis);
 
             }
         }
 
-        model.addAttribute("totalPages",totalPage);
-        model.addAttribute("totalItems",totalItem);
+        model.addAttribute("totalPages", totalPage);
+        model.addAttribute("totalItems", totalItem);
         return productsRedis;
     }
-
-//    public Page<Product> searchProduct(String key, int page,int size) {
-//        if (page < 0) {
-//            page = 0;
-//        }
-//        if (key != null && !key.isEmpty()) {
-//            return productRepo.searchProductsByProductIdContainingIgnoreCaseOrProductNameContainingIgnoreCase(
-//                    key, key, PageRequest.of(page, size));
-//        } else {
-//            return productRepo.findAll(PageRequest.of(page, size));
-//        }
-//    }
 
     @Transactional
     public String saveProduct(Product product, RedirectAttributes attributes) throws Exception {
@@ -159,7 +149,7 @@ public class ProductService {
         try {
             // xóa ảnh trên cloud
             List<ImgProduct> imgProducts = imgProductService.findAllImgByProduct(productId);
-            imgProducts.forEach(imgProduct ->{
+            imgProducts.forEach(imgProduct -> {
                 String imageName = imgProduct.getFileImg();
                 try {
                     cloudinaryService.deleteImageByUrl(imageName);

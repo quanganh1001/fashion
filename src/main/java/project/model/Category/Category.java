@@ -1,15 +1,17 @@
-package project.model;
+package project.model.Category;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import project.model.Product.Product;
+import project.model.Product.ProductListener;
 
 import java.util.List;
 
 @Entity
 @Data
 @Table(name = "categories")
+@EntityListeners(ProductListener.class)
 public class Category {
     @Id
     private String catId;
@@ -25,11 +27,4 @@ public class Category {
     @JoinColumn(name = "parent_id")
     private Category catParent;
 
-
-    @PrePersist
-    public void Pre(){
-        if(isCatActive == null){
-            this.isCatActive=true;
-        }
-    }
 }

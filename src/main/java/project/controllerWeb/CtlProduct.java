@@ -10,6 +10,8 @@ import project.model.ImgProduct;
 import project.model.Product.Product;
 import project.model.ProductDetail;
 import project.service.*;
+import project.service.Category.CategoryService;
+import project.service.Product.ProductService;
 
 import java.util.List;
 
@@ -28,7 +30,9 @@ public class CtlProduct {
     @Autowired
     public ColorService colorService;
     @Autowired
-    AccountService accountService;
+    private AccountService accountService;
+    @Autowired
+    private CartService cartService;
 
     @GetMapping("/{productId}")
     public String product(Model model, 
@@ -40,8 +44,9 @@ public class CtlProduct {
             attributes.addFlashAttribute("alertMessage", "Sản phẩm không tồn tại");
             return "redirect:/";
         }
-        categoryService.listCategory(model);
         accountService.getAccountResponse(model);
+        categoryService.listCategoryHeader(model);
+        cartService.getTotalQuantityInCart(model);
         List<ImgProduct> imgProducts = imgProductService.findAllImgByProduct(productId);
         List<Color> colors = colorService.findColor(productId);
 

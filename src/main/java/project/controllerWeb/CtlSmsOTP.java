@@ -13,7 +13,7 @@ import project.service.SmsService;
 @RequestMapping("/sms")
 public class CtlSmsOTP {
     @Autowired
-    SmsService smsService;
+    private SmsService smsService;
 
     @PostMapping()
     public ResponseEntity<String> sendOtp(@RequestParam String phoneNumber) {

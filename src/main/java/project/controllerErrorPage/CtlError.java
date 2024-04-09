@@ -1,5 +1,6 @@
 package project.controllerErrorPage;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.security.core.Authentication;
@@ -11,7 +12,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import project.DTO.AccountDTO;
 import project.DTO.CustomUserDetailDTO;
 import project.service.AccountService;
-import project.service.CategoryService;
+import project.service.CartService;
+import project.service.Category.CategoryService;
 
 import java.util.Objects;
 
@@ -19,38 +21,44 @@ import java.util.Objects;
 @SessionAttributes("CARTS")
 public class CtlError implements ErrorController {
     @Autowired
-    CategoryService categoryService;
+    private CategoryService categoryService;
     @Autowired
-    AccountService accountService;
+    private AccountService accountService;
+    @Autowired
+    private CartService cartService;
 
     @RequestMapping("/error-404")
-    public String handleError404(Model model) {
-        categoryService.listCategory(model);
+    public String handleError404(Model model) throws JsonProcessingException {
         accountService.getAccountResponse(model);
+        categoryService.listCategoryHeader(model);
+        cartService.getTotalQuantityInCart(model);
         model.addAttribute("title","Trang này không tìm thấy, vui lòng quay trở lại trang chủ");
         return checkRole();
     }
 
     @RequestMapping("/error-400")
-    public String handleError400(Model model) {
-        categoryService.listCategory(model);
+    public String handleError400(Model model) throws JsonProcessingException {
         accountService.getAccountResponse(model);
+        categoryService.listCategoryHeader(model);
+        cartService.getTotalQuantityInCart(model);
         model.addAttribute("title","Gửi yêu cầu không hợp lệ");
         return checkRole();
     }
 
     @RequestMapping("/error-500")
-    public String handleError500(Model model) {
-        categoryService.listCategory(model);
+    public String handleError500(Model model) throws JsonProcessingException {
         accountService.getAccountResponse(model);
+        categoryService.listCategoryHeader(model);
+        cartService.getTotalQuantityInCart(model);
         model.addAttribute("title","Xảy ra lỗi từ phía máy chủ");
         return checkRole();
     }
 
     @RequestMapping("/error-403")
-    public String handleError403(Model model) {
-        categoryService.listCategory(model);
+    public String handleError403(Model model) throws JsonProcessingException {
         accountService.getAccountResponse(model);
+        categoryService.listCategoryHeader(model);
+        cartService.getTotalQuantityInCart(model);
         model.addAttribute("title","Bạn không có quyền truy cập trang này");
         return  checkRole();
     }

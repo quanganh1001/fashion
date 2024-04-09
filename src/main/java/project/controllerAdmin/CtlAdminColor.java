@@ -19,7 +19,7 @@ public class CtlAdminColor {
     private ColorService colorService;
 
     @Autowired
-    FeedbackCustomerService feedbackCustomerService;
+    private FeedbackCustomerService feedbackCustomerService;
 
 
     @PostMapping("/add-color")

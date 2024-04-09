@@ -13,9 +13,9 @@ import project.service.FeedbackCustomerService;
 @PreAuthorize("hasAnyRole('EMPLOYEE','MANAGER')")
 public class CtlAdmin {
     @Autowired
-    AccountService accountService;
+    private AccountService accountService;
     @Autowired
-    FeedbackCustomerService feedbackCustomerService;
+    private FeedbackCustomerService feedbackCustomerService;
 
     @GetMapping
     public String getHome(Model model){

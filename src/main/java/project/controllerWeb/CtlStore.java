@@ -1,12 +1,14 @@
 package project.controllerWeb;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.model.Store;
 import project.service.AccountService;
-import project.service.CategoryService;
+import project.service.CartService;
+import project.service.Category.CategoryService;
 import project.service.StoreService;
 
 import java.util.*;
@@ -20,12 +22,15 @@ public class CtlStore {
     @Autowired
     private CategoryService categoryService;
     @Autowired
-    AccountService accountService;
+    private AccountService accountService;
+    @Autowired
+    private CartService cartService;
 
     @GetMapping("")
-    public String address(Model model){
+    public String address(Model model) throws JsonProcessingException {
         accountService.getAccountResponse(model);
-        categoryService.listCategory(model);
+        categoryService.listCategoryHeader(model);
+        cartService.getTotalQuantityInCart(model);
 
         Set<String> cities = new HashSet<>();
         List<Store> allStore = storeService.findAll();

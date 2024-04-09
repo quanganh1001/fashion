@@ -6,6 +6,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.model.Product.Product;
 import project.model.ProductDetail;
 import project.repository.ProductDetailRepo;
+import project.service.Product.ProductService;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -19,11 +19,11 @@ import java.util.List;
 @PreAuthorize("hasAnyRole('MANAGER')")
 public class CtlAdminImageBanner {
     @Autowired
-    AccountService accountService;
+    private AccountService accountService;
     @Autowired
-    BannerService bannerService;
+    private BannerService bannerService;
     @Autowired
-    FeedbackCustomerService feedbackCustomerService;
+    private FeedbackCustomerService feedbackCustomerService;
 
     @GetMapping()
     public String getBanner(Model model) {

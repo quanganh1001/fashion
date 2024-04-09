@@ -1,5 +1,6 @@
 package project.controllerWeb;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import project.DTO.CartItem;
 import project.model.Invoice;
 import project.model.InvoiceDetail;
 import project.service.*;
+import project.service.Category.CategoryService;
 
 import java.util.List;
 import java.util.Map;
@@ -30,19 +32,20 @@ public class CtlCheckout {
     @Autowired
     private CartService cartService;
     @Autowired
-    AccountService accountService;
+    private AccountService accountService;
 
     @GetMapping("")
     public String getCheckout(Model model,
                               ModelMap modelMap,
                               @RequestParam("invoiceId") String invoiceId,
-                              @ModelAttribute("CARTS") List<CartItem> cartItemList) {
+                              @ModelAttribute("CARTS") List<CartItem> cartItemList) throws JsonProcessingException {
 
         String message = (String) modelMap.get("alertMessage");
         if (message != null) {
-
-            categoryService.listCategory(model);
             accountService.getAccountResponse(model);
+            categoryService.listCategoryHeader(model);
+            cartService.getTotalQuantityInCart(model);
+
             Invoice invoice = invoiceService.findById(invoiceId);
             List<InvoiceDetail> invoiceDetails = invoiceDetailService.findAllByInvoice_InvoiceId(invoiceId);
             model.addAttribute("invoice", invoice);

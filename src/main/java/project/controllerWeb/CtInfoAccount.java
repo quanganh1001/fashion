@@ -1,5 +1,6 @@
 package project.controllerWeb;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,7 +13,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.DTO.AccountDTO;
 import project.DTO.ChangePasswordDTO;
 import project.service.AccountService;
-import project.service.CategoryService;
+import project.service.CartService;
+import project.service.Category.CategoryService;
 
 @Controller
 @SessionAttributes("CARTS")
@@ -20,17 +22,22 @@ import project.service.CategoryService;
 @PreAuthorize("isAuthenticated()")
 public class CtInfoAccount {
     @Autowired
-    AccountService accountService;
+    private AccountService accountService;
     @Autowired
-    CategoryService categoryService;
+    private CategoryService categoryService;
+    @Autowired
+    private CartService cartService;
 
     @PreAuthorize("#accountId == (authentication.principal.user.accountId)")
     @GetMapping()
     public String infoAccount(Model model,
                               @RequestParam("accountId") int accountId,
-                              @RequestParam(value = "alert",required = false) String alert){
+                              @RequestParam(value = "alert",required = false) String alert) throws JsonProcessingException {
         accountService.getAccountResponse(model);
-        categoryService.listCategory(model);
+        categoryService.listCategoryHeader(model);
+        cartService.getTotalQuantityInCart(model);
+
+
         if (alert != null){
             model.addAttribute("alertMessage","Thay đôi thành công");
         }

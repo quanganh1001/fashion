@@ -1,6 +1,8 @@
 <div th:fragment="ListProduct">
     <div class=" d-flex flex-wrap justify-content-around">
-        <div th:each="pr : ${products}" class="shadow card hover m-2" style="width: 30%">
+        <div th:if="${products.size() == 0}">Chưa có sản phẩm trong danh mục này</div>
+        <div th:unless="${products.size() == 0}" th:each="pr : ${products}" class="shadow card hover m-2" style="width:
+        30%">
             <div class="card  position-relative ">
                 <div th:if="${pr.isDiscount}"
                      style="z-index: 2;background-color: red;width:50px"

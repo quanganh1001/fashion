@@ -1,12 +1,15 @@
 package project.controllerWeb;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import project.model.Category;
+import project.model.Category.Category;
 import project.model.Product.Product;
 import project.service.*;
+import project.service.Category.CategoryService;
+import project.service.Product.ProductService;
 
 import java.util.List;
 
@@ -21,14 +24,15 @@ public class CtlHome {
     @Autowired
     private ProductService productService;
     @Autowired
-    CustomerMailService customerMailService;
+    private AccountService accountService;
     @Autowired
-    AccountService accountService;
+    private CartService cartService;
 
     @GetMapping("")
-    public String getHome(Model model){
-        categoryService.listCategory(model);
+    public String getHome(Model model) throws JsonProcessingException {
         accountService.getAccountResponse(model);
+        categoryService.listCategoryHeader(model);
+        cartService.getTotalQuantityInCart(model);
         List<Category> categoryF2 = categoryService.getCategoryF2();
         List<Product> productSale = productService.findProductByIsDiscountTrue();
 

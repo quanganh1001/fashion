@@ -1,5 +1,6 @@
 package project.controllerWeb;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.model.Account;
 import project.service.AccountService;
-import project.service.CategoryService;
+import project.service.CartService;
+import project.service.Category.CategoryService;
 
 @Controller
 @SessionAttributes("CARTS")
@@ -18,17 +20,19 @@ import project.service.CategoryService;
 @RequestMapping()
 public class CtlLogin {
     @Autowired
-    AccountService accountService;
+    private AccountService accountService;
     @Autowired
-    CategoryService categoryService;
+    private CategoryService categoryService;
+    @Autowired
+    private CartService cartService;
 
     @GetMapping("/login")
-    public String getlogin(@RequestParam(value = "success",required = false) String success, Model model){
+    public String getlogin(@RequestParam(value = "success",required = false) String success, Model model) throws JsonProcessingException {
         if (success != null){
             model.addAttribute("error","Sai tài khoản hoặc mật khẩu");
         }
-        accountService.getAccountResponse(model);
-        categoryService.listCategory(model);
+        categoryService.listCategoryHeader(model);
+        cartService.getTotalQuantityInCart(model);
         model.addAttribute("title","Đăng nhập");
         return "web/Login";
     }
@@ -44,9 +48,9 @@ public class CtlLogin {
     }
 
     @GetMapping("/register")
-    public String getRegister(Model model){
-        accountService.getAccountResponse(model);
-        categoryService.listCategory(model);
+    public String getRegister(Model model) throws JsonProcessingException {
+        categoryService.listCategoryHeader(model);
+        cartService.getTotalQuantityInCart(model);
 
         model.addAttribute("newAccount",new Account());
         model.addAttribute("title","Đăng ký tài khoản");

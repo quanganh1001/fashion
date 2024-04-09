@@ -1,5 +1,6 @@
 package project.controllerWeb;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -8,7 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.model.FeedbackCustomer;
 import project.service.AccountService;
-import project.service.CategoryService;
+import project.service.CartService;
+import project.service.Category.CategoryService;
 import project.service.CustomerMailService;
 import project.service.FeedbackCustomerService;
 
@@ -20,40 +22,46 @@ public class CtlPage {
     @Autowired
     private CategoryService categoryService;
     @Autowired
-    AccountService accountService;
+    private AccountService accountService;
     @Autowired
-    CustomerMailService customerMailService;
+    private CustomerMailService customerMailService;
     @Autowired
     private FeedbackCustomerService feedbackCustomerService;
+    @Autowired
+    private CartService cartService;
 
     @GetMapping("/gioi-thieu")
-    public String getIntroduce(Model model) {
-        categoryService.listCategory(model);
+    public String getIntroduce(Model model) throws JsonProcessingException {
         accountService.getAccountResponse(model);
+        categoryService.listCategoryHeader(model);
+        cartService.getTotalQuantityInCart(model);
         model.addAttribute("title", "Giới thiệu");
         return "web/Introduce";
     }
 
     @GetMapping("/chinh-sach-doi-tra")
-    public String getReturnPolicy(Model model) {
-        categoryService.listCategory(model);
+    public String getReturnPolicy(Model model) throws JsonProcessingException {
         accountService.getAccountResponse(model);
+        categoryService.listCategoryHeader(model);
+        cartService.getTotalQuantityInCart(model);
         model.addAttribute("title", "Chính sách đổi trả");
         return "web/ReturnPolicy";
     }
 
     @GetMapping("/chinh-sach-bao-mat")
-    public String getPrivacyPolicy(Model model) {
-        categoryService.listCategory(model);
+    public String getPrivacyPolicy(Model model) throws JsonProcessingException {
         accountService.getAccountResponse(model);
+        categoryService.listCategoryHeader(model);
+        cartService.getTotalQuantityInCart(model);
         model.addAttribute("title", "Chính sách bảo mật");
         return "web/PrivacyPolicy";
     }
 
     @GetMapping("/lien-he")
-    public String getContact(Model model) {
-        categoryService.listCategory(model);
+    public String getContact(Model model) throws JsonProcessingException {
         accountService.getAccountResponse(model);
+        categoryService.listCategoryHeader(model);
+        cartService.getTotalQuantityInCart(model);
         model.addAttribute("feedback", new FeedbackCustomer());
         model.addAttribute("title", "Liên hệ với chúng tôi");
         return "web/ContactUs";

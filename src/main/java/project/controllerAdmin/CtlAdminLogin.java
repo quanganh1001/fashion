@@ -14,7 +14,7 @@ import project.service.AccountService;
 @RequestMapping("/admin/login")
 public class CtlAdminLogin {
     @Autowired
-    AccountService accountService;
+    private AccountService accountService;
 
     @GetMapping
     public String getHome(@RequestParam(value = "success",required = false) String success, Model model){

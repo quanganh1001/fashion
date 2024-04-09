@@ -8,14 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.Enum.ImgSizeEnumDTO;
-import project.model.Category;
+import project.model.Category.Category;
 import project.model.Product.Product;
 import project.model.ProductDetail;
 import project.repository.CategoryRepo;
 import project.service.AccountService;
 import project.service.FeedbackCustomerService;
 import project.service.ProductDetailService;
-import project.service.ProductService;
+import project.service.Product.ProductService;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -35,7 +35,7 @@ public class CtlAdminProduct {
     @Autowired
     private AccountService accountService;
     @Autowired
-    FeedbackCustomerService feedbackCustomerService;
+    private FeedbackCustomerService feedbackCustomerService;
 
     @GetMapping()
     public String searchProduct(Model model,

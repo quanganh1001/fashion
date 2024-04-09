@@ -1,4 +1,4 @@
-package project.service;
+package project.service.Product;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -17,23 +17,16 @@ public class ProductRedisService implements IProductRedisService {
     private final ObjectMapper redisObjectMapper;
 
 
-    private String getKeyFrom(String keyword, int page, int size) {
-        return String.format(keyword+ ":" + page + ":" + size);
-    }
-
     @Override
     public void clear() {
         redisTemplate.getConnectionFactory().getConnection().flushAll();
     }
 
     @Override
-    public void saveAllProducts(String key, List<Product> products, int page, int size, int totalPage, Long totalItem) throws JsonProcessingException {
+    public void saveProducts(String keyRedis, List<Product> products) throws JsonProcessingException {
         try {
-            String keyForm = getKeyFrom(key, page, size);
             String json = redisObjectMapper.writeValueAsString(products);
-            redisTemplate.opsForValue().set(keyForm, json);
-            redisTemplate.opsForValue().set(keyForm + ":totalPage", totalPage);
-            redisTemplate.opsForValue().set(keyForm+ ":totalItem", totalItem);
+            redisTemplate.opsForValue().set(keyRedis + "-products", json);
         } catch (JsonProcessingException e) {
             // Xử lý ngoại lệ tại đây (ví dụ: log và báo lỗi)
             e.printStackTrace();
@@ -41,9 +34,8 @@ public class ProductRedisService implements IProductRedisService {
     }
 
     @Override
-    public List<Product> getAllProduct(String key, int page, int size) throws JsonProcessingException {
-        String keyFrom = this.getKeyFrom(key, page, size);
-        String json = (String) redisTemplate.opsForValue().get(keyFrom);
+    public List<Product> getProducts(String keyRedis) throws JsonProcessingException {
+        String json = (String) redisTemplate.opsForValue().get(keyRedis + "-products");
         return json != null ?
                 redisObjectMapper.readValue(json, new TypeReference<List<Product>>() {
                 })
@@ -51,17 +43,21 @@ public class ProductRedisService implements IProductRedisService {
     }
 
     @Override
-    public int getTotalPage(String key,int page, int size){
-        String keyForm = this.getKeyFrom(key,page,size);
-        Integer totalPage = (Integer) redisTemplate.opsForValue().get(keyForm + ":totalPage");
+    public int getTotalPage(String keyRedis){
+        Integer totalPage = (Integer) redisTemplate.opsForValue().get(keyRedis + "-totalPage");
         return totalPage != null ? totalPage : 0;
     }
 
     @Override
-    public long getTotalItem(String key,int page, int size){
-        String keyForm = this.getKeyFrom(key,page,size);
-        Integer totalItem = (Integer) redisTemplate.opsForValue().get(keyForm + ":totalItem");
+    public long getTotalItem(String keyRedis){
+        Integer totalItem = (Integer) redisTemplate.opsForValue().get(keyRedis + "-totalItem");
         return totalItem != null ? totalItem : 0L;
+    }
+
+    @Override
+    public void setTotalPageAndToTalItem(String keyRedis,int totalPage,Long totalItem){
+        redisTemplate.opsForValue().set(keyRedis + "-totalPage", totalPage);
+        redisTemplate.opsForValue().set(keyRedis+ "-totalItem", totalItem);
     }
 
 }

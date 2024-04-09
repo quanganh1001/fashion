@@ -1,5 +1,6 @@
 package project.controllerAdmin;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import project.model.Color;
 import project.model.Product.Product;
 import project.model.ProductDetail;
 import project.service.*;
+import project.service.Product.ProductService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +30,7 @@ public class CtlAdminProductDetail {
     @Autowired
     private AccountService accountService;
     @Autowired
-    FeedbackCustomerService feedbackCustomerService;
+    private FeedbackCustomerService feedbackCustomerService;
 
     @GetMapping("/add-prDetail")
     public String addProductDetail(Model model,@RequestParam("productId") String productId) {
@@ -54,7 +56,7 @@ public class CtlAdminProductDetail {
     }
 
     @GetMapping("update-detail/{prDetailId}")
-    public String updateProductDetail(Model model, @PathVariable("prDetailId") Integer prDetailId) {
+    public String updateProductDetail(Model model, @PathVariable("prDetailId") Integer prDetailId) throws JsonProcessingException {
         List<Color> colors = colorService.findAll();
         List<SizeEnumDTO> sizes = Arrays.asList(SizeEnumDTO.values());
         List<Product> product =  productService.findAll();

@@ -2,9 +2,11 @@ package project.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import project.DTO.CartItem;
 import project.model.Product.Product;
 import project.model.ProductDetail;
+import project.service.Product.ProductService;
 
 import java.util.List;
 import java.util.Objects;
@@ -78,4 +80,16 @@ public class CartService {
             }
         }
     }
+
+    public void getTotalQuantityInCart(Model model){
+        List<CartItem> numberCart = (List<CartItem>) model.getAttribute("CARTS");
+        // Tính tổng số lượng sản phẩm trong giỏ hàng
+        int number = 0;
+        if (numberCart != null) {
+            for (CartItem cartItem : numberCart) {
+                number += cartItem.getQuantity();
+            }
+        }
+        model.addAttribute("number", number);    }
+
 }

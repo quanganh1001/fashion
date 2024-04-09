@@ -26,7 +26,7 @@ public class CtlAdminAccount {
     @Autowired
     private AccountService accountService;
     @Autowired
-    FeedbackCustomerService feedbackCustomerService;
+    private FeedbackCustomerService feedbackCustomerService;
 
     @PreAuthorize("hasAnyRole('MANAGER')")
     @GetMapping()

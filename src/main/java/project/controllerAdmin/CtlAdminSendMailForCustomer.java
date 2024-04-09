@@ -19,9 +19,9 @@ public class CtlAdminSendMailForCustomer {
     @Autowired
     private AccountService accountService;
     @Autowired
-    FeedbackCustomerService feedbackCustomerService;
+    private FeedbackCustomerService feedbackCustomerService;
     @Autowired
-    CustomerMailService customerMailService;
+    private CustomerMailService customerMailService;
 
     @GetMapping()
     public String email(Model model) {

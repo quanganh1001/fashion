@@ -13,7 +13,7 @@ import project.model.Product.Product;
 import project.service.AccountService;
 import project.service.FeedbackCustomerService;
 import project.service.ImgProductService;
-import project.service.ProductService;
+import project.service.Product.ProductService;
 
 import java.io.*;
 import java.util.List;
@@ -29,7 +29,7 @@ public class CtlAdminImgProduct {
     @Autowired
     private ProductService productService;
     @Autowired
-    FeedbackCustomerService feedbackCustomerService;
+    private FeedbackCustomerService feedbackCustomerService;
     
 
     @GetMapping("/add-img")

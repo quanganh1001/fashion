@@ -1,12 +1,14 @@
 package project.controllerWeb;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import project.model.Category;
+import project.model.Category.Category;
 import project.service.AccountService;
-import project.service.CategoryService;
+import project.service.CartService;
+import project.service.Category.CategoryService;
 
 import java.util.*;
 
@@ -17,7 +19,9 @@ public class CtlCategory {
     @Autowired
     private CategoryService categoryService;
     @Autowired
-    AccountService accountService;
+    private AccountService accountService;
+    @Autowired
+    private CartService cartService;
 
     @GetMapping("/{catId}")
     public String getCategory(Model model,
@@ -26,9 +30,11 @@ public class CtlCategory {
                               @RequestParam(value = "page", defaultValue = "1") int page,
                               @RequestParam(value = "filter",defaultValue = "") String filter,
                               @RequestParam(value = "minPrice",defaultValue = "0") int minPrice,
-                              @RequestParam(value = "maxPrice",defaultValue = "3000000") int maxPrice) {
+                              @RequestParam(value = "maxPrice",defaultValue = "3000000") int maxPrice) throws JsonProcessingException {
         accountService.getAccountResponse(model);
-        categoryService.listCategory(model);
+        categoryService.listCategoryHeader(model);
+        cartService.getTotalQuantityInCart(model);
+
         categoryService.filterCategory(model,filter,page,minPrice,maxPrice,key,catId);
 
 

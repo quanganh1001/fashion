@@ -23,7 +23,7 @@ public class CtlAdminStore {
     @Autowired
     private AccountService accountService;
     @Autowired
-    FeedbackCustomerService feedbackCustomerService;
+    private FeedbackCustomerService feedbackCustomerService;
 
     @GetMapping("")
     public String address(Model model) {

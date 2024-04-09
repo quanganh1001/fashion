@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import project.model.Category;
+import project.model.Category.Category;
 import project.model.ImgProduct;
 import project.model.ProductDetail;
 

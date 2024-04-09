@@ -1,12 +1,13 @@
 package project.model.Product;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import project.service.IProductRedisService;
+import lombok.RequiredArgsConstructor;
+import project.service.Product.IProductRedisService;
+import project.service.Product.ProductRedisService;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProductListener {
-    private final IProductRedisService productRedisService;
+    private final ProductRedisService productRedisService;
 
     @PrePersist
     public void prePersist(Product product) {
