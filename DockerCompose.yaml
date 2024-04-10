@@ -12,17 +12,17 @@ services:
     networks:
       - fashion-network
 
-  phpmyadmin8-container:
-    image: phpmyadmin/phpmyadmin:latest
-    container_name: phpmyadmin8-container
-    depends_on:
-      - mysql8-container
-    ports:
-      - "8100:80"
-    environment:
-      PMA_HOST: mysql8-container
-    networks:
-      - fashion-network
+#  phpmyadmin8-container:
+#    image: phpmyadmin/phpmyadmin:latest
+#    container_name: phpmyadmin8-container
+#    depends_on:
+#      - mysql8-container
+#    ports:
+#      - "8100:80"
+#    environment:
+#      PMA_HOST: mysql8-container
+#    networks:
+#      - fashion-network
 
   fashion-spring-boot-container:
     container_name: fashion-spring-container
