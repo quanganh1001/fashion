@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import project.model.Account;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AccountRepo extends JpaRepository<Account, Integer> {
     Account findByUserName(String userName);
@@ -15,6 +16,7 @@ public interface AccountRepo extends JpaRepository<Account, Integer> {
     Boolean existsByUserName(String userName);
     Boolean existsByPhone(String phone);
     Boolean existsByEmail(String email);
+    Optional<Account> findAccountByUserName(String userName);
 
     @Modifying
     @Query(value = "UPDATE accounts SET password = :password WHERE account_id = :accountId",

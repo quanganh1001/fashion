@@ -1,33 +1,37 @@
-package project.DTO;
+package project.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import project.model.Account;
 
 import java.util.Collection;
-@Data
+import java.util.List;
+
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomUserDetailDTO implements UserDetails {
-    private Account user;
-    private Collection<? extends  GrantedAuthority> authorities;
+public class CustomUserDetail implements UserDetails {
 
+    // Đây là class entity
+    private Account account;
+
+    // đây là nơi để xác thực vai trò người dùng nó sẽ trả về cho mình vai trò
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+        return List.of(new SimpleGrantedAuthority(account.getRole().name()));
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return account.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getUserName();
+        return account.getUserName();
     }
 
     @Override
@@ -47,6 +51,6 @@ public class CustomUserDetailDTO implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.getEnabled();
+        return true;
     }
 }

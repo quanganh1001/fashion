@@ -10,11 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.DTO.AccountDTO;
-import project.DTO.CustomUserDetailDTO;
-import project.model.Account;
-import project.model.Invoice;
-import project.model.InvoiceDetail;
-import project.model.InvoiceStatus;
+import project.model.*;
 import project.repository.InvoiceDetailRepo;
 import project.repository.InvoiceRepo;
 import project.repository.ProductDetailRepo;
@@ -52,8 +48,8 @@ public class InvoiceService {
         if (page < 0)
             page = 0;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomUserDetailDTO customUserDetailDTO = (CustomUserDetailDTO) authentication.getPrincipal();
-        AccountDTO accountDTO = AccountDTO.accountMapper(customUserDetailDTO.getUser());
+        CustomUserDetail customUserDetail = (CustomUserDetail) authentication.getPrincipal();
+        AccountDTO accountDTO = AccountDTO.accountMapper(customUserDetail.getAccount());
 
         var accountLogging = accountDTO.getRole();
         var accountId = accountDTO.getAccountId();;

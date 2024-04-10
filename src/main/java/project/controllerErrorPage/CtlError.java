@@ -10,10 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import project.DTO.AccountDTO;
-import project.DTO.CustomUserDetailDTO;
+
+import project.model.CustomUserDetail;
 import project.service.AccountService;
 import project.service.CartService;
 import project.service.Category.CategoryService;
+import project.service.CustomUserDetailService;
 
 import java.util.Objects;
 
@@ -66,8 +68,8 @@ public class CtlError implements ErrorController {
     public String checkRole(){
         try{
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            CustomUserDetailDTO customUserDetailDTO = (CustomUserDetailDTO) authentication.getPrincipal();
-            AccountDTO accountDTO = AccountDTO.accountMapper(customUserDetailDTO.getUser());
+            CustomUserDetail customUserDetail = (CustomUserDetail) authentication.getPrincipal();
+            AccountDTO accountDTO = AccountDTO.accountMapper(customUserDetail.getAccount());
             var accountLogging = accountDTO.getRole();
 
             if (Objects.equals(accountLogging.toString(), "ROLE_CUSTOMER")) {
