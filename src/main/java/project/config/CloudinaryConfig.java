@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-public class Cloundinary {
+public class CloudinaryConfig {
     @Bean
     public Cloudinary getCloudinary(){
         Map config = new HashMap();
