@@ -4,14 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import project.model.Product.Product;
-import project.model.Product.ProductListener;
 
 import java.util.List;
 
 @Entity
 @Data
 @Table(name = "categories")
-@EntityListeners(ProductListener.class)
+@EntityListeners(CategoryListener.class)
 public class Category {
     @Id
     private String catId;
