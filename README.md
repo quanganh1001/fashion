@@ -9,6 +9,11 @@
   - Redis
   - XAMPP(phpMyAdmin)
 
+  # Hướng dẫn sử dụng:
+  - Clone dự án từ github về: git clone https://github.com/quanganh1001/fashion.git
+  - Chạy dự án trên Docker: docker-compose -f DockerCompose.yaml up -d
+
+
 # Tài khoản đăng nhập:
   - Admin:
     + username: quanly
